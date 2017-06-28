@@ -20,4 +20,12 @@ public class Operator extends Role {
         super(uuid);
     }
 
+    public List<WayBill> getWaybills() {
+        return waybills;
+    }
+
+    public void addWaybill(WayBill w) {
+        this.waybills.add(w);
+    }
+
 }

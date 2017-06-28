@@ -125,4 +125,16 @@ public class WayBill extends BaseEntity {
         this.tracking = tracking;
     }
 
+    public Float getWeight() {
+        return load.getTotalWeight();
+    }
+
+    public Float getVolume() {
+        return load.getTotalVolume();
+    }
+
+    public Integer getNumItems() {
+        return load.getNumItems();
+    }
+
 }

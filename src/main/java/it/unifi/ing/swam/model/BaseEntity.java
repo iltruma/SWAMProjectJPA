@@ -21,7 +21,7 @@ public abstract class BaseEntity {
 
 	public BaseEntity(String uuid) {
 		if (uuid == null) {
-			throw new IllegalArgumentException("uuid cannot be null");
+			throw new IllegalArgumentException("UUID cannot be null");
 		}
 		this.uuid = uuid;
 	}

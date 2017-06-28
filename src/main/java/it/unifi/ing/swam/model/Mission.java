@@ -11,7 +11,7 @@ import javax.persistence.Table;
 public class Mission extends BaseEntity {
 
     @OneToMany
-    private List<Fare> waybills;
+    private List<WayBill> waybills;
 
     public Mission() {
     }
@@ -20,12 +20,12 @@ public class Mission extends BaseEntity {
         super(uuid);
     }
 
-    public List<Fare> getWaybills() {
+    public List<WayBill> getWaybills() {
         return waybills;
     }
 
-    public void setWaybills(List<Fare> waybills) {
-        this.waybills = waybills;
+    public void addWaybill(WayBill w) {
+        this.waybills.add(w);
     }
 
 }

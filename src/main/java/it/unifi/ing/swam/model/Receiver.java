@@ -8,6 +8,7 @@ public class Receiver {
     private Address address;
     private String name;
     private String phone;
+    private String email;
 
     private enum Sign {
         UNSIGN, SIGN
@@ -45,6 +46,14 @@ public class Receiver {
 
     public void setSign(Sign sign) {
         this.sign = sign;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     };
 
 }

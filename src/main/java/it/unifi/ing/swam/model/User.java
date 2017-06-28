@@ -13,6 +13,9 @@ public class User extends BaseEntity {
 
     private String username;
     private String password;
+    private String name;
+    private String phone;
+    private String email;
 
     @OneToMany
     private List<Role> roles;
@@ -48,8 +51,8 @@ public class User extends BaseEntity {
         return roles;
     }
 
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
+    public void addRoles(Role r) {
+        this.roles.add(r);
     }
 
     public Agency getAgency() {
@@ -58,6 +61,30 @@ public class User extends BaseEntity {
 
     public void setAgency(Agency agency) {
         this.agency = agency;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
 }

@@ -48,4 +48,8 @@ public class Driver extends Role {
         this.missions = missions;
     }
 
+    public void addMission(Mission m) {
+        this.missions.add(m);
+    }
+
 }

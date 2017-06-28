@@ -8,33 +8,31 @@ import javax.persistence.OneToMany;
 @Embeddable
 public class Load {
 
-    private float totalVolume;
-    private float totalWeight;
+    private Float totalVolume;
+    private Float totalWeight;
     @OneToMany
     private List<Package> packages;
 
-    public float getTotalVolume() {
+    public Float getTotalVolume() {
         return totalVolume;
     }
 
-    public void setTotalVolume(float totalVolume) {
-        this.totalVolume = totalVolume;
-    }
-
-    public float getTotalWeight() {
+    public Float getTotalWeight() {
         return totalWeight;
-    }
-
-    public void setTotalWeight(float totalWeight) {
-        this.totalWeight = totalWeight;
     }
 
     public List<Package> getPackages() {
         return packages;
     }
 
-    public void setPackages(List<Package> packages) {
-        this.packages = packages;
+    public void addPackage(Package p) {
+        this.packages.add(p);
+        this.totalVolume += p.getVolume();
+        this.totalWeight += p.getWeigth();
+    }
+
+    public Integer getNumItems() {
+        return packages.size();
     }
 
 }
