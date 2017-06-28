@@ -9,9 +9,8 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class BaseEntity {
 
-	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 
 	@Column(unique = true)
@@ -21,7 +20,7 @@ public abstract class BaseEntity {
 	}
 
 	public BaseEntity(String uuid) {
-		if(uuid == null) {
+		if (uuid == null) {
 			throw new IllegalArgumentException("uuid cannot be null");
 		}
 		this.uuid = uuid;
