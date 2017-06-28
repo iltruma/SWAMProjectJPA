@@ -1,23 +1,37 @@
 package it.unifi.ing.swam.model;
 
-import java.util.List;
-import java.util.UUID;
-
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="packages")
+@Table(name = "packages")
 public class Package extends BaseEntity {
 
-	public Package(){
-		
-	}
-	
-	public Package(String uuid) {
-		super(uuid);
-	}
-	
+    private Float weigth;
+    private Float volume;
+
+    public Package() {
+
+    }
+
+    public Package(String uuid) {
+        super(uuid);
+    }
+
+    public Float getWeigth() {
+        return weigth;
+    }
+
+    public void setWeigth(Float weigth) {
+        this.weigth = weigth;
+    }
+
+    public Float getVolume() {
+        return volume;
+    }
+
+    public void setVolume(Float volume) {
+        this.volume = volume;
+    }
+
 }
