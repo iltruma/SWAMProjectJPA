@@ -7,7 +7,7 @@ public class Truck {
 
     private String model;
 
-    private enum type {
+    private enum Type {
         VAN, TRAILER, TRUCK, BOX
     };
 
@@ -15,6 +15,7 @@ public class Truck {
     private Float capacity;
     private Integer registrationYear;
     private String brand;
+    private Type type;
 
     public String getModel() {
         return model;
@@ -54,6 +55,14 @@ public class Truck {
 
     public void setBrand(String brand) {
         this.brand = brand;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
     }
 
 }

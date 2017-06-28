@@ -8,41 +8,44 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="drivers")
-public class Driver extends BaseEntity implements Role {
-	
-	private String zone;
-	@Embedded private Truck truck;
-	@OneToMany private List <Mission> missions;
-	
-	protected Driver(){}
-	
-	public Driver(String uuid) {
-		super(uuid);
-	}
+@Table(name = "drivers")
+public class Driver extends Role {
 
-	public String getZone() {
-		return zone;
-	}
+    private String zone;
+    @Embedded
+    private Truck truck;
+    @OneToMany
+    private List<Mission> missions;
 
-	public void setZone(String zone) {
-		this.zone = zone;
-	}
+    protected Driver() {
+    }
 
-	public Truck getTruck() {
-		return truck;
-	}
+    public Driver(String uuid) {
+        super(uuid);
+    }
 
-	public void setTruck(Truck truck) {
-		this.truck = truck;
-	}
+    public String getZone() {
+        return zone;
+    }
 
-	public List<Mission> getMissions() {
-		return missions;
-	}
+    public void setZone(String zone) {
+        this.zone = zone;
+    }
 
-	public void setMissions(List<Mission> missions) {
-		this.missions = missions;
-	}
-	
+    public Truck getTruck() {
+        return truck;
+    }
+
+    public void setTruck(Truck truck) {
+        this.truck = truck;
+    }
+
+    public List<Mission> getMissions() {
+        return missions;
+    }
+
+    public void setMissions(List<Mission> missions) {
+        this.missions = missions;
+    }
+
 }

@@ -31,9 +31,11 @@ public class WayBill extends BaseEntity {
     private Date deliveryDate;
     private Float cost;
 
-    private enum tracking {
+    private enum Tracking {
         SHIPPING, DELIVERING, DELIVERED
     };
+
+    private Tracking tracking;
 
     public WayBill() {
 
@@ -113,6 +115,14 @@ public class WayBill extends BaseEntity {
 
     public void setCost(Float cost) {
         this.cost = cost;
+    }
+
+    public Tracking getTracking() {
+        return tracking;
+    }
+
+    public void setTracking(Tracking tracking) {
+        this.tracking = tracking;
     }
 
 }
