@@ -10,12 +10,6 @@ public class Receiver {
     private String phone;
     private String email;
 
-    private enum Sign {
-        UNSIGN, SIGN
-    }
-
-    private Sign sign;
-
     public Address getAddress() {
         return address;
     }
@@ -38,14 +32,6 @@ public class Receiver {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public Sign getSign() {
-        return sign;
-    }
-
-    public void setSign(Sign sign) {
-        this.sign = sign;
     }
 
     public String getEmail() {

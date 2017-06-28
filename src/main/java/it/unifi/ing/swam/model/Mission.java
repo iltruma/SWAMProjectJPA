@@ -1,5 +1,6 @@
 package it.unifi.ing.swam.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -18,6 +19,7 @@ public class Mission extends BaseEntity {
 
     public Mission(String uuid) {
         super(uuid);
+        this.waybills = new ArrayList<>();
     }
 
     public List<WayBill> getWaybills() {

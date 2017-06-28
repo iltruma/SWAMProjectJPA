@@ -1,5 +1,6 @@
 package it.unifi.ing.swam.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Embeddable;
@@ -12,6 +13,10 @@ public class Load {
     private Float totalWeight;
     @OneToMany
     private List<Package> packages;
+
+    Load() {
+        this.packages = new ArrayList<>();
+    }
 
     public Float getTotalVolume() {
         return totalVolume;

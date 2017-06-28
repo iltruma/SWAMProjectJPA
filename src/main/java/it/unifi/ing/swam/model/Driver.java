@@ -1,5 +1,6 @@
 package it.unifi.ing.swam.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Embedded;
@@ -22,6 +23,7 @@ public class Driver extends Role {
 
     public Driver(String uuid) {
         super(uuid);
+        this.missions = new ArrayList<>();
     }
 
     public String getZone() {

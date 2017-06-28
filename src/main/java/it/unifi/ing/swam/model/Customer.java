@@ -1,7 +1,9 @@
 package it.unifi.ing.swam.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -19,6 +21,7 @@ public class Customer extends Role {
     }
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "customer_state")
     private State state;
     @Embedded
     private Address address;
@@ -34,6 +37,8 @@ public class Customer extends Role {
 
     public Customer(String uuid) {
         super(uuid);
+        this.fares = new ArrayList<>();
+        this.waybills = new ArrayList<>();
     }
 
     public Address getAddress() {

@@ -1,6 +1,8 @@
 package it.unifi.ing.swam.model;
 
 import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 @Embeddable
 public class Truck {
@@ -15,6 +17,7 @@ public class Truck {
     private Float capacity;
     private Integer registrationYear;
     private String brand;
+    @Enumerated(EnumType.STRING)
     private Type type;
 
     public String getModel() {

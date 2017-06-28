@@ -1,5 +1,6 @@
 package it.unifi.ing.swam.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -29,6 +30,7 @@ public class User extends BaseEntity {
 
     public User(String uuid) {
         super(uuid);
+        this.roles = new ArrayList<>();
     }
 
     public String getUsername() {

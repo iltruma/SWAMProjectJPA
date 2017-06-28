@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -35,7 +37,15 @@ public class WayBill extends BaseEntity {
         SHIPPING, DELIVERING, DELIVERED
     };
 
+    @Enumerated(EnumType.STRING)
     private Tracking tracking;
+
+    private enum Sign {
+        UNSIGN, SIGN
+    }
+
+    @Enumerated(EnumType.STRING)
+    private Sign sign;
 
     public WayBill() {
 
@@ -135,6 +145,14 @@ public class WayBill extends BaseEntity {
 
     public Integer getNumItems() {
         return load.getNumItems();
+    }
+
+    public Sign getSign() {
+        return sign;
+    }
+
+    public void setSign(Sign sign) {
+        this.sign = sign;
     }
 
 }
