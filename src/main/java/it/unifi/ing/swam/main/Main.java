@@ -1,10 +1,12 @@
 package it.unifi.ing.swam.main;
 
+
+import it.unifi.ing.swam.model.*;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-public class MainCreator {
+public class Main {
 
 	public static void main(String[] args) {
 		
