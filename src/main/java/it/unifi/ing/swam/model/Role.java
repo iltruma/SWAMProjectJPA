@@ -1,6 +1,13 @@
 package it.unifi.ing.swam.model;
 
+public abstract class Role extends BaseEntity {
 
-public interface Role {
+    protected Role() {
+
+    }
+
+    public Role(String uuid) {
+        super(uuid);
+    }
 
 }
