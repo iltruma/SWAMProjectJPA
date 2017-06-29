@@ -8,7 +8,7 @@ import it.unifi.ing.swam.model.BaseEntity;
 public abstract class BaseDao {
 
     @PersistenceContext
-    private EntityManager entityManager;
+    protected EntityManager entityManager;
 
     public void save(BaseEntity entity) {
         if(entity.getId() != null) {
