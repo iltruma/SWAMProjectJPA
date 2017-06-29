@@ -19,10 +19,6 @@ import javax.persistence.Table;
 @Table(name = "customers")
 public class Customer extends Role {
 
-    public enum State {
-        ACTIVE, BLOCKED
-    }
-
     @Enumerated(EnumType.STRING)
     @Column(name = "customer_state")
     private State state;

@@ -11,27 +11,27 @@ public class UserDao extends BaseDao {
     }
 
     public User findByEmail(String email) {
-        return entityManager.createQuery("FROM User u WHERE" + "u.email = :email", User.class)
+        return entityManager.createQuery("FROM User u WHERE " + "u.email = :email", User.class)
                 .setParameter("email", email).getSingleResult();
     }
 
     public List<User> findByName(String name) {
-        return entityManager.createQuery("FROM User u WHERE" + "u.name = :name", User.class).setParameter("name", name)
-                .getResultList();
+        return entityManager.createQuery("FROM User u WHERE " + "u.name = :name", User.class)
+        		.setParameter("name", name).getResultList();
     }
 
     public User findByPhone(String phone) {
-        return entityManager.createQuery("FROM User u WHERE" + "u.phone = :phone", User.class)
+        return entityManager.createQuery("FROM User u WHERE " + "u.phone = :phone", User.class)
                 .setParameter("phone", phone).getSingleResult();
     }
 
     public User findByUsername(String username) {
-        return entityManager.createQuery("FROM User u WHERE" + "u.username = :username", User.class)
+        return entityManager.createQuery("FROM User u WHERE " + "u.username = :username", User.class)
                 .setParameter("username", username).getSingleResult();
     }
 
     public List<User> findByAgencyId(Long agencyId) {
-        return entityManager.createQuery("FROM User u WHERE" + "u.agency_id = :agency_id", User.class)
+        return entityManager.createQuery("FROM User u WHERE " + "u.agency_id = :agency_id", User.class)
                 .setParameter("agency_id", agencyId).getResultList();
     }
 

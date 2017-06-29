@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import it.unifi.ing.swam.model.Driver;
+import it.unifi.ing.swam.model.Truck;
 
 public class DriverDao extends BaseDao {
 
@@ -18,16 +19,17 @@ public class DriverDao extends BaseDao {
 		return entityManager.find(Driver.class, id);
 	}
 
-	public Driver findByTruck(String brand, Float capacity, String model, Integer year, String type, Float volume) {
+	public Driver findByTruck(Truck t) {
 		String query = "SELECT d FROM Driver d WHERE d.brand = :brand AND d.capacity = :capacity AND d.model = :model AND d.registrationYear = :year AND d.type = :type AND d.volume = :volume";
-		return entityManager.createQuery(query, Driver.class).setParameter("brand", brand)
-				.setParameter("capacity", capacity).setParameter("model", model).setParameter("year", year)
-				.setParameter("type", type).setParameter("volume", volume).getSingleResult();
+		return entityManager.createQuery(query, Driver.class).setParameter("brand", t.getBrand())
+				.setParameter("capacity", t.getCapacity()).setParameter("model", t.getModel()).setParameter("year", t.getRegistrationYear())
+				.setParameter("type", t.getType()).setParameter("volume", t.getVolume()).getSingleResult();
 	}
 
 	public List<Driver> findByZone(String zone) {
 		String query = "SELECT d FROM Driver d WHERE d.zone = :zone";
-		return entityManager.createQuery(query, Driver.class).setParameter("zone", zone).getResultList();
+		return entityManager.createQuery(query, Driver.class).setParameter("zone", zone)
+				.getResultList();
 	}
 
 }

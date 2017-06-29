@@ -19,15 +19,14 @@ public class MissionDao extends BaseDao {
         return entityManager.find(Mission.class, id);
     }
 	
-	//id, driverid, date
     public List<Mission> findByDriverId(Long id) {
-    	String query = "select m from Misison m where m.driver_id = :id";
+    	String query = "SELECT m FROM Mission m WHERE m.driver_id = :id";
         return entityManager.createQuery(query, Mission.class).setParameter("id", id)
                 .getResultList();
     }
     
     public Mission findByDriverId(Date date) {
-    	String query = "select m from Misison m where m.date = :date";
+    	String query = "SELECT m FROM Mission m WHERE m.date = :date";
         return entityManager.createQuery(query, Mission.class).setParameter("date", date)
                 .getSingleResult();
     }
