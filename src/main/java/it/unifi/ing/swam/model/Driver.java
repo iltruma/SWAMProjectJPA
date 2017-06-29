@@ -3,8 +3,10 @@ package it.unifi.ing.swam.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -15,7 +17,7 @@ public class Driver extends Role {
     private String zone;
     @Embedded
     private Truck truck;
-    @OneToMany
+    @OneToMany(cascade={CascadeType.PERSIST}, fetch=FetchType.LAZY)
     private List<Mission> missions;
 
     protected Driver() {

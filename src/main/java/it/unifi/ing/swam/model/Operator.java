@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -11,7 +12,7 @@ import javax.persistence.Table;
 @Table(name = "operators")
 public class Operator extends Role {
 
-    @OneToMany(mappedBy = "operator")
+    @OneToMany(mappedBy = "operator", fetch=FetchType.LAZY)
     private List<WayBill> waybills;
 
     protected Operator() {

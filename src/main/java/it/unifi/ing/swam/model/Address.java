@@ -1,5 +1,6 @@
 package it.unifi.ing.swam.model;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
@@ -7,6 +8,7 @@ public class Address {
 
 	private String street;
 	private String city;
+	@Column(name = "address_state")
 	private String state;
 	private String zip;
 

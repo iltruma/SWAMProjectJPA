@@ -3,7 +3,9 @@ package it.unifi.ing.swam.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
 @Embeddable
@@ -11,7 +13,7 @@ public class Load {
 
     private Float totalVolume;
     private Float totalWeight;
-    @OneToMany
+    @OneToMany(fetch=FetchType.LAZY, cascade={CascadeType.PERSIST})
     private List<Package> packages;
 
     Load() {

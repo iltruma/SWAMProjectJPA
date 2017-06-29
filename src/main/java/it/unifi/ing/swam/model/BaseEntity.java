@@ -10,7 +10,7 @@ import javax.persistence.MappedSuperclass;
 public abstract class BaseEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	private Long id;
 
 	@Column(unique = true)
