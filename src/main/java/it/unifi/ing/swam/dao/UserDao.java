@@ -2,39 +2,37 @@ package it.unifi.ing.swam.dao;
 
 import java.util.List;
 
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
 import it.unifi.ing.swam.model.User;
 
 public class UserDao extends BaseDao {
 
-    public UserDao() {
-        // FIXME - Codice da togliere!
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("swamproject");
-        entityManager = emf.createEntityManager();
+    public User findById(Long id) {
+        return entityManager.find(User.class, id);
     }
 
-    public List<User> advancedSearch(String username, String name, String phone, String email) {
+    public User findByEmail(String email) {
+        return entityManager.createQuery("FROM User u WHERE" + "u.email = :email", User.class)
+                .setParameter("email", email).getSingleResult();
+    }
 
-        String query = "FROM User u WHERE ";
-
-        query += "u.username = :username ";
-
-        query += "OR u.name = :name ";
-
-        query += "OR u.phone = :phone ";
-
-        query += "OR u.email = :email";
-
-
-        return entityManager.createQuery(query, User.class).setParameter("username", username)
-                .setParameter("name", name).setParameter("phone", phone).setParameter("email", email)
+    public List<User> findByName(String name) {
+        return entityManager.createQuery("FROM User u WHERE" + "u.name = :name", User.class).setParameter("name", name)
                 .getResultList();
     }
 
-    public User findById(Long id) {
-        return entityManager.find(User.class, id);
+    public User findByPhone(String phone) {
+        return entityManager.createQuery("FROM User u WHERE" + "u.phone = :phone", User.class)
+                .setParameter("phone", phone).getSingleResult();
+    }
+
+    public User findByUsername(String username) {
+        return entityManager.createQuery("FROM User u WHERE" + "u.username = :username", User.class)
+                .setParameter("username", username).getSingleResult();
+    }
+
+    public List<User> findByAgencyId(Long agencyId) {
+        return entityManager.createQuery("FROM User u WHERE" + "u.agency_id = :agency_id", User.class)
+                .setParameter("agency_id", agencyId).getResultList();
     }
 
 }
