@@ -17,18 +17,19 @@ public class UserDao extends BaseDao {
 
     public List<User> advancedSearch(String username, String name, String phone, String email) {
 
-        String query = "from swamproject.users where ";
+        String query = "FROM User u WHERE ";
 
-        query += "(:uusername IS NULL OR users.username = :uusername) ";
+        query += "u.username = :username ";
 
-        query += "AND (:uname IS NULL OR users.name = :uname) ";
+        query += "OR u.name = :name ";
 
-        query += "AND (:uphone IS NULL OR users.phone = :uphone) ";
+        query += "OR u.phone = :phone ";
 
-        query += "AND (:uemail IS NULL OR users.email = :uemail)";
+        query += "OR u.email = :email";
 
-        return entityManager.createQuery(query, User.class).setParameter("uusername", username)
-                .setParameter("uname", name).setParameter("uphone", phone).setParameter("uemail", email)
+
+        return entityManager.createQuery(query, User.class).setParameter("username", username)
+                .setParameter("name", name).setParameter("phone", phone).setParameter("email", email)
                 .getResultList();
     }
 
