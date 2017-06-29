@@ -4,17 +4,17 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "packages")
-public class Package extends BaseEntity {
+@Table(name = "items")
+public class Item extends BaseEntity {
 
     private Float weigth;
     private Float volume;
 
-    public Package() {
+    public Item() {
 
     }
 
-    public Package(String uuid) {
+    public Item(String uuid) {
         super(uuid);
     }
 

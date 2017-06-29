@@ -1,6 +1,7 @@
 package it.unifi.ing.swam.model;
 
 import javax.persistence.Embeddable;
+import javax.persistence.ManyToOne;
 
 @Embeddable
 public class Receiver {
@@ -9,6 +10,8 @@ public class Receiver {
     private String name;
     private String phone;
     private String email;
+    @ManyToOne
+    private Agency destinationAgency;
 
     public Address getAddress() {
         return address;
@@ -40,6 +43,14 @@ public class Receiver {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Agency getDestinationAgency() {
+        return destinationAgency;
+    }
+
+    public void setDestinationAgency(Agency destinationAgency) {
+        this.destinationAgency = destinationAgency;
     };
 
 }

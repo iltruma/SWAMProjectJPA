@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -27,6 +28,12 @@ public class User extends BaseEntity {
     @ManyToOne
     private Agency agency;
 
+    @OneToMany(mappedBy = "operator", fetch=FetchType.LAZY)
+    private List<Waybill> operatorWaybills; //Operator
+
+    @OneToMany(mappedBy = "sender", fetch=FetchType.LAZY)
+    private List<Waybill> customerWaybills; //Customer
+
     public User() {
 
     }
@@ -34,6 +41,8 @@ public class User extends BaseEntity {
     public User(String uuid) {
         super(uuid);
         this.roles = new ArrayList<>();
+        this.operatorWaybills = new ArrayList<>();
+        this.customerWaybills = new ArrayList<>();
     }
 
     public String getUsername() {
@@ -90,6 +99,22 @@ public class User extends BaseEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Waybill> getOperatorWaybills() {
+        return operatorWaybills;
+    }
+
+    public void addOperatorWaybill(Waybill w) {
+        this.operatorWaybills.add(w);
+    }
+
+    public List<Waybill> getCustomerWaybills() {
+        return customerWaybills;
+    }
+
+    public void addCustomerWaybill(Waybill w) {
+        this.customerWaybills.add(w);
     }
 
 }

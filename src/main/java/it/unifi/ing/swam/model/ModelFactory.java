@@ -35,8 +35,8 @@ public class ModelFactory {
         return new Waybill(UUID.randomUUID().toString());
     }
 
-    public static Package generatePackage() {
-        return new Package(UUID.randomUUID().toString());
+    public static Item generateItem() {
+        return new Item(UUID.randomUUID().toString());
     }
 
     public static Mission generateMission() {
