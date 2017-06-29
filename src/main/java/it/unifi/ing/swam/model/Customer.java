@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -28,6 +29,7 @@ public class Customer extends Role {
     @Embedded
     private Address address;
     @OneToMany(cascade={CascadeType.PERSIST}, fetch=FetchType.LAZY)
+    @JoinColumn(name="customer_id")
     private List<Fare> fares;
     @OneToMany(mappedBy = "sender", fetch=FetchType.LAZY)
     private List<WayBill> waybills;

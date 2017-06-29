@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -18,6 +19,7 @@ public class Driver extends Role {
     @Embedded
     private Truck truck;
     @OneToMany(cascade={CascadeType.PERSIST}, fetch=FetchType.LAZY)
+    @JoinColumn(name="driver_id")
     private List<Mission> missions;
 
     protected Driver() {

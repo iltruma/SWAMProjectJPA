@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -12,6 +13,7 @@ import javax.persistence.Table;
 public class Mission extends BaseEntity {
 
     @OneToMany
+    @JoinColumn(name="mission_id")
     private List<WayBill> waybills;
 
     public Mission() {

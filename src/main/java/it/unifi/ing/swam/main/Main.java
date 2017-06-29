@@ -24,7 +24,6 @@ public class Main {
 		user.addRoles(operator);
 
 		em.getTransaction().begin();
-		em.persist(operator);
 		em.persist(user);
 		em.getTransaction().commit();
 

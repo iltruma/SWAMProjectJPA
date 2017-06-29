@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -20,6 +21,7 @@ public class User extends BaseEntity {
     private String email;
 
     @OneToMany(cascade={CascadeType.PERSIST})
+    @JoinColumn(name="user_id")
     private List<Role> roles;
 
     @ManyToOne

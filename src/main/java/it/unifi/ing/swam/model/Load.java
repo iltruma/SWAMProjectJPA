@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 @Embeddable
@@ -14,6 +15,7 @@ public class Load {
     private Float totalVolume;
     private Float totalWeight;
     @OneToMany(fetch=FetchType.LAZY, cascade={CascadeType.PERSIST})
+    @JoinColumn(name="waybill_id")
     private List<Package> packages;
 
     Load() {
