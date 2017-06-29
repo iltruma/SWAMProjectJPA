@@ -13,7 +13,7 @@ import javax.persistence.Table;
 public class Operator extends Role {
 
     @OneToMany(mappedBy = "operator", fetch=FetchType.LAZY)
-    private List<WayBill> waybills;
+    private List<Waybill> waybills;
 
     protected Operator() {
     }
@@ -23,11 +23,11 @@ public class Operator extends Role {
         this.waybills = new ArrayList<>();
     }
 
-    public List<WayBill> getWaybills() {
+    public List<Waybill> getWaybills() {
         return waybills;
     }
 
-    public void addWaybill(WayBill w) {
+    public void addWaybill(Waybill w) {
         this.waybills.add(w);
     }
 

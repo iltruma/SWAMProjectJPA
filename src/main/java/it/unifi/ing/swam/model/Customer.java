@@ -32,7 +32,7 @@ public class Customer extends Role {
     @JoinColumn(name="customer_id")
     private List<Fare> fares;
     @OneToMany(mappedBy = "sender", fetch=FetchType.LAZY)
-    private List<WayBill> waybills;
+    private List<Waybill> waybills;
     @ManyToOne
     private Operator operator;
 
@@ -61,11 +61,11 @@ public class Customer extends Role {
         this.fares.add(f);
     }
 
-    public List<WayBill> getWaybills() {
+    public List<Waybill> getWaybills() {
         return waybills;
     }
 
-    public void addWaybill(WayBill w) {
+    public void addWaybill(Waybill w) {
         this.waybills.add(w);
     }
 

@@ -14,7 +14,7 @@ public class Mission extends BaseEntity {
 
     @OneToMany
     @JoinColumn(name="mission_id")
-    private List<WayBill> waybills;
+    private List<Waybill> waybills;
 
     public Mission() {
     }
@@ -24,11 +24,11 @@ public class Mission extends BaseEntity {
         this.waybills = new ArrayList<>();
     }
 
-    public List<WayBill> getWaybills() {
+    public List<Waybill> getWaybills() {
         return waybills;
     }
 
-    public void addWaybill(WayBill w) {
+    public void addWaybill(Waybill w) {
         this.waybills.add(w);
     }
 

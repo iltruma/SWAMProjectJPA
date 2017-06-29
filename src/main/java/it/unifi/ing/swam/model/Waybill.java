@@ -13,7 +13,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "waybills")
-public class WayBill extends BaseEntity {
+public class Waybill extends BaseEntity {
 
     @ManyToOne
     private Operator operator;
@@ -47,11 +47,11 @@ public class WayBill extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Sign sign;
 
-    public WayBill() {
+    public Waybill() {
 
     }
 
-    public WayBill(String uuid) {
+    public Waybill(String uuid) {
         super(uuid);
     }
 

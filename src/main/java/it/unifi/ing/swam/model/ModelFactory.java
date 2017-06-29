@@ -31,8 +31,8 @@ public class ModelFactory {
         return new Agency(UUID.randomUUID().toString());
     }
 
-    public static WayBill generateWayBill() {
-        return new WayBill(UUID.randomUUID().toString());
+    public static Waybill generateWaybill() {
+        return new Waybill(UUID.randomUUID().toString());
     }
 
     public static Package generatePackage() {
