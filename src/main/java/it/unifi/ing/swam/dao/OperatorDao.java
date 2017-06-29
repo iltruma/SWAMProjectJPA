@@ -1,5 +1,5 @@
 package it.unifi.ing.swam.dao;
 
-public class OperatorDao {
+public class OperatorDao extends BaseDao {
 
 }

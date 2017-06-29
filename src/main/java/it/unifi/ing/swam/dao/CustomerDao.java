@@ -1,5 +1,5 @@
 package it.unifi.ing.swam.dao;
 
-public class CustomerDao {
+public class CustomerDao extends BaseDao {
 
 }
