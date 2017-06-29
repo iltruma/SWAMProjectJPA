@@ -17,7 +17,7 @@ public class AgencyDao extends BaseDao {
     public Agency findByAddress(Address a) {
         return entityManager
                 .createQuery(
-                        "SELECT a FROM Agency aa WHERE a.street = :street "
+                        "SELECT a FROM Agency a WHERE a.street = :street "
                                 + "AND a.city = :city AND a.address_state = :address_state AND a.zip = :zip",
                         Agency.class)
                 .setParameter("street", a.getStreet()).setParameter("city", a.getCity())

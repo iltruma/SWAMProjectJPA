@@ -11,7 +11,7 @@ public class ItemDao extends BaseDao {
     }
 
     public List<Item> findByWaybillId(Long waybillId) {
-        return entityManager.createQuery("SELECT i FROM Item i WHERE" + "i.waybill_id = :waybill_id", Item.class)
+        return entityManager.createQuery("SELECT i FROM Item i WHERE i.waybill_id = :waybill_id", Item.class)
                 .setParameter("waybill_id", waybillId).getResultList();
     }
 
