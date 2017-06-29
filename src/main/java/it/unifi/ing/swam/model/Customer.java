@@ -31,10 +31,9 @@ public class Customer extends Role {
     @OneToMany(cascade={CascadeType.PERSIST}, fetch=FetchType.LAZY)
     @JoinColumn(name="customer_id")
     private List<Fare> fares;
-    @OneToMany(mappedBy = "sender", fetch=FetchType.LAZY)
-    private List<Waybill> waybills;
     @ManyToOne
-    private Operator operator;
+    private User operator; //Operator
+
 
     protected Customer() {
     }
@@ -42,7 +41,6 @@ public class Customer extends Role {
     public Customer(String uuid) {
         super(uuid);
         this.fares = new ArrayList<>();
-        this.waybills = new ArrayList<>();
     }
 
     public Address getAddress() {
@@ -61,19 +59,11 @@ public class Customer extends Role {
         this.fares.add(f);
     }
 
-    public List<Waybill> getWaybills() {
-        return waybills;
-    }
-
-    public void addWaybill(Waybill w) {
-        this.waybills.add(w);
-    }
-
-    public Operator getOperator() {
+    public User getOperator() {
         return operator;
     }
 
-    public void setOperator(Operator operator) {
+    public void setOperator(User operator) {
         this.operator = operator;
     }
 

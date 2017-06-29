@@ -16,15 +16,11 @@ import javax.persistence.TemporalType;
 public class Waybill extends BaseEntity {
 
     @ManyToOne
-    private Operator operator;
+    private User operator; //Operator
     @Embedded
     private Receiver receiver;
     @ManyToOne
-    private Customer sender;
-    @ManyToOne
-    private Agency departureAgency;
-    @ManyToOne
-    private Agency destinationAgency;
+    private User sender; //Customer
     @Embedded
     private Load load;
     @Temporal(TemporalType.DATE)
@@ -55,11 +51,11 @@ public class Waybill extends BaseEntity {
         super(uuid);
     }
 
-    public Operator getOperator() {
+    public User getOperator() {
         return operator;
     }
 
-    public void setOperator(Operator operator) {
+    public void setOperator(User operator) {
         this.operator = operator;
     }
 
@@ -71,28 +67,12 @@ public class Waybill extends BaseEntity {
         this.receiver = receiver;
     }
 
-    public Customer getSender() {
+    public User getSender() {
         return sender;
     }
 
-    public void setSender(Customer sender) {
+    public void setSender(User sender) {
         this.sender = sender;
-    }
-
-    public Agency getDepartureAgency() {
-        return departureAgency;
-    }
-
-    public void setDepartureAgency(Agency departureAgency) {
-        this.departureAgency = departureAgency;
-    }
-
-    public Agency getDestinationAgency() {
-        return destinationAgency;
-    }
-
-    public void setDestinationAgency(Agency destinationAgency) {
-        this.destinationAgency = destinationAgency;
     }
 
     public Load getLoad() {

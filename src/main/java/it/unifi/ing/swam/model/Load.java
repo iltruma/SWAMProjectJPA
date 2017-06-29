@@ -16,10 +16,10 @@ public class Load {
     private Float totalWeight;
     @OneToMany(fetch=FetchType.LAZY, cascade={CascadeType.PERSIST})
     @JoinColumn(name="waybill_id")
-    private List<Package> packages;
+    private List<Item> items;
 
     Load() {
-        this.packages = new ArrayList<>();
+        this.items = new ArrayList<>();
     }
 
     public Float getTotalVolume() {
@@ -30,18 +30,18 @@ public class Load {
         return totalWeight;
     }
 
-    public List<Package> getPackages() {
-        return packages;
+    public List<Item> getItems() {
+        return items;
     }
 
-    public void addPackage(Package p) {
-        this.packages.add(p);
-        this.totalVolume += p.getVolume();
-        this.totalWeight += p.getWeigth();
+    public void addItem(Item i) {
+        this.items.add(i);
+        this.totalVolume += i.getVolume();
+        this.totalWeight += i.getWeigth();
     }
 
     public Integer getNumItems() {
-        return packages.size();
+        return items.size();
     }
 
 }
