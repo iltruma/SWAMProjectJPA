@@ -28,11 +28,6 @@ public class Waybill extends BaseEntity {
     @Temporal(TemporalType.TIMESTAMP)
     private Date deliveryDate;
     private Float cost;
-
-    private enum Tracking {
-        SHIPPING, DELIVERING, DELIVERED
-    };
-
     @Enumerated(EnumType.STRING)
     private Tracking tracking;
 
