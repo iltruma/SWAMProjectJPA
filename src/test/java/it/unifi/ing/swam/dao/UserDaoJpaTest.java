@@ -30,11 +30,8 @@ public class UserDaoJpaTest extends JpaTest {
 
 
 		userDao = new UserDao();
-		try {
-			FieldUtils.writeField(userDao, "entityManager", entityManager, true);
-		} catch (IllegalAccessException e) {
-			throw new InitializationError(e);
-		}
+		JpaTest.inject(userDao, entityManager);
+
 	}
 
 	@Test

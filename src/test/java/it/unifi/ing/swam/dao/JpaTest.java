@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -15,8 +16,12 @@ public abstract class JpaTest {
 	private static EntityManagerFactory entityManagerFactory;
 	protected EntityManager entityManager;
 	
-	public static void inject(BaseDao bd) {
-		
+	public static void inject(BaseDao bd, EntityManager em) throws InitializationError {
+		try {
+			FieldUtils.writeField(bd, "entityManager", em, true);
+		} catch (IllegalAccessException e) {
+			throw new InitializationError(e);
+		}
 	}
 
 	@BeforeClass
