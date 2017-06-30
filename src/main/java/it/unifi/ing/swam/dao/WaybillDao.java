@@ -4,7 +4,9 @@ import java.util.Date;
 import java.util.List;
 
 import it.unifi.ing.swam.model.Receiver;
+import it.unifi.ing.swam.model.RoleType;
 import it.unifi.ing.swam.model.Tracking;
+import it.unifi.ing.swam.model.User;
 import it.unifi.ing.swam.model.Waybill;
 
 public class WaybillDao extends BaseDao {
@@ -24,8 +26,17 @@ public class WaybillDao extends BaseDao {
     }
 
     public List<Waybill> findByOperatorId(Long operatorId) {
-        return entityManager.createQuery("SELECT w FROM Waybill w WHERE w.operator = :operator_id", Waybill.class)
+        return entityManager.createQuery("FROM Waybill WHERE operator_id = :operator_id", Waybill.class)
                 .setParameter("operator_id", operatorId).getResultList();
+    }
+
+    // TODO - Magari è troppo per un DAO.
+    public List<Waybill> findByOperator(User op) {
+        if (op.hasRole(RoleType.OPERATOR)) {
+            return entityManager.createQuery("SELECT w FROM Waybill w WHERE w.operator = :op", Waybill.class)
+                    .setParameter("op", op).getResultList();
+        }
+        else return null;
     }
 
     public List<Waybill> findByDestinationAgencyId(Long agencyId) {

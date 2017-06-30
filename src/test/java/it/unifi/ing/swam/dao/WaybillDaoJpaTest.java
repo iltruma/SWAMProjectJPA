@@ -2,7 +2,6 @@ package it.unifi.ing.swam.dao;
 
 import static org.junit.Assert.assertEquals;
 
-
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Test;
 import org.junit.runners.model.InitializationError;
@@ -13,7 +12,7 @@ import it.unifi.ing.swam.model.Waybill;
 
 
 public class WaybillDaoJpaTest extends JpaTest {
-	
+
 	User sender;
 	User operator;
 	WaybillDao waybillDao;
@@ -21,8 +20,8 @@ public class WaybillDaoJpaTest extends JpaTest {
 
 
 	@Override
-	protected void init() throws InitializationError {	
-		
+	protected void init() throws InitializationError {
+
         operator = ModelFactory.generateUser();
         operator.setUsername("Operator");
         operator.setPassword("password");
@@ -30,7 +29,7 @@ public class WaybillDaoJpaTest extends JpaTest {
         operator.setPhone("phone");
         operator.setEmail("email");
         operator.addRole(ModelFactory.generateOperator());
-        
+
         sender = ModelFactory.generateUser();
         sender.setUsername("Customer");
         sender.setPassword("password");
@@ -38,8 +37,6 @@ public class WaybillDaoJpaTest extends JpaTest {
         sender.setPhone("phone");
         sender.setEmail("email");
         sender.addRole(ModelFactory.generateCustomer());
-
-        
 
 
 
@@ -57,10 +54,10 @@ public class WaybillDaoJpaTest extends JpaTest {
 		w.setSender(sender);
 		w.setOperator(operator);
 		waybillDao.save(w);
-		
+
 		entityManager.getTransaction().commit();
 		assertEquals(true, true);
-		
+
 		assertEquals(w, entityManager
 				.createQuery("from Waybill w where w.sender_id = :sender AND w.operator_id = :operator", Waybill.class)
 				.setParameter("sender", w.getSender().getId()).setParameter("operator", w.getOperator().getId())
@@ -68,5 +65,5 @@ public class WaybillDaoJpaTest extends JpaTest {
 
 
 	}
-	
+
 }
