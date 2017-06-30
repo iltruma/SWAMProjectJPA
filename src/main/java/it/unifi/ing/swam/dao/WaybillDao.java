@@ -3,7 +3,6 @@ package it.unifi.ing.swam.dao;
 import java.util.Date;
 import java.util.List;
 
-import it.unifi.ing.swam.model.BaseEntity;
 import it.unifi.ing.swam.model.Receiver;
 import it.unifi.ing.swam.model.Tracking;
 import it.unifi.ing.swam.model.Waybill;
@@ -25,7 +24,7 @@ public class WaybillDao extends BaseDao {
     }
 
     public List<Waybill> findByOperatorId(Long operatorId) {
-        return entityManager.createQuery("SELECT w FROM Waybill w WHERE w.operator_id = :operator_id", Waybill.class)
+        return entityManager.createQuery("SELECT w FROM Waybill w WHERE w.operator = :operator_id", Waybill.class)
                 .setParameter("operator_id", operatorId).getResultList();
     }
 
@@ -54,14 +53,6 @@ public class WaybillDao extends BaseDao {
                 .setParameter("street", receiver.getAddress().getStreet())
                 .setParameter("zip", receiver.getAddress().getZip())
                 .setParameter("address_state", receiver.getAddress().getState()).getResultList();
-    }
-    
-    public void save(Waybill entity) {
-        if(entity.getId() != null) {
-            entityManager.merge(entity);
-        } else {
-            entityManager.persist(entity);
-        }
     }
 
 }
