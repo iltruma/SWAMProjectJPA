@@ -6,9 +6,9 @@ import it.unifi.ing.swam.model.Role;
 
 public class RoleDao extends BaseDao {
 
-    public List<Role> findByUserId(Long userId) {
-        return entityManager.createQuery("SELECT r FROM Role r WHERE r.user_id = :user_id", Role.class)
-                .setParameter("user_id", userId).getResultList();
+    public List<Role> findByUserId(Long ownerId) {
+        return entityManager.createQuery("SELECT r FROM Role r WHERE r.owner_id = :owner_id", Role.class)
+                .setParameter("owner_id", ownerId).getResultList();
     }
 
 }

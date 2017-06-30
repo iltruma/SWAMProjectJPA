@@ -4,6 +4,7 @@ import java.util.List;
 
 import it.unifi.ing.swam.model.Address;
 import it.unifi.ing.swam.model.Customer;
+import it.unifi.ing.swam.model.Operator;
 import it.unifi.ing.swam.model.State;
 
 public class CustomerDao extends BaseDao {
@@ -31,6 +32,11 @@ public class CustomerDao extends BaseDao {
                         Customer.class)
                 .setParameter("street", a.getStreet()).setParameter("city", a.getCity())
                 .setParameter("adress_state", a.getState()).setParameter("zip", a.getZip()).getResultList();
+    }
+    
+    public Customer findByUserId(Long ownerId) {
+        return entityManager.createQuery("SELECT r FROM Customer r WHERE r.owner_id = :owner_id", Customer.class)
+                .setParameter("owner_id", ownerId).getSingleResult();
     }
 
 }

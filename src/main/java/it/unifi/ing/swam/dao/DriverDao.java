@@ -3,6 +3,7 @@ package it.unifi.ing.swam.dao;
 import java.util.List;
 
 import it.unifi.ing.swam.model.Driver;
+import it.unifi.ing.swam.model.Operator;
 import it.unifi.ing.swam.model.Truck;
 
 public class DriverDao extends BaseDao {
@@ -23,6 +24,11 @@ public class DriverDao extends BaseDao {
     public List<Driver> findByZone(String zone) {
         return entityManager.createQuery("SELECT d FROM Driver d WHERE d.zone = :zone", Driver.class)
                 .setParameter("zone", zone).getResultList();
+    }
+    
+    public Driver findByUserId(Long ownerId) {
+        return entityManager.createQuery("SELECT r FROM Driver r WHERE r.owner_id = :owner_id", Driver.class)
+                .setParameter("owner_id", ownerId).getSingleResult();
     }
 
 }
