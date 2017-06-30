@@ -15,68 +15,67 @@ import org.junit.runners.model.InitializationError;
 
 public abstract class JpaTest {
 
-	private static EntityManagerFactory entityManagerFactory;
-	protected EntityManager entityManager;
-	
+    private static EntityManagerFactory entityManagerFactory;
+    protected EntityManager entityManager;
 
-	
-	public static void inject(BaseDao bd, EntityManager em) throws InitializationError {
-		try {
-			FieldUtils.writeField(bd, "entityManager", em, true);
-		} catch (IllegalAccessException e) {
-			throw new InitializationError(e);
-		}
-	}
+    public static void inject(BaseDao bd, EntityManager em) throws InitializationError {
+        try {
+            FieldUtils.writeField(bd, "entityManager", em, true);
+        } catch (IllegalAccessException e) {
+            throw new InitializationError(e);
+        }
+    }
 
-	@BeforeClass
-	public static void setUpClass() {
-		entityManagerFactory = Persistence.createEntityManagerFactory("test");
-	}
+    @BeforeClass
+    public static void setUpClass() {
+        entityManagerFactory = Persistence.createEntityManagerFactory("test");
+    }
 
-	@Before
-	public void setUp() throws InitializationError {
-		entityManager = entityManagerFactory.createEntityManager();
-		
-		this.trucateAllTables();
+    @Before
+    public void setUp() throws InitializationError {
+        entityManager = entityManagerFactory.createEntityManager();
 
-		entityManager.getTransaction().begin();
-		init();
-		entityManager.getTransaction().commit();
-		entityManager.clear();		
-		entityManager.getTransaction().begin();
-	}
+        this.trucateAllTables();
 
-	@After
-	public void tearDown() {
-		if ( entityManager.getTransaction().isActive() ) {
-			entityManager.getTransaction().rollback();
-		}
-		
-		entityManager.close();
-	}
+        entityManager.getTransaction().begin();
+        init();
+        entityManager.getTransaction().commit();
+        entityManager.clear();
+        entityManager.getTransaction().begin();
+    }
 
-	@AfterClass
-	public static void tearDownClass() {
-		entityManagerFactory.close();
-	}
-	
-	protected abstract void init() throws InitializationError;
-	
-	public void trucateAllTables(){
-		entityManager.getTransaction().begin();
+    @After
+    public void tearDown() {
+        if (entityManager.getTransaction().isActive()) {
+            entityManager.getTransaction().rollback();
+        }
 
-		//@SuppressWarnings("unchecked")
-		List<Object[]> tables = entityManager.createNativeQuery("SELECT *"
-				+ "  FROM information_schema.tables"
-				+ "  WHERE table_schema IN ('test');").getResultList();
-		entityManager.createNativeQuery("SET FOREIGN_KEY_CHECKS=0;").executeUpdate();
-		for(Object[] tableNameObject : tables){
-			String tableName = (String)tableNameObject[2];
-			entityManager.createNativeQuery("TRUNCATE TABLE "+ "test." + tableName).executeUpdate();
-		}
-		entityManager.createNativeQuery("SET FOREIGN_KEY_CHECKS=1;").executeUpdate();	
-		entityManager.getTransaction().commit();
-		
-	}
+        entityManager.close();
+    }
+
+    @AfterClass
+    public static void tearDownClass() {
+        entityManagerFactory.close();
+    }
+
+    protected abstract void init() throws InitializationError;
+
+    public void trucateAllTables() {
+        entityManager.getTransaction().begin();
+
+        @SuppressWarnings("unchecked")
+        List<Object[]> tables = entityManager
+                .createNativeQuery(
+                        "SELECT *" + "  FROM information_schema.tables" + "  WHERE table_schema IN ('test');")
+                .getResultList();
+        entityManager.createNativeQuery("SET FOREIGN_KEY_CHECKS=0;").executeUpdate();
+        for (Object[] tableNameObject : tables) {
+            String tableName = (String) tableNameObject[2];
+            entityManager.createNativeQuery("TRUNCATE TABLE " + "test." + tableName).executeUpdate();
+        }
+        entityManager.createNativeQuery("SET FOREIGN_KEY_CHECKS=1;").executeUpdate();
+        entityManager.getTransaction().commit();
+
+    }
 
 }

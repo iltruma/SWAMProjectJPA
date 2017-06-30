@@ -9,17 +9,14 @@ import it.unifi.ing.swam.model.ModelFactory;
 import it.unifi.ing.swam.model.User;
 import it.unifi.ing.swam.model.Waybill;
 
-
 public class WaybillDaoJpaTest extends JpaTest {
 
-	User sender;
-	User operator;
-	WaybillDao waybillDao;
+    User sender;
+    User operator;
+    WaybillDao waybillDao;
 
-
-
-	@Override
-	protected void init() throws InitializationError {
+    @Override
+    protected void init() throws InitializationError {
 
         operator = ModelFactory.generateUser();
         operator.setUsername("Operator");
@@ -36,26 +33,24 @@ public class WaybillDaoJpaTest extends JpaTest {
         sender.setPhone("phone");
         sender.setEmail("email");
         sender.addRole(ModelFactory.generateCustomer());
-        
+
         entityManager.persist(sender);
         entityManager.persist(operator);
 
+        waybillDao = new WaybillDao();
+        JpaTest.inject(waybillDao, entityManager);
 
+    }
 
-		waybillDao = new WaybillDao();
-		JpaTest.inject(waybillDao, entityManager);
+    @Test
+    public void testSave() {
+        Waybill w = ModelFactory.generateWaybill();
+        w.setSender(sender);
+        w.setOperator(operator);
+        waybillDao.save(w);
 
-	}
+        assertEquals(w, entityManager.find(Waybill.class, w.getId()));
 
-	@Test
-	public void testSave() {
-		Waybill w = ModelFactory.generateWaybill();
-		w.setSender(sender);
-		w.setOperator(operator);
-		waybillDao.save(w);
-
-		assertEquals(w, entityManager.find(Waybill.class, w.getId()));
-
-	}
+    }
 
 }

@@ -7,23 +7,24 @@ import javax.persistence.Table;
 @Table(name = "items")
 public class Item extends BaseEntity {
 
-    private Float weigth;
+    private Float weight;
     private Float volume;
 
     public Item() {
-
+        weight = Float.valueOf(0F);
+        volume = Float.valueOf(0F);
     }
 
     public Item(String uuid) {
         super(uuid);
     }
 
-    public Float getWeigth() {
-        return weigth;
+    public Float getWeight() {
+        return weight;
     }
 
-    public void setWeigth(Float weigth) {
-        this.weigth = weigth;
+    public void setWeigth(Float weight) {
+        this.weight = weight;
     }
 
     public Float getVolume() {

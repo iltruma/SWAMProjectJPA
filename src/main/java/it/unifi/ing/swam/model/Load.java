@@ -18,7 +18,9 @@ public class Load {
     @JoinColumn(name="waybill_id")
     private List<Item> items;
 
-    Load() {
+    public Load() {
+        totalVolume = Float.valueOf(0F);
+        totalWeight = Float.valueOf(0F);
         this.items = new ArrayList<>();
     }
 
@@ -37,7 +39,7 @@ public class Load {
     public void addItem(Item i) {
         this.items.add(i);
         this.totalVolume += i.getVolume();
-        this.totalWeight += i.getWeigth();
+        this.totalWeight += i.getWeight();
     }
 
     public Integer getNumItems() {

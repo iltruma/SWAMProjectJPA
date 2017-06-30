@@ -2,6 +2,8 @@ package it.unifi.ing.swam.dao;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runners.model.InitializationError;
 
@@ -66,12 +68,16 @@ public class UserDaoJpaTest extends JpaTest {
 
     @Test
     public void testFindByName() {
-        assertEquals(user, userDao.findByName(user.getName()).get(0));
+        List<User> result = userDao.findByName(user.getName());
+        assertEquals(1, result.size());
+        assertEquals(user, result.get(0));
     }
 
     @Test
     public void testFindByAgencyId() {
-        assertEquals(user, userDao.findByAgencyId(user.getAgency().getId()).get(0));
+        List<User> result = userDao.findByAgencyId(user.getAgency().getId());
+        assertEquals(1, result.size());
+        assertEquals(user, result.get(0));
     }
 
 }

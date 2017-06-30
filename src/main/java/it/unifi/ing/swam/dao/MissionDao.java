@@ -21,8 +21,8 @@ public class MissionDao extends BaseDao {
 
     public List<Mission> findByDriver(User driver) throws IllegalArgumentException {
         if (driver.hasRole(RoleType.DRIVER)) {
-            return entityManager.createQuery("SELECT m FROM Mission m WHERE m.driver = :driver", Mission.class)
-                    .setParameter("driver", driver).getResultList();
+            return entityManager.createQuery("FROM Mission WHERE driver_id = :driver_id", Mission.class)
+                    .setParameter("driver_id", driver.getId()).getResultList();
         } else
             throw new IllegalArgumentException("The user is not a driver.");
     }
