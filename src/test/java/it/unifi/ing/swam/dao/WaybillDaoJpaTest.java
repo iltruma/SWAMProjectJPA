@@ -37,15 +37,15 @@ public class WaybillDaoJpaTest extends JpaTest {
         sender.setPhone("phone");
         sender.setEmail("email");
         sender.addRole(ModelFactory.generateCustomer());
+        
+        entityManager.persist(sender);
+        entityManager.persist(operator);
 
 
 
 		waybillDao = new WaybillDao();
-		try {
-			FieldUtils.writeField(waybillDao, "entityManager", entityManager, true);
-		} catch (IllegalAccessException e) {
-			throw new InitializationError(e);
-		}
+		JpaTest.inject(waybillDao, entityManager);
+
 	}
 
 	@Test
@@ -57,10 +57,7 @@ public class WaybillDaoJpaTest extends JpaTest {
 
 		entityManager.getTransaction().commit();
 
-		assertEquals(w, entityManager
-				.createQuery("from Waybill w where w.sender_id = :sender AND w.operator_id = :operator", Waybill.class)
-				.setParameter("sender", w.getSender().getId()).setParameter("operator", w.getOperator().getId())
-				.getSingleResult());
+		assertEquals(w, entityManager.find(Waybill.class, w.getId()));
 
 
 	}
