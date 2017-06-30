@@ -24,7 +24,7 @@ public abstract class JpaTest {
 	public void setUp() throws InitializationError {
 		entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
-		entityManager.createNativeQuery("TRUNCATE SCHEMA public AND COMMIT").executeUpdate();
+	    //entityManager.createNativeQuery("TRUNCATE SCHEMA public AND COMMIT").executeUpdate();
 		entityManager.getTransaction().commit();
 		
 		entityManager.getTransaction().begin();
