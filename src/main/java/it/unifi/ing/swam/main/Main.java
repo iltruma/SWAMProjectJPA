@@ -67,16 +67,6 @@ public class Main {
         System.out.println("Doveva venire 5");
 
 
-        List<Waybill> bolle2 = waybillDao.findByOperator(userDao.findByUsername("Operator"));
-
-        for (Waybill b : bolle2) {
-            System.out.println(b.getId().toString());
-        }
-
-        System.out.println("Doveva venire 5");
-
-
-
         em.close();
         emf.close();
 

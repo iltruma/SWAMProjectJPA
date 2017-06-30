@@ -14,6 +14,10 @@ public abstract class JpaTest {
 
 	private static EntityManagerFactory entityManagerFactory;
 	protected EntityManager entityManager;
+	
+	public static void inject(BaseDao bd) {
+		
+	}
 
 	@BeforeClass
 	public static void setUpClass() {
@@ -30,8 +34,7 @@ public abstract class JpaTest {
 		entityManager.getTransaction().begin();
 		init();
 		entityManager.getTransaction().commit();
-		entityManager.clear();
-		
+		//entityManager.clear();		
 		entityManager.getTransaction().begin();
 	}
 

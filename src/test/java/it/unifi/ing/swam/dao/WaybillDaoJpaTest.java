@@ -56,7 +56,6 @@ public class WaybillDaoJpaTest extends JpaTest {
 		waybillDao.save(w);
 
 		entityManager.getTransaction().commit();
-		assertEquals(true, true);
 
 		assertEquals(w, entityManager
 				.createQuery("from Waybill w where w.sender_id = :sender AND w.operator_id = :operator", Waybill.class)
