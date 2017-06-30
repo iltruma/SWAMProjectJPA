@@ -2,7 +2,6 @@ package it.unifi.ing.swam.dao;
 
 import static org.junit.Assert.assertEquals;
 
-import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Test;
 import org.junit.runners.model.InitializationError;
 
@@ -55,10 +54,7 @@ public class WaybillDaoJpaTest extends JpaTest {
 		w.setOperator(operator);
 		waybillDao.save(w);
 
-		entityManager.getTransaction().commit();
-
 		assertEquals(w, entityManager.find(Waybill.class, w.getId()));
-
 
 	}
 
