@@ -10,18 +10,13 @@ public class AgencyDao extends BaseDao {
     }
 
     public Agency findByName(String name) {
-        return entityManager.createQuery("SELECT a FROM Agency a WHERE a.name = :name", Agency.class)
-                .setParameter("name", name).getSingleResult();
+        return entityManager.createQuery("FROM Agency WHERE name = :name", Agency.class).setParameter("name", name)
+                .getSingleResult();
     }
 
-    public Agency findByAddress(Address a) {
-        return entityManager
-                .createQuery(
-                        "SELECT a FROM Agency a WHERE a.street = :street "
-                                + "AND a.city = :city AND a.address_state = :address_state AND a.zip = :zip",
-                        Agency.class)
-                .setParameter("street", a.getStreet()).setParameter("city", a.getCity())
-                .setParameter("adress_state", a.getState()).setParameter("zip", a.getZip()).getSingleResult();
+    public Agency findByAddress(Address address) {
+        return entityManager.createQuery("SELECT a FROM Agency a WHERE a.address = :address ", Agency.class)
+                .setParameter("address", address).getSingleResult();
     }
 
 }
