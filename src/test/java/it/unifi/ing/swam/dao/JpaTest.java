@@ -1,5 +1,7 @@
 package it.unifi.ing.swam.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -33,13 +35,25 @@ public abstract class JpaTest {
 	public void setUp() throws InitializationError {
 		entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
-	    //entityManager.createNativeQuery("TRUNCATE SCHEMA public AND COMMIT").executeUpdate();
-		entityManager.getTransaction().commit();
 		
+		//@SuppressWarnings("unchecked")
+		List<Object[]> tables = entityManager.createNativeQuery("SELECT *"
+				+ "  FROM information_schema.tables"
+				+ "  WHERE table_schema IN ('test');").getResultList();
+		entityManager.createNativeQuery("SET FOREIGN_KEY_CHECKS=0;").executeUpdate();
+		for(Object[] tableNameObject : tables){
+			String tableName = (String)tableNameObject[2];
+			entityManager.createNativeQuery("TRUNCATE TABLE "+ "test." + tableName).executeUpdate();
+		}
+		entityManager.createNativeQuery("SET FOREIGN_KEY_CHECKS=1;").executeUpdate();
+
+		
+		entityManager.getTransaction().commit();
+
 		entityManager.getTransaction().begin();
 		init();
 		entityManager.getTransaction().commit();
-		//entityManager.clear();		
+		entityManager.clear();		
 		entityManager.getTransaction().begin();
 	}
 
@@ -48,6 +62,7 @@ public abstract class JpaTest {
 		if ( entityManager.getTransaction().isActive() ) {
 			entityManager.getTransaction().rollback();
 		}
+		
 		entityManager.close();
 	}
 

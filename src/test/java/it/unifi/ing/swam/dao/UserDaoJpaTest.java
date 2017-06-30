@@ -1,7 +1,6 @@
 package it.unifi.ing.swam.dao;
 
 import static org.junit.Assert.assertEquals;
-import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Test;
 import org.junit.runners.model.InitializationError;
 
@@ -36,6 +35,20 @@ public class UserDaoJpaTest extends JpaTest {
 
 	@Test
 	public void testSave() {
+		userDao.save(user);
+
+		entityManager.getTransaction().commit();
+
+		assertEquals(user, entityManager
+				.createQuery("from User u where u = :user", User.class)
+				.setParameter("user", user )
+				.getSingleResult());
+
+
+	}
+	
+	@Test
+	public void testSave1() {
 		userDao.save(user);
 
 		entityManager.getTransaction().commit();
