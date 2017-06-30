@@ -1,11 +1,11 @@
 package it.unifi.ing.swam.model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -21,18 +21,12 @@ public class User extends BaseEntity {
     private String phone;
     private String email;
 
-    @OneToMany(cascade={CascadeType.PERSIST})
-    @JoinColumn(name="user_id")
+    @OneToMany(cascade={CascadeType.PERSIST}, mappedBy="owner")
     private List<Role> roles;
 
     @ManyToOne
     private Agency agency;
 
-    @OneToMany(mappedBy = "operator", fetch=FetchType.LAZY)
-    private List<Waybill> operatorWaybills; //Operator
-
-    @OneToMany(mappedBy = "sender", fetch=FetchType.LAZY)
-    private List<Waybill> customerWaybills; //Customer
 
     public User() {
 
@@ -41,8 +35,6 @@ public class User extends BaseEntity {
     public User(String uuid) {
         super(uuid);
         this.roles = new ArrayList<>();
-        this.operatorWaybills = new ArrayList<>();
-        this.customerWaybills = new ArrayList<>();
     }
 
     public String getUsername() {
@@ -65,8 +57,9 @@ public class User extends BaseEntity {
         return roles;
     }
 
-    public void addRoles(Role r) {
+    public void addRole(Role r) {
         this.roles.add(r);
+    	r.setOwner(this);
     }
 
     public Agency getAgency() {
@@ -100,21 +93,15 @@ public class User extends BaseEntity {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public List<Waybill> getOperatorWaybills() {
-        return operatorWaybills;
+    
+    public Boolean hasRole(RoleType t){
+    	Iterator<Role> roleIterator = this.getRoles().iterator();
+    	Boolean hasType = false;
+    	while(roleIterator.hasNext() && !hasType){
+    		hasType = roleIterator.next().getType().equals(t);
+    	}
+    	return hasType;
     }
 
-    public void addOperatorWaybill(Waybill w) {
-        this.operatorWaybills.add(w);
-    }
-
-    public List<Waybill> getCustomerWaybills() {
-        return customerWaybills;
-    }
-
-    public void addCustomerWaybill(Waybill w) {
-        this.customerWaybills.add(w);
-    }
 
 }

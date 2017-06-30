@@ -6,6 +6,8 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -16,10 +18,12 @@ import javax.persistence.TemporalType;
 public class Waybill extends BaseEntity {
 
     @ManyToOne
+    @JoinColumn(name="operator_id")
     private User operator; //Operator
     @Embedded
     private Receiver receiver;
     @ManyToOne
+    @JoinColumn(name="sender_id")
     private User sender; //Customer
     @Embedded
     private Load load;
@@ -50,9 +54,12 @@ public class Waybill extends BaseEntity {
         return operator;
     }
 
-    public void setOperator(User operator) {
-        this.operator = operator;
-    }
+    public Boolean setOperator(User operator) {
+    	if(operator.hasRole(RoleType.OPERATOR)){
+            this.operator = operator;
+            return true;
+    	}
+    	return false;    }
 
     public Receiver getReceiver() {
         return receiver;
@@ -66,8 +73,12 @@ public class Waybill extends BaseEntity {
         return sender;
     }
 
-    public void setSender(User sender) {
-        this.sender = sender;
+    public Boolean setSender(User sender) {
+    	if(sender.hasRole(RoleType.CUSTOMER)){
+            this.sender = sender;
+            return true;
+    	}
+    	return false;
     }
 
     public Load getLoad() {

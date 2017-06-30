@@ -36,6 +36,7 @@ public class Customer extends Role {
 
     public Customer(String uuid) {
         super(uuid);
+        this.type = RoleType.CUSTOMER;
         this.fares = new ArrayList<>();
     }
 

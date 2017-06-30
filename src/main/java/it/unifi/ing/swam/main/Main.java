@@ -1,6 +1,17 @@
 package it.unifi.ing.swam.main;
 
+import javax.inject.Inject;
+
+import it.unifi.ing.swam.dao.UserDao;
+
 public class Main {
+	
+
+	@Inject
+	transient UserDao userDao;
+	
+	@Inject
+	transient UserDao wayBill;
 
     public static void main(String[] args) {
 
@@ -12,6 +23,9 @@ public class Main {
 //            System.out
 //                    .println(us.getUsername() + " " + us.getName() + " " + us.getPhone() + " " + us.getEmail() + "\n");
 //        }
+    	
+    	
+
 
         System.exit(0);
     }

@@ -27,6 +27,7 @@ public class Driver extends Role {
 
     public Driver(String uuid) {
         super(uuid);
+        this.type = RoleType.DRIVER;
         this.missions = new ArrayList<>();
     }
 
