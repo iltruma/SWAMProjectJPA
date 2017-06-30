@@ -4,8 +4,9 @@ import java.util.List;
 
 import it.unifi.ing.swam.model.Address;
 import it.unifi.ing.swam.model.Customer;
-import it.unifi.ing.swam.model.Operator;
+import it.unifi.ing.swam.model.RoleType;
 import it.unifi.ing.swam.model.State;
+import it.unifi.ing.swam.model.User;
 
 public class CustomerDao extends BaseDao {
 
@@ -14,29 +15,38 @@ public class CustomerDao extends BaseDao {
     }
 
     public List<Customer> findByCustomerState(State customer_state) {
-        return entityManager
-                .createQuery("SELECT c FROM Customer c WHERE c.customer_state = :customer_state", Customer.class)
+        return entityManager.createQuery("FROM Customer WHERE customer_state = :customer_state", Customer.class)
                 .setParameter("customer_state", customer_state).getResultList();
     }
 
+    @Deprecated
     public List<Customer> findByOperatorId(Long operator_id) {
-        return entityManager.createQuery("SELECT c FROM Customer c WHERE c.operator_id = :operator_id", Customer.class)
+        return entityManager.createQuery("FROM Customer WHERE operator_id = :operator_id", Customer.class)
                 .setParameter("operator_id", operator_id).getResultList();
     }
 
-    public List<Customer> findByAddress(Address a) {
-        return entityManager
-                .createQuery(
-                        "SELECT c FROM Customer c WHERE c.street = :street "
-                                + "AND c.city = :city AND c.address_state = :address_state AND c.zip = :zip",
-                        Customer.class)
-                .setParameter("street", a.getStreet()).setParameter("city", a.getCity())
-                .setParameter("adress_state", a.getState()).setParameter("zip", a.getZip()).getResultList();
+    public List<Customer> findByOperator(User operator) throws IllegalArgumentException {
+        if (operator.hasRole(RoleType.OPERATOR)) {
+            return entityManager.createQuery("SELECT c FROM Customer c WHERE c.operator = :operator", Customer.class)
+                    .setParameter("operator", operator).getResultList();
+        } else
+            throw new IllegalArgumentException("The user is not an operator.");
     }
-    
+
+    public List<Customer> findByAddress(Address address) {
+        return entityManager.createQuery("SELECT c FROM Customer c WHERE c.address = :address ", Customer.class)
+                .setParameter("address", address).getResultList();
+    }
+
+    @Deprecated
     public Customer findByUserId(Long ownerId) {
-        return entityManager.createQuery("SELECT r FROM Customer r WHERE r.owner_id = :owner_id", Customer.class)
+        return entityManager.createQuery("FROM Customer WHERE owner_id = :owner_id", Customer.class)
                 .setParameter("owner_id", ownerId).getSingleResult();
+    }
+
+    public Customer findByUser(User owner) {
+        return entityManager.createQuery("SELECT c FROM Customer c WHERE c.owner = :owner", Customer.class)
+                .setParameter("owner", owner).getSingleResult();
     }
 
 }

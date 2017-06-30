@@ -11,22 +11,22 @@ public class UserDao extends BaseDao {
     }
 
     public User findByEmail(String email) {
-        return entityManager.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class)
+        return entityManager.createQuery("FROM User WHERE email = :email", User.class)
                 .setParameter("email", email).getSingleResult();
     }
 
     public List<User> findByName(String name) {
-        return entityManager.createQuery("SELECT u FROM User u WHERE u.name = :name", User.class)
+        return entityManager.createQuery("FROM User WHERE name = :name", User.class)
                 .setParameter("name", name).getResultList();
     }
 
     public User findByPhone(String phone) {
-        return entityManager.createQuery("SELECT u FROM User u WHERE u.phone = :phone", User.class)
+        return entityManager.createQuery("FROM User WHERE phone = :phone", User.class)
                 .setParameter("phone", phone).getSingleResult();
     }
 
     public User findByUsername(String username) {
-        return entityManager.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class)
+        return entityManager.createQuery("FROM User WHERE username = :username", User.class)
                 .setParameter("username", username).getSingleResult();
     }
 
