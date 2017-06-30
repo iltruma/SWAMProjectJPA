@@ -31,7 +31,7 @@ public class UserDao extends BaseDao {
     }
 
     public List<User> findByAgencyId(Long agencyId) {
-        return entityManager.createQuery("SELECT u FROM User u WHERE u.agency_id = :agency_id", User.class)
+        return entityManager.createQuery("FROM User WHERE agency_id = :agency_id", User.class)
                 .setParameter("agency_id", agencyId).getResultList();
     }
 
