@@ -1,7 +1,6 @@
 package it.unifi.ing.swam.dao;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
 import java.util.List;
@@ -100,19 +99,12 @@ public class WaybillDaoJpaTest extends JpaTest {
         assertEquals(waybill, result.get(0));
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testFindBySenderThrowsIllegalArgumentException() {
-        boolean thrown = false;
+        User driver = ModelFactory.generateUser();
+        driver.addRole(ModelFactory.generateDriver());
+        waybillDao.findBySender(driver);
 
-        try {
-            User driver = ModelFactory.generateUser();
-            driver.addRole(ModelFactory.generateDriver());
-            waybillDao.findBySender(driver);
-        } catch (IllegalArgumentException e) {
-            thrown = true;
-        }
-
-        assertTrue(thrown);
     }
 
     @Test
@@ -130,19 +122,12 @@ public class WaybillDaoJpaTest extends JpaTest {
         assertEquals(waybill, result.get(0));
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testFindByOperatorThrowsIllegalArgumentException() {
-        boolean thrown = false;
+        User driver = ModelFactory.generateUser();
+        driver.addRole(ModelFactory.generateDriver());
+        waybillDao.findByOperator(driver);
 
-        try {
-            User driver = ModelFactory.generateUser();
-            driver.addRole(ModelFactory.generateDriver());
-            waybillDao.findByOperator(driver);
-        } catch (IllegalArgumentException e) {
-            thrown = true;
-        }
-
-        assertTrue(thrown);
     }
 
     @Test
