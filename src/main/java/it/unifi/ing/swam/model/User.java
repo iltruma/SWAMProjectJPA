@@ -107,7 +107,7 @@ public class User extends BaseEntity {
     public Role getDriverRole() throws UnsupportedOperationException {
     	Iterator<Role> roleIterator = this.getRoles().iterator();
     	Role driver = null;
-    	while(roleIterator.hasNext() && driver != null){
+    	while(roleIterator.hasNext() && driver == null){
     		Role role = roleIterator.next();
     		 if(role.getType().equals(RoleType.DRIVER))
     			 driver = role;
@@ -122,7 +122,7 @@ public class User extends BaseEntity {
     public Role getCustomerRole() throws UnsupportedOperationException{
     	Iterator<Role> roleIterator = this.getRoles().iterator();
     	Role customer = null;
-    	while(roleIterator.hasNext() && customer != null){
+    	while(roleIterator.hasNext() && customer == null){
     		Role role = roleIterator.next();
     		 if(role.getType().equals(RoleType.CUSTOMER))
     			 customer = role;
@@ -137,7 +137,7 @@ public class User extends BaseEntity {
     public Role getOperatorRole() throws UnsupportedOperationException{
     	Iterator<Role> roleIterator = this.getRoles().iterator();
     	Role operator = null;
-    	while(roleIterator.hasNext() && operator != null){
+    	while(roleIterator.hasNext() && operator == null){
     		Role role = roleIterator.next();
     		 if(role.getType().equals(RoleType.OPERATOR))
     			 operator = role;

@@ -54,12 +54,11 @@ public class Waybill extends BaseEntity {
         return operator;
     }
 
-    public Boolean setOperator(User operator) {
-    	if(operator.hasRole(RoleType.OPERATOR)){
-            this.operator = operator;
-            return true;
-    	}
-    	return false;    }
+    public void setOperator(User operator) throws IllegalArgumentException {
+    	if(!operator.hasRole(RoleType.OPERATOR))
+    		throw new IllegalArgumentException("operator has not the Operator role");
+        this.operator = operator;      
+    }
 
     public Receiver getReceiver() {
         return receiver;
@@ -73,12 +72,10 @@ public class Waybill extends BaseEntity {
         return sender;
     }
 
-    public Boolean setSender(User sender) {
-    	if(sender.hasRole(RoleType.CUSTOMER)){
-            this.sender = sender;
-            return true;
-    	}
-    	return false;
+    public void setSender (User sender) throws IllegalArgumentException {
+    	if(!sender.hasRole(RoleType.CUSTOMER))
+    		throw new IllegalArgumentException("sender has not the Customer role");
+        this.sender = sender;    	
     }
 
     public Load getLoad() {
