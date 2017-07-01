@@ -102,6 +102,51 @@ public class User extends BaseEntity {
     	}
     	return hasType;
     }
+    
+    // Can only be called by a driver
+    public Role getDriverRole() throws UnsupportedOperationException {
+    	Iterator<Role> roleIterator = this.getRoles().iterator();
+    	Role driver = null;
+    	while(roleIterator.hasNext() && driver != null){
+    		Role role = roleIterator.next();
+    		 if(role.getType().equals(RoleType.DRIVER))
+    			 driver = role;
+    	}
+    	if(driver == null) 
+    		throw new UnsupportedOperationException("The User was not a Driver");
+    	return driver;
+       
+    }
+    
+    // Can only be called by a Customer
+    public Role getCustomerRole() throws UnsupportedOperationException{
+    	Iterator<Role> roleIterator = this.getRoles().iterator();
+    	Role customer = null;
+    	while(roleIterator.hasNext() && customer != null){
+    		Role role = roleIterator.next();
+    		 if(role.getType().equals(RoleType.CUSTOMER))
+    			 customer = role;
+    	}
+    	if(customer == null) 
+    		throw new UnsupportedOperationException("The User was not a Customer");
+    	return customer;
+       
+    }
+    
+    // Can only be called by an Operator
+    public Role getOperatorRole() throws UnsupportedOperationException{
+    	Iterator<Role> roleIterator = this.getRoles().iterator();
+    	Role operator = null;
+    	while(roleIterator.hasNext() && operator != null){
+    		Role role = roleIterator.next();
+    		 if(role.getType().equals(RoleType.OPERATOR))
+    			 operator = role;
+    	}
+    	if(operator == null) 
+    		throw new UnsupportedOperationException("The User was not an Operator");
+    	return operator;
+       
+    }
 
 
 }
