@@ -40,7 +40,6 @@ public class UserDaoJpaTest extends JpaTest {
     @Test
     public void testSave() {
         User userSave = ModelFactory.generateUser();
-        userSave.addRole(ModelFactory.generateOperator());
 
         userDao.save(userSave);
 

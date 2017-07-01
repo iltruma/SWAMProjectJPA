@@ -52,13 +52,14 @@ public class WaybillDao extends BaseDao {
 
     @Deprecated
     public List<Waybill> findByDestinationAgencyId(Long agencyId) {
-        return entityManager.createQuery("FROM Waybill WHERE destinationAgency_id = :destinationAgency_id",
-                Waybill.class).setParameter("destinationAgency_id", agencyId).getResultList();
+        return entityManager
+                .createQuery("FROM Waybill WHERE destinationAgency_id = :destinationAgency_id", Waybill.class)
+                .setParameter("destinationAgency_id", agencyId).getResultList();
     }
 
     public List<Waybill> findByDestinationAgency(Agency agency) {
         return entityManager
-                .createQuery("SELECT w FROM Waybill w WHERE w.Receiver.destinationAgency = :agency", Waybill.class)
+                .createQuery("SELECT w FROM Waybill w WHERE w.receiver.destinationAgency = :agency", Waybill.class)
                 .setParameter("agency", agency).getResultList();
     }
 
@@ -76,12 +77,12 @@ public class WaybillDao extends BaseDao {
      * Usa solo nome e indirizzo in Receiver.
      */
     public List<Waybill> findByReceiver(Receiver receiver) {
-        String query = "FROM Waybill w WHERE w.name = :name AND w.street = :street AND w.city = :city "
-                + "AND w.zip = :zip AND w.address_state = :address_state";
-        return entityManager.createQuery(query, Waybill.class).setParameter("name", receiver.getName())
-                .setParameter("street", receiver.getAddress().getStreet())
-                .setParameter("zip", receiver.getAddress().getZip())
-                .setParameter("address_state", receiver.getAddress().getState()).getResultList();
-    } // TODO - Considerare tutto Receiver??
+        return entityManager
+                .createQuery(
+                        "SELECT w FROM Waybill w WHERE w.receiver.name = :name AND w.receiver.address = :address",
+                        Waybill.class)
+                .setParameter("name", receiver.getName()).setParameter("address", receiver.getAddress())
+                .getResultList();
+    }
 
 }

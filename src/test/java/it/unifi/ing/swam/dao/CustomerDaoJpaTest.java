@@ -24,7 +24,12 @@ public class CustomerDaoJpaTest extends JpaTest {
     protected void init() throws InitializationError {
 
         customer = ModelFactory.generateCustomer();
-        customer.setAddress(new Address());
+        Address address = new Address();
+        address.setStreet("street");
+        address.setCity("city");
+        address.setZip("zip");
+        address.setState("state");
+        customer.setAddress(address);
         customer.setState(State.ACTIVE);
         User operator = ModelFactory.generateUser();
         operator.addRole(ModelFactory.generateOperator());
@@ -54,7 +59,7 @@ public class CustomerDaoJpaTest extends JpaTest {
         List<Customer> result = customerDao.findByAddress(customer.getAddress());
         assertEquals(1, result.size());
         assertEquals(customer, result.get(0));
-    } // FIXME - Non fa!
+    }
 
     @Test
     @SuppressWarnings("deprecation")
