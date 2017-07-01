@@ -9,7 +9,6 @@ import org.junit.runners.model.InitializationError;
 
 import it.unifi.ing.swam.model.Driver;
 import it.unifi.ing.swam.model.ModelFactory;
-import it.unifi.ing.swam.model.Operator;
 import it.unifi.ing.swam.model.Truck;
 import it.unifi.ing.swam.model.User;
 
@@ -37,7 +36,7 @@ public class DriverDaoJpaTest extends JpaTest {
 
     @Test
     public void testSave() {
-        Operator driverSave = ModelFactory.generateOperator();
+        Driver driverSave = ModelFactory.generateDriver();
 
         driverDao.save(driverSave);
 

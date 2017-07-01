@@ -13,6 +13,7 @@ import it.unifi.ing.swam.model.ModelFactory;
 import it.unifi.ing.swam.model.Waybill;
 
 public class ItemDaoJpaTest extends JpaTest {
+
     ItemDao itemDao;
 
     Item item;

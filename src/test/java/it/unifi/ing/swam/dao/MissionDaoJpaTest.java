@@ -15,6 +15,7 @@ import it.unifi.ing.swam.model.ModelFactory;
 import it.unifi.ing.swam.model.User;
 
 public class MissionDaoJpaTest extends JpaTest {
+
     MissionDao missionDao;
 
     Mission mission;
@@ -60,7 +61,7 @@ public class MissionDaoJpaTest extends JpaTest {
         List<Mission> result = missionDao.findByDriver(user);
         assertEquals(1, result.size());
         assertEquals(mission, result.get(0));
-    } // FIXME - Non fa!
+    }
 
     @Test
     public void testFindByDriverThrowsIllegalArgumentException() {

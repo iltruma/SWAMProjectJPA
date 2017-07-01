@@ -20,7 +20,12 @@ public class AgencyDaoJpaTest extends JpaTest {
 
         agency = ModelFactory.generateAgency();
         agency.setName("name");
-        agency.setAddress(new Address());
+        Address address = new Address();
+        address.setStreet("street");
+        address.setCity("city");
+        address.setZip("zip");
+        address.setState("state");
+        agency.setAddress(address);
 
         entityManager.persist(agency);
 
@@ -46,6 +51,6 @@ public class AgencyDaoJpaTest extends JpaTest {
     @Test
     public void testFindByAddress() {
         assertEquals(agency, agencyDao.findByAddress(agency.getAddress()));
-    } // FIXME - Non fa!
+    }
 
 }
