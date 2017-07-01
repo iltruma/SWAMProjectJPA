@@ -33,7 +33,6 @@ public class ItemDaoJpaTest extends JpaTest {
 
         itemDao = new ItemDao();
         JpaTest.inject(itemDao, entityManager);
-
     }
 
     @Test

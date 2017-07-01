@@ -15,7 +15,7 @@ public class CustomerDao extends BaseDao {
     }
 
     public List<Customer> findByCustomerState(State customer_state) {
-        return entityManager.createQuery("FROM Customer WHERE customer_state = :customer_state", Customer.class)
+        return entityManager.createQuery("SELECT c FROM Customer c WHERE c.state = :customer_state", Customer.class)
                 .setParameter("customer_state", customer_state).getResultList();
     }
 

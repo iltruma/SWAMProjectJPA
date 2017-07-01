@@ -31,11 +31,10 @@ public class MissionDaoJpaTest extends JpaTest {
         driver.addMission(mission);
         user.addRole(driver);
 
-        entityManager.persist(user); //Test CASCADE
+        entityManager.persist(user); // Test CASCADE
 
         missionDao = new MissionDao();
         JpaTest.inject(missionDao, entityManager);
-
     }
 
     @Test

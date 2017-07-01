@@ -24,12 +24,10 @@ public class RoleDaoJpaTest extends JpaTest {
         User user = ModelFactory.generateUser();
         operator.setOwner(user);
 
-        entityManager.persist(operator);
-        entityManager.persist(user);
+        entityManager.persist(user); //Test CASCADE
 
         roleDao = new RoleDao();
         JpaTest.inject(roleDao, entityManager);
-
     }
 
     @Test

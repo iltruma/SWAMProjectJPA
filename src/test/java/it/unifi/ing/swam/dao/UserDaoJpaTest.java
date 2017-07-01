@@ -30,19 +30,16 @@ public class UserDaoJpaTest extends JpaTest {
         user.setAgency(agency);
         user.addRole(ModelFactory.generateOperator());
 
-        entityManager.persist(user);
         entityManager.persist(agency);
+        entityManager.persist(user);
 
         userDao = new UserDao();
         JpaTest.inject(userDao, entityManager);
-
     }
 
     @Test
     public void testSave() {
         User userSave = ModelFactory.generateUser();
-        userSave.setUsername("Operator");
-        userSave.setPassword("password");
         userSave.addRole(ModelFactory.generateOperator());
 
         userDao.save(userSave);

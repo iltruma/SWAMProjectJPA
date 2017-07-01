@@ -12,7 +12,7 @@ public class Address {
 	private String state;
 	private String zip;
 
-	protected Address() {
+	public Address() {
 	}
 
 	public Address(String street, String city, String state, String zip) {

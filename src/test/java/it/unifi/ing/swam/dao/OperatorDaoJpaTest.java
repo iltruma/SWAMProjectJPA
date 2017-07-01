@@ -20,14 +20,12 @@ public class OperatorDaoJpaTest extends JpaTest {
 
         operator = ModelFactory.generateOperator();
         User user = ModelFactory.generateUser();
-        operator.setOwner(user);
+        user.addRole(operator);
 
-        entityManager.persist(operator);
-        entityManager.persist(user);
+        entityManager.persist(user); // Test CASCADE
 
         operatorDao = new OperatorDao();
         JpaTest.inject(operatorDao, entityManager);
-
     }
 
     @Test
