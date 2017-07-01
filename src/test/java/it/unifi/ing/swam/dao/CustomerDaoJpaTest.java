@@ -1,7 +1,6 @@
 package it.unifi.ing.swam.dao;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -76,19 +75,11 @@ public class CustomerDaoJpaTest extends JpaTest {
         assertEquals(customer, result.get(0));
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testFindByOperatorThrowsIllegalArgumentException() {
-        boolean thrown = false;
-
-        try {
-            User customer = ModelFactory.generateUser();
-            customer.addRole(ModelFactory.generateDriver());
-            customerDao.findByOperator(customer);
-        } catch (IllegalArgumentException e) {
-            thrown = true;
-        }
-
-        assertTrue(thrown);
+        User customer = ModelFactory.generateUser();
+        customer.addRole(ModelFactory.generateDriver());
+        customerDao.findByOperator(customer);
     }
 
     @Test
