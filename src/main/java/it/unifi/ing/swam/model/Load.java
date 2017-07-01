@@ -41,6 +41,12 @@ public class Load {
         this.totalVolume += i.getVolume();
         this.totalWeight += i.getWeight();
     }
+    
+    public void removeItem(Item i) {
+        this.items.remove(i);
+        this.totalVolume -= i.getVolume();
+        this.totalWeight -= i.getWeight();
+    }
 
     public Integer getNumItems() {
         return items.size();
