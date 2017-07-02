@@ -105,13 +105,52 @@ public class UserTest {
 
 	}
 
-	public static class GetRolesMethodsTest {
-		
+	public static class otherMethodsTest {
+
 		@Before
 		public void setUp() {
 			UserTest.init();
 		}
-		
+
+		@Test
+		public void testAddRole() {
+			driverUser.addRole(new Customer(UUID.randomUUID().toString()));
+			assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
+				driverUser.addRole(new Driver(UUID.randomUUID().toString()));
+			});
+
+		}
+
+		@Test
+		public void testRemoveRole() {
+			// double remove call on Customer role
+			operatorDriverCustomerUser.removeRole(new Customer(UUID.randomUUID().toString()));
+			assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
+				operatorDriverCustomerUser.removeRole(new Customer(UUID.randomUUID().toString()));
+			}).withMessageContaining(RoleType.CUSTOMER.toString());
+
+			// double remove call on Driver role
+			operatorDriverCustomerUser.removeRole(new Driver(UUID.randomUUID().toString()));
+			assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
+				operatorDriverCustomerUser.removeRole(new Driver(UUID.randomUUID().toString()));
+			}).withMessageContaining(RoleType.DRIVER.toString());
+
+			// double remove call on Operator role
+			operatorDriverCustomerUser.removeRole(new Operator(UUID.randomUUID().toString()));
+			assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
+				operatorDriverCustomerUser.removeRole(new Operator(UUID.randomUUID().toString()));
+			}).withMessageContaining(RoleType.OPERATOR.toString());
+
+		}
+	}
+
+	public static class GetRolesMethodsTest {
+
+		@Before
+		public void setUp() {
+			UserTest.init();
+		}
+
 		@Test
 		public void testGetDriverRole() {
 			assertEquals(driverUser.getDriverRole().getType(), RoleType.DRIVER);
@@ -129,7 +168,7 @@ public class UserTest {
 				operatorCustomerUser.getDriverRole();
 			});
 		}
-		
+
 		@Test
 		public void testGetCustomerRole() {
 			assertEquals(customerUser.getCustomerRole().getType(), RoleType.CUSTOMER);
@@ -147,7 +186,7 @@ public class UserTest {
 				operatorDriverUser.getCustomerRole();
 			});
 		}
-		
+
 		@Test
 		public void testGetOperatorRole() {
 			assertEquals(operatorUser.getOperatorRole().getType(), RoleType.OPERATOR);
