@@ -11,18 +11,18 @@ public class UserDao extends BaseDao {
     }
 
     public User findByEmail(String email) {
-        return entityManager.createQuery("FROM User WHERE email = :email", User.class)
-                .setParameter("email", email).getSingleResult();
+        return entityManager.createQuery("FROM User WHERE email = :email", User.class).setParameter("email", email)
+                .getSingleResult();
     }
 
     public List<User> findByName(String name) {
-        return entityManager.createQuery("FROM User WHERE name = :name", User.class)
-                .setParameter("name", name).getResultList();
+        return entityManager.createQuery("FROM User WHERE name = :name", User.class).setParameter("name", name)
+                .getResultList();
     }
 
     public User findByPhone(String phone) {
-        return entityManager.createQuery("FROM User WHERE phone = :phone", User.class)
-                .setParameter("phone", phone).getSingleResult();
+        return entityManager.createQuery("FROM User WHERE phone = :phone", User.class).setParameter("phone", phone)
+                .getSingleResult();
     }
 
     public User findByUsername(String username) {
@@ -36,13 +36,14 @@ public class UserDao extends BaseDao {
     }
 
     public User findByLoginInfo(User user) {
-		List<User> result = entityManager.createQuery("FROM User u WHERE u.username = :username AND u.password = :pass", User.class)
-				.setParameter("username", user.getUsername()).setParameter("pass", user.getPassword()).setMaxResults(1).getResultList();
-		
-		if(result.isEmpty()) {
-			return null;
-		}
-		
-		return result.get(0);
-	}
+        List<User> result = entityManager
+                .createQuery("FROM User WHERE username = :username AND password = :pass", User.class)
+                .setParameter("username", user.getUsername()).setParameter("pass", user.getPassword()).setMaxResults(1)
+                .getResultList();
+        if (result.isEmpty()) {
+            return null;
+        }
+
+        return result.get(0);
+    }
 }

@@ -76,4 +76,9 @@ public class UserDaoJpaTest extends JpaTest {
         assertEquals(user, result.get(0));
     }
 
+    @Test
+    public void testFindByLoginInfo() {
+        assertEquals(user, userDao.findByLoginInfo(user));
+    }
+
 }

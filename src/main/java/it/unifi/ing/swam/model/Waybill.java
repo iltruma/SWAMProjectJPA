@@ -6,7 +6,6 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -57,7 +56,7 @@ public class Waybill extends BaseEntity {
     public void setOperator(User operator) throws IllegalArgumentException {
     	if(!operator.hasRole(RoleType.OPERATOR))
     		throw new IllegalArgumentException("operator has not the Operator role");
-        this.operator = operator;      
+        this.operator = operator;
     }
 
     public Receiver getReceiver() {
@@ -75,7 +74,7 @@ public class Waybill extends BaseEntity {
     public void setSender (User sender) throws IllegalArgumentException {
     	if(!sender.hasRole(RoleType.CUSTOMER))
     		throw new IllegalArgumentException("sender has not the Customer role");
-        this.sender = sender;    	
+        this.sender = sender;
     }
 
     public Load getLoad() {

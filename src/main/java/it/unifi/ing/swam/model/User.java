@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -93,7 +92,7 @@ public class User extends BaseEntity {
     public void setEmail(String email) {
         this.email = email;
     }
-    
+
     public Boolean hasRole(RoleType t){
     	Iterator<Role> roleIterator = this.getRoles().iterator();
     	Boolean hasType = false;
@@ -102,7 +101,7 @@ public class User extends BaseEntity {
     	}
     	return hasType;
     }
-    
+
     // Can only be called by a driver
     public Role getDriverRole() throws UnsupportedOperationException {
     	Iterator<Role> roleIterator = this.getRoles().iterator();
@@ -112,12 +111,12 @@ public class User extends BaseEntity {
     		 if(role.getType().equals(RoleType.DRIVER))
     			 driver = role;
     	}
-    	if(driver == null) 
+    	if(driver == null)
     		throw new UnsupportedOperationException("The User was not a Driver");
     	return driver;
-       
+
     }
-    
+
     // Can only be called by a Customer
     public Role getCustomerRole() throws UnsupportedOperationException{
     	Iterator<Role> roleIterator = this.getRoles().iterator();
@@ -127,12 +126,12 @@ public class User extends BaseEntity {
     		 if(role.getType().equals(RoleType.CUSTOMER))
     			 customer = role;
     	}
-    	if(customer == null) 
+    	if(customer == null)
     		throw new UnsupportedOperationException("The User was not a Customer");
     	return customer;
-       
+
     }
-    
+
     // Can only be called by an Operator
     public Role getOperatorRole() throws UnsupportedOperationException{
     	Iterator<Role> roleIterator = this.getRoles().iterator();
@@ -142,11 +141,10 @@ public class User extends BaseEntity {
     		 if(role.getType().equals(RoleType.OPERATOR))
     			 operator = role;
     	}
-    	if(operator == null) 
+    	if(operator == null)
     		throw new UnsupportedOperationException("The User was not an Operator");
     	return operator;
-       
-    }
 
+    }
 
 }
