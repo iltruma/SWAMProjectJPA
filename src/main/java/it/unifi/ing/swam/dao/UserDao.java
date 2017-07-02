@@ -35,4 +35,14 @@ public class UserDao extends BaseDao {
                 .setParameter("agency_id", agencyId).getResultList();
     }
 
+    public User findByLoginInfo(User user) {
+		List<User> result = entityManager.createQuery("FROM User u WHERE u.username = :username AND u.password = :pass", User.class)
+				.setParameter("username", user.getUsername()).setParameter("pass", user.getPassword()).setMaxResults(1).getResultList();
+		
+		if(result.isEmpty()) {
+			return null;
+		}
+		
+		return result.get(0);
+	}
 }
