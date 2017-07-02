@@ -60,7 +60,9 @@ public class Customer extends Role {
         return operator;
     }
 
-    public void setOperator(User operator) {
+    public void setOperator(User operator) throws IllegalArgumentException {
+        if(!operator.hasRole(RoleType.OPERATOR))
+            throw new IllegalArgumentException("operator has not the Operator role");
         this.operator = operator;
     }
 
