@@ -17,9 +17,9 @@ public abstract class Role extends BaseEntity {
 	
 	@ManyToOne
 	protected User owner;
-
+	
 	protected Role() {
-
+		
     }
 
     public Role(String uuid) {
@@ -38,7 +38,7 @@ public abstract class Role extends BaseEntity {
 		return owner;
 	}
 
-	public void setOwner(User owner) {
+	protected void setOwner(User owner) {
 		this.owner = owner;
 	}
 
