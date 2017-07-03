@@ -1,6 +1,7 @@
 package it.unifi.ing.swam.dao;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import java.util.List;
 
@@ -79,6 +80,11 @@ public class UserDaoJpaTest extends JpaTest {
     @Test
     public void testFindByLoginInfo() {
         assertEquals(user, userDao.findByLoginInfo(user));
+    }
+
+    @Test
+    public void testFindByLoginInfoFail() {
+        assertNull(userDao.findByLoginInfo(ModelFactory.generateUser()));
     }
 
 }
