@@ -1,6 +1,9 @@
 package it.unifi.ing.swam.controller;
 
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
@@ -44,7 +47,7 @@ public class LoginControllerTest {
 	}
 
 	@Test
-	public void testLogin() {
+	public void testLoginSuccess() {
 		when(userDao.findByLoginInfo(any(User.class))).thenReturn(user);
 		
 		String result = loginController.login(user);
@@ -52,6 +55,18 @@ public class LoginControllerTest {
 		assertTrue(result.contains("Successfull"));
 		assertEquals(user.getId(), userSession.getUserId());
 		assertTrue(userSession.isLoggedIn());
+	}
+	
+	@Test
+	public void testLoginFail() {
+		when(userDao.findByLoginInfo(any(User.class))).thenReturn(null);
+		
+		assertThatExceptionOfType(RuntimeException.class).isThrownBy(() -> {
+			loginController.login(user);
+		});
+		
+		assertNull(userSession.getUserId());
+		assertFalse(userSession.isLoggedIn());
 	}
 
 }
