@@ -1,6 +1,6 @@
 package it.unifi.ing.swam.model;
 
-import java.util.Date;
+import java.util.Calendar;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -12,9 +12,9 @@ import javax.persistence.TemporalType;
 public class Fare extends BaseEntity {
 
     @Temporal(TemporalType.DATE)
-    private Date startDate;
+    private Calendar startDate;
     @Temporal(TemporalType.DATE)
-    private Date endDate;
+    private Calendar endDate;
     private String zone;
     private String functionCost;
 
@@ -25,19 +25,19 @@ public class Fare extends BaseEntity {
         super(uuid);
     }
 
-    public Date getStartDate() {
+    public Calendar getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(Calendar startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public Calendar getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(Calendar endDate) {
         this.endDate = endDate;
     }
 

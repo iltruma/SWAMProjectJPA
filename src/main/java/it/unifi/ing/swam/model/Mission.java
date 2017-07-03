@@ -1,7 +1,7 @@
 package it.unifi.ing.swam.model;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -19,7 +19,7 @@ public class Mission extends BaseEntity {
     @JoinColumn(name="mission_id")
     private List<Waybill> waybills;
     @Temporal(TemporalType.DATE)
-    private Date date;
+    private Calendar date;
 
     public Mission() {
     }
@@ -37,11 +37,11 @@ public class Mission extends BaseEntity {
         this.waybills.add(w);
     }
 
-    public Date getDate() {
+    public Calendar getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Calendar date) {
         this.date = date;
     }
 

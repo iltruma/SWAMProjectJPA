@@ -3,7 +3,7 @@ package it.unifi.ing.swam.dao;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.Assert.assertEquals;
 
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import org.junit.Test;
@@ -27,7 +27,7 @@ public class MissionDaoJpaTest extends JpaTest {
         Driver driver = ModelFactory.generateDriver();
         user = ModelFactory.generateUser();
         mission = ModelFactory.generateMission();
-        Date date = new Date();
+        Calendar date = Calendar.getInstance();
         mission.setDate(date);
         driver.addMission(mission);
         user.addRole(driver);

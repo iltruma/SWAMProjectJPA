@@ -1,7 +1,9 @@
 package it.unifi.ing.swam.dao;
 
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
+
+import javax.persistence.TemporalType;
 
 import it.unifi.ing.swam.model.Mission;
 import it.unifi.ing.swam.model.RoleType;
@@ -27,9 +29,21 @@ public class MissionDao extends BaseDao {
             throw new IllegalArgumentException("The user is not a driver.");
     }
 
-    public Mission findByDate(Date date) {
-        return entityManager.createQuery("FROM Mission WHERE date = :date", Mission.class)
-                .setParameter("date", date).getSingleResult();
+    public Mission findByDate(Calendar date) {
+        return entityManager.createQuery("FROM Mission WHERE date = :date", Mission.class).setParameter("date", date)
+                .getSingleResult();
+    }
+
+    // Da qui metodi per controller.
+
+    public List<Mission> findByDriverAndDate(User driver, Calendar date) throws IllegalArgumentException {
+        if (driver.hasRole(RoleType.DRIVER)) {
+            return entityManager
+                    .createQuery("FROM Mission WHERE driver_id = :driver_id AND date = :date", Mission.class)
+                    .setParameter("driver_id", driver.getDriverRole().getId())
+                    .setParameter("date", date, TemporalType.DATE).getResultList();
+        } else
+            throw new IllegalArgumentException("The user is not a driver.");
     }
 
 }

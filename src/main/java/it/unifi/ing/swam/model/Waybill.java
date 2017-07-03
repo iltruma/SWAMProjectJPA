@@ -1,5 +1,6 @@
 package it.unifi.ing.swam.model;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Embedded;
@@ -27,7 +28,7 @@ public class Waybill extends BaseEntity {
     @Embedded
     private Load load;
     @Temporal(TemporalType.DATE)
-    private Date acceptDate;
+    private Calendar acceptDate;
     @Temporal(TemporalType.TIMESTAMP)
     private Date deliveryDate;
     private Float cost;
@@ -85,11 +86,11 @@ public class Waybill extends BaseEntity {
         this.load = load;
     }
 
-    public Date getAcceptDate() {
+    public Calendar getAcceptDate() {
         return acceptDate;
     }
 
-    public void setAcceptDate(Date acceptDate) {
+    public void setAcceptDate(Calendar acceptDate) {
         this.acceptDate = acceptDate;
     }
 

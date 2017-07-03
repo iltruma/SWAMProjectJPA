@@ -3,7 +3,6 @@ package it.unifi.ing.swam.dao;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.Assert.assertEquals;
 
-import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
@@ -54,9 +53,6 @@ public class WaybillDaoJpaTest extends JpaTest {
         waybill.setSender(sender);
         waybill.setReceiver(receiver);
         waybill.setTracking(Tracking.SHIPPING);
-        Date date = new Date();
-        date.setTime(1000000L);
-        waybill.setDeliveryDate(date);
 
         entityManager.persist(sender);
         entityManager.persist(operator);
@@ -156,13 +152,6 @@ public class WaybillDaoJpaTest extends JpaTest {
     @Test
     public void testFindByTracking() {
         List<Waybill> result = waybillDao.findByTracking(waybill.getTracking());
-        assertEquals(1, result.size());
-        assertEquals(waybill, result.get(0));
-    }
-
-    @Test
-    public void testFindByDeliveryDate() {
-        List<Waybill> result = waybillDao.findByDeliveryDate(waybill.getDeliveryDate());
         assertEquals(1, result.size());
         assertEquals(waybill, result.get(0));
     }

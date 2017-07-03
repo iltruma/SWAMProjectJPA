@@ -1,6 +1,5 @@
 package it.unifi.ing.swam.dao;
 
-import java.util.Date;
 import java.util.List;
 
 import it.unifi.ing.swam.model.Agency;
@@ -68,21 +67,51 @@ public class WaybillDao extends BaseDao {
                 .setParameter("tracking", tracking).getResultList();
     }
 
-    public List<Waybill> findByDeliveryDate(Date deliveryDate) {
-        return entityManager.createQuery("FROM Waybill WHERE deliveryDate = :deliveryDate", Waybill.class)
-                .setParameter("deliveryDate", deliveryDate).getResultList();
-    }
-
     /**
      * Usa solo nome e indirizzo in Receiver.
      */
     public List<Waybill> findByReceiver(Receiver receiver) {
         return entityManager
-                .createQuery(
-                        "SELECT w FROM Waybill w WHERE w.receiver.name = :name AND w.receiver.address = :address",
+                .createQuery("SELECT w FROM Waybill w WHERE w.receiver.name = :name AND w.receiver.address = :address",
                         Waybill.class)
                 .setParameter("name", receiver.getName()).setParameter("address", receiver.getAddress())
                 .getResultList();
+    }
+
+    // Da qui metodi per controller.
+
+    public List<Waybill> findProposedBySender(User sender) throws IllegalArgumentException {
+        if (sender.hasRole(RoleType.CUSTOMER)) {
+            return entityManager
+                    .createQuery("SELECT w FROM Waybill w WHERE w.sender = :sender AND w.operator = :operator",
+                            Waybill.class)
+                    .setParameter("sender", sender).setParameter("operator", null).getResultList();
+        } else
+            throw new IllegalArgumentException("The user is not a customer.");
+    }
+
+    public List<Waybill> findValidatedBySender(User sender) throws IllegalArgumentException {
+        if (sender.hasRole(RoleType.CUSTOMER)) {
+            return entityManager
+                    .createQuery("SELECT w FROM Waybill w WHERE w.sender = :sender AND w.operator != :operator",
+                            Waybill.class)
+                    .setParameter("sender", sender).setParameter("operator", null).getResultList();
+        } else
+            throw new IllegalArgumentException("The user is not a customer.");
+    }
+
+    public List<Waybill> findProposedByAgency(Agency agency) {
+        return entityManager
+                .createQuery("SELECT w FROM Waybill w WHERE w.sender.agency = :agency AND w.operator = :operator",
+                        Waybill.class)
+                .setParameter("agency", agency).setParameter("operator", null).getResultList();
+    }
+
+    public List<Waybill> findUnassignedToDriver(Agency agency) {
+        return entityManager
+                .createQuery("SELECT w FROM Waybill w WHERE w.sender.agency = :agency AND mission_id = :mission",
+                        Waybill.class)
+                .setParameter("agency", agency).setParameter("mission", null).getResultList();
     }
 
 }
