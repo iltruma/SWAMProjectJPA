@@ -1,5 +1,6 @@
 package it.unifi.ing.swam.dao;
 
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Date;
@@ -62,11 +63,14 @@ public class MissionDaoJpaTest extends JpaTest {
         assertEquals(mission, result.get(0));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testFindByDriverThrowsIllegalArgumentException() {
         User customer = ModelFactory.generateUser();
         customer.addRole(ModelFactory.generateCustomer());
-        missionDao.findByDriver(customer);
+
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
+            missionDao.findByDriver(customer);
+        });
 
     }
 
