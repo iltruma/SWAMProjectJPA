@@ -19,17 +19,17 @@ import it.unifi.ing.swam.dao.UserDao;
 import it.unifi.ing.swam.model.ModelFactory;
 import it.unifi.ing.swam.model.User;
 
-public class LoginControllerTest {
+public class LoginPageControllerTest {
 	
 
-	private LoginController loginController;
+	private LoginPageController loginController;
 	private UserDao userDao;
 	private UserSessionBean userSession;
 	private User user;
 
 	@Before
 	public void init() throws InitializationError {
-		loginController = new LoginController();
+		loginController = new LoginPageController();
 		userSession = new UserSessionBean();
 		userDao = mock(UserDao.class);
 		
@@ -53,7 +53,7 @@ public class LoginControllerTest {
 		String result = loginController.login(user);
 		
 		assertTrue(result.contains("Successfull"));
-		assertEquals(user.getId(), userSession.getUserId());
+		assertEquals(user, userSession.getUser());
 		assertTrue(userSession.isLoggedIn());
 	}
 	
@@ -65,7 +65,7 @@ public class LoginControllerTest {
 			loginController.login(user);
 		});
 		
-		assertNull(userSession.getUserId());
+		assertNull(userSession.getUser());
 		assertFalse(userSession.isLoggedIn());
 	}
 

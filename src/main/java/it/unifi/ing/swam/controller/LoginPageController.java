@@ -8,7 +8,7 @@ import it.unifi.ing.swam.dao.UserDao;
 import it.unifi.ing.swam.model.User;
 
 @Model
-public class LoginController {
+public class LoginPageController {
 	
 	@Inject
 	private UserDao userDao;
@@ -23,7 +23,7 @@ public class LoginController {
 			throw new RuntimeException("Login Failed");
 		}
 		
-		userSession.setUserId(loggedUser.getId());
+		userSession.setUser(loggedUser);
 		return "Login Successfull";
 	}
 
