@@ -5,6 +5,7 @@ import javax.inject.Inject;
 
 import it.unifi.ing.swam.bean.UserSessionBean;
 import it.unifi.ing.swam.dao.UserDao;
+import it.unifi.ing.swam.model.ModelFactory;
 import it.unifi.ing.swam.model.User;
 
 @Model
@@ -15,10 +16,16 @@ public class LoginPageController {
 	
 	@Inject
 	private UserSessionBean userSession;
-
 	
-	public String login(User user) {
-		User loggedUser = userDao.findByLoginInfo(user);
+	private User userData;
+	
+	LoginPageController(){
+		userData = ModelFactory.generateUser();
+	}
+	
+	
+	public String login() {
+		User loggedUser = userDao.findByLoginInfo(userData);
 		if( loggedUser == null ) {
 			throw new RuntimeException("Login Failed");
 		}
@@ -26,5 +33,5 @@ public class LoginPageController {
 		userSession.setUser(loggedUser);
 		return "Login Successfull";
 	}
-
+	
 }

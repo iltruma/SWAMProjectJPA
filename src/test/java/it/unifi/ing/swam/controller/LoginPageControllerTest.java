@@ -50,7 +50,7 @@ public class LoginPageControllerTest {
 	public void testLoginSuccess() {
 		when(userDao.findByLoginInfo(any(User.class))).thenReturn(user);
 		
-		String result = loginController.login(user);
+		String result = loginController.login();
 		
 		assertTrue(result.contains("Successfull"));
 		assertEquals(user, userSession.getUser());
@@ -62,7 +62,7 @@ public class LoginPageControllerTest {
 		when(userDao.findByLoginInfo(any(User.class))).thenReturn(null);
 		
 		assertThatExceptionOfType(RuntimeException.class).isThrownBy(() -> {
-			loginController.login(user);
+			loginController.login();
 		});
 		
 		assertNull(userSession.getUser());
