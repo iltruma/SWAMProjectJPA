@@ -2,8 +2,10 @@ package it.unifi.ing.swam.dao;
 
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
@@ -77,6 +79,34 @@ public class MissionDaoJpaTest extends JpaTest {
     @Test
     public void testFindByDate() {
         assertEquals(mission, missionDao.findByDate(mission.getDate()));
+
+        Calendar date = Calendar.getInstance();
+        date.setTime(new Date(283743265L));
+        assertNull(missionDao.findByDate(date));
+    }
+
+    @Test
+    public void testFindByDriverAndDate() {
+        assertEquals(mission, missionDao.findByDriverAndDate(user, mission.getDate()));
+
+        Calendar newDate = Calendar.getInstance();
+        newDate.setTime(new Date(234235452L));
+        assertNull(missionDao.findByDriverAndDate(user, newDate));
+
+        User newUser = ModelFactory.generateUser();
+        newUser.addRole(ModelFactory.generateDriver());
+        assertNull(missionDao.findByDriverAndDate(newUser, mission.getDate()));
+    }
+
+    @Test
+    public void testFindByDriverAndDateThrowsIllegalArgumentException() {
+        User customer = ModelFactory.generateUser();
+        customer.addRole(ModelFactory.generateCustomer());
+
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
+            missionDao.findByDriverAndDate(customer, mission.getDate());
+        });
+
     }
 
 }

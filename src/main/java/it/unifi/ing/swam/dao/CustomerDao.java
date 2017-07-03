@@ -40,13 +40,20 @@ public class CustomerDao extends BaseDao {
 
     @Deprecated
     public Customer findByUserId(Long ownerId) {
-        return entityManager.createQuery("FROM Customer WHERE owner_id = :owner_id", Customer.class)
-                .setParameter("owner_id", ownerId).getSingleResult();
+        List<Customer> result = entityManager.createQuery("FROM Customer WHERE owner_id = :owner_id", Customer.class)
+                .setParameter("owner_id", ownerId).getResultList();
+        if (!result.isEmpty())
+            return result.get(0);
+        return null;
     }
 
     public Customer findByUser(User owner) {
-        return entityManager.createQuery("SELECT c FROM Customer c WHERE c.owner = :owner", Customer.class)
-                .setParameter("owner", owner).getSingleResult();
+        List<Customer> result = entityManager
+                .createQuery("SELECT c FROM Customer c WHERE c.owner = :owner", Customer.class)
+                .setParameter("owner", owner).getResultList();
+        if (!result.isEmpty())
+            return result.get(0);
+        return null;
     }
 
 }

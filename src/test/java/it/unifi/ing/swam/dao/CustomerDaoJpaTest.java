@@ -2,6 +2,7 @@ package it.unifi.ing.swam.dao;
 
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class CustomerDaoJpaTest extends JpaTest {
     CustomerDao customerDao;
 
     Customer customer;
+    User otherUser;
 
     @Override
     protected void init() throws InitializationError {
@@ -37,8 +39,11 @@ public class CustomerDaoJpaTest extends JpaTest {
         User user = ModelFactory.generateUser();
         user.addRole(customer);
 
+        otherUser = ModelFactory.generateUser();
+
         entityManager.persist(operator);
         entityManager.persist(user); // Test CASCADE
+        entityManager.persist(otherUser);
 
         customerDao = new CustomerDao();
         JpaTest.inject(customerDao, entityManager);
@@ -97,10 +102,14 @@ public class CustomerDaoJpaTest extends JpaTest {
     @SuppressWarnings("deprecation")
     public void testFindByUserId() {
         assertEquals(customer, customerDao.findByUserId(customer.getOwner().getId()));
+
+        assertNull(customerDao.findByUserId(customer.getId()));
     }
 
     @Test
     public void testFindByUser() {
         assertEquals(customer, customerDao.findByUser(customer.getOwner()));
+
+        assertNull(customerDao.findByUser(otherUser));
     }
 }

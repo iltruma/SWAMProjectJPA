@@ -24,6 +24,9 @@ public class WaybillDaoJpaTest extends JpaTest {
     Waybill waybill;
     Mission mission;
 
+    Waybill proposedWaybill;
+    Waybill validatedWaybill;
+
     @Override
     protected void init() throws InitializationError {
 
@@ -34,13 +37,15 @@ public class WaybillDaoJpaTest extends JpaTest {
 
         User sender = ModelFactory.generateUser();
         sender.addRole(ModelFactory.generateCustomer());
+        Agency departureAgency = ModelFactory.generateAgency();
+        sender.setAgency(departureAgency);
 
         mission = ModelFactory.generateMission();
         mission.addWaybill(waybill);
 
         Receiver receiver = new Receiver();
-        Agency agency = ModelFactory.generateAgency();
-        receiver.setDestinationAgency(agency);
+        Agency destinationAgency = ModelFactory.generateAgency();
+        receiver.setDestinationAgency(destinationAgency);
         receiver.setName("name");
         Address address = new Address();
         address.setStreet("street");
@@ -55,10 +60,33 @@ public class WaybillDaoJpaTest extends JpaTest {
         waybill.setTracking(Tracking.SHIPPING);
 
         entityManager.persist(sender);
+        entityManager.persist(departureAgency);
         entityManager.persist(operator);
-        entityManager.persist(agency);
+        entityManager.persist(destinationAgency);
         entityManager.persist(waybill);
         entityManager.persist(mission);
+
+        proposedWaybill = ModelFactory.generateWaybill();
+        User otherSender = ModelFactory.generateUser();
+        otherSender.addRole(ModelFactory.generateCustomer());
+        otherSender.setAgency(departureAgency);
+        proposedWaybill.setSender(otherSender);
+
+        validatedWaybill = ModelFactory.generateWaybill();
+        User justAnotherSender = ModelFactory.generateUser();
+        justAnotherSender.addRole(ModelFactory.generateCustomer());
+        validatedWaybill.setSender(justAnotherSender);
+        User otherOperator = ModelFactory.generateUser();
+        otherOperator.addRole(ModelFactory.generateOperator());
+        validatedWaybill.setOperator(otherOperator);
+        mission.addWaybill(validatedWaybill);
+
+
+        entityManager.persist(proposedWaybill);
+        entityManager.persist(otherSender);
+        entityManager.persist(justAnotherSender);
+        entityManager.persist(otherOperator);
+        entityManager.persist(validatedWaybill);
 
         waybillDao = new WaybillDao();
         JpaTest.inject(waybillDao, entityManager);
@@ -77,7 +105,7 @@ public class WaybillDaoJpaTest extends JpaTest {
     @SuppressWarnings("deprecation")
     public void testFindByMissionId() {
         List<Waybill> result = waybillDao.findByMissionId(mission.getId());
-        assertEquals(1, result.size());
+        assertEquals(2, result.size());
         assertEquals(waybill, result.get(0));
     }
 
@@ -161,6 +189,67 @@ public class WaybillDaoJpaTest extends JpaTest {
         List<Waybill> result = waybillDao.findByReceiver(waybill.getReceiver());
         assertEquals(1, result.size());
         assertEquals(waybill, result.get(0));
+    }
+
+    // Da qui metodi per controller.
+
+    @Test
+    public void testFindProposedBySender() {
+        List<Waybill> result = waybillDao.findProposedBySender(proposedWaybill.getSender());
+        assertEquals(1, result.size());
+        assertEquals(proposedWaybill, result.get(0));
+
+        result = waybillDao.findProposedBySender(validatedWaybill.getSender());
+        assertEquals(0, result.size());
+    }
+
+    @Test
+    public void testFindProposedBySenderThrowsIllegalArgumentException() {
+        User driver = ModelFactory.generateUser();
+        driver.addRole(ModelFactory.generateDriver());
+
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
+            waybillDao.findProposedBySender(driver);
+        });
+
+    }
+
+    @Test
+    public void testFindValidatedBySender() {
+        List<Waybill> result = waybillDao.findValidatedBySender(validatedWaybill.getSender());
+        assertEquals(1, result.size());
+        assertEquals(validatedWaybill, result.get(0));
+
+        result = waybillDao.findValidatedBySender(proposedWaybill.getSender());
+        assertEquals(0, result.size());
+    }
+
+    @Test
+    public void testFindValidatedBySenderThrowsIllegalArgumentException() {
+        User driver = ModelFactory.generateUser();
+        driver.addRole(ModelFactory.generateDriver());
+
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
+            waybillDao.findValidatedBySender(driver);
+        });
+
+    }
+
+    @Test
+    public void testFindProposedByAgency() {
+        List<Waybill> result = waybillDao.findProposedByAgency(proposedWaybill.getSender().getAgency());
+        assertEquals(1, result.size());
+        assertEquals(proposedWaybill, result.get(0));
+    }
+
+    @Test
+    public void testUnassignedToDriver() {
+        List<Waybill> result = waybillDao.findUnassignedToDriver(proposedWaybill.getSender().getAgency());
+        assertEquals(1, result.size());
+        assertEquals(proposedWaybill, result.get(0));
+
+        result = waybillDao.findUnassignedToDriver(validatedWaybill.getSender().getAgency());
+        assertEquals(0, result.size());
     }
 
 }

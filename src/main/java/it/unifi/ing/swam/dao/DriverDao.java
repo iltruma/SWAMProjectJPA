@@ -14,8 +14,11 @@ public class DriverDao extends BaseDao {
 
     // TODO - Scegliere solo alcuni campi di Truck.
     public Driver findByTruck(Truck truck) {
-        return entityManager.createQuery("SELECT d FROM Driver d WHERE d.truck = :truck", Driver.class)
-                .setParameter("truck", truck).getSingleResult();
+        List<Driver> result = entityManager.createQuery("SELECT d FROM Driver d WHERE d.truck = :truck", Driver.class)
+                .setParameter("truck", truck).getResultList();
+        if (!result.isEmpty())
+            return result.get(0);
+        return null;
     }
 
     public List<Driver> findByZone(String zone) {
@@ -25,13 +28,19 @@ public class DriverDao extends BaseDao {
 
     @Deprecated
     public Driver findByUserId(Long ownerId) {
-        return entityManager.createQuery("FROM Driver WHERE owner_id = :owner_id", Driver.class)
-                .setParameter("owner_id", ownerId).getSingleResult();
+        List<Driver> result = entityManager.createQuery("FROM Driver WHERE owner_id = :owner_id", Driver.class)
+                .setParameter("owner_id", ownerId).getResultList();
+        if (!result.isEmpty())
+            return result.get(0);
+        return null;
     }
 
     public Driver findByUser(User owner) {
-        return entityManager.createQuery("SELECT d FROM Driver d WHERE d.owner = :owner", Driver.class)
-                .setParameter("owner", owner).getSingleResult();
+        List<Driver> result = entityManager.createQuery("SELECT d FROM Driver d WHERE d.owner = :owner", Driver.class)
+                .setParameter("owner", owner).getResultList();
+        if (!result.isEmpty())
+            return result.get(0);
+        return null;
     }
 
 }

@@ -1,6 +1,7 @@
 package it.unifi.ing.swam.dao;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 import org.junit.runners.model.InitializationError;
@@ -14,6 +15,7 @@ public class OperatorDaoJpaTest extends JpaTest {
     OperatorDao operatorDao;
 
     Operator operator;
+    User otherUser;
 
     @Override
     protected void init() throws InitializationError {
@@ -22,7 +24,10 @@ public class OperatorDaoJpaTest extends JpaTest {
         User user = ModelFactory.generateUser();
         user.addRole(operator);
 
+        otherUser = ModelFactory.generateUser();
+
         entityManager.persist(user); // Test CASCADE
+        entityManager.persist(otherUser);
 
         operatorDao = new OperatorDao();
         JpaTest.inject(operatorDao, entityManager);
@@ -42,10 +47,14 @@ public class OperatorDaoJpaTest extends JpaTest {
     @SuppressWarnings("deprecation")
     public void testFindByUserId() {
         assertEquals(operator, operatorDao.findByUserId(operator.getOwner().getId()));
+
+        assertNull(operatorDao.findByUserId(operator.getId()));
     }
 
     @Test
     public void testFindByUser() {
         assertEquals(operator, operatorDao.findByUser(operator.getOwner()));
+
+        assertNull(operatorDao.findByUser(otherUser));
     }
 }

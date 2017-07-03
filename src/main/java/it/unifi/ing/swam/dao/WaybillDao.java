@@ -82,10 +82,8 @@ public class WaybillDao extends BaseDao {
 
     public List<Waybill> findProposedBySender(User sender) throws IllegalArgumentException {
         if (sender.hasRole(RoleType.CUSTOMER)) {
-            return entityManager
-                    .createQuery("SELECT w FROM Waybill w WHERE w.sender = :sender AND w.operator = :operator",
-                            Waybill.class)
-                    .setParameter("sender", sender).setParameter("operator", null).getResultList();
+            return entityManager.createQuery("SELECT w FROM Waybill w WHERE w.sender = :sender AND w.operator IS NULL",
+                    Waybill.class).setParameter("sender", sender).getResultList();
         } else
             throw new IllegalArgumentException("The user is not a customer.");
     }
@@ -93,25 +91,25 @@ public class WaybillDao extends BaseDao {
     public List<Waybill> findValidatedBySender(User sender) throws IllegalArgumentException {
         if (sender.hasRole(RoleType.CUSTOMER)) {
             return entityManager
-                    .createQuery("SELECT w FROM Waybill w WHERE w.sender = :sender AND w.operator != :operator",
+                    .createQuery("SELECT w FROM Waybill w WHERE w.sender = :sender AND w.operator IS NOT NULL",
                             Waybill.class)
-                    .setParameter("sender", sender).setParameter("operator", null).getResultList();
+                    .setParameter("sender", sender).getResultList();
         } else
             throw new IllegalArgumentException("The user is not a customer.");
     }
 
     public List<Waybill> findProposedByAgency(Agency agency) {
         return entityManager
-                .createQuery("SELECT w FROM Waybill w WHERE w.sender.agency = :agency AND w.operator = :operator",
+                .createQuery("SELECT w FROM Waybill w WHERE w.sender.agency = :agency AND w.operator IS NULL",
                         Waybill.class)
-                .setParameter("agency", agency).setParameter("operator", null).getResultList();
+                .setParameter("agency", agency).getResultList();
     }
 
     public List<Waybill> findUnassignedToDriver(Agency agency) {
         return entityManager
-                .createQuery("SELECT w FROM Waybill w WHERE w.sender.agency = :agency AND mission_id = :mission",
+                .createQuery("SELECT w FROM Waybill w WHERE w.sender.agency = :agency AND mission_id IS NULL",
                         Waybill.class)
-                .setParameter("agency", agency).setParameter("mission", null).getResultList();
+                .setParameter("agency", agency).getResultList();
     }
 
 }

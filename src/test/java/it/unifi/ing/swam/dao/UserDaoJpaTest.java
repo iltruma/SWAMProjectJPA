@@ -51,16 +51,22 @@ public class UserDaoJpaTest extends JpaTest {
     @Test
     public void testFindByEmail() {
         assertEquals(user, userDao.findByEmail(user.getEmail()));
+
+        assertNull(userDao.findByEmail(new String("email2")));
     }
 
     @Test
     public void testFindByPhone() {
         assertEquals(user, userDao.findByPhone(user.getPhone()));
+
+        assertNull(userDao.findByPhone(new String("phone2")));
     }
 
     @Test
     public void testFindByUsername() {
         assertEquals(user, userDao.findByUsername(user.getUsername()));
+
+        assertNull(userDao.findByUsername(new String("username2")));
     }
 
     @Test

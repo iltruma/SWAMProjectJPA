@@ -1,6 +1,7 @@
 package it.unifi.ing.swam.dao;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ public class DriverDaoJpaTest extends JpaTest {
     DriverDao driverDao;
 
     Driver driver;
+    User otherUser;
 
     @Override
     protected void init() throws InitializationError {
@@ -28,7 +30,10 @@ public class DriverDaoJpaTest extends JpaTest {
         User user = ModelFactory.generateUser();
         user.addRole(driver);
 
+        otherUser = ModelFactory.generateUser();
+
         entityManager.persist(user); // Test CASCADE
+        entityManager.persist(otherUser);
 
         driverDao = new DriverDao();
         JpaTest.inject(driverDao, entityManager);
@@ -59,10 +64,14 @@ public class DriverDaoJpaTest extends JpaTest {
     @SuppressWarnings("deprecation")
     public void testFindByUserId() {
         assertEquals(driver, driverDao.findByUserId(driver.getOwner().getId()));
+
+        assertNull(driverDao.findByUserId(driver.getId()));
     }
 
     @Test
     public void testFindByUser() {
         assertEquals(driver, driverDao.findByUser(driver.getOwner()));
+
+        assertNull(driverDao.findByUser(otherUser));
     }
 }

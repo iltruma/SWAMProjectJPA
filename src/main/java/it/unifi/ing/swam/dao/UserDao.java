@@ -11,8 +11,11 @@ public class UserDao extends BaseDao {
     }
 
     public User findByEmail(String email) {
-        return entityManager.createQuery("FROM User WHERE email = :email", User.class).setParameter("email", email)
-                .getSingleResult();
+        List<User> result = entityManager.createQuery("FROM User WHERE email = :email", User.class)
+                .setParameter("email", email).getResultList();
+        if (!result.isEmpty())
+            return result.get(0);
+        return null;
     }
 
     public List<User> findByName(String name) {
@@ -21,13 +24,19 @@ public class UserDao extends BaseDao {
     }
 
     public User findByPhone(String phone) {
-        return entityManager.createQuery("FROM User WHERE phone = :phone", User.class).setParameter("phone", phone)
-                .getSingleResult();
+        List<User> result = entityManager.createQuery("FROM User WHERE phone = :phone", User.class)
+                .setParameter("phone", phone).getResultList();
+        if (!result.isEmpty())
+            return result.get(0);
+        return null;
     }
 
     public User findByUsername(String username) {
-        return entityManager.createQuery("FROM User WHERE username = :username", User.class)
-                .setParameter("username", username).getSingleResult();
+        List<User> result = entityManager.createQuery("FROM User WHERE username = :username", User.class)
+                .setParameter("username", username).getResultList();
+        if (!result.isEmpty())
+            return result.get(0);
+        return null;
     }
 
     public List<User> findByAgencyId(Long agencyId) {
@@ -40,10 +49,8 @@ public class UserDao extends BaseDao {
                 .createQuery("FROM User WHERE username = :username AND password = :pass", User.class)
                 .setParameter("username", user.getUsername()).setParameter("pass", user.getPassword()).setMaxResults(1)
                 .getResultList();
-        if (result.isEmpty()) {
-            return null;
-        }
-
-        return result.get(0);
+        if (!result.isEmpty())
+            return result.get(0);
+        return null;
     }
 }

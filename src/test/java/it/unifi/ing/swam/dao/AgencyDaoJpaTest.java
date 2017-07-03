@@ -1,6 +1,7 @@
 package it.unifi.ing.swam.dao;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 import org.junit.runners.model.InitializationError;
@@ -46,11 +47,20 @@ public class AgencyDaoJpaTest extends JpaTest {
     @Test
     public void testFindByName() {
         assertEquals(agency, agencyDao.findByName(agency.getName()));
+
+        assertNull(agencyDao.findByName(new String("name2")));
     }
 
     @Test
     public void testFindByAddress() {
         assertEquals(agency, agencyDao.findByAddress(agency.getAddress()));
+
+        Address address = new Address();
+        address.setStreet("street2");
+        address.setCity("city2");
+        address.setZip("zip2");
+        address.setState("state2");
+        assertNull(agencyDao.findByAddress(address));
     }
 
 }
