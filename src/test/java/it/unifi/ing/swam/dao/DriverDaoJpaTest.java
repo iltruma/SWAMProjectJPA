@@ -11,6 +11,7 @@ import org.junit.runners.model.InitializationError;
 import it.unifi.ing.swam.model.Driver;
 import it.unifi.ing.swam.model.ModelFactory;
 import it.unifi.ing.swam.model.Truck;
+import it.unifi.ing.swam.model.TruckType;
 import it.unifi.ing.swam.model.User;
 
 public class DriverDaoJpaTest extends JpaTest {
@@ -25,6 +26,12 @@ public class DriverDaoJpaTest extends JpaTest {
 
         driver = ModelFactory.generateDriver();
         Truck truck = new Truck();
+        truck.setBrand("brand");
+        truck.setCapacity(Float.valueOf(10F));
+        truck.setModel("model");
+        truck.setRegistrationYear(2017);
+        truck.setVolume(Float.valueOf(10F));
+        truck.setType(TruckType.VAN);
         driver.setTruck(truck);
         driver.setZone("zone");
         User user = ModelFactory.generateUser();
@@ -49,8 +56,11 @@ public class DriverDaoJpaTest extends JpaTest {
                 .setParameter("driver", driverSave).getSingleResult());
     }
 
+    @Test
     public void testFindByTruck() {
         assertEquals(driver, driverDao.findByTruck(driver.getTruck()));
+
+        assertNull(driverDao.findByTruck(new Truck()));
     }
 
     @Test

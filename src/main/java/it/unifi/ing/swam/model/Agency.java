@@ -16,6 +16,7 @@ public class Agency extends BaseEntity {
 	private String description;
 
 	protected Agency() {
+
 	}
 
 	public Agency(String uuid) {

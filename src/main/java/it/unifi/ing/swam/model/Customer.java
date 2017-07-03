@@ -32,6 +32,7 @@ public class Customer extends Role {
 
 
     protected Customer() {
+
     }
 
     public Customer(String uuid) {

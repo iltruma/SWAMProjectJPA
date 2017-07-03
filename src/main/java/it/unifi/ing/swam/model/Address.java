@@ -13,6 +13,7 @@ public class Address {
 	private String zip;
 
 	public Address() {
+
 	}
 
 	public Address(String street, String city, String state, String zip) {
