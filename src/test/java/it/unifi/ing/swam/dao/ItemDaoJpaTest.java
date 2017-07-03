@@ -40,7 +40,9 @@ public class ItemDaoJpaTest extends JpaTest {
     public void testSave() {
         Item itemSave = ModelFactory.generateItem();
 
-        itemDao.save(itemSave);
+        itemDao.save(itemSave); // Persist
+
+        itemDao.save(itemSave); // Merge
 
         assertEquals(itemSave, entityManager.createQuery("FROM Item i WHERE i = :item", Item.class)
                 .setParameter("item", itemSave).getSingleResult());

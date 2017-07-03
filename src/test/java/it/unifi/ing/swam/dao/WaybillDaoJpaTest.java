@@ -1,5 +1,6 @@
 package it.unifi.ing.swam.dao;
 
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Date;
@@ -99,11 +100,14 @@ public class WaybillDaoJpaTest extends JpaTest {
         assertEquals(waybill, result.get(0));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testFindBySenderThrowsIllegalArgumentException() {
         User driver = ModelFactory.generateUser();
         driver.addRole(ModelFactory.generateDriver());
-        waybillDao.findBySender(driver);
+
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
+            waybillDao.findBySender(driver);
+        });
 
     }
 
@@ -122,11 +126,14 @@ public class WaybillDaoJpaTest extends JpaTest {
         assertEquals(waybill, result.get(0));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testFindByOperatorThrowsIllegalArgumentException() {
         User driver = ModelFactory.generateUser();
         driver.addRole(ModelFactory.generateDriver());
-        waybillDao.findByOperator(driver);
+
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
+            waybillDao.findByOperator(driver);
+        });
 
     }
 
