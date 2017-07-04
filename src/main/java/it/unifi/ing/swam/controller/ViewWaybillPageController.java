@@ -18,36 +18,36 @@ import it.unifi.ing.swam.model.Waybill;
 
 @Model
 public class ViewWaybillPageController {
-	
+
 	@Inject
 	private WaybillDao waybillDao;
-	
+
 	@Inject
 	private RoleDao roleDao;
-	
+
 	@Inject
 	private MissionDao missionDao;
-	
+
 	@Inject
 	private UserSessionBean userSession;
-	
+
 	@Inject @HttpParam("id")
 	private String waybillId;
-	
+
 	@Inject @HttpParam("roleId")
 	private String roleId;
-	
+
 	private Waybill waybill;
-	
+
 	public Waybill getWaybill(){
 		if (waybill == null){
 			initWaybill();
 		}
 		return waybill;
 	}
-	
+
 	protected void initWaybill() {
-		
+
 		if(StringUtils.isEmpty(waybillId)) {
 			throw new IllegalArgumentException("waybill id not found");
 		}
@@ -58,29 +58,29 @@ public class ViewWaybillPageController {
 			Long id = Long.valueOf(waybillId);
 			waybill = waybillDao.findById(id);
 			User user = userSession.getUser();
-			Role currentRole = roleDao.findbyId(Long.valueOf(roleId));
-			
+			Role currentRole = roleDao.findById(Long.valueOf(roleId));
+
 			if(user.isCustomer() && user.getCustomerRole().equals(currentRole) && !waybill.getSender().equals(user)){
 				throw new IllegalStateException("you can't view this waybill");
 			}
-			
+
 			else if(user.isOperator() && user.getOperatorRole().equals(currentRole) && !waybill.getOperator().equals(user)){
 				throw new IllegalStateException("you can't view this waybill");
 			}
-			
+
 			else if(user.isDriver() && user.getOperatorRole().equals(currentRole) && !missionDao.findByDriverAndDate(user, Calendar.getInstance()).getWaybills().contains(waybill)){
 				throw new IllegalStateException("you can't view this waybill");
 			}
-			
-			
+
+
 		} catch (NumberFormatException nfe) {
 			throw new IllegalArgumentException("id not a number");
 		}
 	}
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
 }

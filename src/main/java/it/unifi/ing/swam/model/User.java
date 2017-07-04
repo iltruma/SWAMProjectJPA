@@ -51,6 +51,7 @@ public class User extends BaseEntity {
 		this.password = password;
 	}
 
+	@Deprecated
 	public List<Role> getRoles() {
 		return roles;
 	}
@@ -95,15 +96,15 @@ public class User extends BaseEntity {
 		}
 		return hasType;
 	}
-	
+
 	public Boolean isCustomer(){
 		return this.hasRole(Role.Type.CUSTOMER);
 	}
-	
+
 	public Boolean isOperator(){
 		return this.hasRole(Role.Type.OPERATOR);
 	}
-	
+
 	public Boolean isDriver(){
 		return this.hasRole(Role.Type.DRIVER);
 	}

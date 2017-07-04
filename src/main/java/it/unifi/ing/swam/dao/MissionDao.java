@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.TemporalType;
 
 import it.unifi.ing.swam.model.Mission;
-import it.unifi.ing.swam.model.RoleType;
 import it.unifi.ing.swam.model.User;
 
 public class MissionDao extends BaseDao {
@@ -22,7 +21,7 @@ public class MissionDao extends BaseDao {
     }
 
     public List<Mission> findByDriver(User driver) throws IllegalArgumentException {
-        if (driver.hasRole(RoleType.DRIVER)) {
+        if (driver.isDriver()) {
             return entityManager.createQuery("FROM Mission WHERE driver_id = :driver_id", Mission.class)
                     .setParameter("driver_id", driver.getDriverRole().getId()).getResultList();
         } else
@@ -40,7 +39,7 @@ public class MissionDao extends BaseDao {
     // Da qui metodi per controller.
 
     public Mission findByDriverAndDate(User driver, Calendar date) throws IllegalArgumentException {
-        if (driver.hasRole(RoleType.DRIVER)) {
+        if (driver.isDriver()) {
             List<Mission> result = entityManager
                     .createQuery("FROM Mission WHERE driver_id = :driver_id AND date = :date", Mission.class)
                     .setParameter("driver_id", driver.getDriverRole().getId())

@@ -7,6 +7,10 @@ import it.unifi.ing.swam.model.User;
 
 public class RoleDao extends BaseDao {
 
+    public Role findById(Long id) {
+        return entityManager.find(Role.class, id);
+    }
+
     @Deprecated
     public List<Role> findByUserId(Long ownerId) {
         return entityManager.createQuery("FROM Role WHERE owner_id = :owner_id", Role.class)

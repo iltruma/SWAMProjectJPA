@@ -4,7 +4,6 @@ import java.util.List;
 
 import it.unifi.ing.swam.model.Agency;
 import it.unifi.ing.swam.model.Receiver;
-import it.unifi.ing.swam.model.RoleType;
 import it.unifi.ing.swam.model.Tracking;
 import it.unifi.ing.swam.model.User;
 import it.unifi.ing.swam.model.Waybill;
@@ -28,7 +27,7 @@ public class WaybillDao extends BaseDao {
     }
 
     public List<Waybill> findBySender(User sender) throws IllegalArgumentException {
-        if (sender.hasRole(RoleType.CUSTOMER)) {
+        if (sender.isCustomer()) {
             return entityManager.createQuery("SELECT w FROM Waybill w WHERE w.sender = :sender", Waybill.class)
                     .setParameter("sender", sender).getResultList();
         } else
@@ -42,7 +41,7 @@ public class WaybillDao extends BaseDao {
     }
 
     public List<Waybill> findByOperator(User operator) throws IllegalArgumentException {
-        if (operator.hasRole(RoleType.OPERATOR)) {
+        if (operator.isOperator()) {
             return entityManager.createQuery("SELECT w FROM Waybill w WHERE w.operator = :operator", Waybill.class)
                     .setParameter("operator", operator).getResultList();
         } else
@@ -81,7 +80,7 @@ public class WaybillDao extends BaseDao {
     // Da qui metodi per controller.
 
     public List<Waybill> findProposedBySender(User sender) throws IllegalArgumentException {
-        if (sender.hasRole(RoleType.CUSTOMER)) {
+        if (sender.isCustomer()) {
             return entityManager.createQuery("SELECT w FROM Waybill w WHERE w.sender = :sender AND w.operator IS NULL",
                     Waybill.class).setParameter("sender", sender).getResultList();
         } else
@@ -89,7 +88,7 @@ public class WaybillDao extends BaseDao {
     }
 
     public List<Waybill> findValidatedBySender(User sender) throws IllegalArgumentException {
-        if (sender.hasRole(RoleType.CUSTOMER)) {
+        if (sender.isCustomer()) {
             return entityManager
                     .createQuery("SELECT w FROM Waybill w WHERE w.sender = :sender AND w.operator IS NOT NULL",
                             Waybill.class)

@@ -4,7 +4,6 @@ import java.util.List;
 
 import it.unifi.ing.swam.model.Address;
 import it.unifi.ing.swam.model.Customer;
-import it.unifi.ing.swam.model.RoleType;
 import it.unifi.ing.swam.model.State;
 import it.unifi.ing.swam.model.User;
 
@@ -26,7 +25,7 @@ public class CustomerDao extends BaseDao {
     }
 
     public List<Customer> findByOperator(User operator) throws IllegalArgumentException {
-        if (operator.hasRole(RoleType.OPERATOR)) {
+        if (operator.isOperator()) {
             return entityManager.createQuery("SELECT c FROM Customer c WHERE c.operator = :operator", Customer.class)
                     .setParameter("operator", operator).getResultList();
         } else
