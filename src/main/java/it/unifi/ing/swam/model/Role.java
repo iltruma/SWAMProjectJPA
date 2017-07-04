@@ -46,5 +46,17 @@ public abstract class Role extends BaseEntity {
 	protected void setOwner(User owner) {
 		this.owner = owner;
 	}
+	
+	public Boolean isCustomer(){
+		return this.getType().equals(Type.CUSTOMER);
+	}
+	
+	public Boolean isOperator(){
+		return this.getType().equals(Type.OPERATOR);
+	}
+	
+	public Boolean isDriver(){
+		return this.getType().equals(Type.DRIVER);
+	}
 
 }

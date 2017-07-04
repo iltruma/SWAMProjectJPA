@@ -2,22 +2,21 @@ package it.unifi.ing.swam.controller;
 
 import java.util.Calendar;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
 
-import it.unifi.ing.swam.bean.UserSessionBean;
 import it.unifi.ing.swam.bean.producer.HttpParam;
 import it.unifi.ing.swam.dao.MissionDao;
 import it.unifi.ing.swam.dao.RoleDao;
 import it.unifi.ing.swam.dao.WaybillDao;
-import it.unifi.ing.swam.model.Role;
 import it.unifi.ing.swam.model.User;
 import it.unifi.ing.swam.model.Waybill;
 
 @Model
-public class ViewWaybillPageController {
+public class ViewWaybillPageController extends BasicController{
 
 	@Inject
 	private WaybillDao waybillDao;
@@ -28,24 +27,13 @@ public class ViewWaybillPageController {
 	@Inject
 	private MissionDao missionDao;
 
-	@Inject
-	private UserSessionBean userSession;
-
 	@Inject @HttpParam("id")
 	private String waybillId;
 
-	@Inject @HttpParam("roleId")
-	private String roleId;
 
 	private Waybill waybill;
 
-	public Waybill getWaybill(){
-		if (waybill == null){
-			initWaybill();
-		}
-		return waybill;
-	}
-
+	@PostConstruct
 	protected void initWaybill() {
 
 		if(StringUtils.isEmpty(waybillId)) {
@@ -58,7 +46,7 @@ public class ViewWaybillPageController {
 			Long id = Long.valueOf(waybillId);
 			waybill = waybillDao.findById(id);
 			User user = userSession.getUser();
-			Role currentRole = roleDao.findById(Long.valueOf(roleId));
+			currentRole = roleDao.findById(Long.valueOf(roleId));
 
 			if(user.isCustomer() && user.getCustomerRole().equals(currentRole) && !waybill.getSender().equals(user)){
 				throw new IllegalStateException("you can't view this waybill");
@@ -74,7 +62,7 @@ public class ViewWaybillPageController {
 
 
 		} catch (NumberFormatException nfe) {
-			throw new IllegalArgumentException("id not a number");
+			throw new IllegalArgumentException("waybill id not a number");
 		}
 	}
 
