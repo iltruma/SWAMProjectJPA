@@ -87,13 +87,25 @@ public class User extends BaseEntity {
 		this.email = email;
 	}
 
-	public Boolean hasRole(RoleType t) {
+	protected Boolean hasRole(RoleType t) {
 		Iterator<Role> roleIterator = this.getRoles().iterator();
 		Boolean hasType = false;
 		while (roleIterator.hasNext() && !hasType) {
 			hasType = roleIterator.next().getType().equals(t);
 		}
 		return hasType;
+	}
+	
+	public Boolean isCustomer(){
+		return this.hasRole(RoleType.CUSTOMER);
+	}
+	
+	public Boolean isOperator(){
+		return this.hasRole(RoleType.OPERATOR);
+	}
+	
+	public Boolean isDriver(){
+		return this.hasRole(RoleType.DRIVER);
 	}
 	
 	public void addRole(Role r) throws IllegalArgumentException {
