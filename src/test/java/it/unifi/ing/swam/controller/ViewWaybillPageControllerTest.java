@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.Calendar;
@@ -21,13 +20,9 @@ import org.junit.runners.model.InitializationError;
 
 import it.unifi.ing.swam.bean.UserSessionBean;
 import it.unifi.ing.swam.controller.strategy.RoleStrategy;
-import it.unifi.ing.swam.dao.AgencyDao;
-import it.unifi.ing.swam.dao.ItemDao;
 import it.unifi.ing.swam.dao.MissionDao;
 import it.unifi.ing.swam.dao.RoleDao;
-import it.unifi.ing.swam.dao.UserDao;
 import it.unifi.ing.swam.dao.WaybillDao;
-import it.unifi.ing.swam.model.Agency;
 import it.unifi.ing.swam.model.Mission;
 import it.unifi.ing.swam.model.ModelFactory;
 import it.unifi.ing.swam.model.User;
@@ -40,14 +35,8 @@ public class ViewWaybillPageControllerTest extends BasicController {
 	private static WaybillDao waybillDao;
 	private static MissionDao missionDao;
 	private static RoleDao roleDao;
-	private static UserDao userDao;
-	private static AgencyDao agencyDao;
-	private static ItemDao itemDao;
 	private static UserSessionBean userSession;
-	private static String waybillId;
 	private static Waybill waybill;
-	private static Agency agency;
-
 	private static User user;
 	private static User wrongUser;
 
@@ -72,7 +61,6 @@ public class ViewWaybillPageControllerTest extends BasicController {
 		wrongUser.addRole(ModelFactory.generateDriver());
 
 		waybill = ModelFactory.generateWaybill();
-		agency = ModelFactory.generateAgency();
 
 		try {
 			FieldUtils.writeField(user, "id", Long.valueOf(10), true);

@@ -22,8 +22,14 @@ public class EditWaybillPageController extends BasicController {
 
 	private Waybill waybill;
 	private RoleStrategy strategy;
-
+	
 	@PostConstruct
+	protected void initWaybill() {
+		if(strategy == null)
+			this.initStrategy();
+		waybill = strategy.initWaybill();	
+	}
+
 	protected void initStrategy() {
 		if(StringUtils.isEmpty(roleId)) {
 			throw new IllegalArgumentException("role id not found");
@@ -33,13 +39,10 @@ public class EditWaybillPageController extends BasicController {
 			throw new IllegalArgumentException("id not found");
 		} else if (Boolean.valueOf(addFlag)){
 			waybillId = null;			
-		}
-		
+		}	
 		currentRole = roleDao.findById(Long.valueOf(roleId));
 
 		strategy = RoleStrategy.getStrategyFrom(currentRole, waybillId, userSession.getUser());
-		strategy.initWaybill();
-
 	}
 
 	public Waybill getWaybill() {
