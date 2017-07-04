@@ -20,7 +20,9 @@ public class ModelFactory {
     }
 
     public static Customer generateCustomer() {
-        return new Customer(UUID.randomUUID().toString());
+        Customer customer = new Customer(UUID.randomUUID().toString());
+        customer.setState(State.ACTIVE);
+        return customer;
     }
 
     public static Fare generateFare() {
@@ -32,7 +34,11 @@ public class ModelFactory {
     }
 
     public static Waybill generateWaybill() {
-        return new Waybill(UUID.randomUUID().toString());
+        Waybill waybill = new Waybill(UUID.randomUUID().toString());
+        waybill.setTracking(Tracking.IDLE);
+        waybill.setReceiver(new Receiver());
+        waybill.setLoad(new Load());
+        return waybill;
     }
 
     public static Item generateItem() {

@@ -10,6 +10,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "missions")
@@ -18,6 +19,8 @@ public class Mission extends BaseEntity {
     @OneToMany
     @JoinColumn(name="mission_id")
     private List<Waybill> waybills;
+
+    @NotNull
     @Temporal(TemporalType.DATE)
     private Calendar date;
 

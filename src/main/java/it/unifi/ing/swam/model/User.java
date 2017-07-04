@@ -5,24 +5,36 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "users")
 public class User extends BaseEntity {
 
+    @NotNull
+    @Column(unique=true)
 	private String username;
+
+    @NotNull
 	private String password;
+
 	private String name;
+
+	@Column(unique=true)
 	private String phone;
+
+	@Column(unique=true)
 	private String email;
 
 	@OneToMany(cascade = { CascadeType.PERSIST }, mappedBy = "owner")
 	private List<Role> roles;
 
+	@NotNull
 	@ManyToOne
 	private Agency agency;
 

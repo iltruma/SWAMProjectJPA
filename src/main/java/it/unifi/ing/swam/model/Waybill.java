@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "waybills")
@@ -20,18 +21,30 @@ public class Waybill extends BaseEntity {
     @ManyToOne
     @JoinColumn(name="operator_id")
     private User operator; //Operator
+
+    @NotNull
     @Embedded
     private Receiver receiver;
+
+    @NotNull
     @ManyToOne
     @JoinColumn(name="sender_id")
     private User sender; //Customer
+
+    @NotNull
     @Embedded
     private Load load;
+
     @Temporal(TemporalType.DATE)
     private Calendar acceptDate;
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date deliveryDate;
+
+    @NotNull
     private Float cost;
+
+    @NotNull
     @Enumerated(EnumType.STRING)
     private Tracking tracking;
 

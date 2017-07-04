@@ -2,6 +2,7 @@ package it.unifi.ing.swam.model;
 
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 @Embeddable
 public class Receiver {
@@ -10,6 +11,8 @@ public class Receiver {
     private String name;
     private String phone;
     private String email;
+
+    @NotNull
     @ManyToOne
     private Agency destinationAgency;
 

@@ -2,6 +2,8 @@ package it.unifi.ing.swam.model;
 
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -42,6 +44,14 @@ public class CustomerTest {
 
         c.setOperator(operator);
         assertEquals(c.getOperator(), operator);
+    }
+
+    @Test
+    public void testIsActive() {
+        assertTrue(c.isActive());
+
+        c.setState(State.BLOCKED);
+        assertFalse(c.isActive());
     }
 
 }
