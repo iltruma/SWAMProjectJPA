@@ -2,6 +2,9 @@ package it.unifi.ing.swam.dao;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
@@ -53,6 +56,10 @@ public class WaybillDaoJpaTest extends JpaTest {
         address.setState("state");
         receiver.setAddress(address);
 
+        Calendar date = Calendar.getInstance();
+        date.setTime(new Date(53264723543L));
+        waybill.setAcceptDate(date);
+        waybill.setDeliveryDate(date);
         waybill.setOperator(operator);
         waybill.setSender(sender);
         waybill.setReceiver(receiver);
@@ -204,6 +211,31 @@ public class WaybillDaoJpaTest extends JpaTest {
 
         result = waybillDao.findUnassignedToDriver(validatedWaybill.getSender().getAgency());
         assertEquals(0, result.size());
+    }
+
+    @Test
+    public void testAdvancedSearch() {
+        List<Waybill> result = waybillDao.advancedSearch(waybill, 10);
+        assertEquals(1, result.size());
+        assertEquals(waybill, result.get(0));
+
+        Waybill emptyWaybill = ModelFactory.generateWaybill();
+        emptyWaybill.setTracking(null);
+        User operator = ModelFactory.generateUser();
+        operator.addRole(ModelFactory.generateOperator());
+        User sender = ModelFactory.generateUser();
+        sender.addRole(ModelFactory.generateCustomer());
+
+        emptyWaybill.setOperator(operator);
+        emptyWaybill.setSender(sender);
+
+        List<Waybill> resultList = new ArrayList<>();
+        resultList.add(waybill);
+        resultList.add(proposedWaybill);
+        resultList.add(validatedWaybill);
+
+        assertEquals(resultList, waybillDao.advancedSearch(emptyWaybill, 10));
+
     }
 
 }
