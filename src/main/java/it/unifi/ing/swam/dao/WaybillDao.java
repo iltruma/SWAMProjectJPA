@@ -26,12 +26,9 @@ public class WaybillDao extends BaseDao {
                 .setParameter("sender_id", senderId).getResultList();
     }
 
-    public List<Waybill> findBySender(User sender) throws IllegalArgumentException {
-        if (sender.isCustomer()) {
-            return entityManager.createQuery("SELECT w FROM Waybill w WHERE w.sender = :sender", Waybill.class)
-                    .setParameter("sender", sender).getResultList();
-        } else
-            throw new IllegalArgumentException("The user is not a customer.");
+    public List<Waybill> findBySender(User sender) {
+        return entityManager.createQuery("SELECT w FROM Waybill w WHERE w.sender = :sender", Waybill.class)
+                .setParameter("sender", sender).getResultList();
     }
 
     @Deprecated
@@ -40,12 +37,9 @@ public class WaybillDao extends BaseDao {
                 .setParameter("operator_id", operatorId).getResultList();
     }
 
-    public List<Waybill> findByOperator(User operator) throws IllegalArgumentException {
-        if (operator.isOperator()) {
-            return entityManager.createQuery("SELECT w FROM Waybill w WHERE w.operator = :operator", Waybill.class)
-                    .setParameter("operator", operator).getResultList();
-        } else
-            throw new IllegalArgumentException("The user is not an operator.");
+    public List<Waybill> findByOperator(User operator) {
+        return entityManager.createQuery("SELECT w FROM Waybill w WHERE w.operator = :operator", Waybill.class)
+                .setParameter("operator", operator).getResultList();
     }
 
     @Deprecated
@@ -79,22 +73,15 @@ public class WaybillDao extends BaseDao {
 
     // Da qui metodi per controller.
 
-    public List<Waybill> findProposedBySender(User sender) throws IllegalArgumentException {
-        if (sender.isCustomer()) {
-            return entityManager.createQuery("SELECT w FROM Waybill w WHERE w.sender = :sender AND w.operator IS NULL",
-                    Waybill.class).setParameter("sender", sender).getResultList();
-        } else
-            throw new IllegalArgumentException("The user is not a customer.");
+    public List<Waybill> findProposedBySender(User sender) {
+        return entityManager
+                .createQuery("SELECT w FROM Waybill w WHERE w.sender = :sender AND w.operator IS NULL", Waybill.class)
+                .setParameter("sender", sender).getResultList();
     }
 
-    public List<Waybill> findValidatedBySender(User sender) throws IllegalArgumentException {
-        if (sender.isCustomer()) {
-            return entityManager
-                    .createQuery("SELECT w FROM Waybill w WHERE w.sender = :sender AND w.operator IS NOT NULL",
-                            Waybill.class)
-                    .setParameter("sender", sender).getResultList();
-        } else
-            throw new IllegalArgumentException("The user is not a customer.");
+    public List<Waybill> findValidatedBySender(User sender) {
+        return entityManager.createQuery("SELECT w FROM Waybill w WHERE w.sender = :sender AND w.operator IS NOT NULL",
+                Waybill.class).setParameter("sender", sender).getResultList();
     }
 
     public List<Waybill> findProposedByAgency(Agency agency) {

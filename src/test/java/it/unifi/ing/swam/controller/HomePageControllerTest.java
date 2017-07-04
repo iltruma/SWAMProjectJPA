@@ -2,11 +2,11 @@ package it.unifi.ing.swam.controller;
 
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.Assert.assertEquals;
-
+import static org.junit.Assert.assertNull;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.eq;
 
 import java.util.Calendar;
 import java.util.Collections;
@@ -73,47 +73,102 @@ public class HomePageControllerTest {
 	@Test
 	public void testGetProposedWaybillCustomer() {
 		when(waybillDao.findProposedBySender(user)).thenReturn(Collections.singletonList(waybill));
+		user.addRole(ModelFactory.generateCustomer());
 
 		assertEquals(1, homePageController.getProposedWaybillCustomer().size());
 		assertEquals(waybill, homePageController.getProposedWaybillCustomer().get(0));
+
+		User driver = ModelFactory.generateUser();
+		driver.addRole(ModelFactory.generateDriver());
+		userSession.setUser(driver);
+		assertNull(homePageController.getProposedWaybillCustomer());
+
+		User operator = ModelFactory.generateUser();
+        operator.addRole(ModelFactory.generateDriver());
+        userSession.setUser(operator);
+        assertNull(homePageController.getProposedWaybillCustomer());
 	}
 
 	@Test
 	public void testGetValidatedWaybillCustomer() {
 		when(waybillDao.findValidatedBySender(user)).thenReturn(Collections.singletonList(waybill));
+		user.addRole(ModelFactory.generateCustomer());
 
 		assertEquals(1, homePageController.getValidatedWaybillCustomer().size());
 		assertEquals(waybill, homePageController.getValidatedWaybillCustomer().get(0));
+
+		User driver = ModelFactory.generateUser();
+        driver.addRole(ModelFactory.generateDriver());
+        userSession.setUser(driver);
+        assertNull(homePageController.getValidatedWaybillCustomer());
+
+        User operator = ModelFactory.generateUser();
+        operator.addRole(ModelFactory.generateDriver());
+        userSession.setUser(operator);
+        assertNull(homePageController.getValidatedWaybillCustomer());
 	}
 
 	@Test
 	public void testGetProposedWaybillOperator() {
 		when(waybillDao.findProposedByAgency(agency)).thenReturn(Collections.singletonList(waybill));
+		user.addRole(ModelFactory.generateOperator());
 
 		assertEquals(0, homePageController.getProposedWaybillOperator().size());
 		user.setAgency(agency);
 		assertEquals(1, homePageController.getProposedWaybillOperator().size());
 		assertEquals(waybill, homePageController.getProposedWaybillOperator().get(0));
+
+		User driver = ModelFactory.generateUser();
+        driver.addRole(ModelFactory.generateDriver());
+        userSession.setUser(driver);
+        assertNull(homePageController.getProposedWaybillOperator());
+
+        User customer = ModelFactory.generateUser();
+        customer.addRole(ModelFactory.generateCustomer());
+        userSession.setUser(customer);
+        assertNull(homePageController.getProposedWaybillOperator());
 	}
 
 	@Test
 	public void testGetUnassignedToDriver() {
 		when(waybillDao.findUnassignedToDriver(agency)).thenReturn(Collections.singletonList(waybill));
+		user.addRole(ModelFactory.generateOperator());
 
 		assertEquals(0, homePageController.getUnassignedToDriver().size());
 		user.setAgency(agency);
 		assertEquals(1, homePageController.getUnassignedToDriver().size());
 		assertEquals(waybill, homePageController.getUnassignedToDriver().get(0));
+
+		User driver = ModelFactory.generateUser();
+        driver.addRole(ModelFactory.generateDriver());
+        userSession.setUser(driver);
+        assertNull(homePageController.getUnassignedToDriver());
+
+        User customer = ModelFactory.generateUser();
+        customer.addRole(ModelFactory.generateCustomer());
+        userSession.setUser(customer);
+        assertNull(homePageController.getUnassignedToDriver());
 	}
 
 	@Test
 	public void testGetTodayMission() {
 		Mission mission = ModelFactory.generateMission();
 		mission.addWaybill(waybill);
-		
+
 		when(missionDao.findByDriverAndDate(eq(user), any(Calendar.class))).thenReturn(mission);
+		user.addRole(ModelFactory.generateDriver());
 
 		assertEquals(1, homePageController.getTodayMission().size());
 		assertEquals(waybill, homePageController.getTodayMission().get(0));
+
+		User operator = ModelFactory.generateUser();
+        operator.addRole(ModelFactory.generateOperator());
+        userSession.setUser(operator);
+        assertNull(homePageController.getTodayMission());
+
+        User customer = ModelFactory.generateUser();
+        customer.addRole(ModelFactory.generateCustomer());
+        userSession.setUser(customer);
+        assertNull(homePageController.getTodayMission());
 	}
 }

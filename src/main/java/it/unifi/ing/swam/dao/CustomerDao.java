@@ -24,12 +24,9 @@ public class CustomerDao extends BaseDao {
                 .setParameter("operator_id", operator_id).getResultList();
     }
 
-    public List<Customer> findByOperator(User operator) throws IllegalArgumentException {
-        if (operator.isOperator()) {
-            return entityManager.createQuery("SELECT c FROM Customer c WHERE c.operator = :operator", Customer.class)
-                    .setParameter("operator", operator).getResultList();
-        } else
-            throw new IllegalArgumentException("The user is not an operator.");
+    public List<Customer> findByOperator(User operator) {
+        return entityManager.createQuery("SELECT c FROM Customer c WHERE c.operator = :operator", Customer.class)
+                .setParameter("operator", operator).getResultList();
     }
 
     public List<Customer> findByAddress(Address address) {

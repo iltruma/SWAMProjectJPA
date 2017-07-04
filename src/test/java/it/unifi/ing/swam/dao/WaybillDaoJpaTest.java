@@ -1,6 +1,5 @@
 package it.unifi.ing.swam.dao;
 
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.Assert.assertEquals;
 
 import java.util.List;
@@ -81,7 +80,6 @@ public class WaybillDaoJpaTest extends JpaTest {
         validatedWaybill.setOperator(otherOperator);
         mission.addWaybill(validatedWaybill);
 
-
         entityManager.persist(proposedWaybill);
         entityManager.persist(otherSender);
         entityManager.persist(justAnotherSender);
@@ -125,17 +123,6 @@ public class WaybillDaoJpaTest extends JpaTest {
     }
 
     @Test
-    public void testFindBySenderThrowsIllegalArgumentException() {
-        User driver = ModelFactory.generateUser();
-        driver.addRole(ModelFactory.generateDriver());
-
-        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
-            waybillDao.findBySender(driver);
-        });
-
-    }
-
-    @Test
     @SuppressWarnings("deprecation")
     public void testFindByOperatorId() {
         List<Waybill> result = waybillDao.findByOperatorId(waybill.getOperator().getId());
@@ -148,17 +135,6 @@ public class WaybillDaoJpaTest extends JpaTest {
         List<Waybill> result = waybillDao.findByOperator(waybill.getOperator());
         assertEquals(1, result.size());
         assertEquals(waybill, result.get(0));
-    }
-
-    @Test
-    public void testFindByOperatorThrowsIllegalArgumentException() {
-        User driver = ModelFactory.generateUser();
-        driver.addRole(ModelFactory.generateDriver());
-
-        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
-            waybillDao.findByOperator(driver);
-        });
-
     }
 
     @Test
@@ -204,17 +180,6 @@ public class WaybillDaoJpaTest extends JpaTest {
     }
 
     @Test
-    public void testFindProposedBySenderThrowsIllegalArgumentException() {
-        User driver = ModelFactory.generateUser();
-        driver.addRole(ModelFactory.generateDriver());
-
-        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
-            waybillDao.findProposedBySender(driver);
-        });
-
-    }
-
-    @Test
     public void testFindValidatedBySender() {
         List<Waybill> result = waybillDao.findValidatedBySender(validatedWaybill.getSender());
         assertEquals(1, result.size());
@@ -222,17 +187,6 @@ public class WaybillDaoJpaTest extends JpaTest {
 
         result = waybillDao.findValidatedBySender(proposedWaybill.getSender());
         assertEquals(0, result.size());
-    }
-
-    @Test
-    public void testFindValidatedBySenderThrowsIllegalArgumentException() {
-        User driver = ModelFactory.generateUser();
-        driver.addRole(ModelFactory.generateDriver());
-
-        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
-            waybillDao.findValidatedBySender(driver);
-        });
-
     }
 
     @Test
