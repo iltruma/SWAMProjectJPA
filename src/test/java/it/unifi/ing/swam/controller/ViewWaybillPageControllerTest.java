@@ -39,6 +39,10 @@ public class ViewWaybillPageControllerTest extends BasicController {
 	private static Waybill waybill;
 	private static User user;
 	private static User wrongUser;
+	
+	private static Long roleId = 11L;
+	private static Long waybillId = 12L;
+
 
 	public static void init() throws InitializationError {
 		viewWaybillPageController = new ViewWaybillPageController();
@@ -61,13 +65,14 @@ public class ViewWaybillPageControllerTest extends BasicController {
 		wrongUser.addRole(ModelFactory.generateDriver());
 
 		waybill = ModelFactory.generateWaybill();
-
+		
+		when(waybillDao.findById(12L)).thenReturn(waybill);
 		try {
 			FieldUtils.writeField(user, "id", Long.valueOf(10), true);
+			FieldUtils.writeField(viewWaybillPageController, "roleId", roleId.toString(), true);
+			FieldUtils.writeField(viewWaybillPageController, "waybillId", waybillId.toString(), true);
 			FieldUtils.writeField(viewWaybillPageController, "roleDao", roleDao, true);
-			FieldUtils.writeField(viewWaybillPageController, "waybillId", "10", true);
 			FieldUtils.writeField(viewWaybillPageController, "userSession", userSession, true);
-			FieldUtils.writeField(viewWaybillPageController, "roleId", "10", true);
 
 		} catch (IllegalAccessException e) {
 			throw new InitializationError(e);
@@ -81,8 +86,7 @@ public class ViewWaybillPageControllerTest extends BasicController {
 			ViewWaybillPageControllerTest.init();
 			
 			// set currentRole as Customer
-			when(roleDao.findById(any(long.class))).thenReturn(user.getCustomerRole());
-			when(waybillDao.findById(any(Long.class))).thenReturn(waybill);
+			when(roleDao.findById(roleId)).thenReturn(user.getCustomerRole());
 
 			viewWaybillPageController.initStrategy();
 			RoleStrategy strategy = viewWaybillPageController.getStrategy();
@@ -129,10 +133,9 @@ public class ViewWaybillPageControllerTest extends BasicController {
 			ViewWaybillPageControllerTest.init();
 			
 			// set currentRole as Driver
-			when(roleDao.findById(any(long.class))).thenReturn(user.getDriverRole());
+			when(roleDao.findById(roleId)).thenReturn(user.getDriverRole());
 			
 			mission = ModelFactory.generateMission();
-			when(waybillDao.findById(any(Long.class))).thenReturn(waybill);
 			when(missionDao.findByDriverAndDate(eq(user), any(Calendar.class))).thenReturn(mission);
 
 			viewWaybillPageController.initStrategy();
@@ -179,9 +182,8 @@ public class ViewWaybillPageControllerTest extends BasicController {
 			ViewWaybillPageControllerTest.init();
 			
 			// set currentRole as Operator
-			when(roleDao.findById(any(long.class))).thenReturn(user.getOperatorRole());
-			when(waybillDao.findById(any(Long.class))).thenReturn(waybill);
-
+			when(roleDao.findById(roleId)).thenReturn(user.getOperatorRole());
+			
 			viewWaybillPageController.initStrategy();
 			RoleStrategy strategy = viewWaybillPageController.getStrategy();
 
