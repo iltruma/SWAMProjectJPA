@@ -8,17 +8,16 @@ import javax.persistence.Enumerated;
 public class Truck {
 
     private String model;
-
-    private enum Type {
-        VAN, TRAILER, TRUCK, BOX
-    };
-
     private Float volume;
     private Float capacity;
     private Integer registrationYear;
     private String brand;
     @Enumerated(EnumType.STRING)
-    private Type type;
+    private TruckType type;
+
+    public Truck() {
+
+    }
 
     public String getModel() {
         return model;
@@ -60,11 +59,11 @@ public class Truck {
         this.brand = brand;
     }
 
-    public Type getType() {
+    public TruckType getType() {
         return type;
     }
 
-    public void setType(Type type) {
+    public void setType(TruckType type) {
         this.type = type;
     }
 

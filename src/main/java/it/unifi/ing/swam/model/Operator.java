@@ -9,6 +9,7 @@ import javax.persistence.Table;
 public class Operator extends Role {
 
     protected Operator() {
+
     }
 
     public Operator(String uuid) {

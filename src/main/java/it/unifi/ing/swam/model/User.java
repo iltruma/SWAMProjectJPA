@@ -26,7 +26,7 @@ public class User extends BaseEntity {
 	@ManyToOne
 	private Agency agency;
 
-	public User() {
+	protected User() {
 
 	}
 
@@ -54,7 +54,7 @@ public class User extends BaseEntity {
 	public List<Role> getRoles() {
 		return roles;
 	}
-	
+
 	public Agency getAgency() {
 		return agency;
 	}
@@ -107,14 +107,14 @@ public class User extends BaseEntity {
 	public Boolean isDriver(){
 		return this.hasRole(RoleType.DRIVER);
 	}
-	
+
 	public void addRole(Role r) throws IllegalArgumentException {
 		if (this.hasRole(r.getType()))
 			throw new IllegalArgumentException("the user already contains the role " + r.getType().toString());
 		this.roles.add(r);
 		r.setOwner(this);
 	}
-	
+
 	public void removeRole(Role r) throws IllegalArgumentException {
 		try {
 			roles.remove(this.getRoleFromRoleType(r.getType()));
@@ -138,7 +138,7 @@ public class User extends BaseEntity {
 	public Role getOperatorRole() throws UnsupportedOperationException {
 		return this.getRoleFromRoleType(RoleType.OPERATOR);
 	}
-	
+
 	// Can only be called by an User who as the RoleType passed as argument
 	private Role getRoleFromRoleType(RoleType roleType) {
 		Iterator<Role> roleIterator = this.getRoles().iterator();
@@ -151,7 +151,7 @@ public class User extends BaseEntity {
 		if(role == null)
 			throw new UnsupportedOperationException("The User was not a " + roleType.toString() );
 		return role;
-		
+
 	}
 
 }

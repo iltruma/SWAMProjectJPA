@@ -21,7 +21,8 @@ public class Mission extends BaseEntity {
     @Temporal(TemporalType.DATE)
     private Calendar date;
 
-    public Mission() {
+    protected Mission() {
+
     }
 
     public Mission(String uuid) {

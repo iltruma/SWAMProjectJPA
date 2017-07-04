@@ -23,6 +23,7 @@ public class Driver extends Role {
     private List<Mission> missions;
 
     protected Driver() {
+
     }
 
     public Driver(String uuid) {

@@ -13,6 +13,10 @@ public class Receiver {
     @ManyToOne
     private Agency destinationAgency;
 
+    public Receiver() {
+
+    }
+
     public Address getAddress() {
         return address;
     }

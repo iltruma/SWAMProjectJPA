@@ -10,7 +10,7 @@ public class Item extends BaseEntity {
     private Float weight;
     private Float volume;
 
-    public Item() {
+    protected Item() {
         weight = Float.valueOf(0F);
         volume = Float.valueOf(0F);
     }

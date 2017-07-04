@@ -42,7 +42,7 @@ public class Waybill extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Sign sign;
 
-    public Waybill() {
+    protected Waybill() {
 
     }
 

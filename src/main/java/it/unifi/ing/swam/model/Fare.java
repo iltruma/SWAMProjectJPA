@@ -19,6 +19,7 @@ public class Fare extends BaseEntity {
     private String functionCost;
 
     protected Fare() {
+
     }
 
     public Fare(String uuid) {
