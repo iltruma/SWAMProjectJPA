@@ -13,10 +13,15 @@ import javax.persistence.Transient;
 public abstract class Role extends BaseEntity {
 
 	@Transient
-	protected RoleType type;
+	protected Type type;
 	
 	@ManyToOne
 	protected User owner;
+	
+	protected enum Type {
+	    CUSTOMER, DRIVER, OPERATOR
+
+	}
 	
 	protected Role() {
 		
@@ -26,11 +31,11 @@ public abstract class Role extends BaseEntity {
         super(uuid);
     }
     
-    public RoleType getType() {
+    public Type getType() {
 		return type;
 	}
 
-	public void setType(RoleType type) {
+	public void setType(Type type) {
 		this.type = type;
 	}
 	

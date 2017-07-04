@@ -14,7 +14,7 @@ public class Operator extends Role {
 
     public Operator(String uuid) {
         super(uuid);
-        this.type = RoleType.OPERATOR;
+        this.type = Role.Type.OPERATOR;
     }
 
 }

@@ -55,7 +55,7 @@ public class Waybill extends BaseEntity {
     }
 
     public void setOperator(User operator) throws IllegalArgumentException {
-    	if(!operator.hasRole(RoleType.OPERATOR))
+    	if(!operator.hasRole(Role.Type.OPERATOR))
     		throw new IllegalArgumentException("operator has not the Operator role");
         this.operator = operator;
     }
@@ -73,7 +73,7 @@ public class Waybill extends BaseEntity {
     }
 
     public void setSender (User sender) throws IllegalArgumentException {
-    	if(!sender.hasRole(RoleType.CUSTOMER))
+    	if(!sender.hasRole(Role.Type.CUSTOMER))
     		throw new IllegalArgumentException("sender has not the Customer role");
         this.sender = sender;
     }

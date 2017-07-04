@@ -37,7 +37,7 @@ public class Customer extends Role {
 
     public Customer(String uuid) {
         super(uuid);
-        this.type = RoleType.CUSTOMER;
+        this.type = Role.Type.CUSTOMER;
         this.fares = new ArrayList<>();
     }
 
@@ -62,7 +62,7 @@ public class Customer extends Role {
     }
 
     public void setOperator(User operator) throws IllegalArgumentException {
-        if(!operator.hasRole(RoleType.OPERATOR))
+        if(!operator.hasRole(Role.Type.OPERATOR))
             throw new IllegalArgumentException("operator has not the Operator role");
         this.operator = operator;
     }

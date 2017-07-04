@@ -87,7 +87,7 @@ public class User extends BaseEntity {
 		this.email = email;
 	}
 
-	protected Boolean hasRole(RoleType t) {
+	protected Boolean hasRole(Role.Type t) {
 		Iterator<Role> roleIterator = this.getRoles().iterator();
 		Boolean hasType = false;
 		while (roleIterator.hasNext() && !hasType) {
@@ -97,15 +97,15 @@ public class User extends BaseEntity {
 	}
 	
 	public Boolean isCustomer(){
-		return this.hasRole(RoleType.CUSTOMER);
+		return this.hasRole(Role.Type.CUSTOMER);
 	}
 	
 	public Boolean isOperator(){
-		return this.hasRole(RoleType.OPERATOR);
+		return this.hasRole(Role.Type.OPERATOR);
 	}
 	
 	public Boolean isDriver(){
-		return this.hasRole(RoleType.DRIVER);
+		return this.hasRole(Role.Type.DRIVER);
 	}
 
 	public void addRole(Role r) throws IllegalArgumentException {
@@ -126,21 +126,21 @@ public class User extends BaseEntity {
 
 	// Can only be called by a Driver
 	public Role getDriverRole() throws UnsupportedOperationException {
-		return this.getRoleFromRoleType(RoleType.DRIVER);
+		return this.getRoleFromRoleType(Role.Type.DRIVER);
 	}
 
 	// Can only be called by a Customer
 	public Role getCustomerRole() throws UnsupportedOperationException {
-		return this.getRoleFromRoleType(RoleType.CUSTOMER);
+		return this.getRoleFromRoleType(Role.Type.CUSTOMER);
 	}
 
 	// Can only be called by an Operator
 	public Role getOperatorRole() throws UnsupportedOperationException {
-		return this.getRoleFromRoleType(RoleType.OPERATOR);
+		return this.getRoleFromRoleType(Role.Type.OPERATOR);
 	}
 
 	// Can only be called by an User who as the RoleType passed as argument
-	private Role getRoleFromRoleType(RoleType roleType) {
+	private Role getRoleFromRoleType(Role.Type roleType) {
 		Iterator<Role> roleIterator = this.getRoles().iterator();
 		Role role = null;
 		while (roleIterator.hasNext() && role == null) {
