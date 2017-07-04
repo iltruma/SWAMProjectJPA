@@ -48,12 +48,7 @@ public class Waybill extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Tracking tracking;
 
-    private enum Sign {
-        UNSIGN, SIGN
-    }
-
-    @Enumerated(EnumType.STRING)
-    private Sign sign;
+    private Boolean signed;
 
     protected Waybill() {
 
@@ -143,12 +138,12 @@ public class Waybill extends BaseEntity {
         return load.getNumItems();
     }
 
-    public Sign getSign() {
-        return sign;
+    public Boolean isSigned() {
+        return signed;
     }
 
-    public void setSign(Sign sign) {
-        this.sign = sign;
+    public void setSign(Boolean signed) {
+        this.signed = signed;
     }
 
 }
