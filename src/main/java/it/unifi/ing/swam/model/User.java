@@ -138,18 +138,18 @@ public class User extends BaseEntity {
 	}
 
 	// Can only be called by a Driver
-	public Role getDriverRole() throws UnsupportedOperationException {
-		return this.getRoleFromRoleType(Role.Type.DRIVER);
+	public Driver getDriverRole() throws UnsupportedOperationException {
+		return (Driver) this.getRoleFromRoleType(Role.Type.DRIVER);
 	}
 
 	// Can only be called by a Customer
-	public Role getCustomerRole() throws UnsupportedOperationException {
-		return this.getRoleFromRoleType(Role.Type.CUSTOMER);
+	public Customer getCustomerRole() throws UnsupportedOperationException {
+		return (Customer) this.getRoleFromRoleType(Role.Type.CUSTOMER);
 	}
 
 	// Can only be called by an Operator
-	public Role getOperatorRole() throws UnsupportedOperationException {
-		return this.getRoleFromRoleType(Role.Type.OPERATOR);
+	public Operator getOperatorRole() throws UnsupportedOperationException {
+		return (Operator) this.getRoleFromRoleType(Role.Type.OPERATOR);
 	}
 
 	// Can only be called by an User who as the RoleType passed as argument
