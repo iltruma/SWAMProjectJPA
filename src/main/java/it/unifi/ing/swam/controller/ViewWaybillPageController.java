@@ -22,10 +22,15 @@ public class ViewWaybillPageController extends BasicController{
 	private String waybillId;
 
 	private Waybill waybill;
+	
+	private RoleStrategy strategy;
 
-	@PostConstruct
-	protected void initWaybill() {
 
+	public RoleStrategy getStrategy() {
+		return strategy;
+	}
+	
+	protected void initStrategy(){
 		if(StringUtils.isEmpty(roleId)) {
 			throw new IllegalArgumentException("role id not found");
 		}
@@ -36,7 +41,14 @@ public class ViewWaybillPageController extends BasicController{
 		
 		currentRole = roleDao.findById(Long.valueOf(roleId));
 
-		RoleStrategy strategy = RoleStrategy.getStrategyFrom(currentRole, waybillId, userSession.getUser());
+		strategy = RoleStrategy.getStrategyFrom(currentRole, waybillId, userSession.getUser());
+	}
+	
+
+	@PostConstruct
+	protected void initWaybill() {
+		if(strategy == null)
+			this.initStrategy();
 		waybill = strategy.initWaybill();
 	
 	}

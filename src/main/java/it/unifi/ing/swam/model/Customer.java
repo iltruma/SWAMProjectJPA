@@ -34,7 +34,7 @@ public class Customer extends Role {
     @ManyToOne
     private User operator; // Operator
 
-    protected Customer() {
+    public Customer() {
 
     }
 
