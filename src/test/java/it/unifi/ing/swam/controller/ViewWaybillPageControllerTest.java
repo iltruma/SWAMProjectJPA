@@ -208,16 +208,6 @@ public class ViewWaybillPageControllerTest extends BasicController {
 			assertEquals(viewWaybillPageController.getWaybill(), waybill);
 		}
 
-		@Test
-		public void testInitWaybillWrongOperator() {
-			ViewWaybillPageControllerTest.initStrategy();
-			// waybill has the wrong Operator user as operator
-			waybill.setOperator(wrongUser);
-			assertThatExceptionOfType(IllegalStateException.class).isThrownBy(() -> {
-				viewWaybillPageController.initWaybill();
-			});
-			assertNull(viewWaybillPageController.getWaybill());
-		}
 		
 	}
 
