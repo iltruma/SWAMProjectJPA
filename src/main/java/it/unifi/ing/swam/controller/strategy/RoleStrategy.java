@@ -61,4 +61,8 @@ public abstract class RoleStrategy {
 		throw new UnsupportedOperationException();
 	}
 
+	public void checkEdit() {
+		throw new UnsupportedOperationException();		
+	}
+
 }

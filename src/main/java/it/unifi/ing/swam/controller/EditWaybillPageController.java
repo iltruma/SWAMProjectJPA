@@ -43,6 +43,7 @@ public class EditWaybillPageController extends BasicController {
 		currentRole = roleDao.findById(Long.valueOf(roleId));
 
 		strategy = RoleStrategy.getStrategyFrom(currentRole, waybillId, userSession.getUser());
+		strategy.checkEdit();
 	}
 
 	public Waybill getWaybill() {

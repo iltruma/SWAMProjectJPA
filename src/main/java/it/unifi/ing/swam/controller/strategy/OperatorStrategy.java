@@ -6,6 +6,7 @@ import javax.transaction.Transactional;
 import it.unifi.ing.swam.model.Agency;
 import it.unifi.ing.swam.model.Item;
 import it.unifi.ing.swam.model.ModelFactory;
+import it.unifi.ing.swam.model.Tracking;
 import it.unifi.ing.swam.model.User;
 import it.unifi.ing.swam.model.Waybill;
 
@@ -26,9 +27,9 @@ public class OperatorStrategy extends RoleStrategy {
 			try {
 				Long id = Long.valueOf(this.waybillId);
 				waybill = waybillDao.findById(id);
-
-				if (!waybill.getOperator().equals(user)) {
-					throw new IllegalStateException("you can't access this waybill");
+				
+				if(waybill == null) {
+					throw new IllegalStateException("waybill does not exist in database");
 				}
 
 			} catch (NumberFormatException nfe) {
@@ -36,6 +37,13 @@ public class OperatorStrategy extends RoleStrategy {
 			}
 		}
 		return waybill;
+	}
+	
+	@Override
+	public void checkEdit() {
+		if(!waybill.getSender().getAgency().equals(user.getAgency()) && !waybill.getTracking().equals(Tracking.IDLE)){
+			throw new IllegalStateException("you can't edit this waybill");			
+		}	
 	}
 
 	public void setCustomer(Long id){

@@ -31,6 +31,10 @@ public class DriverStrategy extends RoleStrategy {
 				Long id = Long.valueOf(this.waybillId);
 				waybill = waybillDao.findById(id);
 				
+				if(waybill == null) {
+					throw new IllegalStateException("waybill does not exist in database");
+				}
+				
 				if(!missionDao.findByDriverAndDate(user, Calendar.getInstance()).getWaybills().contains(waybill)){
 					throw new IllegalStateException("you can't access this waybill");
 				}
@@ -41,6 +45,14 @@ public class DriverStrategy extends RoleStrategy {
 		}
 		return waybill;
 	}
+	
+	@Override
+	public void checkEdit() {
+		if(!waybill.getTracking().equals(Tracking.SHIPPING)){
+			throw new IllegalStateException("you can't edit this waybill");			
+		}	
+	}
+
 	
 	public void setSignAndTracking(){
 		waybill.setSign(true);
