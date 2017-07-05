@@ -19,6 +19,9 @@ import org.junit.runner.RunWith;
 import org.junit.runners.model.InitializationError;
 
 import it.unifi.ing.swam.bean.UserSessionBean;
+import it.unifi.ing.swam.controller.strategy.CustomerStrategy;
+import it.unifi.ing.swam.controller.strategy.DriverStrategy;
+import it.unifi.ing.swam.controller.strategy.OperatorStrategy;
 import it.unifi.ing.swam.controller.strategy.RoleStrategy;
 import it.unifi.ing.swam.dao.MissionDao;
 import it.unifi.ing.swam.dao.RoleDao;
@@ -80,6 +83,16 @@ public class ViewWaybillPageControllerTest extends BasicController {
 		}
 
 	}
+	
+	private static void initStrategy() {
+		viewWaybillPageController.initStrategy();
+		RoleStrategy strategy = viewWaybillPageController.getStrategy();
+
+		try {
+			FieldUtils.writeField(strategy, "waybillDao", waybillDao, true);
+		} catch (IllegalAccessException e) {
+		}
+	} 
 
 
 	public static class CustomerTest {
@@ -90,17 +103,18 @@ public class ViewWaybillPageControllerTest extends BasicController {
 			// set currentRole as Customer
 			when(roleDao.findById(roleId)).thenReturn(user.getCustomerRole());
 
-			viewWaybillPageController.initStrategy();
-			RoleStrategy strategy = viewWaybillPageController.getStrategy();
-
-			try {
-				FieldUtils.writeField(strategy, "waybillDao", waybillDao, true);
-			} catch (IllegalAccessException e) {
-				throw new InitializationError(e);
-			}
 		}
+		
+		@Test
+		public void testInitStrategy() {
+			// waybill has the Customer user as sender
+			viewWaybillPageController.initStrategy();
+			assertEquals(viewWaybillPageController.getStrategy().getClass(), CustomerStrategy.class);
+		}
+		
 		@Test
 		public void testInitWaybill() {
+			ViewWaybillPageControllerTest.initStrategy();
 			// waybill has the Customer user as sender
 			waybill.setSender(user);
 			viewWaybillPageController.initWaybill();
@@ -109,6 +123,7 @@ public class ViewWaybillPageControllerTest extends BasicController {
 
 		@Test
 		public void testInitWaybillWrongSender() {
+			ViewWaybillPageControllerTest.initStrategy();
 			// waybill has the wrong Customer user as sender
 			waybill.setSender(wrongUser);
 			assertThatExceptionOfType(IllegalStateException.class).isThrownBy(() -> {
@@ -131,18 +146,21 @@ public class ViewWaybillPageControllerTest extends BasicController {
 			mission = ModelFactory.generateMission();
 			when(missionDao.findByDriverAndDate(eq(user), any(Calendar.class))).thenReturn(mission);
 
-			viewWaybillPageController.initStrategy();
-			RoleStrategy strategy = viewWaybillPageController.getStrategy();
-
-			try {
-				FieldUtils.writeField(strategy, "waybillDao", waybillDao, true);
-				FieldUtils.writeField(strategy, "missionDao", missionDao, true);
-			} catch (IllegalAccessException e) {
-				throw new InitializationError(e);
-			}
 		}
+		
+		@Test
+		public void testInitStrategy() {
+			// waybill has the Customer user as sender
+			viewWaybillPageController.initStrategy();
+			assertEquals(viewWaybillPageController.getStrategy().getClass(), DriverStrategy.class);
+		}
+		
 		@Test
 		public void testInitWaybill() {
+			ViewWaybillPageControllerTest.initStrategy();
+			try {
+				FieldUtils.writeField(viewWaybillPageController.getStrategy(), "missionDao", missionDao, true);
+			} catch (IllegalAccessException e) {}
 			// waybill is in the Driver's mission
 			mission.addWaybill(waybill);
 			viewWaybillPageController.initWaybill();
@@ -151,6 +169,10 @@ public class ViewWaybillPageControllerTest extends BasicController {
 
 		@Test
 		public void testInitWaybillWaybillNotInDriverMission() {
+			ViewWaybillPageControllerTest.initStrategy();
+			try {
+				FieldUtils.writeField(viewWaybillPageController.getStrategy(), "missionDao", missionDao, true);
+			} catch (IllegalAccessException e) {}
 			// waybill is NOT in the Driver's mission
 			assertThatExceptionOfType(IllegalStateException.class).isThrownBy(() -> {
 				viewWaybillPageController.initWaybill();
@@ -168,17 +190,18 @@ public class ViewWaybillPageControllerTest extends BasicController {
 			// set currentRole as Operator
 			when(roleDao.findById(roleId)).thenReturn(user.getOperatorRole());
 			
-			viewWaybillPageController.initStrategy();
-			RoleStrategy strategy = viewWaybillPageController.getStrategy();
-
-			try {
-				FieldUtils.writeField(strategy, "waybillDao", waybillDao, true);
-			} catch (IllegalAccessException e) {
-				throw new InitializationError(e);
-			}
 		}
+		
+		@Test
+		public void testInitStrategy() {
+			// waybill has the Customer user as sender
+			viewWaybillPageController.initStrategy();
+			assertEquals(viewWaybillPageController.getStrategy().getClass(), OperatorStrategy.class);
+		}
+		
 		@Test
 		public void testInitWaybill() {
+			ViewWaybillPageControllerTest.initStrategy();
 			// waybill has the Operator user as operator
 			waybill.setOperator(user);
 			viewWaybillPageController.initWaybill();
@@ -187,6 +210,7 @@ public class ViewWaybillPageControllerTest extends BasicController {
 
 		@Test
 		public void testInitWaybillWrongOperator() {
+			ViewWaybillPageControllerTest.initStrategy();
 			// waybill has the wrong Operator user as operator
 			waybill.setOperator(wrongUser);
 			assertThatExceptionOfType(IllegalStateException.class).isThrownBy(() -> {
