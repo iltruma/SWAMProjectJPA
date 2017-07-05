@@ -16,11 +16,14 @@ public class ModelFactory {
     }
 
     public static Driver generateDriver() {
-        return new Driver(UUID.randomUUID().toString());
+        Driver driver = new Driver(UUID.randomUUID().toString());
+        driver.setTruck(new Truck());
+        return driver;
     }
 
     public static Customer generateCustomer() {
         Customer customer = new Customer(UUID.randomUUID().toString());
+        customer.setAddress(new Address());
         customer.setState(State.ACTIVE);
         return customer;
     }

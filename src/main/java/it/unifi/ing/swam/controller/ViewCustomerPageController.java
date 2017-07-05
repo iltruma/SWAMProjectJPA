@@ -21,8 +21,8 @@ public class ViewCustomerPageController extends BasicController{
 
 
 	@PostConstruct
-	protected void initCustomersPage(){
-		if(userSession.getUser().isOperator()) {
+	protected void initViewCustomerPage(){
+		if(!userSession.getUser().isOperator()) {
 			throw new IllegalArgumentException("you cant view this page");
 		}
 		if(StringUtils.isEmpty(customerId)) {
@@ -32,8 +32,7 @@ public class ViewCustomerPageController extends BasicController{
 		
 		if(customer == null) {
 			throw new IllegalArgumentException("customer not found");
-		}
-		
+		}	
 		
 	}
 	

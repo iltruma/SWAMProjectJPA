@@ -50,6 +50,5 @@ public class EditWaybillPageController extends BasicController {
 		return waybill;
 	}
 	
-	
 
 }
