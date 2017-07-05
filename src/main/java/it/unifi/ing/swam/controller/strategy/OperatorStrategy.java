@@ -27,7 +27,7 @@ public class OperatorStrategy extends RoleStrategy {
 			try {
 				Long id = Long.valueOf(this.waybillId);
 				waybill = waybillDao.findById(id);
-				
+
 				if(waybill == null) {
 					throw new IllegalStateException("waybill does not exist in database");
 				}
@@ -38,12 +38,12 @@ public class OperatorStrategy extends RoleStrategy {
 		}
 		return waybill;
 	}
-	
+
 	@Override
 	public void checkEdit() {
 		if(!waybill.getSender().getAgency().equals(user.getAgency()) && !waybill.getTracking().equals(Tracking.IDLE)){
-			throw new IllegalStateException("you can't edit this waybill");			
-		}	
+			throw new IllegalStateException("you can't edit this waybill");
+		}
 	}
 
 	public void setCustomer(Long id){
@@ -55,9 +55,9 @@ public class OperatorStrategy extends RoleStrategy {
 		} else if (!sender.getCustomerRole().isActive()){
 			throw new IllegalArgumentException("the sender is blocked!");
 		}
-		
+
 		waybill.setSender(sender);
-		
+
 	}
 
 	public void setAgency(Long id) {
@@ -75,11 +75,10 @@ public class OperatorStrategy extends RoleStrategy {
 		}
 		waybill.getLoad().addItem(i);
 	}
-	
+
 	@Transactional
 	public String save(){
 		waybill.setOperator(user);
-		waybillDao.save(waybill);
-		return "ViewPage" + waybill.getId() + user.getOperatorRole().getId() ;
+		return super.save();
 	}
 }

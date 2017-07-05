@@ -2,6 +2,7 @@ package it.unifi.ing.swam.controller.strategy;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 
 import it.unifi.ing.swam.dao.AgencyDao;
 import it.unifi.ing.swam.dao.ItemDao;
@@ -23,7 +24,7 @@ public abstract class RoleStrategy {
 
 	@Inject
 	protected ItemDao itemDao;
-	
+
 	@Inject
 	protected UserDao userDao;
 
@@ -48,21 +49,35 @@ public abstract class RoleStrategy {
 			throw new IllegalArgumentException("role not found");
 		}
 	}
-	
+
 	public void setCustomer(Long id){
 		throw new UnsupportedOperationException();
 	}
-	
+
 	public void setAgency(Long id){
 		throw new UnsupportedOperationException();
 	}
-	
+
 	public void addItem(Long id){
 		throw new UnsupportedOperationException();
 	}
 
 	public void checkEdit() {
-		throw new UnsupportedOperationException();		
+		throw new UnsupportedOperationException();
 	}
+
+	public void setSignAndTracking() {
+	    throw new UnsupportedOperationException();
+	}
+
+	@Transactional
+	public String save() {
+	    waybillDao.save(waybill);
+        return "ViewPage" + waybill.getId() + user.getCustomerRole().getId();
+	}
+
+    public Waybill getWaybill() {
+        return this.waybill;
+    }
 
 }

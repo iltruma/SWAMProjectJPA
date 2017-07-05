@@ -3,6 +3,7 @@ package it.unifi.ing.swam.controller;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+
 import org.apache.commons.lang3.StringUtils;
 
 import it.unifi.ing.swam.bean.producer.HttpParam;
@@ -11,7 +12,7 @@ import it.unifi.ing.swam.model.Waybill;
 
 @ViewScoped
 public class EditWaybillPageController extends BasicController {
-	
+
 	@Inject
 	@HttpParam("id")
 	private String waybillId;
@@ -22,24 +23,24 @@ public class EditWaybillPageController extends BasicController {
 
 	private Waybill waybill;
 	private RoleStrategy strategy;
-	
+
 	@PostConstruct
 	protected void initWaybill() {
 		if(strategy == null)
 			this.initStrategy();
-		waybill = strategy.initWaybill();	
+		waybill = strategy.initWaybill();
 	}
 
 	protected void initStrategy() {
 		if(StringUtils.isEmpty(roleId)) {
 			throw new IllegalArgumentException("role id not found");
 		}
-		
+
 		if(StringUtils.isEmpty(waybillId) && !Boolean.valueOf(addFlag)) {
 			throw new IllegalArgumentException("id not found");
 		} else if (Boolean.valueOf(addFlag)){
-			waybillId = null;			
-		}	
+			waybillId = null;
+		}
 		currentRole = roleDao.findById(Long.valueOf(roleId));
 
 		strategy = RoleStrategy.getStrategyFrom(currentRole, waybillId, userSession.getUser());
@@ -49,6 +50,10 @@ public class EditWaybillPageController extends BasicController {
 	public Waybill getWaybill() {
 		return waybill;
 	}
-	
+
+    public RoleStrategy getStrategy() {
+        return strategy;
+    }
+
 
 }
