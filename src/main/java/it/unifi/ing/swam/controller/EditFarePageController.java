@@ -1,8 +1,9 @@
 package it.unifi.ing.swam.controller;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.inject.Model;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -11,22 +12,23 @@ import it.unifi.ing.swam.bean.producer.HttpParam;
 import it.unifi.ing.swam.dao.FareDao;
 import it.unifi.ing.swam.model.Fare;
 
-@Model
-public class ViewFarePageController extends BasicController {
-
+@ViewScoped
+public class EditFarePageController extends BasicController{
+	
+	@Inject
+	private FareDao fareDao;
+	
 	@Inject 
 	private ConversationBean conversationBean;
 	
-	@Inject 
-	private FareDao fareDao;
-	
 	@Inject @HttpParam("fare_id")
 	private String fareId;
-
+	
 	private Fare fare;
-
+	
 	@PostConstruct
-	protected void initFaresPage(){
+	protected void initEditFarePage(){
+
 		if(!userSession.getUser().isOperator()) {
 			throw new IllegalArgumentException("you cant view this page");
 		}
@@ -44,12 +46,17 @@ public class ViewFarePageController extends BasicController {
 			throw new IllegalArgumentException("fare not found for this customer");
 		}
 		
+		
 	}
 	
 	public Fare getFare() {
 		return fare;
 	}
 	
-	
+	@Transactional
+	public String save() {
+		 fareDao.save(fare);
+		 return "ViewFarePage" + fare.getId().toString();
+	}
 	
 }

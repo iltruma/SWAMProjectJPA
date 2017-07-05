@@ -1,11 +1,13 @@
 package it.unifi.ing.swam.controller;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 
 import it.unifi.ing.swam.bean.ConversationBean;
 import it.unifi.ing.swam.model.User;
 
+@Model
 public class ViewCustomerPageController extends BasicController{
 	
 	@Inject 
