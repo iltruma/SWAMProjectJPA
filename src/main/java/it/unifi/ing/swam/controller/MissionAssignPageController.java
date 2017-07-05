@@ -1,19 +1,15 @@
 package it.unifi.ing.swam.controller;
 
-import java.util.List;
-
+import java.util.Calendar;
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 
-import it.unifi.ing.swam.bean.UserSessionBean;
 import it.unifi.ing.swam.bean.producer.HttpParam;
 import it.unifi.ing.swam.dao.DriverDao;
 import it.unifi.ing.swam.dao.MissionDao;
-import it.unifi.ing.swam.dao.WaybillDao;
 import it.unifi.ing.swam.model.Driver;
 import it.unifi.ing.swam.model.Mission;
-import it.unifi.ing.swam.model.Waybill;
 
 @Model
 public class MissionAssignPageController extends BasicController{
@@ -24,6 +20,9 @@ public class MissionAssignPageController extends BasicController{
 	@Inject 
 	private MissionDao missionDao;
 	
+	@Inject 
+	private DriverDao driverDao;
+	
 	private Mission mission;
 		
 	@PostConstruct
@@ -32,10 +31,20 @@ public class MissionAssignPageController extends BasicController{
 			throw new IllegalArgumentException("you cant view this page");
 		}
 		
-		mission = missionDao.findByDriverAndDate(userSession.getUser(), date)
-			
-			
+		Driver driver = driverDao.findById(Long.valueOf(driverId)); 
 		
+		if (driver == null){
+			throw new IllegalArgumentException("driver is not in the database");
+		}
+		
+		Calendar tomorrow = Calendar.getInstance();
+		tomorrow.add(Calendar.DATE, 1);
+		mission = missionDao.findByDriverAndDate(driver.getOwner(), tomorrow);
+
+	}
+
+	public Mission getMission() {
+		return mission;
 	}
 
 
