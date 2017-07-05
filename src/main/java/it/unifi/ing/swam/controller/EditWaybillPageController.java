@@ -28,7 +28,9 @@ public class EditWaybillPageController extends BasicController {
 	protected void initWaybill() {
 		if(strategy == null)
 			this.initStrategy();
-		waybill = strategy.initWaybill();
+		strategy.initWaybill();
+		strategy.checkEdit();
+		waybill = strategy.getWaybill();
 	}
 
 	protected void initStrategy() {
@@ -44,7 +46,6 @@ public class EditWaybillPageController extends BasicController {
 		currentRole = roleDao.findById(Long.valueOf(roleId));
 
 		strategy = RoleStrategy.getStrategyFrom(currentRole, waybillId, userSession.getUser());
-		strategy.checkEdit();
 	}
 
 	public Waybill getWaybill() {
