@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
+import it.unifi.ing.swam.bean.ConversationBean;
 import it.unifi.ing.swam.dao.CustomerDao;
 import it.unifi.ing.swam.model.Customer;
 import it.unifi.ing.swam.model.User;
@@ -14,6 +15,9 @@ public class CustomersPageController extends BasicController{
 	
 	@Inject 
 	private CustomerDao customerDao;
+	
+	@Inject 
+	private ConversationBean conversationBean;
 	
 	private List<User> customers;
 
@@ -35,5 +39,11 @@ public class CustomersPageController extends BasicController{
 	public List<User> getCustomers() {
 		return customers;
 	}
+	
+	public void selectCustomer(User u){
+		conversationBean.setCustomer(u);
+		conversationBean.initConversation();
+	}
+	
 	
 }
