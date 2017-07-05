@@ -1,14 +1,19 @@
 package it.unifi.ing.swam.controller;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 
+import it.unifi.ing.swam.bean.ConversationBean;
 import it.unifi.ing.swam.dao.DriverDao;
+import it.unifi.ing.swam.dao.MissionDao;
 import it.unifi.ing.swam.dao.WaybillDao;
 import it.unifi.ing.swam.model.Driver;
+import it.unifi.ing.swam.model.Mission;
+import it.unifi.ing.swam.model.ModelFactory;
 import it.unifi.ing.swam.model.Waybill;
 
 @Model
@@ -20,13 +25,19 @@ public class AssignDriverPageController extends BasicController{
 	@Inject
 	private DriverDao driverDao;
 	
+	@Inject
+	private MissionDao missionDao;
+	
+	@Inject 
+	private ConversationBean conversationBean;
+	
 	private List<Driver> driversAvailable;
 	
 	private List<Waybill> waybills;
 	
 	@PostConstruct
 	protected void initAssignDriverPage(){
-		if(userSession.getUser().isOperator()) {
+		if(!userSession.getUser().isOperator()) {
 			throw new IllegalArgumentException("you cant view this page");
 		}
 		
@@ -43,8 +54,19 @@ public class AssignDriverPageController extends BasicController{
 		return waybills;
 	}
 	
-	
-	
-	
-	
+	public void selectDriver(Driver d){
+		Calendar tomorrow = Calendar.getInstance();
+		tomorrow.add(Calendar.DATE, 1);
+		
+		Mission m = missionDao.findByDriverAndDate(d.getOwner(), tomorrow);
+		if (m == null){
+			m = ModelFactory.generateMission();
+			d.addMission(m);
+			m.setDate(tomorrow);
+		}
+		
+		conversationBean.initConversation();		
+		conversationBean.setMission(m);
+	}
+
 }
