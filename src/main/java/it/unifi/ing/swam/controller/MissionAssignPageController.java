@@ -10,6 +10,7 @@ import it.unifi.ing.swam.dao.DriverDao;
 import it.unifi.ing.swam.dao.MissionDao;
 import it.unifi.ing.swam.model.Driver;
 import it.unifi.ing.swam.model.Mission;
+import it.unifi.ing.swam.model.Waybill;
 
 @Model
 public class MissionAssignPageController extends BasicController{
@@ -45,6 +46,22 @@ public class MissionAssignPageController extends BasicController{
 
 	public Mission getMission() {
 		return mission;
+	}
+	
+	public Float getTotalWeight(){
+		Float missionTotalWeight = 0F;
+		for(Waybill w : mission.getWaybills()){
+			missionTotalWeight += w.getLoad().getTotalWeight();
+		}
+		return missionTotalWeight;
+	}
+	
+	public Float getTotalVolume(){
+		Float missionTotalVolume = 0F;
+		for(Waybill w : mission.getWaybills()){
+			missionTotalVolume += w.getLoad().getTotalWeight();
+		}
+		return missionTotalVolume;
 	}
 
 
