@@ -37,6 +37,10 @@ public class ConversationBean implements Serializable {
 		this.customer = c;
 	}
 	
+	public User getCustomer(){
+		return customer;
+	}
+	
 	
 
 }

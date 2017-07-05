@@ -8,11 +8,9 @@ import javax.transaction.Transactional;
 import org.apache.commons.lang3.StringUtils;
 
 import it.unifi.ing.swam.bean.producer.HttpParam;
-import it.unifi.ing.swam.controller.strategy.RoleStrategy;
 import it.unifi.ing.swam.dao.UserDao;
 import it.unifi.ing.swam.model.ModelFactory;
 import it.unifi.ing.swam.model.User;
-import it.unifi.ing.swam.model.Waybill;
 
 @ViewScoped
 public class EditCustomerPageController extends BasicController {

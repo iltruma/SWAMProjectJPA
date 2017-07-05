@@ -20,8 +20,6 @@ public class BasicController {
 	
 	protected Role currentRole;
 
-	
-	
 	public Role getCurrentRole() {
 		return currentRole;
 	}
