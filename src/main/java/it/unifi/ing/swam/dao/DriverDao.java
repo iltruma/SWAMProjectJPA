@@ -2,6 +2,7 @@ package it.unifi.ing.swam.dao;
 
 import java.util.List;
 
+import it.unifi.ing.swam.model.Agency;
 import it.unifi.ing.swam.model.Driver;
 import it.unifi.ing.swam.model.Truck;
 import it.unifi.ing.swam.model.User;
@@ -42,5 +43,10 @@ public class DriverDao extends BaseDao {
             return result.get(0);
         return null;
     }
+
+	public List<Driver> findAvailable(Agency agency) {
+		return entityManager.createQuery("SELECT d FROM Driver d WHERE d.availType = :availType AND d.owner.agency = :agency", Driver.class)
+                .setParameter("availType", Driver.AvailType.AVAILABLE).setParameter("agency", agency).getResultList();
+	}
 
 }

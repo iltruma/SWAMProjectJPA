@@ -6,58 +6,77 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "drivers")
 public class Driver extends Role {
 
-    private String zone;
-    @Embedded
-    private Truck truck;
-    @OneToMany(cascade={CascadeType.PERSIST}, fetch=FetchType.LAZY)
-    @JoinColumn(name="driver_id")
-    private List<Mission> missions;
+	private String zone;
+	@Embedded
+	private Truck truck;
+	@OneToMany(cascade = { CascadeType.PERSIST }, fetch = FetchType.LAZY)
+	@JoinColumn(name = "driver_id")
+	private List<Mission> missions;
 
-    protected Driver() {
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	private AvailType availType;
 
-    }
+	public enum AvailType {
+		AVAILABLE, UNAVAILABLE
+	}
 
-    public Driver(String uuid) {
-        super(uuid);
-        this.type = Role.Type.DRIVER;
-        this.missions = new ArrayList<>();
-    }
+	protected Driver() {
 
-    public String getZone() {
-        return zone;
-    }
+	}
 
-    public void setZone(String zone) {
-        this.zone = zone;
-    }
+	public Driver(String uuid) {
+		super(uuid);
+		this.type = Role.Type.DRIVER;
+		this.missions = new ArrayList<>();
+	}
 
-    public Truck getTruck() {
-        return truck;
-    }
+	public String getZone() {
+		return zone;
+	}
 
-    public void setTruck(Truck truck) {
-        this.truck = truck;
-    }
+	public void setZone(String zone) {
+		this.zone = zone;
+	}
 
-    public List<Mission> getMissions() {
-        return missions;
-    }
+	public Truck getTruck() {
+		return truck;
+	}
 
-    public void setMissions(List<Mission> missions) {
-        this.missions = missions;
-    }
+	public void setTruck(Truck truck) {
+		this.truck = truck;
+	}
 
-    public void addMission(Mission m) {
-        this.missions.add(m);
-    }
+	public List<Mission> getMissions() {
+		return missions;
+	}
+
+	public void setMissions(List<Mission> missions) {
+		this.missions = missions;
+	}
+
+	public void addMission(Mission m) {
+		this.missions.add(m);
+	}
+
+	public AvailType isAvailable() {
+		return this.availType;
+	}
+
+	public void setAvailType(AvailType availType) {
+		this.availType = availType;
+	}
 
 }

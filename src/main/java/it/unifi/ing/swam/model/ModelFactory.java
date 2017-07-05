@@ -2,6 +2,7 @@ package it.unifi.ing.swam.model;
 
 import java.util.UUID;
 
+
 public class ModelFactory {
 
     private ModelFactory() {
@@ -18,6 +19,7 @@ public class ModelFactory {
     public static Driver generateDriver() {
         Driver driver = new Driver(UUID.randomUUID().toString());
         driver.setTruck(new Truck());
+        driver.setAvailType(Driver.AvailType.AVAILABLE);
         return driver;
     }
 
