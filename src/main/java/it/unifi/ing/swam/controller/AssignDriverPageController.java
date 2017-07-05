@@ -3,19 +3,17 @@ package it.unifi.ing.swam.controller;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 
-import it.unifi.ing.swam.bean.UserSessionBean;
 import it.unifi.ing.swam.dao.DriverDao;
 import it.unifi.ing.swam.dao.WaybillDao;
 import it.unifi.ing.swam.model.Driver;
 import it.unifi.ing.swam.model.Waybill;
 
+@Model
 public class AssignDriverPageController extends BasicController{
 
-	@Inject
-	private UserSessionBean userSession;
-	
 	@Inject
 	private WaybillDao waybillDao;
 	

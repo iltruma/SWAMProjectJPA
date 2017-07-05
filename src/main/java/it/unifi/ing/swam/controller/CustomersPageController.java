@@ -26,7 +26,7 @@ public class CustomersPageController extends BasicController{
 
 	@PostConstruct
 	protected void initCustomersPage(){
-		if(userSession.getUser().isOperator()) {
+		if(!userSession.getUser().isOperator()) {
 			throw new IllegalArgumentException("you cant view this page");
 		}
 		List<Customer> results = customerDao.findByOperator(userSession.getUser());
