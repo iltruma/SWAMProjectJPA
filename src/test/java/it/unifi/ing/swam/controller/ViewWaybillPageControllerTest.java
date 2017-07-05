@@ -28,8 +28,8 @@ import it.unifi.ing.swam.model.ModelFactory;
 import it.unifi.ing.swam.model.User;
 import it.unifi.ing.swam.model.Waybill;
 
-@RunWith(Enclosed.class)
 @Model
+@RunWith(Enclosed.class)
 public class ViewWaybillPageControllerTest extends BasicController {
 	private static ViewWaybillPageController viewWaybillPageController;
 	private static WaybillDao waybillDao;
@@ -66,7 +66,8 @@ public class ViewWaybillPageControllerTest extends BasicController {
 
 		waybill = ModelFactory.generateWaybill();
 		
-		when(waybillDao.findById(12L)).thenReturn(waybill);
+		when(waybillDao.findById(waybillId)).thenReturn(waybill);
+		
 		try {
 			FieldUtils.writeField(user, "id", Long.valueOf(10), true);
 			FieldUtils.writeField(viewWaybillPageController, "roleId", roleId.toString(), true);
@@ -79,6 +80,7 @@ public class ViewWaybillPageControllerTest extends BasicController {
 		}
 
 	}
+
 
 	public static class CustomerTest {
 		@Before
@@ -102,6 +104,7 @@ public class ViewWaybillPageControllerTest extends BasicController {
 			// waybill has the Customer user as sender
 			waybill.setSender(user);
 			viewWaybillPageController.initWaybill();
+			assertEquals(viewWaybillPageController.getWaybill(), waybill);
 		}
 
 		@Test
@@ -111,19 +114,9 @@ public class ViewWaybillPageControllerTest extends BasicController {
 			assertThatExceptionOfType(IllegalStateException.class).isThrownBy(() -> {
 				viewWaybillPageController.initWaybill();
 			});
-		}
-		
-		@Test
-		public void testGetWaybill() {
-			this.testInitWaybill();
-			assertEquals(viewWaybillPageController.getWaybill(), waybill);
-		}
-		
-		@Test
-		public void testGetWaybillWrongSender() {
-			this.testInitWaybillWrongSender();
 			assertNull(viewWaybillPageController.getWaybill());
 		}
+		
 	}
 	
 	public static class DriverTest {
@@ -153,6 +146,7 @@ public class ViewWaybillPageControllerTest extends BasicController {
 			// waybill is in the Driver's mission
 			mission.addWaybill(waybill);
 			viewWaybillPageController.initWaybill();
+			assertEquals(viewWaybillPageController.getWaybill(), waybill);
 		}
 
 		@Test
@@ -161,19 +155,9 @@ public class ViewWaybillPageControllerTest extends BasicController {
 			assertThatExceptionOfType(IllegalStateException.class).isThrownBy(() -> {
 				viewWaybillPageController.initWaybill();
 			});
-		}
-		
-		@Test
-		public void testGetWaybill() {
-			this.testInitWaybill();
-			assertEquals(viewWaybillPageController.getWaybill(), waybill);
-		}
-		
-		@Test
-		public void testGetWaybillWrongOperator() {
-			this.testInitWaybillWaybillNotInDriverMission();
 			assertNull(viewWaybillPageController.getWaybill());
 		}
+		
 	}
 	
 	public static class OperatorTest {
@@ -198,6 +182,7 @@ public class ViewWaybillPageControllerTest extends BasicController {
 			// waybill has the Operator user as operator
 			waybill.setOperator(user);
 			viewWaybillPageController.initWaybill();
+			assertEquals(viewWaybillPageController.getWaybill(), waybill);
 		}
 
 		@Test
@@ -207,19 +192,9 @@ public class ViewWaybillPageControllerTest extends BasicController {
 			assertThatExceptionOfType(IllegalStateException.class).isThrownBy(() -> {
 				viewWaybillPageController.initWaybill();
 			});
-		}
-		
-		@Test
-		public void testGetWaybill() {
-			this.testInitWaybill();
-			assertEquals(viewWaybillPageController.getWaybill(), waybill);
-		}
-		
-		@Test
-		public void testGetWaybillWrongOperator() {
-			this.testInitWaybillWrongOperator();
 			assertNull(viewWaybillPageController.getWaybill());
 		}
+		
 	}
 
 }
