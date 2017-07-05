@@ -16,7 +16,7 @@ import it.unifi.ing.swam.model.Mission;
 import it.unifi.ing.swam.model.ModelFactory;
 import it.unifi.ing.swam.model.Waybill;
 
-@Model
+@ViewScoped
 public class AssignDriverPageController extends BasicController{
 
 	@Inject

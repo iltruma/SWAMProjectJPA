@@ -1,7 +1,6 @@
 package it.unifi.ing.swam.controller;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.inject.Model;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 
