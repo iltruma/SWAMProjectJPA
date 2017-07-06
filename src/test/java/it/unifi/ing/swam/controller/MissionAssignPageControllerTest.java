@@ -73,12 +73,7 @@ public class MissionAssignPageControllerTest extends BasicController {
 
 	@Test
 	public void testRemove() throws InitializationError {
-		try {
-			FieldUtils.writeField(missionAssignPageController, "mission", mission, true);
-		} catch (IllegalAccessException e) {
-			throw new InitializationError(e);
-		}
-
+		missionAssignPageController.initMissionAssignPage();
 		missionAssignPageController.remove(waybill);
 		assertEquals(0, missionAssignPageController.getMission().getWaybills().size());
 		assertTrue(!missionAssignPageController.getMission().getWaybills().contains(waybill));
