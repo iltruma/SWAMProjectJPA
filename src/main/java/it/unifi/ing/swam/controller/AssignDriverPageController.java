@@ -65,8 +65,8 @@ public class AssignDriverPageController extends BasicController{
 			m.setDate(tomorrow);
 		}
 		
+		conversationBean.initConversation();	
 		conversationBean.setMission(m);
-		conversationBean.initConversation();		
 	}
 
 }

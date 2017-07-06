@@ -31,7 +31,7 @@ public class EditCustomerPageController extends BasicController {
 			conversationBean.getCustomer().setAgency(userSession.getUser().getAgency());
 		} 
 		
-		if (conversationBean.getCustomer().getAgency().equals(userSession.getUser().getAgency())){
+		if (!conversationBean.getCustomer().getAgency().equals(userSession.getUser().getAgency())){
 			throw new IllegalStateException("customer not Editable");
 		}
 		
