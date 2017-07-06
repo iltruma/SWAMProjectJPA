@@ -4,7 +4,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
-import it.unifi.ing.swam.bean.ConversationCustomerBean;
+import it.unifi.ing.swam.bean.CustomerBean;
 import it.unifi.ing.swam.dao.UserDao;
 import it.unifi.ing.swam.model.ModelFactory;
 import it.unifi.ing.swam.model.User;
@@ -16,7 +16,7 @@ public class EditCustomerPageController extends BasicController {
 	private UserDao userDao;
 	
 	@Inject 
-	private ConversationCustomerBean conversationBean;
+	private CustomerBean conversationBean;
 	
 	@PostConstruct
 	protected void initEditCustomerPage(){

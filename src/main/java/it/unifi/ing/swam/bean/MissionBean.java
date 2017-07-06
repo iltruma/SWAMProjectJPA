@@ -12,7 +12,7 @@ import it.unifi.ing.swam.model.Waybill;
 
 @ConversationScoped
 @Named
-public class ConversationMissionBean implements Serializable {
+public class MissionBean implements Serializable {
 
 	private static final long serialVersionUID = 3L;
 

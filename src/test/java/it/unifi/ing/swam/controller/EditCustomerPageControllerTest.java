@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runners.model.InitializationError;
 
-import it.unifi.ing.swam.bean.ConversationCustomerBean;
+import it.unifi.ing.swam.bean.CustomerBean;
 import it.unifi.ing.swam.bean.UserSessionBean;
 import it.unifi.ing.swam.model.Agency;
 import it.unifi.ing.swam.model.ModelFactory;
@@ -18,7 +18,7 @@ import it.unifi.ing.swam.model.User;
 public class EditCustomerPageControllerTest extends BasicController {
 
     private EditCustomerPageController editCustomerPageController;
-    private ConversationCustomerBean conversationBean;
+    private CustomerBean conversationBean;
     protected UserSessionBean userSession;
 
     private User user;
@@ -31,7 +31,7 @@ public class EditCustomerPageControllerTest extends BasicController {
     @Before
     public void setUp() throws InitializationError {
         editCustomerPageController = new EditCustomerPageController();
-        conversationBean = new ConversationCustomerBean();
+        conversationBean = new CustomerBean();
         userSession = new UserSessionBean();
 
         agency = ModelFactory.generateAgency();

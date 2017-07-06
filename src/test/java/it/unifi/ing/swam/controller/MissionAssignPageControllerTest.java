@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runners.model.InitializationError;
 
-import it.unifi.ing.swam.bean.ConversationMissionBean;
+import it.unifi.ing.swam.bean.MissionBean;
 import it.unifi.ing.swam.bean.UserSessionBean;
 import it.unifi.ing.swam.model.Mission;
 import it.unifi.ing.swam.model.ModelFactory;
@@ -20,7 +20,7 @@ public class MissionAssignPageControllerTest extends BasicController {
 
 	private MissionAssignPageController missionAssignPageController;
 	private UserSessionBean userSession;
-	private ConversationMissionBean conversationBean;
+	private MissionBean conversationBean;
 
 	private User user;
 	private Mission mission;
@@ -38,7 +38,7 @@ public class MissionAssignPageControllerTest extends BasicController {
 		wrongUser = ModelFactory.generateUser();
 
 		mission = ModelFactory.generateMission();
-		conversationBean = new ConversationMissionBean();
+		conversationBean = new MissionBean();
 		conversationBean.setMission(mission);
 
 		waybill = ModelFactory.generateWaybill();

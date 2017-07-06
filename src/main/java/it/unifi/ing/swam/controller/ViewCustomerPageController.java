@@ -4,14 +4,14 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 
-import it.unifi.ing.swam.bean.ConversationCustomerBean;
+import it.unifi.ing.swam.bean.CustomerBean;
 import it.unifi.ing.swam.model.User;
 
 @Model
 public class ViewCustomerPageController extends BasicController{
 	
 	@Inject 
-	private ConversationCustomerBean conversationBean;
+	private CustomerBean conversationBean;
 
 	@PostConstruct
 	protected void initCustomersPage(){

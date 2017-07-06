@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runners.model.InitializationError;
 
-import it.unifi.ing.swam.bean.ConversationCustomerBean;
+import it.unifi.ing.swam.bean.CustomerBean;
 import it.unifi.ing.swam.bean.UserSessionBean;
 import it.unifi.ing.swam.dao.FareDao;
 import it.unifi.ing.swam.model.Fare;
@@ -20,7 +20,7 @@ import it.unifi.ing.swam.model.User;
 public class EditFarePageControllerTest extends BasicController {
 
     private EditFarePageController editFarePageController;
-    private ConversationCustomerBean conversationBean;
+    private CustomerBean conversationBean;
     private UserSessionBean userSession;
 
     private FareDao fareDao;
@@ -36,7 +36,7 @@ public class EditFarePageControllerTest extends BasicController {
     @Before
     public void setUp() throws InitializationError {
         editFarePageController = new EditFarePageController();
-        conversationBean = new ConversationCustomerBean();
+        conversationBean = new CustomerBean();
         userSession = new UserSessionBean();
 
         fareDao = mock(FareDao.class);

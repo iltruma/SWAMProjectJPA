@@ -18,7 +18,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runners.model.InitializationError;
 
-import it.unifi.ing.swam.bean.ConversationMissionBean;
+import it.unifi.ing.swam.bean.MissionBean;
 import it.unifi.ing.swam.bean.UserSessionBean;
 import it.unifi.ing.swam.dao.DriverDao;
 import it.unifi.ing.swam.dao.MissionDao;
@@ -32,7 +32,7 @@ import it.unifi.ing.swam.model.Waybill;
 public class AssignDriverPageControllerTest extends BasicController {
 
     private AssignDriverPageController assignDriverPageController;
-    private ConversationMissionBean conversationBean;
+    private MissionBean conversationBean;
     private Conversation conversation;
     private UserSessionBean userSession;
 
@@ -48,7 +48,7 @@ public class AssignDriverPageControllerTest extends BasicController {
     @Before
     public void setUp() throws InitializationError {
         assignDriverPageController = new AssignDriverPageController();
-        conversationBean = new ConversationMissionBean();
+        conversationBean = new MissionBean();
         userSession = new UserSessionBean();
         conversation = mock(Conversation.class);
 

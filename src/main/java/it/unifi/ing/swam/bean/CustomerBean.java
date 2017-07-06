@@ -11,7 +11,7 @@ import it.unifi.ing.swam.model.User;
 
 @ConversationScoped
 @Named
-public class ConversationCustomerBean implements Serializable {
+public class CustomerBean implements Serializable {
 
 	private static final long serialVersionUID = 2L;
 

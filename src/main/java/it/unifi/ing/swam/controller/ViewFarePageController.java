@@ -6,7 +6,7 @@ import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
 
-import it.unifi.ing.swam.bean.ConversationCustomerBean;
+import it.unifi.ing.swam.bean.CustomerBean;
 import it.unifi.ing.swam.bean.producer.HttpParam;
 import it.unifi.ing.swam.dao.FareDao;
 import it.unifi.ing.swam.model.Fare;
@@ -15,7 +15,7 @@ import it.unifi.ing.swam.model.Fare;
 public class ViewFarePageController extends BasicController {
 
 	@Inject 
-	private ConversationCustomerBean conversationBean;
+	private CustomerBean conversationBean;
 	
 	@Inject 
 	private FareDao fareDao;

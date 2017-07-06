@@ -7,7 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 
-import it.unifi.ing.swam.bean.ConversationMissionBean;
+import it.unifi.ing.swam.bean.MissionBean;
 import it.unifi.ing.swam.dao.DriverDao;
 import it.unifi.ing.swam.dao.MissionDao;
 import it.unifi.ing.swam.dao.WaybillDao;
@@ -29,7 +29,7 @@ public class AssignDriverPageController extends BasicController{
 	private MissionDao missionDao;
 	
 	@Inject 
-	private ConversationMissionBean conversationBean;
+	private MissionBean conversationBean;
 	
 	private List<Driver> driversAvailable;
 	
