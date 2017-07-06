@@ -21,9 +21,9 @@ public class WaybillsToAssignPageController extends BasicController {
 	private WaybillDao waybillDao;
 
 	private List<Waybill> waybills;
-	
+
 	private Float remainWeight;
-	private Float remainVolume; 
+	private Float remainVolume;
 
 	@PostConstruct
 	protected void initAssignDriverPage() {
@@ -31,24 +31,20 @@ public class WaybillsToAssignPageController extends BasicController {
 			throw new IllegalArgumentException("you cant view this page");
 		}
 
-		List<Waybill> tempWaybills = waybillDao.findUnassignedToDriver(userSession.getUser().getAgency());
-		waybills = new ArrayList<Waybill>();
+		waybills = new ArrayList<>();
+		waybills = waybillDao.findUnassignedToDriver(userSession.getUser().getAgency());
+
 		remainWeight = conversationBean.getTruckWeight() - conversationBean.getTotalWeight();
 		remainVolume = conversationBean.getTruckVolume() - conversationBean.getTotalVolume();
-
-		for (Waybill w : tempWaybills) {
-			if (w.getWeight() < remainWeight && w.getVolume() < remainVolume) {
-				waybills.add(w);
-			}
-		}
 	}
 
 	public void addWaybills(List<Waybill> ws) {
 		for (Waybill w : ws) {
 			if (w.getWeight() < remainWeight && w.getVolume() < remainVolume) {
 				conversationBean.getMission().addWaybill(w);
-			}
-			else {
+				remainWeight = conversationBean.getTruckWeight() - conversationBean.getTotalWeight();
+				remainVolume = conversationBean.getTruckVolume() - conversationBean.getTotalVolume();
+			} else {
 				throw new IllegalArgumentException("you can't add this waybill " + w.getId().toString());
 			}
 		}
