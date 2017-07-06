@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runners.model.InitializationError;
 
-import it.unifi.ing.swam.bean.ConversationBean;
+import it.unifi.ing.swam.bean.ConversationCustomerBean;
 import it.unifi.ing.swam.bean.UserSessionBean;
 import it.unifi.ing.swam.dao.FareDao;
 import it.unifi.ing.swam.model.Fare;
@@ -20,7 +20,7 @@ public class ViewFarePageControllerTest extends BasicController {
 
     private ViewFarePageController viewFarePageController;
     private UserSessionBean userSession;
-    private ConversationBean conversationBean;
+    private ConversationCustomerBean conversationBean;
     private FareDao fareDao;
     private Long fareId;
     private Fare fare;
@@ -33,7 +33,7 @@ public class ViewFarePageControllerTest extends BasicController {
     public void setUp() throws InitializationError {
         viewFarePageController = new ViewFarePageController();
         userSession = new UserSessionBean();
-        conversationBean = new ConversationBean();
+        conversationBean = new ConversationCustomerBean();
         fareDao = mock(FareDao.class);
 
         user = ModelFactory.generateUser();

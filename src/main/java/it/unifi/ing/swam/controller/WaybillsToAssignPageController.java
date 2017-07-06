@@ -7,7 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 
-import it.unifi.ing.swam.bean.ConversationBean;
+import it.unifi.ing.swam.bean.ConversationMissionBean;
 import it.unifi.ing.swam.dao.WaybillDao;
 import it.unifi.ing.swam.model.Waybill;
 
@@ -15,7 +15,7 @@ import it.unifi.ing.swam.model.Waybill;
 public class WaybillsToAssignPageController extends BasicController {
 
 	@Inject
-	private ConversationBean conversationBean;
+	private ConversationMissionBean conversationBean;
 
 	@Inject
 	private WaybillDao waybillDao;

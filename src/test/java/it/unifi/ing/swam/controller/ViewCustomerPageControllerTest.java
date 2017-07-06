@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runners.model.InitializationError;
 
-import it.unifi.ing.swam.bean.ConversationBean;
+import it.unifi.ing.swam.bean.ConversationCustomerBean;
 import it.unifi.ing.swam.bean.UserSessionBean;
 import it.unifi.ing.swam.model.ModelFactory;
 import it.unifi.ing.swam.model.User;
@@ -16,7 +16,7 @@ public class ViewCustomerPageControllerTest extends BasicController {
 
     private ViewCustomerPageController viewCustomerPageController;
 
-    private ConversationBean conversationBean;
+    private ConversationCustomerBean conversationBean;
     private UserSessionBean userSession;
 
     private User user;
@@ -26,7 +26,7 @@ public class ViewCustomerPageControllerTest extends BasicController {
     @Before
     public void setUp() throws InitializationError{
         viewCustomerPageController = new ViewCustomerPageController();
-        conversationBean = new ConversationBean();
+        conversationBean = new ConversationCustomerBean();
         userSession = new UserSessionBean();
 
         wrongUser = ModelFactory.generateUser();

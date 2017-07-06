@@ -8,25 +8,22 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import it.unifi.ing.swam.model.Mission;
-import it.unifi.ing.swam.model.User;
 import it.unifi.ing.swam.model.Waybill;
 
 @ConversationScoped
 @Named
-public class ConversationBean implements Serializable {
+public class ConversationMissionBean implements Serializable {
 
-	private static final long serialVersionUID = 2L;
+	private static final long serialVersionUID = 3L;
 
 	@Inject
 	private Conversation conversation;
-	
-	private User customer;
-	
+
 	private Mission mission;
-	
+
 	private Float truckWeight;
 	private Float truckVolume;
-
+	
 	public void initConversation() {
 		if (conversation.isTransient()) {
 			conversation.begin();
@@ -39,14 +36,6 @@ public class ConversationBean implements Serializable {
 	    }
 	    return "back";
 	  }
-	
-	public void setCustomer(User c){
-		this.customer = c;
-	}
-	
-	public User getCustomer(){
-		return customer;
-	}
 	
 	public Mission getMission(){
 		return mission;

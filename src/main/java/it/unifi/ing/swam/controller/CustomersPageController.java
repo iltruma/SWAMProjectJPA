@@ -7,7 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 
-import it.unifi.ing.swam.bean.ConversationBean;
+import it.unifi.ing.swam.bean.ConversationCustomerBean;
 import it.unifi.ing.swam.dao.CustomerDao;
 import it.unifi.ing.swam.model.Customer;
 import it.unifi.ing.swam.model.User;
@@ -19,7 +19,7 @@ public class CustomersPageController extends BasicController{
 	private CustomerDao customerDao;
 	
 	@Inject 
-	private ConversationBean conversationBean;
+	private ConversationCustomerBean conversationBean;
 	
 	private List<User> customers;
 

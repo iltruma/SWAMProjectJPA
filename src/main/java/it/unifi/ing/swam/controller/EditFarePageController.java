@@ -7,7 +7,7 @@ import javax.transaction.Transactional;
 
 import org.apache.commons.lang3.StringUtils;
 
-import it.unifi.ing.swam.bean.ConversationBean;
+import it.unifi.ing.swam.bean.ConversationCustomerBean;
 import it.unifi.ing.swam.bean.producer.HttpParam;
 import it.unifi.ing.swam.dao.FareDao;
 import it.unifi.ing.swam.model.Fare;
@@ -19,7 +19,7 @@ public class EditFarePageController extends BasicController{
 	private FareDao fareDao;
 	
 	@Inject 
-	private ConversationBean conversationBean;
+	private ConversationCustomerBean conversationBean;
 	
 	@Inject @HttpParam("fare_id")
 	private String fareId;

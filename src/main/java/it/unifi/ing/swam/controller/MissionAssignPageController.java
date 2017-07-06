@@ -4,7 +4,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 
-import it.unifi.ing.swam.bean.ConversationBean;
+import it.unifi.ing.swam.bean.ConversationMissionBean;
 import it.unifi.ing.swam.bean.producer.HttpParam;
 import it.unifi.ing.swam.dao.MissionDao;
 import it.unifi.ing.swam.model.Mission;
@@ -20,7 +20,7 @@ public class MissionAssignPageController extends BasicController{
 	private MissionDao missionDao;
 	
 	@Inject 
-	private ConversationBean conversationBean;
+	private ConversationMissionBean conversationBean;
 	
 	private Mission mission;
 		
