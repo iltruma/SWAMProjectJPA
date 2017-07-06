@@ -18,66 +18,66 @@ import it.unifi.ing.swam.model.Waybill;
 
 public class MissionAssignPageControllerTest extends BasicController {
 
-	private MissionAssignPageController missionAssignPageController;
-	private UserSessionBean userSession;
-	private MissionBean conversationBean;
+    private MissionAssignPageController missionAssignPageController;
+    private UserSessionBean userSession;
+    private MissionBean conversationBean;
 
-	private User user;
-	private Mission mission;
-	private User wrongUser;
-	private Waybill waybill;
-	@Before
-	public void setUp() throws Exception {
-		missionAssignPageController = new MissionAssignPageController();
-		userSession = new UserSessionBean();
+    private User user;
+    private Mission mission;
+    private User wrongUser;
+    private Waybill waybill;
+    @Before
+    public void setUp() throws Exception {
+        missionAssignPageController = new MissionAssignPageController();
+        userSession = new UserSessionBean();
 
-		user = ModelFactory.generateUser();
-		user.addRole(ModelFactory.generateOperator());
-		userSession.setUser(user);
+        user = ModelFactory.generateUser();
+        user.addRole(ModelFactory.generateOperator());
+        userSession.setUser(user);
 
-		wrongUser = ModelFactory.generateUser();
+        wrongUser = ModelFactory.generateUser();
 
-		mission = ModelFactory.generateMission();
-		conversationBean = new MissionBean();
-		conversationBean.setMission(mission);
+        mission = ModelFactory.generateMission();
+        conversationBean = new MissionBean();
+        conversationBean.setMission(mission);
 
-		waybill = ModelFactory.generateWaybill();
-		mission.addWaybill(waybill);
+        waybill = ModelFactory.generateWaybill();
+        mission.addWaybill(waybill);
 
-		try {
-			FieldUtils.writeField(missionAssignPageController, "userSession", userSession, true);
-			FieldUtils.writeField(missionAssignPageController, "conversationBean", conversationBean, true);
-		} catch (IllegalAccessException e) {
-			throw new InitializationError(e);
-		}
-	}
+        try {
+            FieldUtils.writeField(missionAssignPageController, "userSession", userSession, true);
+            FieldUtils.writeField(missionAssignPageController, "conversationBean", conversationBean, true);
+        } catch (IllegalAccessException e) {
+            throw new InitializationError(e);
+        }
+    }
 
-	@Test
-	public void testInitMissionAssignPage() {
-		missionAssignPageController.initMissionAssignPage();
-		assertEquals(mission, conversationBean.getMission());
+    @Test
+    public void testInitMissionAssignPage() {
+        missionAssignPageController.initMissionAssignPage();
+        assertEquals(mission, conversationBean.getMission());
 
-		conversationBean.setMission(null);
-		assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
-			missionAssignPageController.initMissionAssignPage();
-		});
-	}
+        conversationBean.setMission(null);
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
+            missionAssignPageController.initMissionAssignPage();
+        });
+    }
 
-	@Test
-	public void testInitMissionAssignPageThrowsIllegalArgumentException() {
-		userSession.setUser(wrongUser);
-		assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
-			missionAssignPageController.initMissionAssignPage();
-		});
-	}
+    @Test
+    public void testInitMissionAssignPageThrowsIllegalArgumentException() {
+        userSession.setUser(wrongUser);
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
+            missionAssignPageController.initMissionAssignPage();
+        });
+    }
 
-	@Test
-	public void testRemove() throws InitializationError {
-		missionAssignPageController.initMissionAssignPage();
-		missionAssignPageController.remove(waybill);
-		assertEquals(0, missionAssignPageController.getMission().getWaybills().size());
-		assertTrue(!missionAssignPageController.getMission().getWaybills().contains(waybill));
+    @Test
+    public void testRemove() throws InitializationError {
+        missionAssignPageController.initMissionAssignPage();
+        missionAssignPageController.remove(waybill);
+        assertEquals(0, missionAssignPageController.getMission().getWaybills().size());
+        assertTrue(!missionAssignPageController.getMission().getWaybills().contains(waybill));
 
-	}
+    }
 
 }

@@ -25,114 +25,114 @@ import it.unifi.ing.swam.model.Waybill;
 
 public class WaybillsToAssignPageControllerTest extends BasicController {
 
-	private WaybillsToAssignPageController waybillsToAssignPageController;
-	private MissionBean conversationBean;
-	private UserSessionBean userSession;
+    private WaybillsToAssignPageController waybillsToAssignPageController;
+    private MissionBean conversationBean;
+    private UserSessionBean userSession;
 
-	private WaybillDao waybillDao;
+    private WaybillDao waybillDao;
 
-	private Waybill waybill;
-	private User user;
-	private User wrongUser;
-	private Agency agency;
-	private Mission mission;
+    private Waybill waybill;
+    private User user;
+    private User wrongUser;
+    private Agency agency;
+    private Mission mission;
 
-	private Long waybillId = 1L;
-	private Float truckVolume = 10F;
-	private Float truckWeight = 10F;
+    private Long waybillId = 1L;
+    private Float truckVolume = 10F;
+    private Float truckWeight = 10F;
 
-	@Before
-	public void setUp() throws InitializationError {
-		waybillsToAssignPageController = new WaybillsToAssignPageController();
-		conversationBean = new MissionBean();
-		userSession = new UserSessionBean();
+    @Before
+    public void setUp() throws InitializationError {
+        waybillsToAssignPageController = new WaybillsToAssignPageController();
+        conversationBean = new MissionBean();
+        userSession = new UserSessionBean();
 
-		waybillDao = mock(WaybillDao.class);
+        waybillDao = mock(WaybillDao.class);
 
-		agency = ModelFactory.generateAgency();
+        agency = ModelFactory.generateAgency();
 
-		user = ModelFactory.generateUser();
-		user.addRole(ModelFactory.generateOperator());
-		user.setAgency(agency);
+        user = ModelFactory.generateUser();
+        user.addRole(ModelFactory.generateOperator());
+        user.setAgency(agency);
 
-		userSession.setUser(user);
+        userSession.setUser(user);
 
-		wrongUser = ModelFactory.generateUser();
-		wrongUser.addRole(ModelFactory.generateDriver());
+        wrongUser = ModelFactory.generateUser();
+        wrongUser.addRole(ModelFactory.generateDriver());
 
-		mission = ModelFactory.generateMission();
+        mission = ModelFactory.generateMission();
 
-		waybill = ModelFactory.generateWaybill();
-		Item item = ModelFactory.generateItem();
-		item.setVolume(5F);
-		item.setWeigth(5F);
-		waybill.getLoad().addItem(item);
-		List<Waybill> result = new ArrayList<>();
-		result.add(waybill);
+        waybill = ModelFactory.generateWaybill();
+        Item item = ModelFactory.generateItem();
+        item.setVolume(5F);
+        item.setWeigth(5F);
+        waybill.getLoad().addItem(item);
+        List<Waybill> result = new ArrayList<>();
+        result.add(waybill);
 
-		when(waybillDao.findUnassignedToDriver(agency)).thenReturn(result);
+        when(waybillDao.findUnassignedToDriver(agency)).thenReturn(result);
 
-		conversationBean.setTruckVolume(truckVolume);
-		conversationBean.setTruckWeight(truckWeight);
-		conversationBean.setMission(mission);
+        conversationBean.setTruckVolume(truckVolume);
+        conversationBean.setTruckWeight(truckWeight);
+        conversationBean.setMission(mission);
 
-		try {
-			FieldUtils.writeField(waybill, "id", waybillId, true);
-			FieldUtils.writeField(waybillsToAssignPageController, "waybillDao", waybillDao, true);
-			FieldUtils.writeField(waybillsToAssignPageController, "userSession", userSession, true);
-			FieldUtils.writeField(waybillsToAssignPageController, "conversationBean", conversationBean, true);
-		} catch (IllegalAccessException e) {
-			throw new InitializationError(e);
-		}
-	}
+        try {
+            FieldUtils.writeField(waybill, "id", waybillId, true);
+            FieldUtils.writeField(waybillsToAssignPageController, "waybillDao", waybillDao, true);
+            FieldUtils.writeField(waybillsToAssignPageController, "userSession", userSession, true);
+            FieldUtils.writeField(waybillsToAssignPageController, "conversationBean", conversationBean, true);
+        } catch (IllegalAccessException e) {
+            throw new InitializationError(e);
+        }
+    }
 
-	@Test
-	public void testInitAssignDriverPage() {
-		waybillsToAssignPageController.initAssignDriverPage();
+    @Test
+    public void testInitAssignDriverPage() {
+        waybillsToAssignPageController.initAssignDriverPage();
 
-		List<Waybill> result = waybillsToAssignPageController.getWaybills();
+        List<Waybill> result = waybillsToAssignPageController.getWaybills();
 
-		assertEquals(1, result.size());
-		assertEquals(waybill, result.get(0));
-	}
+        assertEquals(1, result.size());
+        assertEquals(waybill, result.get(0));
+    }
 
-	@Test
-	public void testInitAssignDriverPageThrowsIllegalArgumentException() {
-		userSession.setUser(wrongUser);
-		assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
-			waybillsToAssignPageController.initAssignDriverPage();
-		});
-	}
+    @Test
+    public void testInitAssignDriverPageThrowsIllegalArgumentException() {
+        userSession.setUser(wrongUser);
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
+            waybillsToAssignPageController.initAssignDriverPage();
+        });
+    }
 
-	@Test
-	public void testAddWaybills() {
-		waybillsToAssignPageController.initAssignDriverPage();
-		List<Waybill> list = new ArrayList<>();
-		list.add(waybill);
-		waybillsToAssignPageController.addWaybills(list);
+    @Test
+    public void testAddWaybills() {
+        waybillsToAssignPageController.initAssignDriverPage();
+        List<Waybill> list = new ArrayList<>();
+        list.add(waybill);
+        waybillsToAssignPageController.addWaybills(list);
 
-		List<Waybill> result = conversationBean.getMission().getWaybills();
+        List<Waybill> result = conversationBean.getMission().getWaybills();
 
-		assertEquals(1, result.size());
-		assertEquals(waybill, result.get(0));
-		assertEquals(truckVolume - waybill.getVolume(), waybillsToAssignPageController.getRemainVolume(), 0.1);
-		assertEquals(truckWeight - waybill.getWeight(), waybillsToAssignPageController.getRemainWeight(), 0.1);
-	}
+        assertEquals(1, result.size());
+        assertEquals(waybill, result.get(0));
+        assertEquals(truckVolume - waybill.getVolume(), waybillsToAssignPageController.getRemainVolume(), 0.1);
+        assertEquals(truckWeight - waybill.getWeight(), waybillsToAssignPageController.getRemainWeight(), 0.1);
+    }
 
-	@Test
-	public void testAddWaybillsThrowsIllegalArgumentException() {
-		waybillsToAssignPageController.initAssignDriverPage();
+    @Test
+    public void testAddWaybillsThrowsIllegalArgumentException() {
+        waybillsToAssignPageController.initAssignDriverPage();
 
-		Item bigItem = ModelFactory.generateItem();
-		bigItem.setVolume(20F);
-		bigItem.setWeigth(20F);
-		waybill.getLoad().addItem(bigItem);
-		List<Waybill> list = new ArrayList<>();
-		list.add(waybill);
+        Item bigItem = ModelFactory.generateItem();
+        bigItem.setVolume(20F);
+        bigItem.setWeigth(20F);
+        waybill.getLoad().addItem(bigItem);
+        List<Waybill> list = new ArrayList<>();
+        list.add(waybill);
 
-		assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
-			waybillsToAssignPageController.addWaybills(list);
-		});
-	}
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
+            waybillsToAssignPageController.addWaybills(list);
+        });
+    }
 
 }

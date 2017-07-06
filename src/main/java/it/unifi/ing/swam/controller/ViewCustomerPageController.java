@@ -9,26 +9,24 @@ import it.unifi.ing.swam.model.User;
 
 @Model
 public class ViewCustomerPageController extends BasicController{
-	
-	@Inject 
-	private CustomerBean conversationBean;
 
-	@PostConstruct
-	protected void initCustomersPage(){
-		if(!userSession.getUser().isOperator()) {
-			throw new IllegalArgumentException("you cant view this page");
-		}
-		if(conversationBean.getCustomer() == null) {
-			throw new IllegalArgumentException("customer not found");
-		}
-	}
-	
-	public User getCustomer() {
-		return conversationBean.getCustomer();
-	}
-	
-	public void exit(){
-		conversationBean.endConversation();
-	}
-	
+    @Inject
+    private CustomerBean conversationBean;
+
+    @PostConstruct
+    protected void initCustomersPage(){
+        if(!userSession.getUser().isOperator())
+            throw new IllegalArgumentException("you cant view this page");
+        if(conversationBean.getCustomer() == null)
+            throw new IllegalArgumentException("customer not found");
+    }
+
+    public User getCustomer() {
+        return conversationBean.getCustomer();
+    }
+
+    public void exit(){
+        conversationBean.endConversation();
+    }
+
 }

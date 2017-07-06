@@ -40,8 +40,8 @@ public class Customer extends Role {
 
     public Customer(String uuid) {
         super(uuid);
-        this.type = Role.Type.CUSTOMER;
-        this.fares = new ArrayList<>();
+        type = Role.Type.CUSTOMER;
+        fares = new ArrayList<>();
     }
 
     public Address getAddress() {
@@ -57,7 +57,7 @@ public class Customer extends Role {
     }
 
     public void addFare(Fare f) {
-        this.fares.add(f);
+        fares.add(f);
     }
 
     public User getOperator() {
@@ -79,7 +79,7 @@ public class Customer extends Role {
     }
 
     public Boolean isActive() {
-        if (this.state == State.ACTIVE)
+        if (state == State.ACTIVE)
             return true;
         else
             return false;

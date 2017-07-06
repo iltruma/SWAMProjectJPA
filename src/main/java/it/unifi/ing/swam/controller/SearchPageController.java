@@ -16,67 +16,64 @@ import it.unifi.ing.swam.model.Waybill;
 @ViewScoped
 public class SearchPageController extends BasicController{
 
-	@Inject
-	private WaybillDao waybillDao;
+    @Inject
+    private WaybillDao waybillDao;
 
-	@Inject
-	private UserDao userDao;
+    @Inject
+    private UserDao userDao;
 
-	private List<Waybill> results;
+    private List<Waybill> results;
 
-	private Waybill waybillQuery;
+    private Waybill waybillQuery;
 
 
-	@PostConstruct
-	protected void initSearchPage(){
-		if(userSession.getUser().getId() == null) {
-			throw new IllegalArgumentException("user id not found");
-		}
+    @PostConstruct
+    protected void initSearchPage(){
+        if(userSession.getUser().getId() == null)
+            throw new IllegalArgumentException("user id not found");
 
-		results = new ArrayList<Waybill>();
-		waybillQuery = ModelFactory.generateWaybill();
-		waybillQuery.setTracking(null);
+        results = new ArrayList<>();
+        waybillQuery = ModelFactory.generateWaybill();
+        waybillQuery.setTracking(null);
 
-		User operator = ModelFactory.generateUser();
-		operator.addRole(ModelFactory.generateOperator());
-		waybillQuery.setOperator(operator);
+        User operator = ModelFactory.generateUser();
+        operator.addRole(ModelFactory.generateOperator());
+        waybillQuery.setOperator(operator);
 
-		User customer = ModelFactory.generateUser();
-		customer.addRole(ModelFactory.generateCustomer());
-		waybillQuery.setSender(customer);
-	}
+        User customer = ModelFactory.generateUser();
+        customer.addRole(ModelFactory.generateCustomer());
+        waybillQuery.setSender(customer);
+    }
 
-	public void search(int max) {
-		results = waybillDao.advancedSearch(waybillQuery, max);
-	}
+    public void search(int max) {
+        results = waybillDao.advancedSearch(waybillQuery, max);
+    }
 
-	public void setOperator(Long id){
-		User u = userDao.findById(id);
-		if (!u.isOperator()){
-			throw new IllegalArgumentException("operator id not found");
-		}
-		waybillQuery.setOperator(u);
-	}
+    public void setOperator(Long id){
+        User u = userDao.findById(id);
+        if (!u.isOperator())
+            throw new IllegalArgumentException("operator id not found");
+        waybillQuery.setOperator(u);
+    }
 
-	public void setSender(Long id){
-		User u = userDao.findById(id);
-		if (!u.isCustomer()){
-			throw new IllegalArgumentException("sender id not found");
-		}
-		waybillQuery.setSender(u);
-	}
+    public void setSender(Long id){
+        User u = userDao.findById(id);
+        if (!u.isCustomer())
+            throw new IllegalArgumentException("sender id not found");
+        waybillQuery.setSender(u);
+    }
 
-	public Waybill getWaybillQuery() {
-		return waybillQuery;
-	}
+    public Waybill getWaybillQuery() {
+        return waybillQuery;
+    }
 
-	public List<Waybill> getResults() {
-		return results;
-	}
+    public List<Waybill> getResults() {
+        return results;
+    }
 
-	public void setResults(List<Waybill> results) {
-		this.results = results;
-	}
+    public void setResults(List<Waybill> results) {
+        this.results = results;
+    }
 
 
 }

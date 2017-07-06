@@ -44,9 +44,9 @@ public class DriverDao extends BaseDao {
         return null;
     }
 
-	public List<Driver> findAvailable(Agency agency) {
-		return entityManager.createQuery("SELECT d FROM Driver d WHERE d.availType = :availType AND d.owner.agency = :agency", Driver.class)
+    public List<Driver> findAvailable(Agency agency) {
+        return entityManager.createQuery("SELECT d FROM Driver d WHERE d.availType = :availType AND d.owner.agency = :agency", Driver.class)
                 .setParameter("availType", Driver.AvailType.AVAILABLE).setParameter("agency", agency).getResultList();
-	}
+    }
 
 }

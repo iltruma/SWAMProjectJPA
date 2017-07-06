@@ -23,9 +23,8 @@ public class HomePageController {
     private UserSessionBean userSession;
 
     public void checkIsLogged() {
-        if (!userSession.isLoggedIn()) {
+        if (!userSession.isLoggedIn())
             throw new RuntimeException("No User logged in!");
-        }
     }
 
     public List<Waybill> getProposedWaybillCustomer() {

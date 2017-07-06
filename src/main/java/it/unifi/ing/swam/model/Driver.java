@@ -18,65 +18,65 @@ import javax.validation.constraints.NotNull;
 @Table(name = "drivers")
 public class Driver extends Role {
 
-	private String zone;
-	@Embedded
-	private Truck truck;
-	@OneToMany(cascade = { CascadeType.PERSIST }, fetch = FetchType.LAZY)
-	@JoinColumn(name = "driver_id")
-	private List<Mission> missions;
+    private String zone;
+    @Embedded
+    private Truck truck;
+    @OneToMany(cascade = { CascadeType.PERSIST }, fetch = FetchType.LAZY)
+    @JoinColumn(name = "driver_id")
+    private List<Mission> missions;
 
-	@NotNull
-	@Enumerated(EnumType.STRING)
-	private AvailType availType;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private AvailType availType;
 
-	public enum AvailType {
-		AVAILABLE, UNAVAILABLE
-	}
+    public enum AvailType {
+        AVAILABLE, UNAVAILABLE
+    }
 
-	protected Driver() {
+    protected Driver() {
 
-	}
+    }
 
-	public Driver(String uuid) {
-		super(uuid);
-		this.type = Role.Type.DRIVER;
-		this.missions = new ArrayList<>();
-	}
+    public Driver(String uuid) {
+        super(uuid);
+        type = Role.Type.DRIVER;
+        missions = new ArrayList<>();
+    }
 
-	public String getZone() {
-		return zone;
-	}
+    public String getZone() {
+        return zone;
+    }
 
-	public void setZone(String zone) {
-		this.zone = zone;
-	}
+    public void setZone(String zone) {
+        this.zone = zone;
+    }
 
-	public Truck getTruck() {
-		return truck;
-	}
+    public Truck getTruck() {
+        return truck;
+    }
 
-	public void setTruck(Truck truck) {
-		this.truck = truck;
-	}
+    public void setTruck(Truck truck) {
+        this.truck = truck;
+    }
 
-	public List<Mission> getMissions() {
-		return missions;
-	}
+    public List<Mission> getMissions() {
+        return missions;
+    }
 
-	public void setMissions(List<Mission> missions) {
-		this.missions = missions;
-	}
+    public void setMissions(List<Mission> missions) {
+        this.missions = missions;
+    }
 
-	public void addMission(Mission m) {
-		this.missions.add(m);
-	}
+    public void addMission(Mission m) {
+        missions.add(m);
+    }
 
-	public AvailType isAvailable() {
-		return this.availType;
-	}
+    public AvailType isAvailable() {
+        return availType;
+    }
 
-	public void setAvailType(AvailType availType) {
-		this.availType = availType;
-	}
+    public void setAvailType(AvailType availType) {
+        this.availType = availType;
+    }
 
 }

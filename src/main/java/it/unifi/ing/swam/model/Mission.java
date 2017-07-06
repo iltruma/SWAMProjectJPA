@@ -30,7 +30,7 @@ public class Mission extends BaseEntity {
 
     public Mission(String uuid) {
         super(uuid);
-        this.waybills = new ArrayList<>();
+        waybills = new ArrayList<>();
     }
 
     public List<Waybill> getWaybills() {
@@ -38,7 +38,7 @@ public class Mission extends BaseEntity {
     }
 
     public void addWaybill(Waybill w) {
-        this.waybills.add(w);
+        waybills.add(w);
     }
 
     public Calendar getDate() {

@@ -21,9 +21,9 @@ public class DriverDaoJpaTest extends JpaTest {
 
     Driver driver;
     User otherUser;
-    
+
     Agency rightAgency;
-    Agency wrongAgency; 
+    Agency wrongAgency;
 
     @Override
     protected void init() throws InitializationError {
@@ -42,7 +42,7 @@ public class DriverDaoJpaTest extends JpaTest {
         user.addRole(driver);
 
         otherUser = ModelFactory.generateUser();
-        
+
         rightAgency = ModelFactory.generateAgency();
         wrongAgency = ModelFactory.generateAgency();
         driver.getOwner().setAgency(rightAgency);
@@ -95,12 +95,12 @@ public class DriverDaoJpaTest extends JpaTest {
 
         assertNull(driverDao.findByUser(otherUser));
     }
-    
+
     @Test
     public void testFindAvailable() {
         assertEquals(1, driverDao.findAvailable(rightAgency).size());
         assertEquals(driver, driverDao.findAvailable(rightAgency).get(0));
-        
+
         assertEquals(0, driverDao.findAvailable(wrongAgency).size());
     }
 }

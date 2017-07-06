@@ -99,6 +99,4 @@ public class ViewFarePageControllerTest extends BasicController {
         viewFarePageController.initFaresPage();
     }
 
-
-
 }

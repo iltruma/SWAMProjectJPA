@@ -14,52 +14,50 @@ import it.unifi.ing.swam.model.Waybill;
 @ViewScoped
 public class WaybillsToAssignPageController extends BasicController {
 
-	@Inject
-	private MissionBean conversationBean;
+    @Inject
+    private MissionBean conversationBean;
 
-	@Inject
-	private WaybillDao waybillDao;
+    @Inject
+    private WaybillDao waybillDao;
 
-	private List<Waybill> waybills;
+    private List<Waybill> waybills;
 
-	private Float remainWeight;
-	private Float remainVolume;
+    private Float remainWeight;
+    private Float remainVolume;
 
-	@PostConstruct
-	protected void initAssignDriverPage() {
-		if (!userSession.getUser().isOperator()) {
-			throw new IllegalArgumentException("you cant view this page");
-		}
+    @PostConstruct
+    protected void initAssignDriverPage() {
+        if (!userSession.getUser().isOperator())
+            throw new IllegalArgumentException("you cant view this page");
 
-		waybills = new ArrayList<>();
-		waybills = waybillDao.findUnassignedToDriver(userSession.getUser().getAgency());
+        waybills = new ArrayList<>();
+        waybills = waybillDao.findUnassignedToDriver(userSession.getUser().getAgency());
 
-		remainWeight = conversationBean.getTruckWeight() - conversationBean.getTotalWeight();
-		remainVolume = conversationBean.getTruckVolume() - conversationBean.getTotalVolume();
-	}
+        remainWeight = conversationBean.getTruckWeight() - conversationBean.getTotalWeight();
+        remainVolume = conversationBean.getTruckVolume() - conversationBean.getTotalVolume();
+    }
 
-	public void addWaybills(List<Waybill> ws) {
-		for (Waybill w : ws) {
-			if (w.getWeight() < remainWeight && w.getVolume() < remainVolume) {
-				conversationBean.getMission().addWaybill(w);
-				remainWeight = conversationBean.getTruckWeight() - conversationBean.getTotalWeight();
-				remainVolume = conversationBean.getTruckVolume() - conversationBean.getTotalVolume();
-			} else {
-				throw new IllegalArgumentException("you can't add this waybill " + w.getId().toString());
-			}
-		}
-	}
+    public void addWaybills(List<Waybill> ws) {
+        for (Waybill w : ws) {
+            if (w.getWeight() < remainWeight && w.getVolume() < remainVolume) {
+                conversationBean.getMission().addWaybill(w);
+                remainWeight = conversationBean.getTruckWeight() - conversationBean.getTotalWeight();
+                remainVolume = conversationBean.getTruckVolume() - conversationBean.getTotalVolume();
+            } else
+                throw new IllegalArgumentException("you can't add this waybill " + w.getId().toString());
+        }
+    }
 
-	public List<Waybill> getWaybills() {
-		return waybills;
-	}
+    public List<Waybill> getWaybills() {
+        return waybills;
+    }
 
-	public Float getRemainWeight() {
-		return remainWeight;
-	}
+    public Float getRemainWeight() {
+        return remainWeight;
+    }
 
-	public Float getRemainVolume() {
-		return remainVolume;
-	}
+    public Float getRemainVolume() {
+        return remainVolume;
+    }
 
 }

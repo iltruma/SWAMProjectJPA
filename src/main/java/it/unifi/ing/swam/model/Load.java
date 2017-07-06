@@ -21,7 +21,7 @@ public class Load {
     public Load() {
         totalVolume = Float.valueOf(0F);
         totalWeight = Float.valueOf(0F);
-        this.items = new ArrayList<>();
+        items = new ArrayList<>();
     }
 
     public Float getTotalVolume() {
@@ -37,15 +37,15 @@ public class Load {
     }
 
     public void addItem(Item i) {
-        this.items.add(i);
-        this.totalVolume += i.getVolume();
-        this.totalWeight += i.getWeight();
+        items.add(i);
+        totalVolume += i.getVolume();
+        totalWeight += i.getWeight();
     }
 
     public void removeItem(Item i) {
-        this.items.remove(i);
-        this.totalVolume -= i.getVolume();
-        this.totalWeight -= i.getWeight();
+        items.remove(i);
+        totalVolume -= i.getVolume();
+        totalWeight -= i.getWeight();
     }
 
     public Integer getNumItems() {

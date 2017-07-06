@@ -13,35 +13,35 @@ import it.unifi.ing.swam.model.User;
 @Named
 public class CustomerBean implements Serializable {
 
-	private static final long serialVersionUID = 2L;
+    private static final long serialVersionUID = 2L;
 
-	@Inject
-	private Conversation conversation;
-	
-	private User customer;
-	
-	
+    @Inject
+    private Conversation conversation;
 
-	public void initConversation() {
-		if (conversation.isTransient()) {
-			conversation.begin();
-		}
-	}
-	
-	public String endConversation(){
-	    if(!conversation.isTransient()){
-	      conversation.end();
-	    }
-	    return "back";
-	  }
-	
-	public void setCustomer(User c){
-		this.customer = c;
-	}
-	
-	public User getCustomer(){
-		return customer;
-	}
-	
+    private User customer;
+
+
+
+    public void initConversation() {
+        if (conversation.isTransient()) {
+            conversation.begin();
+        }
+    }
+
+    public String endConversation(){
+        if(!conversation.isTransient()){
+            conversation.end();
+        }
+        return "back";
+    }
+
+    public void setCustomer(User c){
+        customer = c;
+    }
+
+    public User getCustomer(){
+        return customer;
+    }
+
 
 }

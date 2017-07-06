@@ -13,44 +13,44 @@ import it.unifi.ing.swam.model.Waybill;
 @ViewScoped
 public class EditWaybillPageController extends BasicController {
 
-	@Inject
-	@HttpParam("id")
-	private String waybillId;
+    @Inject
+    @HttpParam("id")
+    private String waybillId;
 
-	@Inject
-	@HttpParam("add")
-	private String addFlag;
+    @Inject
+    @HttpParam("add")
+    private String addFlag;
 
-	private Waybill waybill;
-	private RoleStrategy strategy;
+    private Waybill waybill;
+    private RoleStrategy strategy;
 
-	@PostConstruct
-	protected void initWaybill() {
-		if(strategy == null)
-			this.initStrategy();
-		strategy.initWaybill();
-		strategy.checkEdit();
-		waybill = strategy.getWaybill();
-	}
+    @PostConstruct
+    protected void initWaybill() {
+        if(strategy == null) {
+            initStrategy();
+        }
+        strategy.initWaybill();
+        strategy.checkEdit();
+        waybill = strategy.getWaybill();
+    }
 
-	protected void initStrategy() {
-		if(StringUtils.isEmpty(roleId)) {
-			throw new IllegalArgumentException("role id not found");
-		}
+    protected void initStrategy() {
+        if(StringUtils.isEmpty(roleId))
+            throw new IllegalArgumentException("role id not found");
 
-		if(StringUtils.isEmpty(waybillId) && !Boolean.valueOf(addFlag)) {
-			throw new IllegalArgumentException("id not found");
-		} else if (Boolean.valueOf(addFlag)){
-			waybillId = null;
-		}
-		currentRole = roleDao.findById(Long.valueOf(roleId));
+        if(StringUtils.isEmpty(waybillId) && !Boolean.valueOf(addFlag))
+            throw new IllegalArgumentException("id not found");
+        else if (Boolean.valueOf(addFlag)){
+            waybillId = null;
+        }
+        currentRole = roleDao.findById(Long.valueOf(roleId));
 
-		strategy = RoleStrategy.getStrategyFrom(currentRole, waybillId, userSession.getUser());
-	}
+        strategy = RoleStrategy.getStrategyFrom(currentRole, waybillId, userSession.getUser());
+    }
 
-	public Waybill getWaybill() {
-		return waybill;
-	}
+    public Waybill getWaybill() {
+        return waybill;
+    }
 
     public RoleStrategy getStrategy() {
         return strategy;

@@ -19,54 +19,53 @@ import it.unifi.ing.swam.model.Waybill;
 @ViewScoped
 public class AssignDriverPageController extends BasicController{
 
-	@Inject
-	private WaybillDao waybillDao;
-	
-	@Inject
-	private DriverDao driverDao;
-	
-	@Inject
-	private MissionDao missionDao;
-	
-	@Inject 
-	private MissionBean conversationBean;
-	
-	private List<Driver> driversAvailable;
-	
-	private List<Waybill> waybills;
-	
-	@PostConstruct
-	protected void initAssignDriverPage(){
-		if(!userSession.getUser().isOperator()) {
-			throw new IllegalArgumentException("you cant view this page");
-		}
-		
-		waybills = waybillDao.findUnassignedToDriver(userSession.getUser().getAgency());
-		driversAvailable = driverDao.findAvailable(userSession.getUser().getAgency());
-	
-	}
+    @Inject
+    private WaybillDao waybillDao;
 
-	public List<Driver> getDriversAvailable() {
-		return driversAvailable;
-	}
+    @Inject
+    private DriverDao driverDao;
 
-	public List<Waybill> getWaybills() {
-		return waybills;
-	}
-	
-	public void selectDriver(Driver d){
-		Calendar tomorrow = Calendar.getInstance();
-		tomorrow.add(Calendar.DATE, 1);
-		
-		Mission m = missionDao.findByDriverAndDate(d.getOwner(), tomorrow);
-		if (m == null){
-			m = ModelFactory.generateMission();
-			d.addMission(m);
-			m.setDate(tomorrow);
-		}
-		
-		conversationBean.initConversation();	
-		conversationBean.setMission(m);
-	}
+    @Inject
+    private MissionDao missionDao;
+
+    @Inject
+    private MissionBean conversationBean;
+
+    private List<Driver> driversAvailable;
+
+    private List<Waybill> waybills;
+
+    @PostConstruct
+    protected void initAssignDriverPage(){
+        if(!userSession.getUser().isOperator())
+            throw new IllegalArgumentException("you cant view this page");
+
+        waybills = waybillDao.findUnassignedToDriver(userSession.getUser().getAgency());
+        driversAvailable = driverDao.findAvailable(userSession.getUser().getAgency());
+
+    }
+
+    public List<Driver> getDriversAvailable() {
+        return driversAvailable;
+    }
+
+    public List<Waybill> getWaybills() {
+        return waybills;
+    }
+
+    public void selectDriver(Driver d){
+        Calendar tomorrow = Calendar.getInstance();
+        tomorrow.add(Calendar.DATE, 1);
+
+        Mission m = missionDao.findByDriverAndDate(d.getOwner(), tomorrow);
+        if (m == null){
+            m = ModelFactory.generateMission();
+            d.addMission(m);
+            m.setDate(tomorrow);
+        }
+
+        conversationBean.initConversation();
+        conversationBean.setMission(m);
+    }
 
 }

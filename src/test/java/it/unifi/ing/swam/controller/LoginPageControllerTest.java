@@ -20,53 +20,53 @@ import it.unifi.ing.swam.model.ModelFactory;
 import it.unifi.ing.swam.model.User;
 
 public class LoginPageControllerTest {
-	
 
-	private LoginPageController loginController;
-	private UserDao userDao;
-	private UserSessionBean userSession;
-	private User user;
 
-	@Before
-	public void init() throws InitializationError {
-		loginController = new LoginPageController();
-		userSession = new UserSessionBean();
-		userDao = mock(UserDao.class);
-		
-		user = ModelFactory.generateUser();
-		user.setPassword("password");
-		user.setUsername("username");
-		
-		try {
-			FieldUtils.writeField(user, "id", Long.valueOf(10), true);
-			FieldUtils.writeField(loginController, "userDao", userDao, true);
-			FieldUtils.writeField(loginController, "userSession", userSession, true);
-		} catch (IllegalAccessException e) {
-			throw new InitializationError(e);
-		}
-	}
+    private LoginPageController loginController;
+    private UserDao userDao;
+    private UserSessionBean userSession;
+    private User user;
 
-	@Test
-	public void testLoginSuccess() {
-		when(userDao.findByLoginInfo(any(User.class))).thenReturn(user);
-		
-		String result = loginController.login();
-		
-		assertTrue(result.contains("Successfull"));
-		assertEquals(user, userSession.getUser());
-		assertTrue(userSession.isLoggedIn());
-	}
-	
-	@Test
-	public void testLoginFail() {
-		when(userDao.findByLoginInfo(any(User.class))).thenReturn(null);
-		
-		assertThatExceptionOfType(RuntimeException.class).isThrownBy(() -> {
-			loginController.login();
-		});
-		
-		assertNull(userSession.getUser());
-		assertFalse(userSession.isLoggedIn());
-	}
+    @Before
+    public void init() throws InitializationError {
+        loginController = new LoginPageController();
+        userSession = new UserSessionBean();
+        userDao = mock(UserDao.class);
+
+        user = ModelFactory.generateUser();
+        user.setPassword("password");
+        user.setUsername("username");
+
+        try {
+            FieldUtils.writeField(user, "id", Long.valueOf(10), true);
+            FieldUtils.writeField(loginController, "userDao", userDao, true);
+            FieldUtils.writeField(loginController, "userSession", userSession, true);
+        } catch (IllegalAccessException e) {
+            throw new InitializationError(e);
+        }
+    }
+
+    @Test
+    public void testLoginSuccess() {
+        when(userDao.findByLoginInfo(any(User.class))).thenReturn(user);
+
+        String result = loginController.login();
+
+        assertTrue(result.contains("Successfull"));
+        assertEquals(user, userSession.getUser());
+        assertTrue(userSession.isLoggedIn());
+    }
+
+    @Test
+    public void testLoginFail() {
+        when(userDao.findByLoginInfo(any(User.class))).thenReturn(null);
+
+        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() -> {
+            loginController.login();
+        });
+
+        assertNull(userSession.getUser());
+        assertFalse(userSession.isLoggedIn());
+    }
 
 }

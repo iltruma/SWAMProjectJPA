@@ -10,13 +10,13 @@ import javax.servlet.ServletRequest;
  */
 public class HttpParams {
 
-	@Produces @HttpParam("")
-	public String getParamValue(InjectionPoint ip) {
-		ServletRequest request = (ServletRequest)FacesContext
-			.getCurrentInstance()
-			.getExternalContext()
-			.getRequest();
-		
-		return request.getParameter( ip.getAnnotated().getAnnotation(HttpParam.class).value() );
-	}
+    @Produces @HttpParam("")
+    public String getParamValue(InjectionPoint ip) {
+        ServletRequest request = (ServletRequest)FacesContext
+                .getCurrentInstance()
+                .getExternalContext()
+                .getRequest();
+
+        return request.getParameter( ip.getAnnotated().getAnnotation(HttpParam.class).value() );
+    }
 }

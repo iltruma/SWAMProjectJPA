@@ -12,51 +12,51 @@ import javax.persistence.Transient;
 @Table(name = "roles")
 public abstract class Role extends BaseEntity {
 
-	@Transient
-	protected Type type;
-	
-	@ManyToOne
-	protected User owner;
-	
-	protected enum Type {
-	    CUSTOMER, DRIVER, OPERATOR
+    @Transient
+    protected Type type;
 
-	}
-	
-	protected Role() {
-		
+    @ManyToOne
+    protected User owner;
+
+    protected enum Type {
+        CUSTOMER, DRIVER, OPERATOR
+
+    }
+
+    protected Role() {
+
     }
 
     public Role(String uuid) {
         super(uuid);
     }
-    
+
     public Type getType() {
-		return type;
-	}
+        return type;
+    }
 
-	public void setType(Type type) {
-		this.type = type;
-	}
-	
-	public User getOwner() {
-		return owner;
-	}
+    public void setType(Type type) {
+        this.type = type;
+    }
 
-	protected void setOwner(User owner) {
-		this.owner = owner;
-	}
-	
-	public Boolean isCustomer(){
-		return this.getType().equals(Type.CUSTOMER);
-	}
-	
-	public Boolean isOperator(){
-		return this.getType().equals(Type.OPERATOR);
-	}
-	
-	public Boolean isDriver(){
-		return this.getType().equals(Type.DRIVER);
-	}
+    public User getOwner() {
+        return owner;
+    }
+
+    protected void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    public Boolean isCustomer(){
+        return getType().equals(Type.CUSTOMER);
+    }
+
+    public Boolean isOperator(){
+        return getType().equals(Type.OPERATOR);
+    }
+
+    public Boolean isDriver(){
+        return getType().equals(Type.DRIVER);
+    }
 
 }

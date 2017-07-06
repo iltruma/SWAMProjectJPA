@@ -10,28 +10,27 @@ import it.unifi.ing.swam.model.User;
 
 @Model
 public class LoginPageController {
-	
-	@Inject
-	private UserDao userDao;
-	
-	@Inject
-	private UserSessionBean userSession;
-	
-	private User userData;
-	
-	LoginPageController(){
-		userData = ModelFactory.generateUser();
-	}
-	
-	
-	public String login() {
-		User loggedUser = userDao.findByLoginInfo(userData);
-		if( loggedUser == null ) {
-			throw new RuntimeException("Login Failed");
-		}
-		
-		userSession.setUser(loggedUser);
-		return "Login Successfull";
-	}
-	
+
+    @Inject
+    private UserDao userDao;
+
+    @Inject
+    private UserSessionBean userSession;
+
+    private User userData;
+
+    LoginPageController(){
+        userData = ModelFactory.generateUser();
+    }
+
+
+    public String login() {
+        User loggedUser = userDao.findByLoginInfo(userData);
+        if( loggedUser == null )
+            throw new RuntimeException("Login Failed");
+
+        userSession.setUser(loggedUser);
+        return "Login Successfull";
+    }
+
 }
