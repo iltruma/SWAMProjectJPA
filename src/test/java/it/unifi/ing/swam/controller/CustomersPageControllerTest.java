@@ -8,11 +8,14 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.enterprise.context.Conversation;
+
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runners.model.InitializationError;
 
+import it.unifi.ing.swam.bean.ConversationCustomerBean;
 import it.unifi.ing.swam.bean.UserSessionBean;
 import it.unifi.ing.swam.dao.CustomerDao;
 import it.unifi.ing.swam.model.Customer;
@@ -22,6 +25,8 @@ import it.unifi.ing.swam.model.User;
 public class CustomersPageControllerTest extends BasicController {
 
     private CustomersPageController customersPageController;
+    private ConversationCustomerBean conversationBean;
+    private Conversation conversation;
     private UserSessionBean userSession;
 
     private CustomerDao customerDao;
@@ -32,7 +37,16 @@ public class CustomersPageControllerTest extends BasicController {
     @Before
     public void setUp() throws InitializationError {
         customersPageController = new CustomersPageController();
+        conversationBean = new ConversationCustomerBean();
         userSession = new UserSessionBean();
+
+        conversation = mock(Conversation.class);
+
+        try {
+            FieldUtils.writeField(conversationBean, "conversation", conversation, true);
+        } catch (IllegalAccessException e) {
+            throw new InitializationError(e);
+        }
 
         customerDao = mock(CustomerDao.class);
 
@@ -53,6 +67,7 @@ public class CustomersPageControllerTest extends BasicController {
         try {
             FieldUtils.writeField(customersPageController, "customerDao", customerDao, true);
             FieldUtils.writeField(customersPageController, "userSession", userSession, true);
+            FieldUtils.writeField(customersPageController, "conversationBean", conversationBean, true);
         } catch (IllegalAccessException e) {
             throw new InitializationError(e);
         }
@@ -85,6 +100,12 @@ public class CustomersPageControllerTest extends BasicController {
         assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
             customersPageController.initCustomersPage();
         });
+    }
+
+    @Test
+    public void testSelectCustomer() {
+        customersPageController.selectCustomer(customer);
+        assertEquals(customer, conversationBean.getCustomer());
     }
 
 }
