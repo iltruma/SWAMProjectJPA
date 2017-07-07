@@ -50,7 +50,7 @@ public class LoginPageControllerTest {
     public void testLoginSuccess() {
         when(userDao.findByLoginInfo(any(User.class))).thenReturn(user);
 
-        String result = loginController.login();
+        loginController.login();
 
         assertEquals(user, userSession.getUser());
         assertTrue(userSession.isLoggedIn());

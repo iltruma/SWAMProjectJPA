@@ -79,7 +79,6 @@ public class ViewWaybillPageControllerTest {
             FieldUtils.writeField(viewWaybillPageController, "waybillId", waybillId.toString(), true);
             FieldUtils.writeField(viewWaybillPageController, "roleDao", roleDao, true);
             FieldUtils.writeField(viewWaybillPageController, "userSession", userSession, true);
-
         } catch (IllegalAccessException e) {
             throw new InitializationError(e);
         }
@@ -108,10 +107,31 @@ public class ViewWaybillPageControllerTest {
         }
 
         @Test
-        public void testInitStrategy() {
+        public void testInitStrategy() throws InitializationError {
             // waybill has the Customer user as sender
             viewWaybillPageController.initStrategy();
             assertEquals(viewWaybillPageController.getStrategy().getClass(), CustomerStrategy.class);
+
+            try {
+                FieldUtils.writeField(viewWaybillPageController, "roleId", null, true);
+            } catch (IllegalAccessException e) {
+                throw new InitializationError(e);
+            }
+
+            assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
+                viewWaybillPageController.initStrategy();
+            }).withMessage("role id not found");
+
+            try {
+                FieldUtils.writeField(viewWaybillPageController, "roleId", roleId.toString(), true);
+                FieldUtils.writeField(viewWaybillPageController, "waybillId", null, true);
+            } catch (IllegalAccessException e) {
+                throw new InitializationError(e);
+            }
+
+            assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
+                viewWaybillPageController.initStrategy();
+            }).withMessage("waybill id not found");
         }
 
         @Test

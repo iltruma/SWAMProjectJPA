@@ -59,18 +59,17 @@ public class HomePageController {
     }
 
     public List<Waybill> getTodayMission() {
-        if (getUser().isDriver()){
-        	Mission m = missionDao.findByDriverAndDate(getUser(), Calendar.getInstance());
-        if (m == null)
-        	return new ArrayList<Waybill>();
-        return m.getWaybills();
-        }
-        else
+        if (getUser().isDriver()) {
+            Mission m = missionDao.findByDriverAndDate(getUser(), Calendar.getInstance());
+            if (m == null)
+                return new ArrayList<>();
+            return m.getWaybills();
+        } else
             return null;
     }
-    
+
     public User getUser() {
-    	return userSession.getUser();
+        return userSession.getUser();
     }
 
 }

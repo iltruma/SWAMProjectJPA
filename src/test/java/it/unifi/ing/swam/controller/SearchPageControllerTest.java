@@ -58,7 +58,7 @@ public class SearchPageControllerTest {
         try {
             FieldUtils.writeField(user, "id", userId, true);
             FieldUtils.writeField(searchPageController, "userDao", userDao, true);
-            FieldUtils.writeField(searchPageController, "roleId", roleId, true);
+            FieldUtils.writeField(searchPageController, "roleId", roleId.toString(), true);
             FieldUtils.writeField(searchPageController, "userSession", userSession, true);
         } catch (IllegalAccessException e) {
             throw new InitializationError(e);

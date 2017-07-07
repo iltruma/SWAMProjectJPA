@@ -155,9 +155,12 @@ public class HomePageControllerTest {
         Mission mission = ModelFactory.generateMission();
         mission.addWaybill(waybill);
 
-        when(missionDao.findByDriverAndDate(eq(user), any(Calendar.class))).thenReturn(mission);
         user.addRole(ModelFactory.generateDriver());
 
+        when(missionDao.findByDriverAndDate(eq(user), any(Calendar.class))).thenReturn(null);
+        assertEquals(0, homePageController.getTodayMission().size());
+
+        when(missionDao.findByDriverAndDate(eq(user), any(Calendar.class))).thenReturn(mission);
         assertEquals(1, homePageController.getTodayMission().size());
         assertEquals(waybill, homePageController.getTodayMission().get(0));
 
