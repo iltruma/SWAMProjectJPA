@@ -1,5 +1,6 @@
 package it.unifi.ing.swam.dao;
 
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
@@ -41,11 +42,21 @@ public class UserDaoJpaTest extends JpaTest {
     @Test
     public void testSave() {
         User userSave = ModelFactory.generateUser();
+        userSave.addRole(ModelFactory.generateOperator());
 
         userDao.save(userSave);
 
         assertEquals(userSave, entityManager.createQuery("FROM User u WHERE u = :user", User.class)
                 .setParameter("user", userSave).getSingleResult());
+    }
+
+    @Test
+    public void testSaveThrowsIllegalArgumentException() {
+        User userSave = ModelFactory.generateUser();
+
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
+            userDao.save(userSave);
+        });
     }
 
     @Test

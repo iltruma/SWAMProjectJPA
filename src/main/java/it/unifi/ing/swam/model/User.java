@@ -63,7 +63,6 @@ public class User extends BaseEntity {
         this.password = password;
     }
 
-    @Deprecated
     public List<Role> getRoles() {
         return roles;
     }
