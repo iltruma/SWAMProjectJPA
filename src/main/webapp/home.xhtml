@@ -7,108 +7,110 @@
 
 <ui:composition template="layout/template.xhtml">
 	<ui:define name="body">
-		<h2>Home Page</h2>
+		<h1>
+			Welcome <b>#{homePageController.user.username}</b>!
+		</h1>
 
 		<c:set scope="request" var="isOperator" property="x"
 			value="#{homePageController.user.isOperator()}" />
 		<c:if test="#{isOperator}">
-			<h2>Operator home Page</h2>
-            
-            <div>
-            			<h3>To be validated:</h3>
-            			<table>
-				<thead>
-					<tr>
-						<th>Id</th>
-						<th>Sender Name</th>
-						<th>Departure Agency Id</th>
-						<th>Receiver Name</th>
-						<th>Receiver Address</th>		
-						<th>Destination Agency Id</th>
-						<th>Cost</th>
-						<th>Tracking</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-					<ui:repeat var="waybill"
-						value="#{homePageController.getProposedWaybillOperator()}">
+
+
+			<div class="sections">
+				<h2>
+					<strong>Operator home Page</strong>
+				</h2>
+				<hr></hr>
+				<h3>To be validated:</h3>
+				<table>
+					<thead>
 						<tr>
-							<td>#{waybill.id}</td>
-							<td>#{waybill.sender.name}</td>
-							<td>#{waybill.sender.agency.id}</td>
-							<td>#{waybill.receiver.name}</td>
-							<td>#{waybill.receiver.address.format()}</td>
-							<td>#{waybill.receiver.destinationAgency.id}</td>
-							<td>#{waybill.cost}</td>
-							<td>#{waybill.tracking}</td>
-
-							<td><h:link styleClass="button button-outline"
-									outcome="waybill-view" value="View">
-									<f:param name="id" value="#{waybill.id}"></f:param>
-								</h:link> <h:link styleClass="button" outcome="waybill-edit" value="Edit"
-									style="margin-left: 5px;">
-									<f:param name="id" value="#{waybill.id}"></f:param>
-								</h:link>
-							</td>
+							<th>Id</th>
+							<th>Sender Name</th>
+							<th>Departure Agency Id</th>
+							<th>Receiver Name</th>
+							<th>Receiver Address</th>
+							<th>Destination Agency Id</th>
+							<th>Cost</th>
+							<th>Tracking</th>
+							<th></th>
 						</tr>
-					</ui:repeat>
-				</tbody>
-			</table>
+					</thead>
+					<tbody>
+						<ui:repeat var="waybill"
+							value="#{homePageController.getProposedWaybillOperator()}">
+							<tr>
+								<td>#{waybill.id}</td>
+								<td>#{waybill.sender.name}</td>
+								<td>#{waybill.sender.agency.id}</td>
+								<td>#{waybill.receiver.name}</td>
+								<td>#{waybill.receiver.address.format()}</td>
+								<td>#{waybill.receiver.destinationAgency.id}</td>
+								<td>#{waybill.cost}</td>
+								<td>#{waybill.tracking}</td>
 
-			<h:link styleClass="button" outcome="waybill-edit" value="Add New">
-				<f:param name="add" value="true"></f:param>
-			</h:link>       
-            </div>
-            
-                        <div>
-            			<h3>To be assigned:</h3>
-            			<table>
-				<thead>
-					<tr>
-						<th>Id</th>
-						<th>Sender Name</th>
-						<th>Departure Agency Id</th>
-						<th>Receiver Name</th>
-						<th>Receiver Address</th>		
-						<th>Destination Agency Id</th>
-						<th>Cost</th>
-						<th>Tracking</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-					<ui:repeat var="waybill"
-						value="#{homePageController.getUnassignedToDriver()}">
-						<tr>
-							<td>#{waybill.id}</td>
-							<td>#{waybill.sender.name}</td>
-							<td>#{waybill.sender.agency.id}</td>
-							<td>#{waybill.receiver.name}</td>
-							<td>#{waybill.receiver.address.format()}</td>
-							<td>#{waybill.receiver.destinationAgency.id}</td>
-							<td>#{waybill.cost}</td>
-							<td>#{waybill.tracking}</td>
+								<td><h:link styleClass="button button-outline"
+										outcome="waybill-view" value="View">
+										<f:param name="id" value="#{waybill.id}"></f:param>
+									</h:link> <h:link styleClass="button" outcome="waybill-edit"
+										value="Edit">
+										<f:param name="id" value="#{waybill.id}"></f:param>
+									</h:link></td>
+							</tr>
+						</ui:repeat>
+					</tbody>
+				</table>
 
-							<td><h:link styleClass="button button-outline"
-									outcome="waybill-view" value="View">
-									<f:param name="id" value="#{waybill.id}"></f:param>
-								</h:link> <h:link styleClass="button" outcome="waybill-edit" value="Edit"
-									style="margin-left: 5px;">
-									<f:param name="id" value="#{waybill.id}"></f:param>
-								</h:link>
-							</td>
-						</tr>
-					</ui:repeat>
-				</tbody>
-			</table>
+				<h:link styleClass="button" outcome="waybill-edit" value="Add New">
+					<f:param name="add" value="true"></f:param>
+				</h:link>
 
-			<h:link styleClass="button" outcome="assign-driver" value="Assign Driver">
-			</h:link>       
-            </div>
+				<div style="margin-top: 50px;">
+					<h3>To be assigned:</h3>
+					<table>
+						<thead>
+							<tr>
+								<th>Id</th>
+								<th>Sender Name</th>
+								<th>Departure Agency Id</th>
+								<th>Receiver Name</th>
+								<th>Receiver Address</th>
+								<th>Destination Agency Id</th>
+								<th>Cost</th>
+								<th>Tracking</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<ui:repeat var="waybill"
+								value="#{homePageController.getUnassignedToDriver()}">
+								<tr>
+									<td>#{waybill.id}</td>
+									<td>#{waybill.sender.name}</td>
+									<td>#{waybill.sender.agency.id}</td>
+									<td>#{waybill.receiver.name}</td>
+									<td>#{waybill.receiver.address.format()}</td>
+									<td>#{waybill.receiver.destinationAgency.id}</td>
+									<td>#{waybill.cost}</td>
+									<td>#{waybill.tracking}</td>
 
+									<td><h:link styleClass="button button-outline"
+											outcome="waybill-view" value="View">
+											<f:param name="id" value="#{waybill.id}"></f:param>
+										</h:link> <h:link styleClass="button" outcome="waybill-edit"
+											value="Edit">
+											<f:param name="id" value="#{waybill.id}"></f:param>
+										</h:link></td>
+								</tr>
+							</ui:repeat>
+						</tbody>
+					</table>
 
-
+					<h:link styleClass="button" outcome="assign-driver"
+						value="Assign Driver">
+					</h:link>
+				</div>
+			</div>
 		</c:if>
 
 
@@ -116,148 +118,149 @@
 		<c:set scope="request" var="isCustomer" property="x"
 			value="#{homePageController.user.isCustomer()}" />
 		<c:if test="#{isCustomer}">
-			<h2>Customer home Page</h2>
-			            
-                        <div>
-            			<h3>Proposed:</h3>
-            			<table>
-				<thead>
-					<tr>
-						<th>Id</th>
-						<th>Sender Name</th>
-						<th>Departure Agency Id</th>
-						<th>Receiver Name</th>
-						<th>Receiver Address</th>		
-						<th>Destination Agency Id</th>
-						<th>Cost</th>
-						<th>Tracking</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-					<ui:repeat var="waybill"
-						value="#{homePageController.getProposedWaybillCustomer()}">
+
+			<div class="sections" style="margin-top: 50px;">
+				<h2>
+					<strong>Customer home Page</strong>
+				</h2>
+				<hr></hr>
+				<h3>Proposed:</h3>
+				<table>
+					<thead>
 						<tr>
-							<td>#{waybill.id}</td>
-							<td>#{waybill.sender.name}</td>
-							<td>#{waybill.sender.agency.id}</td>
-							<td>#{waybill.receiver.name}</td>
-							<td>#{waybill.receiver.address.format()}</td>
-							<td>#{waybill.receiver.destinationAgency.id}</td>
-							<td>#{waybill.cost}</td>
-							<td>#{waybill.tracking}</td>
-
-							<td><h:link styleClass="button button-outline"
-									outcome="waybill-view" value="View">
-									<f:param name="id" value="#{waybill.id}"></f:param>
-								</h:link> <h:link styleClass="button" outcome="waybill-edit" value="Edit"
-									style="margin-left: 5px;">
-									<f:param name="id" value="#{waybill.id}"></f:param>
-								</h:link>
-							</td>
+							<th>Id</th>
+							<th>Sender Name</th>
+							<th>Departure Agency Id</th>
+							<th>Receiver Name</th>
+							<th>Receiver Address</th>
+							<th>Destination Agency Id</th>
+							<th>Cost</th>
+							<th>Tracking</th>
+							<th></th>
 						</tr>
-					</ui:repeat>
-				</tbody>
-			</table>
+					</thead>
+					<tbody>
+						<ui:repeat var="waybill"
+							value="#{homePageController.getProposedWaybillCustomer()}">
+							<tr>
+								<td>#{waybill.id}</td>
+								<td>#{waybill.sender.name}</td>
+								<td>#{waybill.sender.agency.id}</td>
+								<td>#{waybill.receiver.name}</td>
+								<td>#{waybill.receiver.address.format()}</td>
+								<td>#{waybill.receiver.destinationAgency.id}</td>
+								<td>#{waybill.cost}</td>
+								<td>#{waybill.tracking}</td>
 
-			<h:link styleClass="button" outcome="waybill-edit" value="Add New">
-				<f:param name="add" value="true"></f:param>
-			</h:link>       
-            </div>
-                        
-                        <div>
-            			<h3>Validated:</h3>
-            			<table>
-				<thead>
-					<tr>
-						<th>Id</th>
-						<th>Sender Name</th>
-						<th>Departure Agency Id</th>
-						<th>Receiver Name</th>
-						<th>Receiver Address</th>		
-						<th>Destination Agency Id</th>
-						<th>Cost</th>
-						<th>Tracking</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-					<ui:repeat var="waybill"
-						value="#{homePageController.getValidatedWaybillCustomer()}">
-						<tr>
-							<td>#{waybill.id}</td>
-							<td>#{waybill.sender.name}</td>
-							<td>#{waybill.sender.agency.id}</td>
-							<td>#{waybill.receiver.name}</td>
-							<td>#{waybill.receiver.address.format()}</td>
-							<td>#{waybill.receiver.destinationAgency.id}</td>
-							<td>#{waybill.cost}</td>
-							<td>#{waybill.tracking}</td>
+								<td><h:link styleClass="button button-outline"
+										outcome="waybill-view" value="View">
+										<f:param name="id" value="#{waybill.id}"></f:param>
+									</h:link> <h:link styleClass="button" outcome="waybill-edit"
+										value="Edit">
+										<f:param name="id" value="#{waybill.id}"></f:param>
+									</h:link></td>
+							</tr>
+						</ui:repeat>
+					</tbody>
+				</table>
 
-							<td><h:link styleClass="button button-outline"
-									outcome="waybill-view" value="View">
-									<f:param name="id" value="#{waybill.id}"></f:param>
-								</h:link>
-							</td>
-						</tr>
-					</ui:repeat>
-				</tbody>
-			</table>     
-            </div>
-			
+				<h:link styleClass="button" outcome="waybill-edit" value="Add New">
+					<f:param name="add" value="true"></f:param>
+				</h:link>
+
+				<div style="margin-top: 50px;">
+					<h3>Validated:</h3>
+					<table>
+						<thead>
+							<tr>
+								<th>Id</th>
+								<th>Sender Name</th>
+								<th>Departure Agency Id</th>
+								<th>Receiver Name</th>
+								<th>Receiver Address</th>
+								<th>Destination Agency Id</th>
+								<th>Cost</th>
+								<th>Tracking</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<ui:repeat var="waybill"
+								value="#{homePageController.getValidatedWaybillCustomer()}">
+								<tr>
+									<td>#{waybill.id}</td>
+									<td>#{waybill.sender.name}</td>
+									<td>#{waybill.sender.agency.id}</td>
+									<td>#{waybill.receiver.name}</td>
+									<td>#{waybill.receiver.address.format()}</td>
+									<td>#{waybill.receiver.destinationAgency.id}</td>
+									<td>#{waybill.cost}</td>
+									<td>#{waybill.tracking}</td>
+
+									<td><h:link styleClass="button button-outline"
+											outcome="waybill-view" value="View">
+											<f:param name="id" value="#{waybill.id}"></f:param>
+										</h:link></td>
+								</tr>
+							</ui:repeat>
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</c:if>
-		
-				<c:set scope="request" var="isDriver" property="x"
+
+		<c:set scope="request" var="isDriver" property="x"
 			value="#{homePageController.user.isDriver()}" />
 		<c:if test="#{isDriver}">
-			<h2>Driver home Page</h2>
-			
-            
-                        <div>
-            			<h3>Today's mission:</h3>
-            			<table>
-				<thead>
-					<tr>
-						<th>Id</th>
-						<th>Sender Name</th>
-						<th>Departure Agency Id</th>
-						<th>Receiver Name</th>
-						<th>Receiver Address</th>		
-						<th>Destination Agency Id</th>
-						<th>Cost</th>
-						<th>Tracking</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-					<ui:repeat var="waybill"
-						value="#{homePageController.getTodayMission()}">
-						<tr>
-							<td>#{waybill.id}</td>
-							<td>#{waybill.sender.name}</td>
-							<td>#{waybill.sender.agency.id}</td>
-							<td>#{waybill.receiver.name}</td>
-							<td>#{waybill.receiver.address.format()}</td>
-							<td>#{waybill.receiver.destinationAgency.id}</td>
-							<td>#{waybill.cost}</td>
-							<td>#{waybill.tracking}</td>
 
-							<td><h:link styleClass="button button-outline"
-									outcome="waybill-view" value="View">
-									<f:param name="id" value="#{waybill.id}"></f:param>
-								</h:link> <h:link styleClass="button" outcome="waybill-edit" value="Add signature"
-									style="margin-left: 5px;">
-									<f:param name="id" value="#{waybill.id}"></f:param>
-								</h:link>
-							</td>
+			<div class="sections" style="margin-top: 50px;">
+				<h2>
+					<strong>Driver home Page</strong>
+				</h2>
+				<hr></hr>
+				<h3>Today's mission:</h3>
+				<table>
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Sender Name</th>
+							<th>Departure Agency Id</th>
+							<th>Receiver Name</th>
+							<th>Receiver Address</th>
+							<th>Destination Agency Id</th>
+							<th>Cost</th>
+							<th>Tracking</th>
+							<th></th>
 						</tr>
-					</ui:repeat>
-				</tbody>
-			</table>     
-            </div>
-			
-			
-			
+					</thead>
+					<tbody>
+						<ui:repeat var="waybill"
+							value="#{homePageController.getTodayMission()}">
+							<tr>
+								<td>#{waybill.id}</td>
+								<td>#{waybill.sender.name}</td>
+								<td>#{waybill.sender.agency.id}</td>
+								<td>#{waybill.receiver.name}</td>
+								<td>#{waybill.receiver.address.format()}</td>
+								<td>#{waybill.receiver.destinationAgency.id}</td>
+								<td>#{waybill.cost}</td>
+								<td>#{waybill.tracking}</td>
+
+								<td><h:link styleClass="button button-outline"
+										outcome="waybill-view" value="View">
+										<f:param name="id" value="#{waybill.id}"></f:param>
+									</h:link> <h:link styleClass="button" outcome="waybill-edit"
+										value="Add signature">
+										<f:param name="id" value="#{waybill.id}"></f:param>
+									</h:link></td>
+							</tr>
+						</ui:repeat>
+					</tbody>
+				</table>
+			</div>
+
+
+
 		</c:if>
 
 
