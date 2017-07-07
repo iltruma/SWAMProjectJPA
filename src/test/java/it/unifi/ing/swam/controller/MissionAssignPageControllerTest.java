@@ -16,7 +16,7 @@ import it.unifi.ing.swam.model.ModelFactory;
 import it.unifi.ing.swam.model.User;
 import it.unifi.ing.swam.model.Waybill;
 
-public class MissionAssignPageControllerTest extends BasicController {
+public class MissionAssignPageControllerTest {
 
     private MissionAssignPageController missionAssignPageController;
     private UserSessionBean userSession;

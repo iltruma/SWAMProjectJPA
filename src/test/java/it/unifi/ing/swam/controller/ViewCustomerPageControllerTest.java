@@ -12,7 +12,7 @@ import it.unifi.ing.swam.bean.UserSessionBean;
 import it.unifi.ing.swam.model.ModelFactory;
 import it.unifi.ing.swam.model.User;
 
-public class ViewCustomerPageControllerTest extends BasicController {
+public class ViewCustomerPageControllerTest {
 
     private ViewCustomerPageController viewCustomerPageController;
 

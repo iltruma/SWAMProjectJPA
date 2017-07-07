@@ -13,7 +13,9 @@ import it.unifi.ing.swam.dao.RoleDao;
 import it.unifi.ing.swam.model.Waybill;
 
 @Model
-public class ViewWaybillPageController extends BasicController{
+public class ViewWaybillPageController extends BasicController {
+
+    private static final long serialVersionUID = 13L;
 
     @Inject
     private RoleDao roleDao;

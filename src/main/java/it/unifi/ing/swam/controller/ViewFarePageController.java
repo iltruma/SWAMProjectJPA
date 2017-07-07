@@ -14,6 +14,8 @@ import it.unifi.ing.swam.model.Fare;
 @Model
 public class ViewFarePageController extends BasicController {
 
+    private static final long serialVersionUID = 13L;
+
     @Inject
     private CustomerBean conversationBean;
 

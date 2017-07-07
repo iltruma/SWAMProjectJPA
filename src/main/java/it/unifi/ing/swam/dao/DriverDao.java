@@ -9,6 +9,8 @@ import it.unifi.ing.swam.model.User;
 
 public class DriverDao extends BaseDao {
 
+    private static final long serialVersionUID = 18L;
+
     public Driver findById(Long id) {
         return entityManager.find(Driver.class, id);
     }

@@ -14,7 +14,9 @@ import it.unifi.ing.swam.model.User;
 import it.unifi.ing.swam.model.Waybill;
 
 @ViewScoped
-public class SearchPageController extends BasicController{
+public class SearchPageController extends BasicController {
+
+    private static final long serialVersionUID = 11L;
 
     @Inject
     private WaybillDao waybillDao;

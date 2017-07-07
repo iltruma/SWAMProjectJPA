@@ -22,7 +22,7 @@ import it.unifi.ing.swam.model.Customer;
 import it.unifi.ing.swam.model.ModelFactory;
 import it.unifi.ing.swam.model.User;
 
-public class CustomersPageControllerTest extends BasicController {
+public class CustomersPageControllerTest {
 
     private CustomersPageController customersPageController;
     private CustomerBean conversationBean;

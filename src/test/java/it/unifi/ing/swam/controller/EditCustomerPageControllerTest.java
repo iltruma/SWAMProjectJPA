@@ -15,7 +15,7 @@ import it.unifi.ing.swam.model.Agency;
 import it.unifi.ing.swam.model.ModelFactory;
 import it.unifi.ing.swam.model.User;
 
-public class EditCustomerPageControllerTest extends BasicController {
+public class EditCustomerPageControllerTest {
 
     private EditCustomerPageController editCustomerPageController;
     private CustomerBean conversationBean;

@@ -13,7 +13,9 @@ import it.unifi.ing.swam.model.Waybill;
 
 @ManagedBean
 @ViewScoped
-public class MissionAssignPageController extends BasicController{
+public class MissionAssignPageController extends BasicController {
+
+    private static final long serialVersionUID = 10L;
 
     @Inject @HttpParam("driver_id")
     private String driverId;

@@ -34,7 +34,8 @@ import it.unifi.ing.swam.model.Waybill;
 
 @Model
 @RunWith(Enclosed.class)
-public class ViewWaybillPageControllerTest extends BasicController {
+public class ViewWaybillPageControllerTest {
+
     private static ViewWaybillPageController viewWaybillPageController;
     private static WaybillDao waybillDao;
     private static MissionDao missionDao;

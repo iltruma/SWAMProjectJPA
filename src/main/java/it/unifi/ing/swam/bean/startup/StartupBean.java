@@ -28,48 +28,42 @@ public class StartupBean {
 
 	@Inject
 	private UserDao userDao;
-	
+
 	@Inject
 	private AgencyDao agencyDao;
-	
+
 	@Inject
 	private AgencyDao missionDao;
-	
+
 	@Inject
 	private WaybillDao waybillDao;
-		
+
 	@PostConstruct
 	@Transactional
 	public void init() {
 		Agency a = ModelFactory.generateAgency();
-		
+
 		User user1 = ModelFactory.generateUser("operator1","operator1");
 		User user2 = ModelFactory.generateUser("driver1","driver1");
 		User user3 = ModelFactory.generateUser("all","all");
 
 		user1.addRole(ModelFactory.generateOperator());
 		user2.addRole(ModelFactory.generateDriver());
-		
+
 		user3.addRole(ModelFactory.generateOperator());
 		user3.addRole(ModelFactory.generateDriver());
 		user3.addRole(ModelFactory.generateCustomer());
-		
 
-		
 		user1.setAgency(a);
 		user2.setAgency(a);
 		user3.setAgency(a);
-		
+
 		user3.getCustomerRole().setOperator(user1);
 
-		
-
-		
 		Waybill waybill = ModelFactory.generateWaybill();
 
-        User operator = user1;
         User driver = user2;
-        
+
 
         User sender = user3;
         sender.setName("mario");
@@ -94,23 +88,22 @@ public class StartupBean {
         date.setTime(new Date(53264723543L));
         waybill.setAcceptDate(date);
         waybill.setDeliveryDate(date);
-        //waybill.setOperator(operator);
         waybill.setSender(sender);
         waybill.setReceiver(receiver);
         waybill.setTracking(Tracking.IDLE);
         waybill.setCost(10F);
-  
+
 		agencyDao.save(a);
-		
+
 		userDao.save(user1);
 		userDao.save(user2);
 		userDao.save(user3);
-		
+
 
         agencyDao.save(destinationAgency);
         waybillDao.save(waybill);
         missionDao.save(mission);
-		
+
 	}
 
 }

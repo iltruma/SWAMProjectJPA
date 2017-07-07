@@ -13,6 +13,8 @@ import it.unifi.ing.swam.model.Waybill;
 
 public class WaybillDao extends BaseDao {
 
+    private static final long serialVersionUID = 25L;
+
     public Waybill findById(Long id) {
         return entityManager.find(Waybill.class, id);
     }

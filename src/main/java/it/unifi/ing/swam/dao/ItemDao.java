@@ -6,6 +6,8 @@ import it.unifi.ing.swam.model.Item;
 
 public class ItemDao extends BaseDao {
 
+    private static final long serialVersionUID = 20L;
+
     public Item findById(Long id) {
         return entityManager.find(Item.class, id);
     }

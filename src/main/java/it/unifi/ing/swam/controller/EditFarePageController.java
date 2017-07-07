@@ -13,7 +13,9 @@ import it.unifi.ing.swam.dao.FareDao;
 import it.unifi.ing.swam.model.Fare;
 
 @ViewScoped
-public class EditFarePageController extends BasicController{
+public class EditFarePageController extends BasicController {
+
+    private static final long serialVersionUID = 8L;
 
     @Inject
     private FareDao fareDao;

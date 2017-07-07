@@ -8,7 +8,9 @@ import it.unifi.ing.swam.bean.CustomerBean;
 import it.unifi.ing.swam.model.User;
 
 @Model
-public class ViewCustomerPageController extends BasicController{
+public class ViewCustomerPageController extends BasicController {
+
+    private static final long serialVersionUID = 12L;
 
     @Inject
     private CustomerBean conversationBean;

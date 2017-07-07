@@ -17,7 +17,9 @@ import it.unifi.ing.swam.model.ModelFactory;
 import it.unifi.ing.swam.model.Waybill;
 
 @ViewScoped
-public class AssignDriverPageController extends BasicController{
+public class AssignDriverPageController extends BasicController {
+
+    private static final long serialVersionUID = 5L;
 
     @Inject
     private WaybillDao waybillDao;

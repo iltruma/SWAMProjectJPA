@@ -9,6 +9,8 @@ import it.unifi.ing.swam.model.User;
 
 public class CustomerDao extends BaseDao {
 
+    private static final long serialVersionUID = 17L;
+
     public Customer findById(Long id) {
         return entityManager.find(Customer.class, id);
     }

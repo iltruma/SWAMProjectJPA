@@ -6,6 +6,8 @@ import it.unifi.ing.swam.model.User;
 
 public class UserDao extends BaseDao {
 
+    private static final long serialVersionUID = 24L;
+
     public void save(User user) {
         if(user.getRoles().isEmpty()) {
             throw new IllegalArgumentException("You cannot save this entity");

@@ -11,7 +11,7 @@ import it.unifi.ing.swam.model.Role;
 
 public class BasicController implements Serializable{
 
-	private static final long serialVersionUID = 5L;
+	private static final long serialVersionUID = 4L;
 
 	@Inject
     protected UserSessionBean userSession;

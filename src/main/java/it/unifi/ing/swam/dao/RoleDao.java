@@ -7,6 +7,8 @@ import it.unifi.ing.swam.model.User;
 
 public class RoleDao extends BaseDao {
 
+    private static final long serialVersionUID = 23L;
+
     public Role findById(Long id) {
         return entityManager.find(Role.class, id);
     }

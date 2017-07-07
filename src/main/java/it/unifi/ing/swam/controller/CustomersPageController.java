@@ -13,7 +13,9 @@ import it.unifi.ing.swam.model.Customer;
 import it.unifi.ing.swam.model.User;
 
 @ViewScoped
-public class CustomersPageController extends BasicController{
+public class CustomersPageController extends BasicController {
+
+    private static final long serialVersionUID = 6L;
 
     @Inject
     private CustomerDao customerDao;

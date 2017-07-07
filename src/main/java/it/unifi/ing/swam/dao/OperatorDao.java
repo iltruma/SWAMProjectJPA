@@ -7,6 +7,8 @@ import it.unifi.ing.swam.model.User;
 
 public class OperatorDao extends BaseDao {
 
+    private static final long serialVersionUID = 22L;
+
     public Operator findById(Long id) {
         return entityManager.find(Operator.class, id);
     }

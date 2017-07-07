@@ -23,7 +23,7 @@ import it.unifi.ing.swam.model.ModelFactory;
 import it.unifi.ing.swam.model.User;
 import it.unifi.ing.swam.model.Waybill;
 
-public class WaybillsToAssignPageControllerTest extends BasicController {
+public class WaybillsToAssignPageControllerTest {
 
     private WaybillsToAssignPageController waybillsToAssignPageController;
     private MissionBean conversationBean;

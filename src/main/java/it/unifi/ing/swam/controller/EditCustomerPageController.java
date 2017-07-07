@@ -13,6 +13,8 @@ import it.unifi.ing.swam.model.User;
 @ViewScoped
 public class EditCustomerPageController extends BasicController {
 
+    private static final long serialVersionUID = 7L;
+
     @Inject
     private UserDao userDao;
 

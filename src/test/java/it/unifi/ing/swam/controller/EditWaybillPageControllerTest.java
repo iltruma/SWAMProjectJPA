@@ -37,7 +37,7 @@ import it.unifi.ing.swam.model.Waybill;
 
 @Model
 @RunWith(Enclosed.class)
-public class EditWaybillPageControllerTest extends BasicController {
+public class EditWaybillPageControllerTest {
 
     private static EditWaybillPageController editWaybillPageController;
 

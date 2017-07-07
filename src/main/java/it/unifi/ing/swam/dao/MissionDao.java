@@ -10,6 +10,8 @@ import it.unifi.ing.swam.model.User;
 
 public class MissionDao extends BaseDao {
 
+    private static final long serialVersionUID = 21L;
+
     public Mission findById(Long id) {
         return entityManager.find(Mission.class, id);
     }

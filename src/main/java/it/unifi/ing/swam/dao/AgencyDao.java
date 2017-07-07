@@ -7,6 +7,8 @@ import it.unifi.ing.swam.model.Agency;
 
 public class AgencyDao extends BaseDao {
 
+    private static final long serialVersionUID = 16L;
+
     public Agency findById(Long id) {
         return entityManager.find(Agency.class, id);
     }

@@ -2,7 +2,6 @@ package it.unifi.ing.swam.controller;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
@@ -13,6 +12,8 @@ import it.unifi.ing.swam.model.Waybill;
 
 @Model
 public class EditWaybillPageController extends BasicController {
+
+    private static final long serialVersionUID = 9L;
 
     @Inject
     @HttpParam("id")

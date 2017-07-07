@@ -16,7 +16,7 @@ import it.unifi.ing.swam.model.Fare;
 import it.unifi.ing.swam.model.ModelFactory;
 import it.unifi.ing.swam.model.User;
 
-public class ViewFarePageControllerTest extends BasicController {
+public class ViewFarePageControllerTest {
 
     private ViewFarePageController viewFarePageController;
     private UserSessionBean userSession;

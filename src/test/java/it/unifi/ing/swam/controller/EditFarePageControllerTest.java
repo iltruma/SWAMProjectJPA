@@ -17,7 +17,7 @@ import it.unifi.ing.swam.model.Fare;
 import it.unifi.ing.swam.model.ModelFactory;
 import it.unifi.ing.swam.model.User;
 
-public class EditFarePageControllerTest extends BasicController {
+public class EditFarePageControllerTest {
 
     private EditFarePageController editFarePageController;
     private CustomerBean conversationBean;

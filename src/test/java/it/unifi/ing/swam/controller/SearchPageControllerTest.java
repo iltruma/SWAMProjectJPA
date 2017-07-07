@@ -17,7 +17,7 @@ import it.unifi.ing.swam.model.ModelFactory;
 import it.unifi.ing.swam.model.User;
 
 
-public class SearchPageControllerTest extends BasicController {
+public class SearchPageControllerTest {
 
     private SearchPageController searchPageController;
     private UserSessionBean userSession;
@@ -25,6 +25,7 @@ public class SearchPageControllerTest extends BasicController {
     private UserDao userDao;
 
     private Long userId = 1L;
+    private Long roleId = 4L;
 
     private Long operatorId = 2L;
     private Long customerId = 3L;

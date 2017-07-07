@@ -14,6 +14,8 @@ import it.unifi.ing.swam.model.Waybill;
 @ViewScoped
 public class WaybillsToAssignPageController extends BasicController {
 
+    private static final long serialVersionUID = 14L;
+
     @Inject
     private MissionBean conversationBean;
 
