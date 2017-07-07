@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -31,7 +32,7 @@ public class User extends BaseEntity {
     @Column(unique=true)
     private String email;
 
-    @OneToMany(cascade = { CascadeType.PERSIST }, mappedBy = "owner")
+    @OneToMany(cascade = { CascadeType.PERSIST }, fetch=FetchType.EAGER, mappedBy = "owner")
     private List<Role> roles;
 
     @NotNull

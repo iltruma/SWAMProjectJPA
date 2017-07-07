@@ -19,7 +19,8 @@ public class LoginPageController {
 
     private User userData;
 
-    LoginPageController(){
+
+	LoginPageController(){
         userData = ModelFactory.generateUser();
     }
 
@@ -30,7 +31,16 @@ public class LoginPageController {
             throw new RuntimeException("Login Failed");
 
         userSession.setUser(loggedUser);
-        return "Login Successfull";
+		return "home?faces-redirect=true";
     }
+    
+	public String logout() {
+		userSession.setUser(null);
+		return "home?faces-redirect=true";
+	}
+    
+    public User getUserData() {
+		return userData;
+	}
 
 }

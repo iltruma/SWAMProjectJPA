@@ -1,5 +1,7 @@
 package it.unifi.ing.swam.controller;
 
+import java.io.Serializable;
+
 import javax.inject.Inject;
 
 import it.unifi.ing.swam.bean.UserSessionBean;
@@ -7,9 +9,11 @@ import it.unifi.ing.swam.bean.producer.HttpParam;
 import it.unifi.ing.swam.dao.RoleDao;
 import it.unifi.ing.swam.model.Role;
 
-public class BasicController {
+public class BasicController implements Serializable{
 
-    @Inject
+	private static final long serialVersionUID = 5L;
+
+	@Inject
     protected UserSessionBean userSession;
 
     @Inject @HttpParam("roleId")

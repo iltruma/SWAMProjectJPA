@@ -4,6 +4,11 @@
 	<groupId>it.unifi.ing.swam</groupId>
 	<artifactId>SWAMProjectJPA</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 
 	<build>
 		<pluginManagement>
@@ -16,6 +21,20 @@
 						<target>1.8</target>
 					</configuration>
 				</plugin>
+				<plugin>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>2.3</version>
+				</plugin>
+				<plugin>
+					<groupId>org.eluder.coveralls</groupId>
+					<artifactId>coveralls-maven-plugin</artifactId>
+					<version>4.3.0</version>
+					<configuration>
+						<relativeReportDirs>
+							<relativeReportDir>/jacoco</relativeReportDir>
+						</relativeReportDirs>
+					</configuration>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
@@ -25,13 +44,16 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<version>5.2.6.Final</version>
+			<scope>test</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.40</version>
+			<scope>test</scope>
 		</dependency>
+
 		<!-- TEST DEPENDENCIES -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -65,6 +87,13 @@
 			<artifactId>javaee-api</artifactId>
 			<version>7.0</version>
 			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+			<version>2.3.2</version>
+			<scope>test</scope>
 		</dependency>
 
 	</dependencies>

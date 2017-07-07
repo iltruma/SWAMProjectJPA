@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import it.unifi.ing.swam.bean.UserSessionBean;
 import it.unifi.ing.swam.dao.MissionDao;
 import it.unifi.ing.swam.dao.WaybillDao;
+import it.unifi.ing.swam.model.User;
 import it.unifi.ing.swam.model.Waybill;
 
 @Model
@@ -28,38 +29,42 @@ public class HomePageController {
     }
 
     public List<Waybill> getProposedWaybillCustomer() {
-        if (userSession.getUser().isCustomer())
-            return waybillDao.findProposedBySender(userSession.getUser());
+        if (getUser().isCustomer())
+            return waybillDao.findProposedBySender(getUser());
         else
             return null;
     }
 
     public List<Waybill> getValidatedWaybillCustomer() {
-        if (userSession.getUser().isCustomer())
-            return waybillDao.findValidatedBySender(userSession.getUser());
+        if (getUser().isCustomer())
+            return waybillDao.findValidatedBySender(getUser());
         else
             return null;
     }
 
     public List<Waybill> getProposedWaybillOperator() {
-        if (userSession.getUser().isOperator())
-            return waybillDao.findProposedByAgency(userSession.getUser().getAgency());
+        if (getUser().isOperator())
+            return waybillDao.findProposedByAgency(getUser().getAgency());
         else
             return null;
     }
 
     public List<Waybill> getUnassignedToDriver() {
-        if (userSession.getUser().isOperator())
-            return waybillDao.findUnassignedToDriver(userSession.getUser().getAgency());
+        if (getUser().isOperator())
+            return waybillDao.findUnassignedToDriver(getUser().getAgency());
         else
             return null;
     }
 
     public List<Waybill> getTodayMission() {
-        if (userSession.getUser().isDriver())
-            return missionDao.findByDriverAndDate(userSession.getUser(), Calendar.getInstance()).getWaybills();
+        if (getUser().isDriver())
+            return missionDao.findByDriverAndDate(getUser(), Calendar.getInstance()).getWaybills();
         else
             return null;
+    }
+    
+    public User getUser() {
+    	return userSession.getUser();
     }
 
 }

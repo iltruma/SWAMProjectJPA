@@ -1,6 +1,7 @@
 package it.unifi.ing.swam.controller;
 
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 
@@ -10,6 +11,7 @@ import it.unifi.ing.swam.dao.MissionDao;
 import it.unifi.ing.swam.model.Mission;
 import it.unifi.ing.swam.model.Waybill;
 
+@ManagedBean
 @ViewScoped
 public class MissionAssignPageController extends BasicController{
 
