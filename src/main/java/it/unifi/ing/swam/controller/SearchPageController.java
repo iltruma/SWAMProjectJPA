@@ -29,8 +29,8 @@ public class SearchPageController extends BasicController{
 
     @PostConstruct
     protected void initSearchPage(){
-        if(userSession.getUser().getId() == null)
-            throw new IllegalArgumentException("user id not found");
+        if(userSession.getUser().isDriver())
+            throw new IllegalArgumentException("you cant view this page");
 
         results = new ArrayList<>();
         waybillQuery = ModelFactory.generateWaybill();

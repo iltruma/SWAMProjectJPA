@@ -32,6 +32,7 @@ public class SearchPageControllerTest extends BasicController {
     private User operator;
     private User customer;
     private User user;
+    private User wrongUser;
 
     @Before
     public void setUp() throws InitializationError {
@@ -41,7 +42,11 @@ public class SearchPageControllerTest extends BasicController {
         userDao = mock(UserDao.class);
 
         user = ModelFactory.generateUser();
+        user.addRole(ModelFactory.generateOperator());
         userSession.setUser(user);
+
+        wrongUser = ModelFactory.generateUser();
+        wrongUser.addRole(ModelFactory.generateDriver());
 
         operator = ModelFactory.generateUser();
         operator.addRole(ModelFactory.generateOperator());
@@ -67,12 +72,8 @@ public class SearchPageControllerTest extends BasicController {
     }
 
     @Test
-    public void testInitSearchPageThrowsIllegalArgumentException() throws InitializationError {
-        try {
-            FieldUtils.writeField(user, "id", null, true);
-        } catch (IllegalAccessException e) {
-            throw new InitializationError(e);
-        }
+    public void testInitSearchPageThrowsIllegalArgumentException() {
+        userSession.setUser(wrongUser);
 
         assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
             searchPageController.initSearchPage();
