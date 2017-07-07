@@ -52,7 +52,6 @@ public class LoginPageControllerTest {
 
         String result = loginController.login();
 
-        assertTrue(result.contains("Successfull"));
         assertEquals(user, userSession.getUser());
         assertTrue(userSession.isLoggedIn());
     }
