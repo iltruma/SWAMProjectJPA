@@ -1,5 +1,6 @@
 package it.unifi.ing.swam.controller;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import javax.inject.Inject;
 import it.unifi.ing.swam.bean.UserSessionBean;
 import it.unifi.ing.swam.dao.MissionDao;
 import it.unifi.ing.swam.dao.WaybillDao;
+import it.unifi.ing.swam.model.Mission;
 import it.unifi.ing.swam.model.User;
 import it.unifi.ing.swam.model.Waybill;
 
@@ -57,8 +59,12 @@ public class HomePageController {
     }
 
     public List<Waybill> getTodayMission() {
-        if (getUser().isDriver())
-            return missionDao.findByDriverAndDate(getUser(), Calendar.getInstance()).getWaybills();
+        if (getUser().isDriver()){
+        	Mission m = missionDao.findByDriverAndDate(getUser(), Calendar.getInstance());
+        if (m == null)
+        	return new ArrayList<Waybill>();
+        return m.getWaybills();
+        }
         else
             return null;
     }

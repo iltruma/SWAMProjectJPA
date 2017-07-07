@@ -30,6 +30,7 @@ public class LoginPageController {
         if( loggedUser == null )
             throw new RuntimeException("Login Failed");
 
+		userSession.setUser(null);
         userSession.setUser(loggedUser);
 		return "home?faces-redirect=true";
     }

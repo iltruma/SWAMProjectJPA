@@ -35,12 +35,11 @@ public class Customer extends Role {
     private User operator; // Operator
 
     public Customer() {
-
+        type = Role.Type.CUSTOMER;
     }
 
     public Customer(String uuid) {
-        super(uuid);
-        type = Role.Type.CUSTOMER;
+        super(uuid, Role.Type.CUSTOMER);
         fares = new ArrayList<>();
     }
 

@@ -22,13 +22,12 @@ public abstract class Role extends BaseEntity {
         CUSTOMER, DRIVER, OPERATOR
 
     }
-
     protected Role() {
-
     }
 
-    public Role(String uuid) {
+    protected Role(String uuid, Type t) {
         super(uuid);
+    	type = t;
     }
 
     public Type getType() {

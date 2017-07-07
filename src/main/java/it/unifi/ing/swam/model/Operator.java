@@ -9,12 +9,11 @@ import javax.persistence.Table;
 public class Operator extends Role {
 
     protected Operator() {
-
+        type = Role.Type.OPERATOR;
     }
 
     public Operator(String uuid) {
-        super(uuid);
-        type = Role.Type.OPERATOR;
+        super(uuid, Role.Type.OPERATOR);
     }
 
 }

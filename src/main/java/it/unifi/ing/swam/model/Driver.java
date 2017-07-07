@@ -34,12 +34,11 @@ public class Driver extends Role {
     }
 
     protected Driver() {
-
+        type = Role.Type.DRIVER;
     }
 
     public Driver(String uuid) {
-        super(uuid);
-        type = Role.Type.DRIVER;
+        super(uuid, Role.Type.DRIVER);
         missions = new ArrayList<>();
     }
 

@@ -10,6 +10,7 @@ import it.unifi.ing.swam.model.BaseEntity;
 public abstract class BaseDao implements Serializable{
 
 	private static final long serialVersionUID = 8L;
+	
 	@PersistenceContext
     protected EntityManager entityManager;
 
