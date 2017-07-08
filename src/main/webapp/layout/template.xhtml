@@ -9,11 +9,11 @@
 	<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic" />
 	<link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css" />
 	<link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css" />
-
+	
 <style>
 h2{
 	text-align: center;
-	margin-bottom:-20px;
+	margin-bottom:-10px;
 }
 
 .sections{
@@ -26,7 +26,7 @@ body{
 }
 
 
-.button {
+.button, input.button-primary {
 	background-color: #C90F24;
 	border: 0.1rem solid #333;
 }
@@ -38,6 +38,47 @@ body{
 td, th{
 	text-align: center;
 }
+
+input.custom:focus{
+	border: 0.1rem solid #C90F24;
+}
+
+.tab {
+	position: relative;
+    width: 100%;
+}
+
+.tab input { 
+	left: 0;
+	position: absolute;
+	top: 0;
+	z-index: -999;
+	visibility:hidden;
+}
+	
+.tab label {
+	cursor: pointer;
+	display: block;
+}	
+
+.tab input:focus + label,
+.tab label:hover{ 
+	font-weight: bold; 
+}
+
+.tab-content {
+	max-height: 0;
+	overflow: hidden;
+	transition: all 0.35s;
+}
+
+
+/* open the tab when label is checked */
+
+.tab input:checked ~ .tab-content { 
+	max-height: 50em;
+}
+
 
 </style>
 </head>
@@ -51,7 +92,7 @@ td, th{
 		
 		<h:panelGroup rendered="#{userSessionBean.isLoggedIn()}">
 			<h:form class="float-right" style="margin-top: 10px;">
-				<h:commandButton action="#{loginPageController.logout()}" value="Logout" style="background-color: #C90F24;"></h:commandButton>
+				<h:commandButton action="#{loginPageController.logout()}" value="Logout" style="background-color: #C90F24; border: 0.1rem solid #333;"></h:commandButton>
 			</h:form>
 			
 			<ui:insert name="body" />

@@ -7,9 +7,9 @@
 	<h:form>
 		<fieldset>
 			<label for="username">Username</label> 
-			<h:inputText id="username" value="#{loginPageController.userData.username}"></h:inputText>
+			<h:inputText styleClass="custom" id="username" value="#{loginPageController.userData.username}"></h:inputText>
 			<label for="password">Password</label> 
-			<h:inputSecret id="password" value="#{loginPageController.userData.password}"></h:inputSecret>
+			<h:inputSecret styleClass="custom" id="password" value="#{loginPageController.userData.password}"></h:inputSecret>
  			<h:commandButton styleClass="button-primary" action="#{loginPageController.login()}" value="Login"></h:commandButton>
 		</fieldset>
 	</h:form>
