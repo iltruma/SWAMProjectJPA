@@ -84,6 +84,7 @@ public abstract class RoleStrategy {
         waybillDao.save(waybill);
         return "ViewPage" + waybill.getId() + user.getCustomerRole().getId();
     }
+    
 
     public Waybill getWaybill() {
         return waybill;

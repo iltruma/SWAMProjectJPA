@@ -35,7 +35,6 @@ import it.unifi.ing.swam.model.Tracking;
 import it.unifi.ing.swam.model.User;
 import it.unifi.ing.swam.model.Waybill;
 
-@Model
 @RunWith(Enclosed.class)
 public class EditWaybillPageControllerTest {
 

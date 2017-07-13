@@ -19,12 +19,6 @@
 			<p style="white-space: pre-wrap">Sender name:
 				#{viewWaybillPageController.waybill.sender.name}</p>
 
-			<h5>
-				<h:outputText value="created at: " />
-				<h:outputText value="#{noteViewController.note.creationDate}">
-					<f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
-				</h:outputText>
-			</h5>
 
 			<h:link styleClass="button button-outline" outcome="home"
 				value="Back"></h:link>

@@ -20,23 +20,20 @@
 
 					<label for="cost">cost</label>
 					<h:inputText id="cost"
-						value="#{editWaybillPageController.waybill.cost}">
-						<f:convertNumber floatOnly="true" />
+						value="#{editWaybillPageController.strategy.waybill.cost}">
 					</h:inputText>
 
 
+					<h:link styleClass="button button-outline" outcome="home"
+						value="Back"></h:link>
+					<h:commandButton styleClass="button-primary"
+						action="#{editWaybillPageController.save()}" value="Save">
+						<f:param name="id"
+							value="#{editWaybillPageController.strategy.waybill.id}"></f:param>
+						<f:param name="roleId"
+							value="#{editWaybillPageController.currentRole.id}"></f:param>
+					</h:commandButton>
 				</c:if>
-
-
-
-				<h:link styleClass="button button-outline" outcome="home"
-					value="Back"></h:link>
-				<h:commandButton styleClass="button-primary"
-					action="#{editWaybillPageController.save()}" value="Save">
-					<f:param name="id" value="#{editWaybillPageController.waybill.id}"></f:param>
-					<f:param name="roleId"
-						value="#{editWaybillPageController.currentRole.id}"></f:param>
-				</h:commandButton>
 			</fieldset>
 		</h:form>
 	</ui:define>

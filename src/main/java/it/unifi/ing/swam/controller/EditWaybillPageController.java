@@ -1,6 +1,7 @@
 package it.unifi.ing.swam.controller;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.inject.Model;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -17,8 +18,7 @@ import it.unifi.ing.swam.dao.UserDao;
 import it.unifi.ing.swam.dao.WaybillDao;
 import it.unifi.ing.swam.model.Waybill;
 
-@Named
-@ViewScoped
+@Model
 public class EditWaybillPageController extends BasicController {
 
     private static final long serialVersionUID = 9L;
@@ -46,7 +46,6 @@ public class EditWaybillPageController extends BasicController {
     @Inject
     protected MissionDao missionDao;
 
-    private Waybill waybill;
     private RoleStrategy strategy;
 
     @PostConstruct
@@ -56,7 +55,7 @@ public class EditWaybillPageController extends BasicController {
         }
         strategy.initWaybill();
         strategy.checkEdit();
-        waybill = strategy.getWaybill();
+        strategy.getWaybill();
     }
 
     protected void initStrategy() {
@@ -75,7 +74,7 @@ public class EditWaybillPageController extends BasicController {
     }
 
     public Waybill getWaybill() {
-        return waybill;
+        return strategy.getWaybill();
     }
 
     public RoleStrategy getStrategy() {
@@ -86,6 +85,13 @@ public class EditWaybillPageController extends BasicController {
     public void save(){
     	this.strategy.save();
     }
+    
+    @Transactional
+    public String saveSender() {
+        userDao.save(getWaybill().getSender());
+        return "ViewPage" + getWaybill().getId() + userSession.getUser().getCustomerRole().getId();
+    }
+    
 
 
 }

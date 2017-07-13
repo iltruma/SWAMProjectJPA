@@ -43,12 +43,9 @@ public class ViewWaybillPageController extends BasicController {
     @Inject @HttpParam("id")
     private String waybillId;
 
-    private Waybill waybill;
-
     private RoleStrategy strategy;
    
    
-
     public RoleStrategy getStrategy() {
         return strategy;
     }
@@ -64,18 +61,18 @@ public class ViewWaybillPageController extends BasicController {
         strategy = RoleStrategy.getStrategyFrom(currentRole, waybillId, userSession.getUser());
         strategy.setDaos(waybillDao, agencyDao, itemDao, userDao, missionDao);
     }
-
+    
+    public Waybill getWaybill() {
+        return strategy.getWaybill();
+    }
 
     @PostConstruct
     protected void initWaybill() {
     	if(strategy==null){
     		initStrategy();
     	}
-        waybill = strategy.initWaybill();
+        strategy.initWaybill();
 
     }
 
-    public Waybill getWaybill() {
-        return waybill;
-    }
 }
