@@ -2,27 +2,40 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 <ui:composition template="layout/template.xhtml">
 	<ui:define name="body">
-		<h2>View Note</h2>
+		<h2>View Waybill</h2>
+
+		<h3>Waybill id #{viewWaybillPageController.waybill.id}</h3>
 		
-		<h3>#{noteViewController.note.title}</h3>
 		
-		<p style="white-space:pre-wrap">#{noteViewController.note.body}</p>
+		<c:set scope="request" var="isOperator" property="x"
+			value="#{viewWaybillPageController.currentRole.isOperator()}" />
+		<c:if test="#{isOperator}">
 		
-		<h5>
-			<h:outputText value="created at: " />
-			<h:outputText value="#{noteViewController.note.creationDate}">
-				<f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
-			</h:outputText>
-		</h5>
+			<p style="white-space: pre-wrap">Sender name: #{viewWaybillPageController.waybill.sender.name}</p>
+
+			<h5>
+				<h:outputText value="created at: " />
+				<h:outputText value="#{noteViewController.note.creationDate}">
+					<f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+				</h:outputText>
+			</h5>
+
+			<h:link styleClass="button button-outline" outcome="home"
+				value="Back"></h:link>
+			<h:link styleClass="button" outcome="note-edit" value="Edit"
+				style="margin-left: 5px;">
+				<f:param name="id" value="#{noteViewController.note.id}"></f:param>
+			</h:link>
 		
-		<h:link styleClass="button button-outline" outcome="home" value="Back"></h:link>
-		<h:link styleClass="button" outcome="note-edit" value="Edit" style="margin-left: 5px;">
-			<f:param name="id" value="#{noteViewController.note.id}"></f:param>
-		</h:link>
+		</c:if>
+		
+
+
 	</ui:define>
 </ui:composition>
 

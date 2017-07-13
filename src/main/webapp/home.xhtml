@@ -18,14 +18,16 @@
 
 
 			<div class="sections tab">
-				<input id="tab-1" type="radio" name="tabs"> </input> 
-				<label for="tab-1">
-				<h:link styleClass="button button-outline search" outcome="search view" value="Search">	</h:link>
+				<input id="tab-1" type="radio" name="tabs"> </input> <label
+					for="tab-1"> <h:link
+						styleClass="button button-outline search" outcome="search view"
+						value="Search">
+					</h:link>
 					<h2>
 						<strong>Operator Home Page</strong>
 					</h2>
-				
-					</label>
+
+				</label>
 
 				<div class="tab-content">
 					<hr></hr>
@@ -60,10 +62,14 @@
 									<td><h:link styleClass="button button-outline"
 											outcome="waybill-view" value="View">
 											<f:param name="id" value="#{waybill.id}"></f:param>
+											<f:param name="roleId" value="#{homePageController.user.operatorRole.id}"></f:param>
+											
 										</h:link> <h:link styleClass="button" outcome="waybill-edit"
 											value="Edit">
 											<f:param name="id" value="#{waybill.id}"></f:param>
-										</h:link></td>
+										</h:link> </td>
+
+
 								</tr>
 							</ui:repeat>
 						</tbody>
@@ -130,8 +136,10 @@
 
 			<div class="sections tab" style="margin-top: 20px;">
 				<input id="tab-2" type="radio" name="tabs"> </input> <label
-					for="tab-2">
-					<h:link styleClass="button button-outline search" outcome="search view" value="Search">	</h:link>
+					for="tab-2"> <h:link
+						styleClass="button button-outline search" outcome="search view"
+						value="Search">
+					</h:link>
 					<h2>
 						<strong>Customer Home Page</strong>
 					</h2></label>

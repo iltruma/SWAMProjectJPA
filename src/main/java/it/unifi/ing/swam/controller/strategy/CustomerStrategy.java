@@ -1,6 +1,5 @@
 package it.unifi.ing.swam.controller.strategy;
 
-import javax.enterprise.context.Dependent;
 
 import it.unifi.ing.swam.model.Agency;
 import it.unifi.ing.swam.model.Item;
@@ -9,7 +8,6 @@ import it.unifi.ing.swam.model.Tracking;
 import it.unifi.ing.swam.model.User;
 import it.unifi.ing.swam.model.Waybill;
 
-@Dependent
 public class CustomerStrategy extends RoleStrategy {
 
     protected CustomerStrategy(String wid, User u) {

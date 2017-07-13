@@ -2,23 +2,16 @@ package it.unifi.ing.swam.controller.strategy;
 
 import java.util.Calendar;
 
-import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
 
-import it.unifi.ing.swam.dao.MissionDao;
 import it.unifi.ing.swam.model.Tracking;
 import it.unifi.ing.swam.model.User;
 import it.unifi.ing.swam.model.Waybill;
 
-@Dependent
 public class DriverStrategy extends RoleStrategy {
 
-    @Inject
-    private MissionDao missionDao;
 
     protected DriverStrategy(String wid, User u) {
         super(wid, u);
-
     }
 
     @Override

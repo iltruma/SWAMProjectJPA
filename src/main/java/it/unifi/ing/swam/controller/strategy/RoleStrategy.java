@@ -1,11 +1,13 @@
 package it.unifi.ing.swam.controller.strategy;
 
+
+
 import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
 import javax.transaction.Transactional;
 
 import it.unifi.ing.swam.dao.AgencyDao;
 import it.unifi.ing.swam.dao.ItemDao;
+import it.unifi.ing.swam.dao.MissionDao;
 import it.unifi.ing.swam.dao.UserDao;
 import it.unifi.ing.swam.dao.WaybillDao;
 import it.unifi.ing.swam.model.Role;
@@ -16,21 +18,29 @@ import it.unifi.ing.swam.model.Waybill;
 public abstract class RoleStrategy {
 
     protected String waybillId;
-    @Inject
+        
     protected WaybillDao waybillDao;
 
-    @Inject
     protected AgencyDao agencyDao;
 
-    @Inject
     protected ItemDao itemDao;
 
-    @Inject
     protected UserDao userDao;
+    
+    protected MissionDao missionDao;
 
     protected User user;
     protected Waybill waybill;
-
+    
+    
+    public void setDaos(WaybillDao wd, AgencyDao ad, ItemDao id, UserDao ud, MissionDao md){
+    	this.waybillDao = wd;
+    	this.agencyDao = ad;
+    	this.itemDao = id;
+    	this.userDao = ud;
+    	this.missionDao = md;
+    }
+   
     protected RoleStrategy(String wid, User u) {
         waybillId = wid;
         user = u;

@@ -1,6 +1,5 @@
 package it.unifi.ing.swam.controller.strategy;
 
-import javax.enterprise.context.Dependent;
 import javax.transaction.Transactional;
 
 import it.unifi.ing.swam.model.Agency;
@@ -10,8 +9,8 @@ import it.unifi.ing.swam.model.Tracking;
 import it.unifi.ing.swam.model.User;
 import it.unifi.ing.swam.model.Waybill;
 
-@Dependent
 public class OperatorStrategy extends RoleStrategy {
+	
 
     protected OperatorStrategy(String wid, User u) {
         super(wid, u);
