@@ -3,6 +3,8 @@ package it.unifi.ing.swam.controller;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
+import javax.transaction.Transactional;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -15,6 +17,7 @@ import it.unifi.ing.swam.dao.UserDao;
 import it.unifi.ing.swam.dao.WaybillDao;
 import it.unifi.ing.swam.model.Waybill;
 
+@Named
 @ViewScoped
 public class EditWaybillPageController extends BasicController {
 
@@ -77,6 +80,11 @@ public class EditWaybillPageController extends BasicController {
 
     public RoleStrategy getStrategy() {
         return strategy;
+    }
+    
+    @Transactional
+    public void save(){
+    	this.strategy.save();
     }
 
 

@@ -10,13 +10,14 @@
 		<h2>View Waybill</h2>
 
 		<h3>Waybill id #{viewWaybillPageController.waybill.id}</h3>
-		
-		
+
+
 		<c:set scope="request" var="isOperator" property="x"
 			value="#{viewWaybillPageController.currentRole.isOperator()}" />
 		<c:if test="#{isOperator}">
-		
-			<p style="white-space: pre-wrap">Sender name: #{viewWaybillPageController.waybill.sender.name}</p>
+
+			<p style="white-space: pre-wrap">Sender name:
+				#{viewWaybillPageController.waybill.sender.name}</p>
 
 			<h5>
 				<h:outputText value="created at: " />
@@ -27,13 +28,15 @@
 
 			<h:link styleClass="button button-outline" outcome="home"
 				value="Back"></h:link>
-			<h:link styleClass="button" outcome="note-edit" value="Edit"
+			<h:link styleClass="button" outcome="waybill-edit" value="Edit"
 				style="margin-left: 5px;">
-				<f:param name="id" value="#{noteViewController.note.id}"></f:param>
+				<f:param name="id" value="#{viewWaybillPageController.waybill.id}"></f:param>
+				<f:param name="roleId" value="#{viewWaybillPageController.currentRole.id}"></f:param>
+
 			</h:link>
-		
+
 		</c:if>
-		
+
 
 
 	</ui:define>

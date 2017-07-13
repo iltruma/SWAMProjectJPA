@@ -2,22 +2,41 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 <ui:composition template="layout/template.xhtml">
 	<ui:define name="body">
-		<h2>Edit Note</h2>
+		<h2>EDIT Waybill</h2>
+
 		<h:form>
 			<fieldset>
-				<label for="title">Title</label> 
-				<h:inputText id="title" value="#{noteEditController.note.title}"></h:inputText>
-				<label for="password">Content</label> 
-				<h:inputTextarea value="#{noteEditController.note.body}"></h:inputTextarea>
-				<h:link styleClass="button button-outline" outcome="home" value="Back"></h:link>
-	 			<h:commandButton styleClass="button-primary" action="#{noteEditController.save()}" value="Save">
-	 				<f:param name="id" value="#{noteEditController.note.id}"></f:param>
-	 				<f:param name="add" value="#{noteEditController.adding}"></f:param>
-	 			</h:commandButton>
+
+				<label for="password">Content</label>
+
+				<c:set scope="request" var="isOperator" property="x"
+					value="#{editWaybillPageController.currentRole.isOperator()}" />
+				<c:if test="#{isOperator}">
+
+					<label for="cost">cost</label>
+					<h:inputText id="cost"
+						value="#{editWaybillPageController.waybill.cost}">
+						<f:convertNumber floatOnly="true" />
+					</h:inputText>
+
+
+				</c:if>
+
+
+
+				<h:link styleClass="button button-outline" outcome="home"
+					value="Back"></h:link>
+				<h:commandButton styleClass="button-primary"
+					action="#{editWaybillPageController.save()}" value="Save">
+					<f:param name="id" value="#{editWaybillPageController.waybill.id}"></f:param>
+					<f:param name="roleId"
+						value="#{editWaybillPageController.currentRole.id}"></f:param>
+				</h:commandButton>
 			</fieldset>
 		</h:form>
 	</ui:define>
