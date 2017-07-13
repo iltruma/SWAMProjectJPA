@@ -9,12 +9,17 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 @Embeddable
 public class Load {
 
     private Float totalVolume;
     private Float totalWeight;
-    @OneToMany(fetch=FetchType.LAZY, cascade={CascadeType.PERSIST})
+    
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany
     @JoinColumn(name="waybill_id")
     private List<Item> items;
 

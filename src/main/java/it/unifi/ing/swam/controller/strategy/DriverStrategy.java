@@ -33,6 +33,8 @@ public class DriverStrategy extends RoleStrategy {
                 throw new IllegalArgumentException("id not a number");
             }
         }
+        
+        setParameters(waybill);
         return waybill;
     }
 

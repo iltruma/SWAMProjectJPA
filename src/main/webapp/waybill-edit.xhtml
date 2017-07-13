@@ -18,22 +18,77 @@
 					value="#{editWaybillPageController.currentRole.isOperator()}" />
 				<c:if test="#{isOperator}">
 
-					<label for="cost">cost</label>
-					<h:inputText id="cost"
-						value="#{editWaybillPageController.strategy.waybill.cost}">
+					<label for="sender">sender Id</label>
+					<h:inputText id="sender"
+						value="#{editWaybillPageController.strategy.sender}">
+					</h:inputText>
+					<label for="agency">destination agency Id</label>
+					<h:inputText id="agency"
+						value="#{editWaybillPageController.strategy.agency}">
 					</h:inputText>
 
+					<label for="cost">cost</label>
+					<h:outputText id="cost"
+						value="#{editWaybillPageController.strategy.waybill.cost}">
+					</h:outputText>
 
-					<h:link styleClass="button button-outline" outcome="home"
-						value="Back"></h:link>
-					<h:commandButton styleClass="button-primary"
-						action="#{editWaybillPageController.save()}" value="Save">
-						<f:param name="id"
-							value="#{editWaybillPageController.strategy.waybill.id}"></f:param>
-						<f:param name="roleId"
-							value="#{editWaybillPageController.currentRole.id}"></f:param>
-					</h:commandButton>
+					<label for="tw">Total Weight:</label>
+					<h:outputText id="tw"
+						value="#{editWaybillPageController.waybill.load.totalWeight}">
+					</h:outputText>
+
+					<label for="tv">Total Volume:</label>
+					<h:outputText id="tv"
+						value="#{editWaybillPageController.waybill.load.totalVolume}">
+					</h:outputText>
+
+
+					<label>Items:</label>
+					<table>
+						<thead>
+							<tr>
+								<th>Id</th>
+								<th>Weight</th>
+								<th>Volume</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<ui:repeat var="item"
+								value="#{editWaybillPageController.waybill.load.items}">
+								<tr>
+									<td><h:outputText value="#{item.id}" /></td>
+									<td><h:outputText value="#{item.weight}" /></td>
+									<td><h:outputText value="#{item.volume}" /></td>
+
+									<td><h:commandButton styleClass="button"
+											action="#{editWaybillPageController.waybill.load.removeItem(item)}"
+											value="Remove">
+											<f:param name="id"
+												value="#{editWaybillPageController.strategy.waybill.id}"></f:param>
+											<f:param name="roleId"
+												value="#{editWaybillPageController.currentRole.id}"></f:param>
+										</h:commandButton></td>
+								</tr>
+							</ui:repeat>
+						</tbody>
+					</table>
+
+					<label for="item">add Item, id:</label>
+					<h:inputText id="item"
+						value="#{editWaybillPageController.strategy.newItem}">
+					</h:inputText>
 				</c:if>
+
+				<h:link styleClass="button button-outline" outcome="home"
+					value="Back"></h:link>
+				<h:commandButton styleClass="button-primary"
+					action="#{editWaybillPageController.save()}" value="Save">
+					<f:param name="id"
+						value="#{editWaybillPageController.strategy.waybill.id}"></f:param>
+					<f:param name="roleId"
+						value="#{editWaybillPageController.currentRole.id}"></f:param>
+				</h:commandButton>
 			</fieldset>
 		</h:form>
 	</ui:define>

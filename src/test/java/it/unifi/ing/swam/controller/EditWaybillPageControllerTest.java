@@ -10,8 +10,6 @@ import static org.mockito.Mockito.when;
 
 import java.util.Calendar;
 
-import javax.enterprise.inject.Model;
-
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -212,12 +210,12 @@ public class EditWaybillPageControllerTest {
 
         @Test
         public void testAddItem() {
-            roleStrategy.addItem(itemId);
+            roleStrategy.setNewItem(itemId);
             assertEquals(1, waybill.getLoad().getItems().size());
-            assertEquals(item, waybill.getLoad().getItems().get(0));
+            assertEquals(item, waybill.getLoad().getItems().iterator().next());
 
             assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
-                roleStrategy.addItem(wrongItemId);
+                roleStrategy.setNewItem(wrongItemId);
             });
         }
 
@@ -301,11 +299,11 @@ public class EditWaybillPageControllerTest {
 
         @Test
         public void testSetCustomer() {
-            roleStrategy.setCustomer(userId);
+            roleStrategy.setSender(userId);
             assertEquals(waybill.getSender(), user);
 
             assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
-                roleStrategy.setCustomer(wrongUserId);
+                roleStrategy.setSender(wrongUserId);
             });
         }
 
@@ -321,12 +319,12 @@ public class EditWaybillPageControllerTest {
 
         @Test
         public void testAddItem() {
-            roleStrategy.addItem(itemId);
+            roleStrategy.setNewItem(itemId);
             assertEquals(1, waybill.getLoad().getItems().size());
-            assertEquals(item, waybill.getLoad().getItems().get(0));
+            assertEquals(item, waybill.getLoad().getItems().iterator().next());
 
             assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
-                roleStrategy.addItem(wrongItemId);
+                roleStrategy.setNewItem(wrongItemId);
             });
         }
 

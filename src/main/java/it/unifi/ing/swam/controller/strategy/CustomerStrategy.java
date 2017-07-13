@@ -35,6 +35,7 @@ public class CustomerStrategy extends RoleStrategy {
                 throw new IllegalArgumentException("id not a number");
             }
         }
+        setParameters(waybill);
         return waybill;
     }
 
@@ -54,7 +55,7 @@ public class CustomerStrategy extends RoleStrategy {
     }
 
     @Override
-    public void addItem(Long id){
+    public void setNewItem(Long id){
         Item i = itemDao.findById(id);
         if(i == null)
             throw new IllegalArgumentException("id not found");

@@ -18,7 +18,8 @@ import it.unifi.ing.swam.dao.UserDao;
 import it.unifi.ing.swam.dao.WaybillDao;
 import it.unifi.ing.swam.model.Waybill;
 
-@Model
+@Named
+@javax.faces.view.ViewScoped
 public class EditWaybillPageController extends BasicController {
 
     private static final long serialVersionUID = 9L;

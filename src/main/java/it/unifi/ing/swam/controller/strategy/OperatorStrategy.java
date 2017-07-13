@@ -34,6 +34,8 @@ public class OperatorStrategy extends RoleStrategy {
                 throw new IllegalArgumentException("id not a number");
             }
         }
+        
+        setParameters(waybill);
         return waybill;
     }
 
@@ -44,7 +46,7 @@ public class OperatorStrategy extends RoleStrategy {
     }
 
     @Override
-    public void setCustomer(Long id){
+    public void setSender(Long id){
         User sender = userDao.findById(id);
         if (sender == null)
             throw new IllegalArgumentException("id not found");
@@ -52,7 +54,8 @@ public class OperatorStrategy extends RoleStrategy {
             throw new IllegalArgumentException("the sender is not a customer");
         else if (!sender.getCustomerRole().isActive())
             throw new IllegalArgumentException("the sender is blocked!");
-
+        
+        this.sender = id;
         waybill.setSender(sender);
 
     }
@@ -62,11 +65,15 @@ public class OperatorStrategy extends RoleStrategy {
         Agency a = agencyDao.findById(id);
         if (a == null)
             throw new IllegalArgumentException("id not found");
+        this.agency = id;
         waybill.getReceiver().setDestinationAgency(a);
     }
 
     @Override
-    public void addItem(Long id) {
+    public void setNewItem(Long id) {
+    	if(id == null)
+    		return;
+    	
         Item i = itemDao.findById(id);
         if (i == null)
             throw new IllegalArgumentException("id not found");

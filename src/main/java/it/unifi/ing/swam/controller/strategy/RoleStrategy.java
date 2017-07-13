@@ -32,6 +32,12 @@ public abstract class RoleStrategy {
     protected User user;
     protected Waybill waybill;
     
+    protected Long sender;
+    
+    protected Long agency;
+    
+    protected Long newItem;
+       
     
     public void setDaos(WaybillDao wd, AgencyDao ad, ItemDao id, UserDao ud, MissionDao md){
     	this.waybillDao = wd;
@@ -48,6 +54,15 @@ public abstract class RoleStrategy {
 
     public abstract Waybill initWaybill();
 
+    
+    protected void setParameters(Waybill waybill) {
+    	if(waybill.getSender() != null)
+    		this.sender = waybill.getSender().getId();
+    	if(waybill.getReceiver().getDestinationAgency() != null)
+    		this.agency = waybill.getReceiver().getDestinationAgency().getId();
+    }  
+    
+    
     public static RoleStrategy getStrategyFrom(Role r, String wid, User u) {
         if (r.isCustomer())
             return new CustomerStrategy(wid, u);
@@ -58,8 +73,21 @@ public abstract class RoleStrategy {
         else
             throw new IllegalArgumentException("role not found");
     }
-
-    public void setCustomer(Long id){
+    
+    public Long getSender(){
+    	return sender;
+    }
+    
+    public Long getAgency(){
+    	return agency;
+    }
+    
+    public Long getNewItem(){
+    	return newItem;
+    }
+    
+    
+    public void setSender(Long id){
         throw new UnsupportedOperationException();
     }
 
@@ -67,7 +95,7 @@ public abstract class RoleStrategy {
         throw new UnsupportedOperationException();
     }
 
-    public void addItem(Long id){
+    public void setNewItem(Long id){
         throw new UnsupportedOperationException();
     }
 
