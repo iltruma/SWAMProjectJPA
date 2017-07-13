@@ -20,7 +20,7 @@
 			<div class="sections tab">
 				<input id="tab-1" type="radio" name="tabs"> </input> <label
 					for="tab-1"> <h:link
-						styleClass="button button-outline search" outcome="search view"
+						styleClass="button button-outline search" outcome="search-view"
 						value="Search">
 					</h:link>
 					<h2>
@@ -62,12 +62,15 @@
 									<td><h:link styleClass="button button-outline"
 											outcome="waybill-view" value="View">
 											<f:param name="id" value="#{waybill.id}"></f:param>
-											<f:param name="roleId" value="#{homePageController.user.operatorRole.id}"></f:param>
-											
+											<f:param name="roleId"
+												value="#{homePageController.user.operatorRole.id}"></f:param>
+
 										</h:link> <h:link styleClass="button" outcome="waybill-edit"
 											value="Edit">
 											<f:param name="id" value="#{waybill.id}"></f:param>
-										</h:link> </td>
+											<f:param name="roleId"
+												value="#{homePageController.user.operatorRole.id}"></f:param>
+										</h:link></td>
 
 
 								</tr>
@@ -111,9 +114,14 @@
 										<td><h:link styleClass="button button-outline"
 												outcome="waybill-view" value="View">
 												<f:param name="id" value="#{waybill.id}"></f:param>
+												<f:param name="roleId"
+													value="#{homePageController.user.operatorRole.id}"></f:param>
+
 											</h:link> <h:link styleClass="button" outcome="waybill-edit"
 												value="Edit">
 												<f:param name="id" value="#{waybill.id}"></f:param>
+												<f:param name="roleId"
+													value="#{homePageController.user.operatorRole.id}"></f:param>
 											</h:link></td>
 									</tr>
 								</ui:repeat>
@@ -137,7 +145,7 @@
 			<div class="sections tab" style="margin-top: 20px;">
 				<input id="tab-2" type="radio" name="tabs"> </input> <label
 					for="tab-2"> <h:link
-						styleClass="button button-outline search" outcome="search view"
+						styleClass="button button-outline search" outcome="search-view"
 						value="Search">
 					</h:link>
 					<h2>
@@ -176,9 +184,13 @@
 									<td><h:link styleClass="button button-outline"
 											outcome="waybill-view" value="View">
 											<f:param name="id" value="#{waybill.id}"></f:param>
+											<f:param name="roleId"
+												value="#{homePageController.user.customerRole.id}"></f:param>
 										</h:link> <h:link styleClass="button" outcome="waybill-edit"
 											value="Edit">
 											<f:param name="id" value="#{waybill.id}"></f:param>
+											<f:param name="roleId"
+												value="#{homePageController.user.customerRole.id}"></f:param>
 										</h:link></td>
 								</tr>
 							</ui:repeat>
@@ -221,6 +233,8 @@
 										<td><h:link styleClass="button button-outline"
 												outcome="waybill-view" value="View">
 												<f:param name="id" value="#{waybill.id}"></f:param>
+												<f:param name="roleId"
+													value="#{homePageController.user.customerRole.id}"></f:param>
 											</h:link></td>
 									</tr>
 								</ui:repeat>
@@ -273,9 +287,13 @@
 									<td><h:link styleClass="button button-outline"
 											outcome="waybill-view" value="View">
 											<f:param name="id" value="#{waybill.id}"></f:param>
+											<f:param name="roleId"
+												value="#{homePageController.user.driverRole.id}"></f:param>
 										</h:link> <h:link styleClass="button" outcome="waybill-edit"
 											value="Add signature">
 											<f:param name="id" value="#{waybill.id}"></f:param>
+											<f:param name="roleId"
+												value="#{homePageController.user.driverRole.id}"></f:param>
 										</h:link></td>
 								</tr>
 							</ui:repeat>
