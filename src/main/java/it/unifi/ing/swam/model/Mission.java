@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -16,7 +17,7 @@ import javax.validation.constraints.NotNull;
 @Table(name = "missions")
 public class Mission extends BaseEntity {
 
-    @OneToMany
+    @OneToMany(fetch=FetchType.EAGER)
     @JoinColumn(name="mission_id")
     private List<Waybill> waybills;
 
