@@ -3,6 +3,7 @@ package it.unifi.ing.swam.controller;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.transaction.Transactional;
 
 import it.unifi.ing.swam.bean.CustomerBean;
@@ -10,6 +11,7 @@ import it.unifi.ing.swam.dao.UserDao;
 import it.unifi.ing.swam.model.ModelFactory;
 import it.unifi.ing.swam.model.User;
 
+@Named
 @ViewScoped
 public class EditCustomerPageController extends BasicController {
 

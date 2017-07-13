@@ -3,6 +3,7 @@ package it.unifi.ing.swam.controller;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.transaction.Transactional;
 
 import org.apache.commons.lang3.StringUtils;
@@ -12,6 +13,7 @@ import it.unifi.ing.swam.bean.producer.HttpParam;
 import it.unifi.ing.swam.dao.FareDao;
 import it.unifi.ing.swam.model.Fare;
 
+@Named
 @ViewScoped
 public class EditFarePageController extends BasicController {
 
