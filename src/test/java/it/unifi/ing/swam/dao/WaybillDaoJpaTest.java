@@ -225,7 +225,11 @@ public class WaybillDaoJpaTest extends JpaTest {
         operator.addRole(ModelFactory.generateOperator());
         User sender = ModelFactory.generateUser();
         sender.addRole(ModelFactory.generateCustomer());
+        Receiver receiver = new Receiver();
+        Agency destinationAgency = ModelFactory.generateAgency();
+        receiver.setDestinationAgency(destinationAgency);
 
+        emptyWaybill.setReceiver(receiver);
         emptyWaybill.setOperator(operator);
         emptyWaybill.setSender(sender);
 

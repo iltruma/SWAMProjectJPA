@@ -2,7 +2,6 @@ package it.unifi.ing.swam.controller;
 
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
@@ -151,7 +150,6 @@ public class ViewWaybillPageControllerTest {
             assertThatExceptionOfType(IllegalStateException.class).isThrownBy(() -> {
                 viewWaybillPageController.initWaybill();
             });
-            assertNull(viewWaybillPageController.getWaybill());
         }
 
     }
@@ -199,7 +197,6 @@ public class ViewWaybillPageControllerTest {
             assertThatExceptionOfType(IllegalStateException.class).isThrownBy(() -> {
                 viewWaybillPageController.initWaybill();
             });
-            assertNull(viewWaybillPageController.getWaybill());
         }
 
     }

@@ -30,7 +30,8 @@ public class ItemDaoJpaTest extends JpaTest {
         waybill = ModelFactory.generateWaybill();
         waybill.setLoad(load);
 
-        entityManager.persist(waybill); // Test CASCADE
+        entityManager.persist(item);
+        entityManager.persist(waybill);
 
         itemDao = new ItemDao();
         JpaTest.inject(itemDao, entityManager);

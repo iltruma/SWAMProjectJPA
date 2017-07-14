@@ -18,7 +18,7 @@ public abstract class JpaTest {
     private static EntityManagerFactory entityManagerFactory;
     protected EntityManager entityManager;
 
-    public static void inject(BaseDao bd, EntityManager em) throws InitializationError {
+    public static void inject(@SuppressWarnings("rawtypes") BaseDao bd, EntityManager em) throws InitializationError {
         try {
             FieldUtils.writeField(bd, "entityManager", em, true);
         } catch (IllegalAccessException e) {
