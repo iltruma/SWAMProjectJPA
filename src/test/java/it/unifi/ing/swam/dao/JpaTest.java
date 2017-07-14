@@ -13,12 +13,14 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.runners.model.InitializationError;
 
+import it.unifi.ing.swam.model.BaseEntity;
+
 public abstract class JpaTest {
 
     private static EntityManagerFactory entityManagerFactory;
     protected EntityManager entityManager;
 
-    public static void inject(@SuppressWarnings("rawtypes") BaseDao bd, EntityManager em) throws InitializationError {
+    public static void inject(BaseDao<? extends BaseEntity> bd, EntityManager em) throws InitializationError {
         try {
             FieldUtils.writeField(bd, "entityManager", em, true);
         } catch (IllegalAccessException e) {
