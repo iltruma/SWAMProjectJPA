@@ -5,12 +5,12 @@ import java.util.List;
 import it.unifi.ing.swam.model.Operator;
 import it.unifi.ing.swam.model.User;
 
-public class OperatorDao extends BaseDao {
+public class OperatorDao extends BaseDao<Operator> {
 
     private static final long serialVersionUID = 22L;
 
-    public Operator findById(Long id) {
-        return entityManager.find(Operator.class, id);
+    public OperatorDao() {
+        super(Operator.class);
     }
 
     @Deprecated

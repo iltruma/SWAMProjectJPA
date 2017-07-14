@@ -5,12 +5,12 @@ import java.util.List;
 import it.unifi.ing.swam.model.Address;
 import it.unifi.ing.swam.model.Agency;
 
-public class AgencyDao extends BaseDao {
+public class AgencyDao extends BaseDao<Agency> {
 
     private static final long serialVersionUID = 16L;
 
-    public Agency findById(Long id) {
-        return entityManager.find(Agency.class, id);
+    public AgencyDao() {
+        super(Agency.class);
     }
 
     public Agency findByName(String name) {

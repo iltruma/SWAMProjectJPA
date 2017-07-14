@@ -8,12 +8,12 @@ import javax.persistence.TemporalType;
 import it.unifi.ing.swam.model.Mission;
 import it.unifi.ing.swam.model.User;
 
-public class MissionDao extends BaseDao {
+public class MissionDao extends BaseDao<Mission> {
 
     private static final long serialVersionUID = 21L;
 
-    public Mission findById(Long id) {
-        return entityManager.find(Mission.class, id);
+    public MissionDao() {
+        super(Mission.class);
     }
 
     @Deprecated

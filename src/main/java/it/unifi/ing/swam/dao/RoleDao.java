@@ -5,12 +5,12 @@ import java.util.List;
 import it.unifi.ing.swam.model.Role;
 import it.unifi.ing.swam.model.User;
 
-public class RoleDao extends BaseDao {
+public class RoleDao extends BaseDao<Role> {
 
     private static final long serialVersionUID = 23L;
 
-    public Role findById(Long id) {
-        return entityManager.find(Role.class, id);
+    public RoleDao() {
+        super(Role.class);
     }
 
     @Deprecated

@@ -10,6 +10,7 @@ import javax.transaction.Transactional;
 
 import it.unifi.ing.swam.dao.AgencyDao;
 import it.unifi.ing.swam.dao.ItemDao;
+import it.unifi.ing.swam.dao.MissionDao;
 import it.unifi.ing.swam.dao.UserDao;
 import it.unifi.ing.swam.dao.WaybillDao;
 import it.unifi.ing.swam.model.Address;
@@ -35,11 +36,11 @@ public class StartupBean {
     private AgencyDao agencyDao;
 
     @Inject
-    private AgencyDao missionDao;
+    private MissionDao missionDao;
 
     @Inject
     private WaybillDao waybillDao;
-    
+
     @Inject ItemDao itemDao;
 
     @PostConstruct
@@ -232,7 +233,7 @@ public class StartupBean {
         all.getDriverRole().addMission(mission3);
 
         generateAndPersistItems();
-        
+
         agencyDao.save(agency1);
         agencyDao.save(agency2);
 
@@ -261,17 +262,17 @@ public class StartupBean {
         missionDao.save(mission1);
         missionDao.save(mission2);
         missionDao.save(mission3);
-        
+
     }
-    
+
     private void generateAndPersistItems(){
     	for(int i = 0; i < 100; i++){
     		Item item = ModelFactory.generateItem();
     		item.setVolume((float)(i+1));
     		item.setWeigth((float)(i+2));
-    
+
     		itemDao.save(item);
-    	} 
+    	}
     }
 
 }

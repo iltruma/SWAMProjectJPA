@@ -7,12 +7,12 @@ import it.unifi.ing.swam.model.Driver;
 import it.unifi.ing.swam.model.Truck;
 import it.unifi.ing.swam.model.User;
 
-public class DriverDao extends BaseDao {
+public class DriverDao extends BaseDao<Driver> {
 
     private static final long serialVersionUID = 18L;
 
-    public Driver findById(Long id) {
-        return entityManager.find(Driver.class, id);
+    public DriverDao() {
+        super(Driver.class);
     }
 
     // TODO - Scegliere solo alcuni campi di Truck.

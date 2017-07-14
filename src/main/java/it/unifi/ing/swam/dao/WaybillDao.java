@@ -11,12 +11,12 @@ import it.unifi.ing.swam.model.Tracking;
 import it.unifi.ing.swam.model.User;
 import it.unifi.ing.swam.model.Waybill;
 
-public class WaybillDao extends BaseDao {
+public class WaybillDao extends BaseDao<Waybill> {
 
     private static final long serialVersionUID = 25L;
 
-    public Waybill findById(Long id) {
-        return entityManager.find(Waybill.class, id);
+    public WaybillDao() {
+        super(Waybill.class);
     }
 
     @Deprecated

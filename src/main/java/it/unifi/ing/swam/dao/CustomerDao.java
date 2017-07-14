@@ -7,12 +7,12 @@ import it.unifi.ing.swam.model.Customer;
 import it.unifi.ing.swam.model.State;
 import it.unifi.ing.swam.model.User;
 
-public class CustomerDao extends BaseDao {
+public class CustomerDao extends BaseDao<Customer> {
 
     private static final long serialVersionUID = 17L;
 
-    public Customer findById(Long id) {
-        return entityManager.find(Customer.class, id);
+    public CustomerDao() {
+        super(Customer.class);
     }
 
     public List<Customer> findByCustomerState(State customer_state) {

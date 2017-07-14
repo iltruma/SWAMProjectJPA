@@ -4,12 +4,12 @@ import java.util.List;
 
 import it.unifi.ing.swam.model.Item;
 
-public class ItemDao extends BaseDao {
+public class ItemDao extends BaseDao<Item> {
 
     private static final long serialVersionUID = 20L;
 
-    public Item findById(Long id) {
-        return entityManager.find(Item.class, id);
+    public ItemDao() {
+        super(Item.class);
     }
 
     public List<Item> findByWaybillId(Long waybillId) {

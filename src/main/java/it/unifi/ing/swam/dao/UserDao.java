@@ -4,19 +4,19 @@ import java.util.List;
 
 import it.unifi.ing.swam.model.User;
 
-public class UserDao extends BaseDao {
+public class UserDao extends BaseDao<User> {
 
     private static final long serialVersionUID = 24L;
+
+    public UserDao() {
+        super(User.class);
+    }
 
     public void save(User user) {
         if(user.getRoles().isEmpty()) {
             throw new IllegalArgumentException("You cannot save this entity");
         }
         super.save(user);
-    }
-
-    public User findById(Long id) {
-        return entityManager.find(User.class, id);
     }
 
     public User findByEmail(String email) {

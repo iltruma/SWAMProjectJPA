@@ -7,28 +7,37 @@ import javax.persistence.PersistenceContext;
 
 import it.unifi.ing.swam.model.BaseEntity;
 
-public abstract class BaseDao implements Serializable {
+public abstract class BaseDao<E extends BaseEntity> implements Serializable {
 
-	private static final long serialVersionUID = 15L;
+    private static final long serialVersionUID = 15L;
 
-	@PersistenceContext
+    private final Class<E> type;
+
+    @PersistenceContext
     protected EntityManager entityManager;
 
-    public void save(BaseEntity entity) {
-        if(entity.getId() != null) {
+    public BaseDao(Class<E> type) {
+        this.type = type;
+    }
+
+    public E findById(Long typeId) {
+        return entityManager.find(type, typeId);
+    }
+
+    public void save(E entity) {
+        if (entity.getId() != null) {
             entityManager.merge(entity);
         } else {
             entityManager.persist(entity);
         }
     }
 
-    public void delete(BaseEntity entity) {
-        if(entity.getId() != null) {
+    public void delete(E entity) {
+        if (entity.getId() != null) {
             entityManager.remove(entity);
         } else {
-            throw new IllegalArgumentException ("Entity not persisted");
+            throw new IllegalArgumentException("Entity not persisted");
         }
-
     }
 
 }
