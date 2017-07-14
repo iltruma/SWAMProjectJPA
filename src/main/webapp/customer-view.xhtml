@@ -7,12 +7,12 @@
 
 <ui:composition template="layout/template.xhtml">
 	<ui:define name="body">
-		<h1>Customers:</h1>
+		<c:set scope="request" var="customer" property="x"
+			value="#{viewCustomerPageController.customer}" />
+		<h1>Customer #{customer.username}, id: #{customer.id}</h1>
 		<table>
 			<thead>
 				<tr>
-					<th>Id</th>
-					<th>Username</th>
 					<th>Name</th>
 					<th>Email</th>
 					<th>Phone</th>
@@ -21,23 +21,19 @@
 				</tr>
 			</thead>
 			<tbody>
-				<ui:repeat var="customer"
-					value="#{customersPageController.customers}">
-					<tr>
-						<td>#{customer.id}</td>
-						<td>#{customer.username}</td>
-						<td>#{customer.name}</td>
-						<td>#{customer.email}</td>
-						<td>#{customer.phone}</td>
-						<td>#{customer.customerRole.state}</td>
+				<tr>
+					<td>#{customer.id}</td>
+					<td>#{customer.username}</td>
+					<td>#{customer.name}</td>
+					<td>#{customer.email}</td>
+					<td>#{customer.phone}</td>
+					<td>#{customer.customerRole.state}</td>
 
-						<td><h:link styleClass="button button-outline"
-								outcome="#{customersPageController.selectCustomer(customer)}" value="View">
-							</h:link>
-						</td>
-
-					</tr>
-				</ui:repeat>
+					<td><h:link styleClass="button button-outline"
+							outcome="customer-edit"
+							value="Edit">
+						</h:link></td>
+				</tr>
 			</tbody>
 		</table>
 
