@@ -87,11 +87,10 @@ public class EditWaybillPageController extends BasicController {
     }
     
     @Transactional
-    public String saveSender() {
-        userDao.save(getWaybill().getSender());
-        return "ViewPage" + getWaybill().getId() + userSession.getUser().getCustomerRole().getId();
+    public void signAndSave(){
+    	this.strategy.setSignAndTracking();
+    	this.save();
     }
-    
-
+   
 
 }

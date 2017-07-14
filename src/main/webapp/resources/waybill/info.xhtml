@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:cc="http://xmlns.jcp.org/jsf/composite"
-	xmlns:c="http://java.sun.com/jsp/jstl/core">
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core">
 <cc:interface>
 	<cc:attribute name="waybill" required="true" />
 	<cc:attribute name="role" required="true" />
@@ -16,11 +17,23 @@
 			<th>Status</th>
 			<th>Validation Date</th>
 			<th>Delivery Date</th>
+			<th>Signature</th>
+
 		</tr>
 		<tr>
 			<td>#{cc.attrs.waybill.tracking.toString()}</td>
-			<td>#{cc.attrs.waybill.acceptDate}</td>
-			<td>#{cc.attrs.waybill.deliveryDate}</td>
+			<td><h:outputText
+					value="#{cc.attrs.waybill.acceptDate.getTime()}">
+					<f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+				</h:outputText></td>
+			<td><h:outputText
+					value="#{cc.attrs.waybill.deliveryDate.getTime()}">
+					<f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+				</h:outputText></td>
+			<td><h:outputText rendered="#{cc.attrs.waybill.isSigned()}" value="signed">
+				</h:outputText>
+				<h:outputText rendered="#{not cc.attrs.waybill.isSigned()}" value="not signed">
+				</h:outputText></td>
 		</tr>
 	</table>
 </cc:implementation>

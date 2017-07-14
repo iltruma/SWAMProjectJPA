@@ -26,7 +26,7 @@
 			</c:if>
 			<c:if test="#{not empty cc.attrs.sender}">
 				<c:if test="#{cc.attrs.edit != 'true'}">
-					<td>#{cc.attrs.sender.id}"></td>
+					<td>#{cc.attrs.sender.id}</td>
 				</c:if>
 				<td>#{cc.attrs.sender.name}</td>
 				<td>#{cc.attrs.sender.customerRole.address.format()}</td>

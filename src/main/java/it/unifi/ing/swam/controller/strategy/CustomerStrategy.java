@@ -48,6 +48,9 @@ public class CustomerStrategy extends RoleStrategy {
 
     @Override
     public void setAgency(Long id){
+    	if(id == null)
+    		return;
+    	
         Agency a = agencyDao.findById(id);
         if(a == null)
             throw new IllegalArgumentException("id not found");

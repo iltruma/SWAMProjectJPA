@@ -40,7 +40,7 @@ public class DriverStrategy extends RoleStrategy {
 
     @Override
     public void checkEdit() {
-        if(!waybill.getTracking().equals(Tracking.SHIPPING))
+        if(!waybill.getTracking().equals(Tracking.SHIPPING) && !waybill.getTracking().equals(Tracking.DELIVERING))
             throw new IllegalStateException("you can't edit this waybill");
     }
 

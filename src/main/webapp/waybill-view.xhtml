@@ -3,35 +3,115 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:c="http://java.sun.com/jsp/jstl/core">
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:waybill="http://xmlns.jcp.org/jsf/composite/waybill">
 
 <ui:composition template="layout/template.xhtml">
+
 	<ui:define name="body">
-		<h2>View Waybill</h2>
-
-		<h3>Waybill id #{viewWaybillPageController.waybill.id}</h3>
-
-
 		<c:set scope="request" var="isOperator" property="x"
 			value="#{viewWaybillPageController.currentRole.isOperator()}" />
+		<c:set scope="request" var="isCustomer" property="x"
+			value="#{viewWaybillPageController.currentRole.isCustomer()}" />
+		<c:set scope="request" var="isDriver" property="x"
+			value="#{viewWaybillPageController.currentRole.isDriver()}" />
 		<c:if test="#{isOperator}">
-
-			<p style="white-space: pre-wrap">Sender name:
-				#{viewWaybillPageController.waybill.sender.name}</p>
-
+			<h2>View Waybill as Operator</h2>
 		</c:if>
-		
-					<h:link styleClass="button button-outline" outcome="home"
-				value="Back"></h:link>
-			<h:link styleClass="button" outcome="waybill-edit" value="Edit"
-				style="margin-left: 5px;">
-				<f:param name="id" value="#{viewWaybillPageController.waybill.id}"></f:param>
-				<f:param name="roleId" value="#{viewWaybillPageController.currentRole.id}"></f:param>
-
-			</h:link>
+		<c:if test="#{isCustomer}">
+			<h2>View Waybill as Customer</h2>
+		</c:if>
+		<c:if test="#{isDriver}">
+			<h2>View Waybill as Driver</h2>
+		</c:if>
 
 
+		<h:form>
+			<fieldset>
+				<c:if test="#{isOperator}">
 
+					<waybill:sender edit="false"
+						sender="#{viewWaybillPageController.waybill.sender}" />
+
+					<waybill:receiver edit="false"
+						receiver="#{viewWaybillPageController.waybill.receiver}" />
+
+					<waybill:agency edit="false"
+						agency="#{viewWaybillPageController.waybill.sender.agency}"
+						title="Departure Agency" />
+
+					<waybill:agency edit="false"
+						agency="#{viewWaybillPageController.waybill.receiver.destinationAgency}"
+						title="Destination Agency" />
+
+					<label for="cost">cost</label>
+					<h:outputText id="cost"
+						value="#{viewWaybillPageController.strategy.waybill.cost}">
+					</h:outputText>
+
+					<waybill:load edit="false"
+						load="#{viewWaybillPageController.waybill.load}" />
+
+					<waybill:info waybill="#{viewWaybillPageController.waybill}"
+						role="OPERATOR" />
+
+				</c:if>
+
+				<c:if test="#{isCustomer}">
+
+					<waybill:sender edit="false"
+						senderId="#{viewWaybillPageController.strategy.sender}"
+						sender="#{viewWaybillPageController.waybill.sender}" />
+
+					<waybill:receiver edit="false"
+						receiver="#{viewWaybillPageController.waybill.receiver}" />
+
+					<waybill:agency edit="false"
+						agency="#{viewWaybillPageController.waybill.sender.agency}"
+						title="Departure Agency" />
+
+					<waybill:agency edit="false"
+						agency="#{viewWaybillPageController.waybill.receiver.destinationAgency}"
+						title="Destination Agency" />
+
+					<waybill:load edit="false"
+						load="#{viewWaybillPageController.waybill.load}" />
+
+					<waybill:info waybill="#{viewWaybillPageController.waybill}"
+						role="CUSTOMER" />
+
+				</c:if>
+
+				<c:if test="#{isDriver}">
+
+					<waybill:sender edit="false"
+						sender="#{viewWaybillPageController.waybill.sender}" />
+
+					<waybill:receiver edit="false"
+						receiver="#{viewWaybillPageController.waybill.receiver}" />
+
+					<waybill:agency edit="false"
+						agency="#{viewWaybillPageController.waybill.receiver.destinationAgency}"
+						title="Destination Agency" />
+
+					<waybill:load edit="false"
+						load="#{viewWaybillPageController.waybill.load}" />
+
+					<waybill:info waybill="#{viewWaybillPageController.waybill}"
+						role="DRIVER" />
+
+				</c:if>
+
+				<h:link styleClass="button" outcome="waybill-edit" value="Edit">
+					<f:param name="id" value="#{viewWaybillPageController.waybill.id}"></f:param>
+					<f:param name="roleId"
+						value="#{viewWaybillPageController.currentRole.id}"></f:param>
+				</h:link>
+
+				<h:link styleClass="button button-outline" outcome="home"
+					value="Back"></h:link>
+			</fieldset>
+		</h:form>
 	</ui:define>
 </ui:composition>
 

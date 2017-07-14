@@ -4,7 +4,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:utils="http://xmlns.jcp.org/jsf/composite/utils">
+	xmlns:waybill="http://xmlns.jcp.org/jsf/composite/waybill">
 
 <ui:composition template="layout/template.xhtml">
 
@@ -26,24 +26,22 @@
 		</c:if>
 
 
-
-
 		<h:form>
 			<fieldset>
 				<c:if test="#{isOperator}">
 
-					<utils:sender edit="true"
+					<waybill:sender edit="true"
 						senderId="#{editWaybillPageController.strategy.sender}"
 						sender="#{editWaybillPageController.waybill.sender}" />
 
-					<utils:receiver edit="true"
+					<waybill:receiver edit="true"
 						receiver="#{editWaybillPageController.waybill.receiver}" />
 
-					<utils:agency edit="false"
+					<waybill:agency edit="false"
 						agency="#{editWaybillPageController.waybill.sender.agency}"
 						title="Departure Agency" />
 
-					<utils:agency edit="true"
+					<waybill:agency edit="true"
 						agencyId="#{editWaybillPageController.strategy.agency}"
 						agency="#{editWaybillPageController.waybill.receiver.destinationAgency}"
 						title="Destination Agency" />
@@ -53,25 +51,81 @@
 						value="#{editWaybillPageController.strategy.waybill.cost}">
 					</h:outputText>
 
-					<utils:load edit="true"
+					<waybill:load edit="true"
 						newItemId="#{editWaybillPageController.strategy.newItem}"
 						load="#{editWaybillPageController.waybill.load}" />
 
-					<utils:info waybill="#{editWaybillPageController.waybill}" role="OPERATOR"/>
+					<waybill:info waybill="#{editWaybillPageController.waybill}"
+						role="OPERATOR" />
+
+					<h:commandButton styleClass="button-primary"
+						action="#{editWaybillPageController.save()}"
+						value="Save and Validate">
+					</h:commandButton>
 
 				</c:if>
 
+				<c:if test="#{isCustomer}">
 
+					<waybill:sender edit="false"
+						senderId="#{editWaybillPageController.strategy.sender}"
+						sender="#{editWaybillPageController.waybill.sender}" />
+
+					<waybill:receiver edit="true"
+						receiver="#{editWaybillPageController.waybill.receiver}" />
+
+					<waybill:agency edit="false"
+						agency="#{editWaybillPageController.waybill.sender.agency}"
+						title="Departure Agency" />
+
+					<waybill:agency edit="true"
+						agencyId="#{editWaybillPageController.strategy.agency}"
+						agency="#{editWaybillPageController.waybill.receiver.destinationAgency}"
+						title="Destination Agency" />
+
+					<waybill:load edit="true"
+						newItemId="#{editWaybillPageController.strategy.newItem}"
+						load="#{editWaybillPageController.waybill.load}" />
+
+					<waybill:info waybill="#{editWaybillPageController.waybill}"
+						role="CUSTOMER" />
+
+					<h:commandButton styleClass="button-primary"
+						action="#{editWaybillPageController.save()}"
+						value="Save and Forward to Operator">
+					</h:commandButton>
+
+				</c:if>
+
+				<c:if test="#{isDriver}">
+
+					<waybill:sender edit="false"
+						senderId="#{editWaybillPageController.strategy.sender}"
+						sender="#{editWaybillPageController.waybill.sender}" />
+
+					<waybill:receiver edit="false"
+						receiver="#{editWaybillPageController.waybill.receiver}" />
+
+					<waybill:agency edit="false"
+						agencyId="#{editWaybillPageController.strategy.agency}"
+						agency="#{editWaybillPageController.waybill.receiver.destinationAgency}"
+						title="Destination Agency" />
+
+					<waybill:load edit="false"
+						load="#{editWaybillPageController.waybill.load}" />
+
+					<waybill:info waybill="#{editWaybillPageController.waybill}"
+						role="DRIVER" />
+
+					<h:commandButton styleClass="button-primary"
+						action="#{editWaybillPageController.signAndSave()}"
+						value="set Signature">
+					</h:commandButton>
+
+				</c:if>
 
 				<h:link styleClass="button button-outline" outcome="home"
 					value="Back"></h:link>
-				<h:commandButton styleClass="button-primary"
-					action="#{editWaybillPageController.save()}" value="Save">
-					<f:param name="id"
-						value="#{editWaybillPageController.strategy.waybill.id}"></f:param>
-					<f:param name="roleId"
-						value="#{editWaybillPageController.currentRole.id}"></f:param>
-				</h:commandButton>
 			</fieldset>
 		</h:form>
 	</ui:define>
