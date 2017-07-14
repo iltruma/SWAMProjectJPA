@@ -13,9 +13,9 @@ import it.unifi.ing.swam.model.User;
 @Named
 public class CustomerBean implements Serializable {
 
-    private static final long serialVersionUID = 2L;
+	private static final long serialVersionUID = 3181632097971721800L;
 
-    @Inject
+	@Inject
     private Conversation conversation;
 
     private User customer;

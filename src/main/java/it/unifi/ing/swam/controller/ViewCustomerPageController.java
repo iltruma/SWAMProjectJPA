@@ -16,7 +16,7 @@ public class ViewCustomerPageController extends BasicController {
     private CustomerBean conversationBean;
 
     @PostConstruct
-    protected void initCustomersPage(){
+    protected void initCustomerPage(){
         if(!userSession.getUser().isOperator())
             throw new IllegalArgumentException("you cant view this page");
         if(conversationBean.getCustomer() == null)
