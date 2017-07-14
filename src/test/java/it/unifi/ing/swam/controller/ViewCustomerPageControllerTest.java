@@ -50,16 +50,16 @@ public class ViewCustomerPageControllerTest {
     public void testInitCustomersPage() {
         userSession.setUser(wrongUser);
         assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
-            viewCustomerPageController.initCustomersPage();
+            viewCustomerPageController.initCustomerPage();
         }).withMessage("you cant view this page");
 
         userSession.setUser(user);
         assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
-            viewCustomerPageController.initCustomersPage();
+            viewCustomerPageController.initCustomerPage();
         }).withMessage("customer not found");
 
         conversationBean.setCustomer(customer);
-        viewCustomerPageController.initCustomersPage();
+        viewCustomerPageController.initCustomerPage();
     }
 
 }

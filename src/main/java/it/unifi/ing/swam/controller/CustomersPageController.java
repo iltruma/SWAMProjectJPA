@@ -4,14 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.inject.Model;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import it.unifi.ing.swam.bean.CustomerBean;
 import it.unifi.ing.swam.dao.CustomerDao;
 import it.unifi.ing.swam.model.Customer;
 import it.unifi.ing.swam.model.User;
 
+@Named
 @ViewScoped
 public class CustomersPageController extends BasicController {
 
@@ -43,13 +46,15 @@ public class CustomersPageController extends BasicController {
         return customers;
     }
 
-    public void selectCustomer(User u){
-        conversationBean.initConversation();
+    public String selectCustomer(User u){
         conversationBean.setCustomer(u);
+        conversationBean.initConversation();
+        return "customer-view";
     }
 
-    public void createCustomer(){
+    public String createCustomer(){
         conversationBean.initConversation();
+        return "customer-edit";
     }
 
 
