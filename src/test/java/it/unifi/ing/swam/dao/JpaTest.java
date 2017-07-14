@@ -67,8 +67,8 @@ public abstract class JpaTest {
 
         @SuppressWarnings("unchecked")
         List<Object[]> tables = entityManager
-        .createNativeQuery("SELECT * FROM information_schema.tables WHERE table_schema IN ('test');")
-        .getResultList();
+                .createNativeQuery("SELECT * FROM information_schema.tables WHERE table_schema IN ('test');")
+                .getResultList();
         entityManager.createNativeQuery("SET FOREIGN_KEY_CHECKS=0;").executeUpdate();
         for (Object[] tableNameObject : tables) {
             String tableName = (String) tableNameObject[2];

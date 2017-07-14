@@ -30,7 +30,7 @@ public class EditWaybillPageController extends BasicController {
     @Inject
     @HttpParam("add")
     private String addFlag;
-    
+
     @Inject
     protected WaybillDao waybillDao;
 
@@ -42,7 +42,7 @@ public class EditWaybillPageController extends BasicController {
 
     @Inject
     protected UserDao userDao;
-  
+
     @Inject
     protected MissionDao missionDao;
 
@@ -80,17 +80,17 @@ public class EditWaybillPageController extends BasicController {
     public RoleStrategy getStrategy() {
         return strategy;
     }
-    
+
     @Transactional
-    public void save(){
-    	this.strategy.save();
+    public String save(){
+    	return this.strategy.save();
     }
-    
+
     @Transactional
-    public void signAndSave(){
+    public String signAndSave(){
     	this.strategy.setSignAndTracking();
-    	this.save();
+    	return this.save();
     }
-   
+
 
 }

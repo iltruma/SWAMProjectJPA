@@ -17,7 +17,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.model.InitializationError;
 
 import it.unifi.ing.swam.bean.UserSessionBean;
-import it.unifi.ing.swam.controller.strategy.RoleStrategy;
 import it.unifi.ing.swam.dao.AgencyDao;
 import it.unifi.ing.swam.dao.ItemDao;
 import it.unifi.ing.swam.dao.MissionDao;
@@ -36,8 +35,6 @@ import it.unifi.ing.swam.model.Waybill;
 public class EditWaybillPageControllerTest {
 
     private static EditWaybillPageController editWaybillPageController;
-
-    private static RoleStrategy roleStrategy;
 
     private static RoleDao roleDao;
     private static WaybillDao waybillDao;
@@ -78,6 +75,7 @@ public class EditWaybillPageControllerTest {
         user.addRole(ModelFactory.generateCustomer());
         user.addRole(ModelFactory.generateDriver());
         user.addRole(ModelFactory.generateOperator());
+        user.setAgency(ModelFactory.generateAgency());
         userSession.setUser(user);
 
         wrongUser = ModelFactory.generateUser();
@@ -85,6 +83,7 @@ public class EditWaybillPageControllerTest {
         wrongUser.addRole(ModelFactory.generateDriver());
 
         waybill = ModelFactory.generateWaybill();
+        waybill.setSender(user);
 
         when(waybillDao.findById(waybillId)).thenReturn(waybill);
 
@@ -94,19 +93,13 @@ public class EditWaybillPageControllerTest {
             FieldUtils.writeField(editWaybillPageController, "waybillId", waybillId.toString(), true);
             FieldUtils.writeField(editWaybillPageController, "roleDao", roleDao, true);
             FieldUtils.writeField(editWaybillPageController, "userSession", userSession, true);
-
+            FieldUtils.writeField(editWaybillPageController, "waybillDao", waybillDao, true);
+            FieldUtils.writeField(editWaybillPageController, "agencyDao", agencyDao, true);
+            FieldUtils.writeField(editWaybillPageController, "itemDao", itemDao, true);
+            FieldUtils.writeField(editWaybillPageController, "userDao", userDao, true);
+            FieldUtils.writeField(editWaybillPageController, "missionDao", missionDao, true);
         } catch (IllegalAccessException e) {
             throw new InitializationError(e);
-        }
-    }
-
-    protected static void initStrategy() {
-        editWaybillPageController.initStrategy();
-        RoleStrategy strategy = editWaybillPageController.getStrategy();
-
-        try {
-            FieldUtils.writeField(strategy, "waybillDao", waybillDao, true);
-        } catch (IllegalAccessException e) {
         }
     }
 
@@ -119,7 +112,7 @@ public class EditWaybillPageControllerTest {
         @Test
         public void testInitWaybill() {
             when(roleDao.findById(roleId)).thenReturn(user.getCustomerRole());
-            EditWaybillPageControllerTest.initStrategy();
+            editWaybillPageController.initStrategy();
             // waybill has the Customer user as sender
             waybill.setSender(user);
             editWaybillPageController.initWaybill();
@@ -129,7 +122,7 @@ public class EditWaybillPageControllerTest {
         @Test
         public void testInitWaybillWrongSender() {
             when(roleDao.findById(roleId)).thenReturn(user.getCustomerRole());
-            EditWaybillPageControllerTest.initStrategy();
+            editWaybillPageController.initStrategy();
             // waybill has the wrong Customer user as sender
             waybill.setSender(wrongUser);
             assertThatExceptionOfType(IllegalStateException.class).isThrownBy(() -> {
@@ -168,13 +161,13 @@ public class EditWaybillPageControllerTest {
             EditWaybillPageControllerTest.init();
 
             when(roleDao.findById(roleId)).thenReturn(user.getCustomerRole());
-            EditWaybillPageControllerTest.initStrategy();
+            editWaybillPageController.initStrategy();
 
             agency = ModelFactory.generateAgency();
             item = ModelFactory.generateItem();
             item.setVolume(Float.valueOf(0F));
             item.setWeigth(Float.valueOf(0F));
-            waybill.setSender(user);
+            waybill.setTracking(Tracking.IDLE);
 
             when(agencyDao.findById(agencyId)).thenReturn(agency);
             when(itemDao.findById(itemId)).thenReturn(item);
@@ -182,38 +175,27 @@ public class EditWaybillPageControllerTest {
             when(agencyDao.findById(wrongAgencyId)).thenReturn(null);
             when(itemDao.findById(wrongItemId)).thenReturn(null);
 
-            roleStrategy = editWaybillPageController.getStrategy();
-
-            try {
-                FieldUtils.writeField(roleStrategy, "waybillDao", waybillDao, true);
-                FieldUtils.writeField(roleStrategy, "agencyDao", agencyDao, true);
-                FieldUtils.writeField(roleStrategy, "itemDao", itemDao, true);
-                FieldUtils.writeField(roleStrategy, "userDao", userDao, true);
-            } catch (IllegalAccessException e) {
-                throw new InitializationError(e);
-            }
-
-            roleStrategy.initWaybill();
+            editWaybillPageController.initWaybill();
         }
 
         @Test
         public void testSetAgency() {
-            roleStrategy.setAgency(agencyId);
+            editWaybillPageController.getStrategy().setAgency(agencyId);
             assertEquals(waybill.getReceiver().getDestinationAgency(), agency);
 
             assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
-                roleStrategy.setAgency(wrongAgencyId);
+                editWaybillPageController.getStrategy().setAgency(wrongAgencyId);
             });
         }
 
         @Test
         public void testAddItem() {
-            roleStrategy.setNewItem(itemId);
+            editWaybillPageController.getStrategy().setNewItem(itemId);
             assertEquals(1, waybill.getLoad().getItems().size());
             assertEquals(item, waybill.getLoad().getItems().iterator().next());
 
             assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
-                roleStrategy.setNewItem(wrongItemId);
+                editWaybillPageController.getStrategy().setNewItem(wrongItemId);
             });
         }
 
@@ -226,32 +208,21 @@ public class EditWaybillPageControllerTest {
             EditWaybillPageControllerTest.init();
 
             when(roleDao.findById(roleId)).thenReturn(user.getDriverRole());
-            EditWaybillPageControllerTest.initStrategy();
+            editWaybillPageController.initStrategy();
 
             mission = ModelFactory.generateMission();
 
-            waybill.setSender(user);
+            waybill.setTracking(Tracking.SHIPPING);
             mission.addWaybill(waybill);
 
             when(missionDao.findByDriverAndDate(eq(user), any(Calendar.class))).thenReturn(mission);
-            roleStrategy = editWaybillPageController.getStrategy();
 
-            try {
-                FieldUtils.writeField(roleStrategy, "waybillDao", waybillDao, true);
-                FieldUtils.writeField(roleStrategy, "agencyDao", agencyDao, true);
-                FieldUtils.writeField(roleStrategy, "itemDao", itemDao, true);
-                FieldUtils.writeField(roleStrategy, "userDao", userDao, true);
-                FieldUtils.writeField(roleStrategy, "missionDao", missionDao, true);
-            } catch (IllegalAccessException e) {
-                throw new InitializationError(e);
-            }
-
-            roleStrategy.initWaybill();
+            editWaybillPageController.initWaybill();
         }
 
         @Test
         public void testSetSignAndTracking() {
-            roleStrategy.setSignAndTracking();
+            editWaybillPageController.getStrategy().setSignAndTracking();
 
             assertEquals(waybill.isSigned(), true);
             assertEquals(waybill.getTracking(), Tracking.DELIVERED);
@@ -265,13 +236,13 @@ public class EditWaybillPageControllerTest {
             EditWaybillPageControllerTest.init();
 
             when(roleDao.findById(roleId)).thenReturn(user.getOperatorRole());
-            EditWaybillPageControllerTest.initStrategy();
+            editWaybillPageController.initStrategy();
 
             agency = ModelFactory.generateAgency();
             item = ModelFactory.generateItem();
             item.setVolume(Float.valueOf(0F));
             item.setWeigth(Float.valueOf(0F));
-            waybill.setSender(user);
+            waybill.setTracking(Tracking.IDLE);
 
             when(agencyDao.findById(agencyId)).thenReturn(agency);
             when(itemDao.findById(itemId)).thenReturn(item);
@@ -281,54 +252,44 @@ public class EditWaybillPageControllerTest {
             when(itemDao.findById(wrongItemId)).thenReturn(null);
             when(userDao.findById(wrongUserId)).thenReturn(null);
 
-            roleStrategy = editWaybillPageController.getStrategy();
-
-            try {
-                FieldUtils.writeField(roleStrategy, "waybillDao", waybillDao, true);
-                FieldUtils.writeField(roleStrategy, "agencyDao", agencyDao, true);
-                FieldUtils.writeField(roleStrategy, "itemDao", itemDao, true);
-                FieldUtils.writeField(roleStrategy, "userDao", userDao, true);
-            } catch (IllegalAccessException e) {
-                throw new InitializationError(e);
-            }
-
-            roleStrategy.initWaybill();
+            editWaybillPageController.initWaybill();
         }
 
         @Test
         public void testSetCustomer() {
-            roleStrategy.setSender(userId);
+            editWaybillPageController.getStrategy().setSender(userId);
             assertEquals(waybill.getSender(), user);
 
             assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
-                roleStrategy.setSender(wrongUserId);
+                editWaybillPageController.getStrategy().setSender(wrongUserId);
             });
         }
 
         @Test
         public void testSetAgency() {
-            roleStrategy.setAgency(agencyId);
+            editWaybillPageController.getStrategy().setAgency(agencyId);
             assertEquals(waybill.getReceiver().getDestinationAgency(), agency);
 
             assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
-                roleStrategy.setAgency(wrongAgencyId);
+                editWaybillPageController.getStrategy().setAgency(wrongAgencyId);
             });
         }
 
         @Test
         public void testAddItem() {
-            roleStrategy.setNewItem(itemId);
+            editWaybillPageController.getStrategy().setNewItem(itemId);
             assertEquals(1, waybill.getLoad().getItems().size());
             assertEquals(item, waybill.getLoad().getItems().iterator().next());
 
             assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
-                roleStrategy.setNewItem(wrongItemId);
+                editWaybillPageController.getStrategy().setNewItem(wrongItemId);
             });
         }
 
         @Test
         public void testSave() {
-            assertEquals(roleStrategy.save(), "ViewPage" + waybill.getId() + user.getCustomerRole().getId());
+            assertEquals(editWaybillPageController.save(),
+                    "ViewPage" + waybill.getId() + user.getCustomerRole().getId());
             assertEquals(waybill.getOperator(), user);
         }
     }
