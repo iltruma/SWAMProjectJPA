@@ -1,5 +1,7 @@
 package it.unifi.ing.swam.controller.strategy;
 
+import java.util.Calendar;
+
 import javax.transaction.Transactional;
 
 import it.unifi.ing.swam.model.Agency;
@@ -41,7 +43,7 @@ public class OperatorStrategy extends RoleStrategy {
 
     @Override
     public void checkEdit() {
-        if(!waybill.getSender().getAgency().equals(user.getAgency()) && !waybill.getTracking().equals(Tracking.IDLE))
+        if(waybill.getSender() != null && !waybill.getSender().getAgency().equals(user.getAgency()) && !waybill.getTracking().equals(Tracking.IDLE))
             throw new IllegalStateException("you can't edit this waybill");
     }
 
@@ -81,9 +83,9 @@ public class OperatorStrategy extends RoleStrategy {
     }
 
     @Override
-    @Transactional
     public String save(){
         waybill.setOperator(user);
+        waybill.setAcceptDate(Calendar.getInstance());
         return super.save();
     }
 }

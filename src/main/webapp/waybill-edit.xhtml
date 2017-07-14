@@ -3,82 +3,65 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:c="http://java.sun.com/jsp/jstl/core">
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:utils="http://xmlns.jcp.org/jsf/composite/utils">
 
 <ui:composition template="layout/template.xhtml">
+
 	<ui:define name="body">
-		<h2>EDIT Waybill</h2>
+		<c:set scope="request" var="isOperator" property="x"
+			value="#{editWaybillPageController.currentRole.isOperator()}" />
+		<c:set scope="request" var="isCustomer" property="x"
+			value="#{editWaybillPageController.currentRole.isCustomer()}" />
+		<c:set scope="request" var="isDriver" property="x"
+			value="#{editWaybillPageController.currentRole.isDriver()}" />
+		<c:if test="#{isOperator}">
+			<h2>EDIT Waybill as Operator</h2>
+		</c:if>
+		<c:if test="#{isCustomer}">
+			<h2>EDIT Waybill as Customer</h2>
+		</c:if>
+		<c:if test="#{isDriver}">
+			<h2>EDIT Waybill as Driver</h2>
+		</c:if>
+
+
+
 
 		<h:form>
 			<fieldset>
-
-				<label for="password">Content</label>
-
-				<c:set scope="request" var="isOperator" property="x"
-					value="#{editWaybillPageController.currentRole.isOperator()}" />
 				<c:if test="#{isOperator}">
 
-					<label for="sender">sender Id</label>
-					<h:inputText id="sender"
-						value="#{editWaybillPageController.strategy.sender}">
-					</h:inputText>
-					<label for="agency">destination agency Id</label>
-					<h:inputText id="agency"
-						value="#{editWaybillPageController.strategy.agency}">
-					</h:inputText>
+					<utils:sender edit="true"
+						senderId="#{editWaybillPageController.strategy.sender}"
+						sender="#{editWaybillPageController.waybill.sender}" />
+
+					<utils:receiver edit="true"
+						receiver="#{editWaybillPageController.waybill.receiver}" />
+
+					<utils:agency edit="false"
+						agency="#{editWaybillPageController.waybill.sender.agency}"
+						title="Departure Agency" />
+
+					<utils:agency edit="true"
+						agencyId="#{editWaybillPageController.strategy.agency}"
+						agency="#{editWaybillPageController.waybill.receiver.destinationAgency}"
+						title="Destination Agency" />
 
 					<label for="cost">cost</label>
 					<h:outputText id="cost"
 						value="#{editWaybillPageController.strategy.waybill.cost}">
 					</h:outputText>
 
-					<label for="tw">Total Weight:</label>
-					<h:outputText id="tw"
-						value="#{editWaybillPageController.waybill.load.totalWeight}">
-					</h:outputText>
+					<utils:load edit="true"
+						newItemId="#{editWaybillPageController.strategy.newItem}"
+						load="#{editWaybillPageController.waybill.load}" />
 
-					<label for="tv">Total Volume:</label>
-					<h:outputText id="tv"
-						value="#{editWaybillPageController.waybill.load.totalVolume}">
-					</h:outputText>
+					<utils:info waybill="#{editWaybillPageController.waybill}" role="OPERATOR"/>
 
-
-					<label>Items:</label>
-					<table>
-						<thead>
-							<tr>
-								<th>Id</th>
-								<th>Weight</th>
-								<th>Volume</th>
-								<th></th>
-							</tr>
-						</thead>
-						<tbody>
-							<ui:repeat var="item"
-								value="#{editWaybillPageController.waybill.load.items}">
-								<tr>
-									<td><h:outputText value="#{item.id}" /></td>
-									<td><h:outputText value="#{item.weight}" /></td>
-									<td><h:outputText value="#{item.volume}" /></td>
-
-									<td><h:commandButton styleClass="button"
-											action="#{editWaybillPageController.waybill.load.removeItem(item)}"
-											value="Remove">
-											<f:param name="id"
-												value="#{editWaybillPageController.strategy.waybill.id}"></f:param>
-											<f:param name="roleId"
-												value="#{editWaybillPageController.currentRole.id}"></f:param>
-										</h:commandButton></td>
-								</tr>
-							</ui:repeat>
-						</tbody>
-					</table>
-
-					<label for="item">add Item, id:</label>
-					<h:inputText id="item"
-						value="#{editWaybillPageController.strategy.newItem}">
-					</h:inputText>
 				</c:if>
+
+
 
 				<h:link styleClass="button button-outline" outcome="home"
 					value="Back"></h:link>

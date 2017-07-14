@@ -80,6 +80,8 @@
 
 					<h:link styleClass="button" outcome="waybill-edit" value="Add New">
 						<f:param name="add" value="true"></f:param>
+						<f:param name="roleId"
+							value="#{homePageController.user.operatorRole.id}"></f:param>
 					</h:link>
 
 					<div style="margin-top: 50px;">
@@ -199,6 +201,8 @@
 
 					<h:link styleClass="button" outcome="waybill-edit" value="Add New">
 						<f:param name="add" value="true"></f:param>
+						<f:param name="roleId"
+							value="#{homePageController.user.operatorRole.id}"></f:param>
 					</h:link>
 
 					<div style="margin-top: 50px;">

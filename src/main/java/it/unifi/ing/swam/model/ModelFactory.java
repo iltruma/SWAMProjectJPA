@@ -49,7 +49,9 @@ public class ModelFactory {
         Waybill waybill = new Waybill(UUID.randomUUID().toString());
         waybill.setTracking(Tracking.IDLE);
         waybill.setReceiver(new Receiver());
+        waybill.getReceiver().setAddress(new Address());
         waybill.setLoad(new Load());
+        waybill.setCost(0F);
         return waybill;
     }
 

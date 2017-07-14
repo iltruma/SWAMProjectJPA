@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<cc:interface>
+	<cc:attribute name="edit" required="true" />
+	<cc:attribute name="sender" required="true" />
+	<cc:attribute name="senderId" />
+</cc:interface>
+<cc:implementation>
+	<table>
+		<tr>
+			<th colspan="5"><label>Sender</label></th>
+		</tr>
+		<tr>
+			<th>Id</th>
+			<th>name</th>
+			<th>Address</th>
+		</tr>
+		<tr>
+			<c:if test="#{cc.attrs.edit == 'true'}">
+
+				<td><h:inputText id="sender" value="#{cc.attrs.senderId}">
+					</h:inputText></td>
+			</c:if>
+			<c:if test="#{not empty cc.attrs.sender}">
+				<c:if test="#{cc.attrs.edit != 'true'}">
+					<td>#{cc.attrs.sender.id}"></td>
+				</c:if>
+				<td>#{cc.attrs.sender.name}</td>
+				<td>#{cc.attrs.sender.customerRole.address.format()}</td>
+			</c:if>
+		</tr>
+	</table>
+</cc:implementation>
+</html>

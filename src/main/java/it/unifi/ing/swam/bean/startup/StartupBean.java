@@ -120,7 +120,6 @@ public class StartupBean {
         waybill1.setAcceptDate(date1);
         waybill1.setSender(customer1);
         waybill1.setReceiver(receiver1);
-        waybill1.setTracking(Tracking.IDLE);
         waybill1.setCost(10F);
 
         Receiver receiver2 = new Receiver();
@@ -137,7 +136,6 @@ public class StartupBean {
         waybill2.setAcceptDate(date2);
         waybill2.setSender(all);
         waybill2.setReceiver(receiver2);
-        waybill2.setTracking(Tracking.IDLE);
         waybill2.setCost(20F);
 
         Receiver receiver3 = new Receiver();

@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<cc:interface>
+	<cc:attribute name="edit" required="true" />
+	<cc:attribute name="load" required="true" />
+	<cc:attribute name="newItemId" />
+</cc:interface>
+<cc:implementation>
+	<table>
+		<thead>
+			<tr>
+				<th>Total Weight:</th>
+				<th>Total Volume:</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><h:outputText id="tw" value="#{cc.attrs.load.totalWeight}">
+					</h:outputText></td>
+				<td><h:outputText id="tv" value="#{cc.attrs.load.totalVolume}">
+					</h:outputText></td>
+			</tr>
+		</tbody>
+	</table>
+<label>
+</label>
+	<table>
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Weight</th>
+				<th>Volume</th>
+				<c:if test="#{cc.attrs.edit == 'true'}">
+					<th></th>
+				</c:if>
+			</tr>
+		</thead>
+		<tbody>
+			<ui:repeat var="item" value="#{cc.attrs.load.items}">
+				<tr>
+					<td><h:outputText value="#{item.id}" /></td>
+					<td><h:outputText value="#{item.weight}" /></td>
+					<td><h:outputText value="#{item.volume}" /></td>
+
+					<c:if test="#{cc.attrs.edit == 'true'}">
+						<td><h:commandButton styleClass="button"
+								action="#{cc.attrs.load.removeItem(item)}" value="Remove">
+								<f:param name="id"
+									value="#{editWaybillPageController.strategy.waybill.id}"></f:param>
+								<f:param name="roleId"
+									value="#{editWaybillPageController.currentRole.id}"></f:param>
+							</h:commandButton></td>
+					</c:if>
+				</tr>
+			</ui:repeat>
+		</tbody>
+	</table>
+
+	<c:if test="#{cc.attrs.edit == 'true'}">
+		<label for="item">add Item, id:</label>
+		<h:inputText id="item" value="#{cc.attrs.newItemId}">
+		</h:inputText>
+	</c:if>
+</cc:implementation>
+</html>

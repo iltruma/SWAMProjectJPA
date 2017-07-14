@@ -48,6 +48,8 @@ public class DriverStrategy extends RoleStrategy {
     public void setSignAndTracking(){
         waybill.setSign(true);
         waybill.setTracking(Tracking.DELIVERED);
+        waybill.setDeliveryDate(Calendar.getInstance());
+        super.save();
     }
 
 }

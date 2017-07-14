@@ -41,7 +41,7 @@ public class CustomerStrategy extends RoleStrategy {
 
     @Override
     public void checkEdit() {
-        if(waybill.getOperator() != null && !user.getCustomerRole().isActive()  &&
+        if(waybill.getOperator() != null || !user.getCustomerRole().isActive()  ||
                 !waybill.getTracking().equals(Tracking.IDLE))
             throw new IllegalStateException("you can't edit this waybill");
     }
@@ -51,11 +51,15 @@ public class CustomerStrategy extends RoleStrategy {
         Agency a = agencyDao.findById(id);
         if(a == null)
             throw new IllegalArgumentException("id not found");
+        this.agency = id;
         waybill.getReceiver().setDestinationAgency(a);
     }
 
     @Override
     public void setNewItem(Long id){
+    	if(id == null)
+    		return;
+    	
         Item i = itemDao.findById(id);
         if(i == null)
             throw new IllegalArgumentException("id not found");

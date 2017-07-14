@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<cc:interface>
+	<cc:attribute name="edit" required="true" />
+	<cc:attribute name="receiver" required="true" />
+</cc:interface>
+<cc:implementation>
+	<table>
+		<tr>
+			<th colspan="5"><label>Receiver</label></th>
+		</tr>
+
+		<c:if test="#{cc.attrs.edit == 'true'}">
+			<tr>
+				<th>name</th>
+				<th>street</th>
+				<th>phone</th>
+				<th>email</th>
+				<th>city</th>
+				<th>CAP</th>
+				<th>state</th>
+
+			</tr>
+			<tr>
+				<td><h:inputText id="receiver_name"
+						value="#{cc.attrs.receiver.name}">
+					</h:inputText></td>
+				<td><h:inputText id="receiver_phone"
+						value="#{cc.attrs.receiver.phone}">
+					</h:inputText></td>
+				<td><h:inputText id="receiver_email"
+						value="#{cc.attrs.receiver.email}">
+					</h:inputText></td>
+				<td><h:inputText id="receiver_street"
+						value="#{cc.attrs.receiver.address.street}">
+					</h:inputText></td>
+				<td><h:inputText id="receiver_city"
+						value="#{cc.attrs.receiver.address.city}">
+					</h:inputText></td>
+				<td><h:inputText id="receiver_zip"
+						value="#{cc.attrs.receiver.address.zip}">
+					</h:inputText></td>
+				<td><h:inputText id="receiver_state"
+						value="#{cc.attrs.receiver.address.state}">
+					</h:inputText></td>
+			</tr>
+		</c:if>
+
+		<c:if test="#{cc.attrs.edit != 'true'}">
+			<tr>
+				<th>name</th>
+				<th>phone</th>
+				<th>email</th>
+				<th>Address</th>
+			</tr>
+			<tr>
+				<td>#{cc.attrs.receiver.name}</td>
+				<td>#{cc.attrs.receiver.phone}</td>
+				<td>#{cc.attrs.receiver.email}</td>
+				<td>#{cc.attrs.receiver.address.format()}</td>
+			</tr>
+		</c:if>
+	</table>
+</cc:implementation>
+</html>
