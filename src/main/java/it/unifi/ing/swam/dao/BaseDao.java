@@ -22,4 +22,13 @@ public abstract class BaseDao implements Serializable {
         }
     }
 
+    public void delete(BaseEntity entity) {
+        if(entity.getId() != null) {
+            entityManager.remove(entity);
+        } else {
+            throw new IllegalArgumentException ("Entity not persisted");
+        }
+
+    }
+
 }
