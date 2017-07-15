@@ -69,6 +69,7 @@ public class StartupBean {
         operator2.addRole(ModelFactory.generateOperator());
 
         customer1.addRole(ModelFactory.generateCustomer());
+        customer1.getCustomerRole().setOperator(operator1);
         Address a = customer1.getCustomerRole().getAddress();
         a.setCity("ciao");
         a.setZip("stiro");
@@ -78,11 +79,9 @@ public class StartupBean {
         f.setZone("italia");
         f.setStartDate(Calendar.getInstance());
         customer1.getCustomerRole().addFare(f);
-   
-        
-        
-        
+
         customer2.addRole(ModelFactory.generateCustomer());
+        customer2.getCustomerRole().setOperator(all);
 
         driver1.addRole(ModelFactory.generateDriver());
         driver2.addRole(ModelFactory.generateDriver());
@@ -90,6 +89,7 @@ public class StartupBean {
         all.addRole(ModelFactory.generateOperator());
         all.addRole(ModelFactory.generateCustomer());
         all.addRole(ModelFactory.generateDriver());
+        all.getCustomerRole().setOperator(operator2);
 
         // Controllo NotNull di User
         operator1.setAgency(agency1);
