@@ -379,8 +379,7 @@ public class EditWaybillPageControllerTest {
 
         @Test
         public void testSave() {
-            assertEquals(editWaybillPageController.save(),
-                    "ViewPage" + waybill.getId() + user.getCustomerRole().getId());
+            assertEquals(true, editWaybillPageController.save().contains("waybill-view"));
             assertEquals(waybill.getOperator(), user);
         }
     }
