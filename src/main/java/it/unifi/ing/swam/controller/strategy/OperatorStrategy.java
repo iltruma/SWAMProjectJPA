@@ -79,9 +79,9 @@ public class OperatorStrategy extends RoleStrategy {
     }
 
     @Override
-    public String save() {
+    public void save() {
         waybill.setOperator(user);
         waybill.setAcceptDate(Calendar.getInstance());
-        return super.save();
+        super.save();
     }
 }

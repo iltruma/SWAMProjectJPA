@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<cc:interface>
+	<cc:attribute name="edit" default="false" />
+	<cc:attribute name="fares" required="java.util.List" />
+	<cc:attribute name="newItemId" />
+</cc:interface>
+<cc:implementation>
+	<h3>Fares:</h3>
+	<table>
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Zone</th>
+				<th>CostFunction</th>
+				<th>Start Date</th>
+				<th>End Date</th>
+				<c:if test="#{cc.attrs.edit == 'true'}">
+					<th></th>
+					<th></th>
+				</c:if>
+			</tr>
+		</thead>
+		<tbody>
+			<ui:repeat var="fare" value="#{cc.attrs.fares}">
+				<tr>
+					<td><h:outputText value="#{fare.id}" /></td>
+					<td><h:outputText value="#{fare.zone}" /></td>
+					<td><h:outputText value="#{fare.functionCost}" /></td>
+					<td><h:outputText value="#{fare.startDate.getTime()}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText></td>
+
+					<td><h:outputText value="#{fare.endDate.getTime()}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText></td>
+
+					<c:if test="#{cc.attrs.edit == 'true'}">
+						<td><h:commandButton styleClass="button"
+								action="#{editCustomerPageController.viewFare(fare)}"
+								value="View">
+							</h:commandButton></td>
+						<td><h:commandButton styleClass="button"
+								action="#{cc.attrs.fares.remove(fare)}" value="Remove">
+							</h:commandButton></td>
+					</c:if>
+				</tr>
+			</ui:repeat>
+		</tbody>
+	</table>
+
+	<h:commandLink styleClass="button"
+		action="#{editCustomerPageController.createFare()}"
+		rendered="#{cc.attrs.edit == 'true'}" value="Add New Fare" />
+
+</cc:implementation>
+</html>

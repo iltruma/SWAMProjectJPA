@@ -99,9 +99,8 @@ public abstract class RoleStrategy {
 	}
 
 
-	public String save() {
+	public void save() {
 		waybillDao.save(waybill);
-		return "ViewPage" + waybill.getId() + user.getCustomerRole().getId();
 	}
 
 

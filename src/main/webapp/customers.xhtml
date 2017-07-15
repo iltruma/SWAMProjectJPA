@@ -42,10 +42,14 @@
 			</tbody>
 		</table>
 
-		<h:link styleClass="button" outcome="customer-edit"
-			value="Add New Customer">
-			<f:param name="add" value="true"></f:param>
-		</h:link>
+		<h:form>
+			<h:commandButton styleClass="button"
+				action="#{customersPageController.createCustomer()}"
+				value="Add New Customer">
+			</h:commandButton>
+		</h:form>
+
+		<h:link styleClass="button button-outline" outcome="home" value="Back"></h:link>
 
 	</ui:define>
 </ui:composition>

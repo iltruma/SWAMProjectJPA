@@ -83,7 +83,8 @@ public class EditWaybillPageController extends BasicController {
 
     @Transactional
     public String save(){
-    	return this.strategy.save();
+    	this.strategy.save();
+		return "waybill-view?id=" + getWaybill().getId() + "&roleId="+currentRole.getId() + "&faces-redirect=true";
     }
 
     @Transactional

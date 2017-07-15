@@ -48,12 +48,12 @@ public class CustomersPageController extends BasicController {
     public String selectCustomer(User u){
         conversationBean.initConversation();
         conversationBean.setCustomer(u);
-        return "customer-view";
+        return "customer-view?faces-redirect=true";
     }
 
     public String createCustomer(){
         conversationBean.initConversation();
-        return "customer-edit";
+        return "customer-edit?faces-redirect=true";
     }
 
 

@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<cc:interface>
+	<cc:attribute name="edit" default="false" />
+	<cc:attribute name="fare" type="it.unifi.ing.swam.model.Fare"
+		required="true" />
+</cc:interface>
+<cc:implementation>
+	<c:set scope="request" var="isEdit" property="x"
+		value="#{cc.attrs.edit == 'true'}" />
+
+	<h2>
+		<h:outputText value="Fare Edit Page" rendered="#{isEdit}" />
+	</h2>
+	<h2>
+		<h:outputText value="Fare View Page (Id: #{cc.attrs.fare.id})"
+			rendered="#{not isEdit}" />
+	</h2>
+	<fieldset>
+		<label>Zone:</label>
+		<h:inputText value="#{cc.attrs.fare.zone}" rendered="#{isEdit}" />
+		<h:outputText value="#{cc.attrs.fare.zone}" rendered="#{not isEdit}" />
+
+		<label>Cost Function:</label>
+		<h:inputText value="#{cc.attrs.fare.functionCost}"
+			rendered="#{isEdit}" />
+		<h:outputText value="#{cc.attrs.fare.functionCost}"
+			rendered="#{not isEdit}" />
+
+		<label>Start Date:</label>
+		<h:outputText value="#{cc.attrs.fare.startDate.getTime()}">
+			<f:convertDateTime pattern="dd/MM/yyyy" />
+		</h:outputText>
+
+		<label>End Date:</label>
+		<h:outputText value="#{cc.attrs.fare.endDate.getTime()}">
+			<f:convertDateTime pattern="dd/MM/yyyy" />
+		</h:outputText>
+	</fieldset>
+
+</cc:implementation>
+</html>

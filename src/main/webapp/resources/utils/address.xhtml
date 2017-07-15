@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core">
+<cc:interface>
+	<cc:attribute name="address" required="true"
+		type="it.unifi.ing.swam.model.Address" />
+	<cc:attribute name="edit" default="false" />
+
+</cc:interface>
+<cc:implementation>
+	<c:set scope="request" var="isEdit" property="x"
+		value="#{cc.attrs.edit != 'false'}" />
+
+	<table>
+		<tr>
+			<th colspan="4"><label>Address</label></th>
+		</tr>
+		<tr>
+			<th>Street</th>
+			<th>City</th>
+			<th>Zip</th>
+			<th>State</th>
+		</tr>
+		<tr>
+			<td><h:inputText value="#{cc.attrs.address.street}"
+					rendered="#{isEdit}" /> <h:outputText
+					value="#{cc.attrs.address.street}" rendered="#{not isEdit}" /></td>
+			<td><h:inputText value="#{cc.attrs.address.city}"
+					rendered="#{isEdit}" /> <h:outputText
+					value="#{cc.attrs.address.city}" rendered="#{not isEdit}" /></td>
+			<td><h:inputText value="#{cc.attrs.address.zip}"
+					rendered="#{isEdit}" /> <h:outputText
+					value="#{cc.attrs.address.zip}" rendered="#{not isEdit}" /></td>
+			<td><h:inputText value="#{cc.attrs.address.state}"
+					rendered="#{isEdit}" /> <h:outputText
+					value="#{cc.attrs.address.state}" rendered="#{not isEdit}" /></td>
+		</tr>
+	</table>
+</cc:implementation>
+</html>

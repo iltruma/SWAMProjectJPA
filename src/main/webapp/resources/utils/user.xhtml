@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core">
+<cc:interface>
+	<cc:attribute name="user" required="true"
+		type="it.unifi.ing.swam.model.User" />
+	<cc:attribute name="title" required="true" />
+
+</cc:interface>
+<cc:implementation>
+	<table>
+		<tr>
+			<th colspan="4"><label>#{cc.attrs.title}</label></th>
+		</tr>
+		<tr>
+			<th>Id</th>
+			<th>Username</th>
+			<th>Email</th>
+			<th>Phone</th>
+		</tr>
+		<tr>
+			<td>#{cc.attrs.user.id}</td>
+			<td>#{cc.attrs.user.username}</td>
+			<td>#{cc.attrs.user.email}</td>
+			<td>#{cc.attrs.user.phone}</td>
+		</tr>
+	</table>
+</cc:implementation>
+</html>

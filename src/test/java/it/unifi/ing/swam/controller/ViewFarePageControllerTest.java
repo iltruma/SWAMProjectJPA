@@ -67,12 +67,12 @@ public class ViewFarePageControllerTest {
     public void testInitFaresPage() throws InitializationError {
         userSession.setUser(wrongUser);
         assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
-            viewFarePageController.initFaresPage();
+            viewFarePageController.initFarePage();
         }).withMessage("you cant view this page");
 
         userSession.setUser(user);
         assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
-            viewFarePageController.initFaresPage();
+            viewFarePageController.initFarePage();
         }).withMessage("fare id is empty");
 
         fareId = 2L;
@@ -82,7 +82,7 @@ public class ViewFarePageControllerTest {
             throw new InitializationError(e);
         }
         assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
-            viewFarePageController.initFaresPage();
+            viewFarePageController.initFarePage();
         }).withMessage("fare not found");
 
         fareId = 1L;
@@ -92,11 +92,11 @@ public class ViewFarePageControllerTest {
             throw new InitializationError(e);
         }
         assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
-            viewFarePageController.initFaresPage();
+            viewFarePageController.initFarePage();
         }).withMessage("fare not found for this customer");
 
         customer.getCustomerRole().addFare(fare);
-        viewFarePageController.initFaresPage();
+        viewFarePageController.initFarePage();
     }
 
 }

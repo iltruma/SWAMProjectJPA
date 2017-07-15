@@ -8,9 +8,27 @@
 
 <ui:composition template="layout/template.xhtml">
 	<ui:define name="body">
-	<customer:customerPage edit="true" customer="#{editCustomerPageController.customer}">
-	</customer:customerPage>
-			
+
+		<h:form>
+			<customer:customerPage edit="true"
+				customer="#{editCustomerPageController.customer}">
+			</customer:customerPage>
+
+			<h:commandLink styleClass="button"
+				action="#{editCustomerPageController.blockCustomer()}"
+				value="Block This Customer"
+				rendered="#{editCustomerPageController.customer.customerRole.isActive()}" />
+
+			<h:commandLink styleClass="button"
+				action="#{editCustomerPageController.unlockCustomer()}"
+				value="Make The Customer Active"
+				rendered="#{not editCustomerPageController.customer.customerRole.isActive()}" />
+
+			<h:commandLink styleClass="button"
+				action="#{editCustomerPageController.save()}" value="Save">
+			</h:commandLink>
+		</h:form>
+
 	</ui:define>
 </ui:composition>
 

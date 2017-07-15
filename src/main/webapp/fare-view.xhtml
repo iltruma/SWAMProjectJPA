@@ -9,21 +9,20 @@
 
 <ui:composition template="layout/template.xhtml">
 	<ui:define name="body">
+		<c:set scope="request" var="fare" property="x"
+			value="#{viewFarePageController.fare}"></c:set>
 
-		<customer:customerPage edit="false"
-			customer="#{viewCustomerPageController.customer}">
-		</customer:customerPage>
+		<customer:fare fare="#{fare}"></customer:fare>
 
 		<h:form>
 			<h:commandLink styleClass="button"
-				action="#{viewCustomerPageController.edit()}" value="Edit">
+				action="#{viewFarePageController.edit()}" value="Edit">
 			</h:commandLink>
-
-			<h:commandLink styleClass="button button-outline"
-				action="#{viewCustomerPageController.exit()}" value="Back">
+			<h:commandLink styleClass="button"
+				action="#{viewFarePageController.back()}" value="Back">
 			</h:commandLink>
-
 		</h:form>
+
 
 	</ui:define>
 </ui:composition>

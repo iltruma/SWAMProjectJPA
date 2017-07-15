@@ -16,6 +16,7 @@ import it.unifi.ing.swam.dao.WaybillDao;
 import it.unifi.ing.swam.model.Address;
 import it.unifi.ing.swam.model.Agency;
 import it.unifi.ing.swam.model.Driver;
+import it.unifi.ing.swam.model.Fare;
 import it.unifi.ing.swam.model.Item;
 import it.unifi.ing.swam.model.Mission;
 import it.unifi.ing.swam.model.ModelFactory;
@@ -68,6 +69,19 @@ public class StartupBean {
         operator2.addRole(ModelFactory.generateOperator());
 
         customer1.addRole(ModelFactory.generateCustomer());
+        Address a = customer1.getCustomerRole().getAddress();
+        a.setCity("ciao");
+        a.setZip("stiro");
+        a.setStreet("boia");
+        Fare f = ModelFactory.generateFare();
+        f.setFunctionCost("a function cost example");
+        f.setZone("italia");
+        f.setStartDate(Calendar.getInstance());
+        customer1.getCustomerRole().addFare(f);
+   
+        
+        
+        
         customer2.addRole(ModelFactory.generateCustomer());
 
         driver1.addRole(ModelFactory.generateDriver());

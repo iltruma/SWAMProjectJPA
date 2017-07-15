@@ -1,7 +1,10 @@
 package it.unifi.ing.swam.bean;
 
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
@@ -20,6 +23,15 @@ public class CustomerBean implements Serializable {
     private Conversation conversation;
 
     private User customer;
+    
+    private static final Logger _logger = Logger.getLogger("CustomerBean");
+
+    
+    @PostConstruct
+    private void init() {
+        _logger.log(Level.INFO, "init in CustomerBean");
+
+    }
 
 
 
