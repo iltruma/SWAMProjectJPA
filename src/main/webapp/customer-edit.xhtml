@@ -3,49 +3,14 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:c="http://java.sun.com/jsp/jstl/core">
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:customer="http://xmlns.jcp.org/jsf/composite/customer">
 
 <ui:composition template="layout/template.xhtml">
 	<ui:define name="body">
-		<h1>Customers:</h1>
-		<table>
-			<thead>
-				<tr>
-					<th>Id</th>
-					<th>Username</th>
-					<th>Name</th>
-					<th>Email</th>
-					<th>Phone</th>
-					<th>Status</th>
-					<th></th>
-				</tr>
-			</thead>
-			<tbody>
-				<ui:repeat var="customer"
-					value="#{customersPageController.customers}">
-					<tr>
-						<td>#{customer.id}</td>
-						<td>#{customer.username}</td>
-						<td>#{customer.name}</td>
-						<td>#{customer.email}</td>
-						<td>#{customer.phone}</td>
-						<td>#{customer.customerRole.state}</td>
-
-						<td><h:link styleClass="button button-outline"
-								outcome="#{customersPageController.selectCustomer(customer)}" value="View">
-							</h:link>
-						</td>
-
-					</tr>
-				</ui:repeat>
-			</tbody>
-		</table>
-
-		<h:link styleClass="button" outcome="customer-edit"
-			value="Add New Customer">
-			<f:param name="add" value="true"></f:param>
-		</h:link>
-
+	<customer:customerPage edit="true" customer="#{editCustomerPageController.customer}">
+	</customer:customerPage>
+			
 	</ui:define>
 </ui:composition>
 
