@@ -181,6 +181,23 @@ public class EditWaybillPageControllerTest {
         }
 
         @Test
+        public void testInitWaybillError() throws InitializationError {
+            when(waybillDao.findById(waybillId)).thenReturn(null);
+            assertThatExceptionOfType(IllegalStateException.class).isThrownBy(() -> {
+                editWaybillPageController.initWaybill();
+            });
+
+            try {
+                FieldUtils.writeField(editWaybillPageController.getStrategy(), "waybillId", null, true);
+            } catch (IllegalAccessException e) {
+                throw new InitializationError(e);
+            }
+            editWaybillPageController.initWaybill();
+
+            assertEquals(user, editWaybillPageController.getWaybill().getSender());
+        }
+
+        @Test
         public void testInitWaybillThrowsIllegalStateException() {
             user.getCustomerRole().setState(State.BLOCKED);
 
@@ -238,6 +255,23 @@ public class EditWaybillPageControllerTest {
         }
 
         @Test
+        public void testInitWaybillError() throws InitializationError {
+            when(waybillDao.findById(waybillId)).thenReturn(null);
+            assertThatExceptionOfType(IllegalStateException.class).isThrownBy(() -> {
+                editWaybillPageController.initWaybill();
+            });
+
+            try {
+                FieldUtils.writeField(editWaybillPageController.getStrategy(), "waybillId", null, true);
+            } catch (IllegalAccessException e) {
+                throw new InitializationError(e);
+            }
+            assertThatExceptionOfType(IllegalStateException.class).isThrownBy(() -> {
+                editWaybillPageController.initWaybill();
+            });
+        }
+
+        @Test
         public void testInitWaybillThrowsIllegalStateException() {
             waybill.setTracking(Tracking.IDLE);
 
@@ -278,6 +312,23 @@ public class EditWaybillPageControllerTest {
             when(userDao.findById(wrongUserId)).thenReturn(null);
 
             editWaybillPageController.initWaybill();
+        }
+
+        @Test
+        public void testInitWaybillError() throws InitializationError {
+            when(waybillDao.findById(waybillId)).thenReturn(null);
+            assertThatExceptionOfType(IllegalStateException.class).isThrownBy(() -> {
+                editWaybillPageController.initWaybill();
+            });
+
+            try {
+                FieldUtils.writeField(editWaybillPageController.getStrategy(), "waybillId", null, true);
+            } catch (IllegalAccessException e) {
+                throw new InitializationError(e);
+            }
+            editWaybillPageController.initWaybill();
+
+            assertEquals(user, editWaybillPageController.getWaybill().getOperator());
         }
 
         @Test
