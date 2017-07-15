@@ -13,22 +13,22 @@ public class ViewCustomerPageController extends BasicController {
     private static final long serialVersionUID = 12L;
 
     @Inject
-    private CustomerBean conversationBean;
+    private CustomerBean customerBean;
 
     @PostConstruct
     protected void initCustomerPage(){
         if(!userSession.getUser().isOperator())
             throw new IllegalArgumentException("you cant view this page");
-        if(conversationBean.getCustomer() == null)
+        if(customerBean.getCustomer() == null)
             throw new IllegalArgumentException("customer not found");
     }
 
     public User getCustomer() {
-        return conversationBean.getCustomer();
+        return customerBean.getCustomer();
     }
 
     public void exit(){
-        conversationBean.endConversation();
+        customerBean.endConversation();
     }
 
 }

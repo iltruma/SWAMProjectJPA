@@ -46,8 +46,8 @@ public class CustomersPageController extends BasicController {
     }
 
     public String selectCustomer(User u){
-        conversationBean.setCustomer(u);
         conversationBean.initConversation();
+        conversationBean.setCustomer(u);
         return "customer-view";
     }
 

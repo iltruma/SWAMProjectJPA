@@ -38,8 +38,8 @@ public class OperatorStrategy extends RoleStrategy {
 
     @Override
     public void checkEdit() {
-        if (waybill.getSender() != null && !waybill.getSender().getAgency().equals(user.getAgency())
-                && !waybill.getTracking().equals(Tracking.IDLE))
+        if (( waybill.getSender() != null && !waybill.getSender().getAgency().equals(user.getAgency()) )
+                || !waybill.getTracking().equals(Tracking.IDLE))
             throw new IllegalStateException("you can't edit this waybill");
     }
 

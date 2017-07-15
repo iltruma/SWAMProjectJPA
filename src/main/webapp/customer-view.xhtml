@@ -9,7 +9,7 @@
 	<ui:define name="body">
 		<c:set scope="request" var="customer" property="x"
 			value="#{viewCustomerPageController.customer}" />
-		<h1>Customer #{customer.username}, id: #{customer.id}</h1>
+		<h1>Customer: #{customer.username}, id: #{customer.id}</h1>
 		<table>
 			<thead>
 				<tr>
@@ -28,17 +28,12 @@
 					<td>#{customer.email}</td>
 					<td>#{customer.phone}</td>
 					<td>#{customer.customerRole.state}</td>
-
-					<td><h:link styleClass="button button-outline"
-							outcome="customer-edit"
-							value="Edit">
-						</h:link></td>
 				</tr>
 			</tbody>
 		</table>
 
 		<h:link styleClass="button" outcome="customer-edit"
-			value="Add New Customer">
+			value="Edit">
 			<f:param name="add" value="true"></f:param>
 		</h:link>
 

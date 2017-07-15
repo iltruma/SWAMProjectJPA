@@ -9,8 +9,9 @@ import javax.inject.Named;
 
 import it.unifi.ing.swam.model.User;
 
-@ConversationScoped
+
 @Named
+@ConversationScoped
 public class CustomerBean implements Serializable {
 
 	private static final long serialVersionUID = 3181632097971721800L;

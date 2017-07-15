@@ -31,11 +31,12 @@
 						<td>#{customer.phone}</td>
 						<td>#{customer.customerRole.state}</td>
 
-						<td><h:link styleClass="button button-outline"
-								outcome="#{customersPageController.selectCustomer(customer)}" value="View">
-							</h:link>
-						</td>
-
+						<td><h:form>
+								<h:commandButton styleClass="button button-outline"
+									action="#{customersPageController.selectCustomer(customer)}"
+									value="View">
+								</h:commandButton>
+							</h:form></td>
 					</tr>
 				</ui:repeat>
 			</tbody>
