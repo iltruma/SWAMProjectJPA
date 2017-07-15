@@ -2,6 +2,7 @@ package it.unifi.ing.swam.controller;
 
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
@@ -27,6 +28,7 @@ import it.unifi.ing.swam.model.Agency;
 import it.unifi.ing.swam.model.Item;
 import it.unifi.ing.swam.model.Mission;
 import it.unifi.ing.swam.model.ModelFactory;
+import it.unifi.ing.swam.model.State;
 import it.unifi.ing.swam.model.Tracking;
 import it.unifi.ing.swam.model.User;
 import it.unifi.ing.swam.model.Waybill;
@@ -71,6 +73,8 @@ public class EditWaybillPageControllerTest {
         userDao = mock(UserDao.class);
         missionDao = mock(MissionDao.class);
 
+        agency = ModelFactory.generateAgency();
+
         user = ModelFactory.generateUser();
         user.addRole(ModelFactory.generateCustomer());
         user.addRole(ModelFactory.generateDriver());
@@ -112,7 +116,6 @@ public class EditWaybillPageControllerTest {
         @Test
         public void testInitWaybill() {
             when(roleDao.findById(roleId)).thenReturn(user.getCustomerRole());
-            editWaybillPageController.initStrategy();
             // waybill has the Customer user as sender
             waybill.setSender(user);
             editWaybillPageController.initWaybill();
@@ -163,7 +166,6 @@ public class EditWaybillPageControllerTest {
             when(roleDao.findById(roleId)).thenReturn(user.getCustomerRole());
             editWaybillPageController.initStrategy();
 
-            agency = ModelFactory.generateAgency();
             item = ModelFactory.generateItem();
             item.setVolume(Float.valueOf(0F));
             item.setWeigth(Float.valueOf(0F));
@@ -179,7 +181,19 @@ public class EditWaybillPageControllerTest {
         }
 
         @Test
+        public void testInitWaybillThrowsIllegalStateException() {
+            user.getCustomerRole().setState(State.BLOCKED);
+
+            assertThatExceptionOfType(IllegalStateException.class).isThrownBy(() -> {
+                editWaybillPageController.initWaybill();
+            });
+        }
+
+        @Test
         public void testSetAgency() {
+            editWaybillPageController.getStrategy().setAgency(null);
+            assertNull(waybill.getReceiver().getDestinationAgency());
+
             editWaybillPageController.getStrategy().setAgency(agencyId);
             assertEquals(waybill.getReceiver().getDestinationAgency(), agency);
 
@@ -190,6 +204,9 @@ public class EditWaybillPageControllerTest {
 
         @Test
         public void testAddItem() {
+            editWaybillPageController.getStrategy().setNewItem(null);
+            assertEquals(0, waybill.getLoad().getItems().size());
+
             editWaybillPageController.getStrategy().setNewItem(itemId);
             assertEquals(1, waybill.getLoad().getItems().size());
             assertEquals(item, waybill.getLoad().getItems().iterator().next());
@@ -221,8 +238,17 @@ public class EditWaybillPageControllerTest {
         }
 
         @Test
-        public void testSetSignAndTracking() {
-            editWaybillPageController.getStrategy().setSignAndTracking();
+        public void testInitWaybillThrowsIllegalStateException() {
+            waybill.setTracking(Tracking.IDLE);
+
+            assertThatExceptionOfType(IllegalStateException.class).isThrownBy(() -> {
+                editWaybillPageController.initWaybill();
+            });
+        }
+
+        @Test
+        public void testSignAndSave() {
+            editWaybillPageController.signAndSave();
 
             assertEquals(waybill.isSigned(), true);
             assertEquals(waybill.getTracking(), Tracking.DELIVERED);
@@ -238,7 +264,6 @@ public class EditWaybillPageControllerTest {
             when(roleDao.findById(roleId)).thenReturn(user.getOperatorRole());
             editWaybillPageController.initStrategy();
 
-            agency = ModelFactory.generateAgency();
             item = ModelFactory.generateItem();
             item.setVolume(Float.valueOf(0F));
             item.setWeigth(Float.valueOf(0F));
@@ -256,6 +281,15 @@ public class EditWaybillPageControllerTest {
         }
 
         @Test
+        public void testInitWaybillThrowsIllegalStateException() {
+            waybill.setTracking(Tracking.DELIVERED);
+
+            assertThatExceptionOfType(IllegalStateException.class).isThrownBy(() -> {
+                editWaybillPageController.initWaybill();
+            });
+        }
+
+        @Test
         public void testSetCustomer() {
             editWaybillPageController.getStrategy().setSender(userId);
             assertEquals(waybill.getSender(), user);
@@ -267,6 +301,9 @@ public class EditWaybillPageControllerTest {
 
         @Test
         public void testSetAgency() {
+            editWaybillPageController.getStrategy().setAgency(null);
+            assertNull(waybill.getReceiver().getDestinationAgency());
+
             editWaybillPageController.getStrategy().setAgency(agencyId);
             assertEquals(waybill.getReceiver().getDestinationAgency(), agency);
 
@@ -277,6 +314,9 @@ public class EditWaybillPageControllerTest {
 
         @Test
         public void testAddItem() {
+            editWaybillPageController.getStrategy().setNewItem(null);
+            assertEquals(0, waybill.getLoad().getItems().size());
+
             editWaybillPageController.getStrategy().setNewItem(itemId);
             assertEquals(1, waybill.getLoad().getItems().size());
             assertEquals(item, waybill.getLoad().getItems().iterator().next());

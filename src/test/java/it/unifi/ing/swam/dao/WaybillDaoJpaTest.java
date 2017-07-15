@@ -49,6 +49,8 @@ public class WaybillDaoJpaTest extends JpaTest {
         Agency destinationAgency = ModelFactory.generateAgency();
         receiver.setDestinationAgency(destinationAgency);
         receiver.setName("name");
+        receiver.setPhone("055055055");
+        receiver.setEmail("receiver@unifi.it");
         Address address = new Address();
         address.setStreet("street");
         address.setCity("city");

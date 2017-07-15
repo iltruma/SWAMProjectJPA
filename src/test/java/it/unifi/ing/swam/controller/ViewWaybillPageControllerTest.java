@@ -121,7 +121,6 @@ public class ViewWaybillPageControllerTest {
 
         @Test
         public void testInitWaybill() {
-            viewWaybillPageController.initStrategy();
             // waybill has the Customer user as sender
             waybill.setSender(user);
             viewWaybillPageController.initWaybill();

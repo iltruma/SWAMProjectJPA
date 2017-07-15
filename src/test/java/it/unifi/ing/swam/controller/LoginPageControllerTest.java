@@ -33,9 +33,7 @@ public class LoginPageControllerTest {
         userSession = new UserSessionBean();
         userDao = mock(UserDao.class);
 
-        user = ModelFactory.generateUser();
-        user.setPassword("password");
-        user.setUsername("username");
+        user = ModelFactory.generateUser("username", "password");
 
         try {
             FieldUtils.writeField(user, "id", Long.valueOf(10), true);
@@ -66,6 +64,13 @@ public class LoginPageControllerTest {
 
         assertNull(userSession.getUser());
         assertFalse(userSession.isLoggedIn());
+    }
+
+    @Test
+    public void testLogout() {
+        loginController.logout();
+
+        assertNull(userSession.getUser());
     }
 
 }

@@ -16,7 +16,7 @@ public abstract class BaseDao<E extends BaseEntity> implements Serializable {
     @PersistenceContext
     protected EntityManager entityManager;
 
-    public BaseDao(Class<E> type) {
+    protected BaseDao(Class<E> type) {
         this.type = type;
     }
 

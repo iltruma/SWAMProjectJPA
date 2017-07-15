@@ -16,7 +16,7 @@ public class ViewCustomerPageControllerTest {
 
     private ViewCustomerPageController viewCustomerPageController;
 
-    private CustomerBean conversationBean;
+    private CustomerBean customerBean;
     private UserSessionBean userSession;
 
     private User user;
@@ -26,7 +26,7 @@ public class ViewCustomerPageControllerTest {
     @Before
     public void setUp() throws InitializationError{
         viewCustomerPageController = new ViewCustomerPageController();
-        conversationBean = new CustomerBean();
+        customerBean = new CustomerBean();
         userSession = new UserSessionBean();
 
         wrongUser = ModelFactory.generateUser();
@@ -40,7 +40,7 @@ public class ViewCustomerPageControllerTest {
 
         try {
             FieldUtils.writeField(viewCustomerPageController, "userSession", userSession, true);
-            FieldUtils.writeField(viewCustomerPageController, "conversationBean", conversationBean, true);
+            FieldUtils.writeField(viewCustomerPageController, "customerBean", customerBean, true);
         } catch (IllegalAccessException e) {
             throw new InitializationError(e);
         }
@@ -58,7 +58,7 @@ public class ViewCustomerPageControllerTest {
             viewCustomerPageController.initCustomerPage();
         }).withMessage("customer not found");
 
-        conversationBean.setCustomer(customer);
+        customerBean.setCustomer(customer);
         viewCustomerPageController.initCustomerPage();
     }
 

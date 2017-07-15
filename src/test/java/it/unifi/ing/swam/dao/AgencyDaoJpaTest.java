@@ -27,6 +27,7 @@ public class AgencyDaoJpaTest extends JpaTest {
         address.setZip("zip");
         address.setState("state");
         agency.setAddress(address);
+        agency.setDescription("description");
 
         entityManager.persist(agency);
 
