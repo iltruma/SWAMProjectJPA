@@ -57,7 +57,7 @@ public class ViewFarePageControllerTest {
             FieldUtils.writeField(user, "id", Long.valueOf(10), true);
             FieldUtils.writeField(viewFarePageController, "fareDao", fareDao, true);
             FieldUtils.writeField(viewFarePageController, "userSession", userSession, true);
-            FieldUtils.writeField(viewFarePageController, "conversationBean", conversationBean, true);
+            FieldUtils.writeField(viewFarePageController, "customerBean", conversationBean, true);
         } catch (IllegalAccessException e) {
             throw new InitializationError(e);
         }

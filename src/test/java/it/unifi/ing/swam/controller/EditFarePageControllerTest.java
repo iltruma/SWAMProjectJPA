@@ -66,7 +66,7 @@ public class EditFarePageControllerTest {
             FieldUtils.writeField(editFarePageController, "fareId", fareId.toString(), true);
             FieldUtils.writeField(editFarePageController, "fareDao", fareDao, true);
             FieldUtils.writeField(editFarePageController, "userSession", userSession, true);
-            FieldUtils.writeField(editFarePageController, "conversationBean", conversationBean, true);
+            FieldUtils.writeField(editFarePageController, "customerBean", conversationBean, true);
         } catch (IllegalAccessException e) {
             throw new InitializationError(e);
         }

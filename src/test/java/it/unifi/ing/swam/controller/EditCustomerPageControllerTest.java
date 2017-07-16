@@ -53,7 +53,7 @@ public class EditCustomerPageControllerTest {
 
         try {
             FieldUtils.writeField(editCustomerPageController, "userSession", userSession, true);
-            FieldUtils.writeField(editCustomerPageController, "conversationBean", conversationBean, true);
+            FieldUtils.writeField(editCustomerPageController, "customerBean", conversationBean, true);
         } catch (IllegalAccessException e) {
             throw new InitializationError(e);
         }
