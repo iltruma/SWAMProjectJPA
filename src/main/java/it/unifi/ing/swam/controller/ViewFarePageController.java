@@ -19,7 +19,7 @@ public class ViewFarePageController extends BasicController {
 	private static final long serialVersionUID = 13L;
 
 	@Inject
-	private CustomerBean conversationBean;
+	private CustomerBean customerBean;
 
 	@Inject
 	private FareDao fareDao;
@@ -42,7 +42,7 @@ public class ViewFarePageController extends BasicController {
 		if (fare == null)
 			throw new IllegalArgumentException("fare not found");
 
-		if (!conversationBean.getCustomer().getCustomerRole().getFares().contains(fare))
+		if (!customerBean.getCustomer().getCustomerRole().getFares().contains(fare))
 			throw new IllegalArgumentException("fare not found for this customer");
 	}
 

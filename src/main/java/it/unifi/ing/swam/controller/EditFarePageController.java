@@ -24,7 +24,7 @@ public class EditFarePageController extends BasicController {
 	private FareDao fareDao;
 
 	@Inject
-	private CustomerBean conversationBean;
+	private CustomerBean customerBean;
 
 	@Inject
 	@HttpParam("fare_id")
@@ -45,7 +45,7 @@ public class EditFarePageController extends BasicController {
 			throw new IllegalArgumentException("fare id is empty");
 		else if (Boolean.valueOf(addFlag)) {
 			fare = ModelFactory.generateFare();
-			conversationBean.getCustomer().getCustomerRole().addFare(fare);
+			customerBean.getCustomer().getCustomerRole().addFare(fare);
 			
 		} else {
 			fare = fareDao.findById(Long.valueOf(fareId));
@@ -54,7 +54,7 @@ public class EditFarePageController extends BasicController {
 		if (fare == null)
 			throw new IllegalArgumentException("fare not found");
 
-		if (!conversationBean.getCustomer().getCustomerRole().getFares().contains(fare))
+		if (!customerBean.getCustomer().getCustomerRole().getFares().contains(fare))
 			throw new IllegalArgumentException("fare not found for this customer");
 
 	}

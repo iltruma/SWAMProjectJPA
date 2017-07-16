@@ -27,7 +27,7 @@ public class EditCustomerPageController extends BasicController {
 	private FareDao fareDao;
 
 	@Inject
-	private CustomerBean conversationBean;
+	private CustomerBean customerBean;
 
 	@PostConstruct
 	protected void initEditCustomerPage() {
@@ -35,25 +35,25 @@ public class EditCustomerPageController extends BasicController {
 		if (!userSession.getUser().isOperator())
 			throw new IllegalArgumentException("you cant view this page");
 
-		if (conversationBean.getCustomer() == null) {
-			conversationBean.setCustomer(ModelFactory.generateUser());
-			conversationBean.getCustomer().addRole(ModelFactory.generateCustomer());
-			conversationBean.getCustomer().setAgency(userSession.getUser().getAgency());
-			conversationBean.getCustomer().getCustomerRole().setOperator(userSession.getUser());
+		if (customerBean.getCustomer() == null) {
+			customerBean.setCustomer(ModelFactory.generateUser());
+			customerBean.getCustomer().addRole(ModelFactory.generateCustomer());
+			customerBean.getCustomer().setAgency(userSession.getUser().getAgency());
+			customerBean.getCustomer().getCustomerRole().setOperator(userSession.getUser());
 		}
 
-		if (!conversationBean.getCustomer().getAgency().equals(userSession.getUser().getAgency()))
+		if (!customerBean.getCustomer().getAgency().equals(userSession.getUser().getAgency()))
 			throw new IllegalStateException("customer not Editable");
 
 	}
 
 	public User getCustomer() {
-		return conversationBean.getCustomer();
+		return customerBean.getCustomer();
 	}
 
 	@Transactional
 	public String save() {
-		userDao.save(conversationBean.getCustomer());
+		userDao.save(customerBean.getCustomer());
 		return "customer-view?faces-redirect=true";
 	}
 
@@ -67,16 +67,17 @@ public class EditCustomerPageController extends BasicController {
 	
 	@Transactional
 	public void removeFare(Fare f){
-		conversationBean.getCustomer().getCustomerRole().getFares().remove(f);
+		customerBean.getCustomer().getCustomerRole().getFares().remove(f);
 		fareDao.delete(f);
 	}
+	
 
 	public void blockCustomer() {
-		conversationBean.getCustomer().getCustomerRole().setState(State.BLOCKED);
+		customerBean.getCustomer().getCustomerRole().setState(State.BLOCKED);
 	}
 
 	public void unlockCustomer() {
-		conversationBean.getCustomer().getCustomerRole().setState(State.ACTIVE);
+		customerBean.getCustomer().getCustomerRole().setState(State.ACTIVE);
 	}
 
 }

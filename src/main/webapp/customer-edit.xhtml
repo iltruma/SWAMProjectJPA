@@ -23,10 +23,13 @@
 				action="#{editCustomerPageController.unlockCustomer()}"
 				value="Make The Customer Active"
 				rendered="#{not editCustomerPageController.customer.customerRole.isActive()}" />
+				
+				<br></br>
 
 			<h:commandLink styleClass="button"
 				action="#{editCustomerPageController.save()}" value="Save">
 			</h:commandLink>
+			
 		</h:form>
 
 	</ui:define>
