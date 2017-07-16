@@ -102,7 +102,8 @@
 
 				</c:if>
 
-				<h:link styleClass="button" outcome="waybill-edit" value="Edit">
+				<h:link styleClass="button" outcome="waybill-edit" value="Edit"
+					rendered="#{not viewWaybillPageController.waybill.isSigned()}">
 					<f:param name="id" value="#{viewWaybillPageController.waybill.id}"></f:param>
 					<f:param name="roleId"
 						value="#{viewWaybillPageController.currentRole.id}"></f:param>

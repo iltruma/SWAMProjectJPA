@@ -79,6 +79,10 @@ public class StartupBean {
         f.setZone("italia");
         f.setStartDate(Calendar.getInstance());
         customer1.getCustomerRole().addFare(f);
+        
+        all.addRole(ModelFactory.generateOperator());
+        all.addRole(ModelFactory.generateCustomer());
+        all.addRole(ModelFactory.generateDriver());
 
         customer2.addRole(ModelFactory.generateCustomer());
         customer2.getCustomerRole().setOperator(all);
@@ -86,9 +90,7 @@ public class StartupBean {
         driver1.addRole(ModelFactory.generateDriver());
         driver2.addRole(ModelFactory.generateDriver());
 
-        all.addRole(ModelFactory.generateOperator());
-        all.addRole(ModelFactory.generateCustomer());
-        all.addRole(ModelFactory.generateDriver());
+
         all.getCustomerRole().setOperator(operator2);
 
         // Controllo NotNull di User

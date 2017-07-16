@@ -298,7 +298,7 @@
 											<f:param name="roleId"
 												value="#{homePageController.user.driverRole.id}"></f:param>
 										</h:link> <h:link styleClass="button" outcome="waybill-edit"
-											value="Add signature">
+											value="Add signature" rendered="#{not waybill.isSigned()}">
 											<f:param name="id" value="#{waybill.id}"></f:param>
 											<f:param name="roleId"
 												value="#{homePageController.user.driverRole.id}"></f:param>

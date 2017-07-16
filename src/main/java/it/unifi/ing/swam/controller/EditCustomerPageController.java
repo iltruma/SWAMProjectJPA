@@ -50,7 +50,6 @@ public class EditCustomerPageController extends BasicController {
 	@Transactional
 	public String save() {
 		userDao.save(conversationBean.getCustomer());
-
 		return "customer-view?faces-redirect=true";
 	}
 
