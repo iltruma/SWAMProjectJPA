@@ -71,9 +71,9 @@ public class StartupBean {
         customer1.addRole(ModelFactory.generateCustomer());
         customer1.getCustomerRole().setOperator(operator1);
         Address a = customer1.getCustomerRole().getAddress();
-        a.setCity("ciao");
-        a.setZip("stiro");
-        a.setStreet("boia");
+        a.setCity("Arezzo");
+        a.setZip("52100");
+        a.setStreet("Via menchetti 24");
         Fare f = ModelFactory.generateFare();
         f.setFunctionCost("a function cost example");
         f.setZone("italia");
