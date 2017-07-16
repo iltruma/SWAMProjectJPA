@@ -40,14 +40,13 @@ public class WaybillsToAssignPageController extends BasicController {
     }
 
     public void addWaybills(List<Waybill> ws) {
-        for (Waybill w : ws) {
+        for (Waybill w : ws)
             if (w.getWeight() < remainWeight && w.getVolume() < remainVolume) {
                 conversationBean.getMission().addWaybill(w);
                 remainWeight = conversationBean.getTruckWeight() - conversationBean.getTotalWeight();
                 remainVolume = conversationBean.getTruckVolume() - conversationBean.getTotalVolume();
             } else
                 throw new IllegalArgumentException("you can't add this waybill " + w.getId().toString());
-        }
     }
 
     public List<Waybill> getWaybills() {

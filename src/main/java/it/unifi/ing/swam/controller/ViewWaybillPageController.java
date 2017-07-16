@@ -24,7 +24,7 @@ public class ViewWaybillPageController extends BasicController {
 
     @Inject
     private RoleDao roleDao;
-    
+
     @Inject
     protected WaybillDao waybillDao;
 
@@ -36,7 +36,7 @@ public class ViewWaybillPageController extends BasicController {
 
     @Inject
     protected UserDao userDao;
-  
+
     @Inject
     protected MissionDao missionDao;
 
@@ -44,8 +44,8 @@ public class ViewWaybillPageController extends BasicController {
     private String waybillId;
 
     private RoleStrategy strategy;
-   
-   
+
+
     public RoleStrategy getStrategy() {
         return strategy;
     }
@@ -56,21 +56,20 @@ public class ViewWaybillPageController extends BasicController {
 
         if(StringUtils.isEmpty(waybillId))
             throw new IllegalArgumentException("waybill id not found");
-        
+
         currentRole = roleDao.findById(Long.valueOf(roleId));
         strategy = RoleStrategy.getStrategyFrom(currentRole, waybillId, userSession.getUser());
         strategy.setDaos(waybillDao, agencyDao, itemDao, userDao, missionDao);
     }
-    
+
     public Waybill getWaybill() {
         return strategy.getWaybill();
     }
 
     @PostConstruct
     protected void initWaybill() {
-    	if(strategy==null){
-    		initStrategy();
-    	}
+        if(strategy==null)
+            initStrategy();
         strategy.initWaybill();
 
     }

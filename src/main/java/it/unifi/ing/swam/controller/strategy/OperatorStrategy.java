@@ -21,7 +21,7 @@ public class OperatorStrategy extends RoleStrategy {
         if (waybillId == null) {
             waybill = ModelFactory.generateWaybill();
             waybill.setOperator(user);
-        } else {
+        } else
             try {
                 Long id = Long.valueOf(waybillId);
                 waybill = waybillDao.findById(id);
@@ -32,7 +32,6 @@ public class OperatorStrategy extends RoleStrategy {
             } catch (NumberFormatException nfe) {
                 throw new IllegalArgumentException("id not a number");
             }
-        }
         return waybill;
     }
 

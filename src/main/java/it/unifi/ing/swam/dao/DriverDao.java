@@ -15,7 +15,6 @@ public class DriverDao extends BaseDao<Driver> {
         super(Driver.class);
     }
 
-    // TODO - Scegliere solo alcuni campi di Truck.
     public Driver findByTruck(Truck truck) {
         List<Driver> result = entityManager.createQuery("SELECT d FROM Driver d WHERE d.truck = :truck", Driver.class)
                 .setParameter("truck", truck).getResultList();

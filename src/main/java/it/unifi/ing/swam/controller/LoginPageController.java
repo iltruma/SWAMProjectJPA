@@ -20,28 +20,27 @@ public class LoginPageController {
     private User userData;
 
 
-	LoginPageController(){
+    LoginPageController(){
         userData = ModelFactory.generateUser();
     }
-
 
     public String login() {
         User loggedUser = userDao.findByLoginInfo(userData);
         if( loggedUser == null )
             throw new RuntimeException("Login Failed");
 
-		userSession.setUser(null);
+        userSession.setUser(null);
         userSession.setUser(loggedUser);
-		return "home?faces-redirect=true";
+        return "home?faces-redirect=true";
     }
-    
-	public String logout() {
-		userSession.setUser(null);
-		return "home?faces-redirect=true";
-	}
-    
+
+    public String logout() {
+        userSession.setUser(null);
+        return "home?faces-redirect=true";
+    }
+
     public User getUserData() {
-		return userData;
-	}
+        return userData;
+    }
 
 }

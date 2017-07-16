@@ -13,9 +13,8 @@ public class UserDao extends BaseDao<User> {
     }
 
     public void save(User user) {
-        if(user.getRoles().isEmpty()) {
+        if(user.getRoles().isEmpty())
             throw new IllegalArgumentException("You cannot save this entity");
-        }
         super.save(user);
     }
 

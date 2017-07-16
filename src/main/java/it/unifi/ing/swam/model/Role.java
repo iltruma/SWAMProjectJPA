@@ -27,7 +27,7 @@ public abstract class Role extends BaseEntity {
 
     protected Role(String uuid, Type t) {
         super(uuid);
-    	type = t;
+        type = t;
     }
 
     public Type getType() {

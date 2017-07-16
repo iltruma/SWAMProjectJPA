@@ -18,66 +18,66 @@ import it.unifi.ing.swam.model.User;
 @ViewScoped
 public class EditCustomerPageController extends BasicController {
 
-	private static final long serialVersionUID = 7L;
+    private static final long serialVersionUID = 7L;
 
-	@Inject
-	private UserDao userDao;
-	
-	@Inject
-	private FareDao fareDao;
+    @Inject
+    private UserDao userDao;
 
-	@Inject
-	private CustomerBean customerBean;
+    @Inject
+    private FareDao fareDao;
 
-	@PostConstruct
-	protected void initEditCustomerPage() {
+    @Inject
+    private CustomerBean customerBean;
 
-		if (!userSession.getUser().isOperator())
-			throw new IllegalArgumentException("you cant view this page");
+    @PostConstruct
+    protected void initEditCustomerPage() {
 
-		if (customerBean.getCustomer() == null) {
-			customerBean.setCustomer(ModelFactory.generateUser());
-			customerBean.getCustomer().addRole(ModelFactory.generateCustomer());
-			customerBean.getCustomer().setAgency(userSession.getUser().getAgency());
-			customerBean.getCustomer().getCustomerRole().setOperator(userSession.getUser());
-		}
+        if (!userSession.getUser().isOperator())
+            throw new IllegalArgumentException("you cant view this page");
 
-		if (!customerBean.getCustomer().getAgency().equals(userSession.getUser().getAgency()))
-			throw new IllegalStateException("customer not Editable");
+        if (customerBean.getCustomer() == null) {
+            customerBean.setCustomer(ModelFactory.generateUser());
+            customerBean.getCustomer().addRole(ModelFactory.generateCustomer());
+            customerBean.getCustomer().setAgency(userSession.getUser().getAgency());
+            customerBean.getCustomer().getCustomerRole().setOperator(userSession.getUser());
+        }
 
-	}
+        if (!customerBean.getCustomer().getAgency().equals(userSession.getUser().getAgency()))
+            throw new IllegalStateException("customer not Editable");
 
-	public User getCustomer() {
-		return customerBean.getCustomer();
-	}
+    }
 
-	@Transactional
-	public String save() {
-		userDao.save(customerBean.getCustomer());
-		return "customer-view?faces-redirect=true";
-	}
+    public User getCustomer() {
+        return customerBean.getCustomer();
+    }
 
-	public String viewFare(Fare f) {
-		return "fare-view?fare_id=" + f.getId() + "&faces-redirect=true";
-	}
+    @Transactional
+    public String save() {
+        userDao.save(customerBean.getCustomer());
+        return "customer-view?faces-redirect=true";
+    }
 
-	public String createFare() {
-		return "fare-edit?add=true&faces-redirect=true";
-	}
-	
-	@Transactional
-	public void removeFare(Fare f){
-		customerBean.getCustomer().getCustomerRole().getFares().remove(f);
-		fareDao.delete(f);
-	}
-	
+    public String viewFare(Fare f) {
+        return "fare-view?fare_id=" + f.getId() + "&faces-redirect=true";
+    }
 
-	public void blockCustomer() {
-		customerBean.getCustomer().getCustomerRole().setState(State.BLOCKED);
-	}
+    public String createFare() {
+        return "fare-edit?add=true&faces-redirect=true";
+    }
 
-	public void unlockCustomer() {
-		customerBean.getCustomer().getCustomerRole().setState(State.ACTIVE);
-	}
+    @Transactional
+    public void removeFare(Fare f){
+        customerBean.getCustomer().getCustomerRole().getFares().remove(f);
+        fareDao.delete(f);
+    }
+
+
+    public void blockCustomer() {
+        customerBean.getCustomer().getCustomerRole().setState(State.BLOCKED);
+    }
+
+    public void unlockCustomer() {
+        customerBean.getCustomer().getCustomerRole().setState(State.ACTIVE);
+    }
 
 }

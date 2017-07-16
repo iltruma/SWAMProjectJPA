@@ -47,8 +47,8 @@ public class FareDaoJpaTest extends JpaTest {
         fareDao.delete(deleteFare);
 
         assertThatExceptionOfType(NoResultException.class).isThrownBy(() -> {
-            entityManager.createQuery("FROM Fare f WHERE f = :fare", Fare.class).setParameter("fare", fare)
-                    .getSingleResult();
+            entityManager.createQuery("FROM Fare f WHERE f = :fare", Fare.class).setParameter("fare", deleteFare)
+            .getSingleResult();
         });
     }
 

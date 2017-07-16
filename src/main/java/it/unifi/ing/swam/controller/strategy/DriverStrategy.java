@@ -16,7 +16,7 @@ public class DriverStrategy extends RoleStrategy {
     public Waybill initWaybill() {
         if (waybillId == null)
             throw new IllegalStateException("Driver can't create a waybill");
-        else {
+        else
             try {
                 Long id = Long.valueOf(waybillId);
                 waybill = waybillDao.findById(id);
@@ -30,7 +30,6 @@ public class DriverStrategy extends RoleStrategy {
             } catch (NumberFormatException nfe) {
                 throw new IllegalArgumentException("id not a number");
             }
-        }
 
         return waybill;
     }

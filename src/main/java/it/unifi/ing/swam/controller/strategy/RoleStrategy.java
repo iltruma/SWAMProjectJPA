@@ -16,96 +16,94 @@ import it.unifi.ing.swam.model.Waybill;
 @Dependent
 public abstract class RoleStrategy {
 
-	protected String waybillId;
+    protected String waybillId;
 
-	protected WaybillDao waybillDao;
+    protected WaybillDao waybillDao;
 
-	protected AgencyDao agencyDao;
+    protected AgencyDao agencyDao;
 
-	protected ItemDao itemDao;
+    protected ItemDao itemDao;
 
-	protected UserDao userDao;
+    protected UserDao userDao;
 
-	protected MissionDao missionDao;
+    protected MissionDao missionDao;
 
-	protected User user;
-	protected Waybill waybill;
+    protected User user;
+    protected Waybill waybill;
 
-	public void setDaos(WaybillDao wd, AgencyDao ad, ItemDao id, UserDao ud, MissionDao md){
-		this.waybillDao = wd;
-		this.agencyDao = ad;
-		this.itemDao = id;
-		this.userDao = ud;
-		this.missionDao = md;
-	}
+    public void setDaos(WaybillDao wd, AgencyDao ad, ItemDao id, UserDao ud, MissionDao md){
+        waybillDao = wd;
+        agencyDao = ad;
+        itemDao = id;
+        userDao = ud;
+        missionDao = md;
+    }
 
-	protected RoleStrategy(String wid, User u) {
-		waybillId = wid;
-		user = u;
-	}
+    protected RoleStrategy(String wid, User u) {
+        waybillId = wid;
+        user = u;
+    }
 
-	public abstract Waybill initWaybill();
-
-
-	public static RoleStrategy getStrategyFrom(Role r, String wid, User u) {
-		if (r.isCustomer())
-			return new CustomerStrategy(wid, u);
-		else if (r.isOperator())
-			return new OperatorStrategy(wid, u);
-		else if (r.isDriver())
-			return new DriverStrategy(wid, u);
-		else
-			throw new IllegalArgumentException("role not found");
-	}
-
-	public Long getSender(){
-		if(waybill.getSender() != null){
-			return waybill.getSender().getId();
-		}
-		else return null;
-
-	}
-
-	public Long getAgency(){
-		if(waybill.getReceiver().getDestinationAgency() != null){
-			return waybill.getReceiver().getDestinationAgency().getId();
-		}
-		else return null;
-	}
-
-	public Long getNewItem(){
-		return null;
-	}
+    public abstract Waybill initWaybill();
 
 
-	public void setSender(Long id){
-		throw new UnsupportedOperationException();
-	}
+    public static RoleStrategy getStrategyFrom(Role r, String wid, User u) {
+        if (r.isCustomer())
+            return new CustomerStrategy(wid, u);
+        else if (r.isOperator())
+            return new OperatorStrategy(wid, u);
+        else if (r.isDriver())
+            return new DriverStrategy(wid, u);
+        else
+            throw new IllegalArgumentException("role not found");
+    }
 
-	public void setAgency(Long id){
-		throw new UnsupportedOperationException();
-	}
+    public Long getSender(){
+        if(waybill.getSender() != null)
+            return waybill.getSender().getId();
+        else return null;
 
-	public void setNewItem(Long id){
-		throw new UnsupportedOperationException();
-	}
+    }
 
-	public void checkEdit() {
-		throw new UnsupportedOperationException();
-	}
+    public Long getAgency(){
+        if(waybill.getReceiver().getDestinationAgency() != null)
+            return waybill.getReceiver().getDestinationAgency().getId();
+        else return null;
+    }
 
-	public void setSignAndTracking() {
-		throw new UnsupportedOperationException();
-	}
-
-
-	public void save() {
-		waybillDao.save(waybill);
-	}
+    public Long getNewItem(){
+        return null;
+    }
 
 
-	public Waybill getWaybill() {
-		return waybill;
-	}
+    public void setSender(Long id){
+        throw new UnsupportedOperationException();
+    }
+
+    public void setAgency(Long id){
+        throw new UnsupportedOperationException();
+    }
+
+    public void setNewItem(Long id){
+        throw new UnsupportedOperationException();
+    }
+
+    public void checkEdit() {
+        throw new UnsupportedOperationException();
+    }
+
+    public void setSignAndTracking() {
+        throw new UnsupportedOperationException();
+    }
+
+
+    public void save() {
+        waybillDao.save(waybill);
+    }
+
+
+    public Waybill getWaybill() {
+        return waybill;
+    }
 
 }

@@ -25,20 +25,18 @@ public abstract class BaseDao<E extends BaseEntity> implements Serializable {
     }
 
     public void save(E entity) {
-        if (entity.getId() != null) {
+        if (entity.getId() != null)
             entityManager.merge(entity);
-        } else {
+        else
             entityManager.persist(entity);
-        }
     }
 
     public void delete(E entity) {
-        if (entity.getId() != null) {
-        	entityManager.remove(entityManager.contains(entity) ? entity : entityManager.merge(entity));
-            //entityManager.remove(entity);
-        } else {
+        if (entity.getId() != null)
+            entityManager.remove(entityManager.contains(entity) ? entity : entityManager.merge(entity));
+        //entityManager.remove(entity);
+        else
             throw new IllegalArgumentException("Entity not persisted");
-        }
     }
 
 }

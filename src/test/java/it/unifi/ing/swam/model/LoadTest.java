@@ -31,7 +31,6 @@ public class LoadTest {
             Float totalWeight = (i+1)*itemWeight;
             Float totalVolume = (i+1)*itemVolume;
 
-
             assertEquals(l.getTotalWeight(), totalWeight);
             assertEquals(l.getTotalVolume(), totalVolume);
 

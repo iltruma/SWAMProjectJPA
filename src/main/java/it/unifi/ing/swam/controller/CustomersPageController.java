@@ -27,7 +27,6 @@ public class CustomersPageController extends BasicController {
 
     private List<User> customers;
 
-
     @PostConstruct
     protected void initCustomersPage(){
         if(!userSession.getUser().isOperator())
@@ -35,9 +34,8 @@ public class CustomersPageController extends BasicController {
         List<Customer> results = customerDao.findByOperator(userSession.getUser());
         customers = new ArrayList<>();
 
-        for(Customer c: results){
+        for(Customer c: results)
             customers.add(c.getOwner());
-        }
 
     }
 

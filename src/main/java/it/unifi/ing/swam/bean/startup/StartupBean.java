@@ -42,7 +42,8 @@ public class StartupBean {
     @Inject
     private WaybillDao waybillDao;
 
-    @Inject ItemDao itemDao;
+    @Inject
+    private ItemDao itemDao;
 
     @PostConstruct
     @Transactional
@@ -79,7 +80,7 @@ public class StartupBean {
         f.setZone("italia");
         f.setStartDate(Calendar.getInstance());
         customer1.getCustomerRole().addFare(f);
-        
+
         all.addRole(ModelFactory.generateOperator());
         all.addRole(ModelFactory.generateCustomer());
         all.addRole(ModelFactory.generateDriver());
@@ -200,7 +201,7 @@ public class StartupBean {
         address5.setCity("Firenze");
         address5.setZip("50100");
         address5.setState("Italia");
-        receiver5.setAddress(address4);
+        receiver5.setAddress(address5);
         Calendar date5 = Calendar.getInstance();
         waybill5.setAcceptDate(date5);
         waybill5.setDeliveryDate(date5);
@@ -282,13 +283,13 @@ public class StartupBean {
     }
 
     private void generateAndPersistItems(){
-    	for(int i = 0; i < 100; i++){
-    		Item item = ModelFactory.generateItem();
-    		item.setVolume((float)(i+1));
-    		item.setWeigth((float)(i+2));
+        for(int i = 0; i < 100; i++){
+            Item item = ModelFactory.generateItem();
+            item.setVolume((float)(i+1));
+            item.setWeigth((float)(i+2));
 
-    		itemDao.save(item);
-    	}
+            itemDao.save(item);
+        }
     }
 
 }

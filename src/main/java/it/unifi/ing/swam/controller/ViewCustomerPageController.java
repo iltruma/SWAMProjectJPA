@@ -26,13 +26,13 @@ public class ViewCustomerPageController extends BasicController {
     public User getCustomer() {
         return customerBean.getCustomer();
     }
-    
+
     public String exit(){
         customerBean.endConversation();
         return "customers?faces-redirect=true";
 
     }
-    
+
     public String edit(){
         return "customer-edit?faces-redirect=true";
     }

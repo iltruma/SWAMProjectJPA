@@ -48,9 +48,8 @@ public abstract class JpaTest {
 
     @After
     public void tearDown() {
-        if (entityManager.getTransaction().isActive()) {
+        if (entityManager.getTransaction().isActive())
             entityManager.getTransaction().rollback();
-        }
 
         entityManager.close();
     }
@@ -67,8 +66,8 @@ public abstract class JpaTest {
 
         @SuppressWarnings("unchecked")
         List<Object[]> tables = entityManager
-                .createNativeQuery("SELECT * FROM information_schema.tables WHERE table_schema IN ('test');")
-                .getResultList();
+        .createNativeQuery("SELECT * FROM information_schema.tables WHERE table_schema IN ('test');")
+        .getResultList();
         entityManager.createNativeQuery("SET FOREIGN_KEY_CHECKS=0;").executeUpdate();
         for (Object[] tableNameObject : tables) {
             String tableName = (String) tableNameObject[2];

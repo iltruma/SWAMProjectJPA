@@ -28,7 +28,6 @@ public class SearchPageController extends BasicController {
 
     private Waybill waybillQuery;
 
-
     @PostConstruct
     protected void initSearchPage(){
         if(userSession.getUser().isDriver())

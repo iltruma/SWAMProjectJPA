@@ -11,7 +11,7 @@ public class ModelFactory {
     public static User generateUser() {
         return new User(UUID.randomUUID().toString());
     }
-    
+
     public static User generateUser(String username, String password) {
         User u =  new User(UUID.randomUUID().toString());
         u.setPassword(password);

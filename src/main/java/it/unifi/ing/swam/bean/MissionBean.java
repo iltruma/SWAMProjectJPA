@@ -25,15 +25,13 @@ public class MissionBean implements Serializable {
     private Float truckVolume;
 
     public void initConversation() {
-        if (conversation.isTransient()) {
+        if (conversation.isTransient())
             conversation.begin();
-        }
     }
 
     public String endConversation(){
-        if(!conversation.isTransient()){
+        if(!conversation.isTransient())
             conversation.end();
-        }
         return "back";
     }
 
@@ -63,17 +61,15 @@ public class MissionBean implements Serializable {
 
     public Float getTotalWeight(){
         Float missionTotalWeight = 0F;
-        for(Waybill w : mission.getWaybills()){
+        for(Waybill w : mission.getWaybills())
             missionTotalWeight += w.getLoad().getTotalWeight();
-        }
         return missionTotalWeight;
     }
 
     public Float getTotalVolume(){
         Float missionTotalVolume = 0F;
-        for(Waybill w : mission.getWaybills()){
+        for(Waybill w : mission.getWaybills())
             missionTotalVolume += w.getLoad().getTotalWeight();
-        }
         return missionTotalVolume;
     }
 

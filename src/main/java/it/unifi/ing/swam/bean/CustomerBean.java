@@ -17,16 +17,16 @@ import it.unifi.ing.swam.model.User;
 @ConversationScoped
 public class CustomerBean implements Serializable {
 
-	private static final long serialVersionUID = 3181632097971721800L;
+    private static final long serialVersionUID = 3181632097971721800L;
 
-	@Inject
+    @Inject
     private Conversation conversation;
 
     private User customer;
-    
+
     private static final Logger _logger = Logger.getLogger("CustomerBean");
 
-    
+
     @PostConstruct
     private void init() {
         _logger.log(Level.INFO, "init in CustomerBean");
@@ -36,15 +36,13 @@ public class CustomerBean implements Serializable {
 
 
     public void initConversation() {
-        if (conversation.isTransient()) {
+        if (conversation.isTransient())
             conversation.begin();
-        }
     }
 
     public String endConversation(){
-        if(!conversation.isTransient()){
+        if(!conversation.isTransient())
             conversation.end();
-        }
         return "back";
     }
 

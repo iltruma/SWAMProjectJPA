@@ -103,9 +103,8 @@ public class User extends BaseEntity {
     protected Boolean hasRole(Role.Type t) {
         Iterator<Role> roleIterator = getRoles().iterator();
         Boolean hasType = false;
-        while (roleIterator.hasNext() && !hasType) {
+        while (roleIterator.hasNext() && !hasType)
             hasType = roleIterator.next().getType().equals(t);
-        }
         return hasType;
     }
 
@@ -158,9 +157,8 @@ public class User extends BaseEntity {
         Role role = null;
         while (roleIterator.hasNext() && role == null) {
             role = roleIterator.next();
-            if (!role.getType().equals(roleType)) {
+            if (!role.getType().equals(roleType))
                 role = null;
-            }
         }
         if(role == null)
             throw new UnsupportedOperationException("The User was not a " + roleType.toString() );

@@ -26,10 +26,10 @@ public class Customer extends Role {
     @Enumerated(EnumType.STRING)
     @Column(name = "customer_state")
     private State state;
-    
+
     @Embedded
     private Address address;
-    
+
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(cascade = { CascadeType.ALL })
     @JoinColumn(name = "customer_id")

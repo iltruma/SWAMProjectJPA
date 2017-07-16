@@ -106,62 +106,47 @@ public class WaybillDao extends BaseDao<Waybill> {
     public List<Waybill> advancedSearch(Waybill waybill, int maxResult) {
         String query = "SELECT w FROM Waybill w WHERE ";
 
-        if (waybill.getAcceptDate() != null) {
+        if (waybill.getAcceptDate() != null)
             query += "w.acceptDate = :acceptDate AND ";
-        }
-        if (waybill.getDeliveryDate() != null) {
+        if (waybill.getDeliveryDate() != null)
             query += "w.deliveryDate = :deliveryDate AND ";
-        }
-        if (waybill.getReceiver().getName() != null) {
+        if (waybill.getReceiver().getName() != null)
             query += "w.receiver.name = :name AND ";
-        }
-        if (waybill.getReceiver().getAddress() != null) {
+        if (waybill.getReceiver().getAddress() != null)
             query += "w.receiver.address = :address AND ";
-        }
-        if (waybill.getTracking() != null) {
+        if (waybill.getTracking() != null)
             query += "w.tracking = :tracking AND ";
-        }
-        if (waybill.getOperator().getId() != null) {
+        if (waybill.getOperator().getId() != null)
             query += "operator_id = :operator AND ";
-        }
-        if (waybill.getSender().getId() != null) {
+        if (waybill.getSender().getId() != null)
             query += "sender_id = :sender AND ";
-        }
 
         TypedQuery<Waybill> q;
 
         if (waybill.getAcceptDate() == null && waybill.getDeliveryDate() == null
                 && waybill.getReceiver().getName() == null && waybill.getReceiver().getAddress() == null
                 && waybill.getTracking() == null && waybill.getOperator().getId() == null
-                && waybill.getSender().getId() == null) {
+                && waybill.getSender().getId() == null)
             q = entityManager.createQuery(query.substring(0, query.length() - 7), Waybill.class)
-                    .setMaxResults(maxResult);
-        } else {
+            .setMaxResults(maxResult);
+        else
             q = entityManager.createQuery(query.substring(0, query.length() - 4), Waybill.class)
-                    .setMaxResults(maxResult);
-        }
+            .setMaxResults(maxResult);
 
-        if (waybill.getAcceptDate() != null) {
+        if (waybill.getAcceptDate() != null)
             q.setParameter("acceptDate", waybill.getAcceptDate(), TemporalType.DATE);
-        }
-        if (waybill.getDeliveryDate() != null) {
+        if (waybill.getDeliveryDate() != null)
             q.setParameter("deliveryDate", waybill.getDeliveryDate(), TemporalType.DATE);
-        }
-        if (waybill.getReceiver().getName() != null) {
+        if (waybill.getReceiver().getName() != null)
             q.setParameter("name", waybill.getReceiver().getName());
-        }
-        if (waybill.getReceiver().getAddress() != null) {
+        if (waybill.getReceiver().getAddress() != null)
             q.setParameter("address", waybill.getReceiver().getAddress());
-        }
-        if (waybill.getTracking() != null) {
+        if (waybill.getTracking() != null)
             q.setParameter("tracking", waybill.getTracking());
-        }
-        if (waybill.getOperator().getId() != null) {
+        if (waybill.getOperator().getId() != null)
             q.setParameter("operator", waybill.getOperator().getId());
-        }
-        if (waybill.getSender().getId() != null) {
+        if (waybill.getSender().getId() != null)
             q.setParameter("sender", waybill.getSender().getId());
-        }
 
         return q.getResultList();
     }

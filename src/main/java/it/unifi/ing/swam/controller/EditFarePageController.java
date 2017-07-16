@@ -18,55 +18,54 @@ import it.unifi.ing.swam.model.ModelFactory;
 @ViewScoped
 public class EditFarePageController extends BasicController {
 
-	private static final long serialVersionUID = 8L;
+    private static final long serialVersionUID = 8L;
 
-	@Inject
-	private FareDao fareDao;
+    @Inject
+    private FareDao fareDao;
 
-	@Inject
-	private CustomerBean customerBean;
+    @Inject
+    private CustomerBean customerBean;
 
-	@Inject
-	@HttpParam("fare_id")
-	private String fareId;
+    @Inject
+    @HttpParam("fare_id")
+    private String fareId;
 
-	@Inject
-	@HttpParam("add")
-	private String addFlag;
+    @Inject
+    @HttpParam("add")
+    private String addFlag;
 
-	private Fare fare;
+    private Fare fare;
 
-	@PostConstruct
-	protected void initEditFarePage() {
+    @PostConstruct
+    protected void initEditFarePage() {
 
-		if (!userSession.getUser().isOperator())
-			throw new IllegalArgumentException("you cant view this page");
-		if (StringUtils.isEmpty(fareId) && !Boolean.valueOf(addFlag))
-			throw new IllegalArgumentException("fare id is empty");
-		else if (Boolean.valueOf(addFlag)) {
-			fare = ModelFactory.generateFare();
-			customerBean.getCustomer().getCustomerRole().addFare(fare);
-			
-		} else {
-			fare = fareDao.findById(Long.valueOf(fareId));
-		}
+        if (!userSession.getUser().isOperator())
+            throw new IllegalArgumentException("you cant view this page");
+        if (StringUtils.isEmpty(fareId) && !Boolean.valueOf(addFlag))
+            throw new IllegalArgumentException("fare id is empty");
+        else if (Boolean.valueOf(addFlag)) {
+            fare = ModelFactory.generateFare();
+            customerBean.getCustomer().getCustomerRole().addFare(fare);
 
-		if (fare == null)
-			throw new IllegalArgumentException("fare not found");
+        } else
+            fare = fareDao.findById(Long.valueOf(fareId));
 
-		if (!customerBean.getCustomer().getCustomerRole().getFares().contains(fare))
-			throw new IllegalArgumentException("fare not found for this customer");
+        if (fare == null)
+            throw new IllegalArgumentException("fare not found");
 
-	}
+        if (!customerBean.getCustomer().getCustomerRole().getFares().contains(fare))
+            throw new IllegalArgumentException("fare not found for this customer");
 
-	public Fare getFare() {
-		return fare;
-	}
+    }
 
-	@Transactional
-	public String save() {
-		fareDao.save(fare);
-		return "fare-view?fare_id=" + fare.getId() + "&faces-redirect=true";
-	}
+    public Fare getFare() {
+        return fare;
+    }
+
+    @Transactional
+    public String save() {
+        fareDao.save(fare);
+        return "fare-view?fare_id=" + fare.getId() + "&faces-redirect=true";
+    }
 
 }

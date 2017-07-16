@@ -50,23 +50,21 @@ public class EditWaybillPageController extends BasicController {
 
     @PostConstruct
     protected void initWaybill() {
-        if(strategy == null) {
+        if (strategy == null)
             initStrategy();
-        }
         strategy.initWaybill();
         strategy.checkEdit();
         strategy.getWaybill();
     }
 
     protected void initStrategy() {
-        if(StringUtils.isEmpty(roleId))
+        if (StringUtils.isEmpty(roleId))
             throw new IllegalArgumentException("role id not found");
 
-        if(StringUtils.isEmpty(waybillId) && !Boolean.valueOf(addFlag))
+        if (StringUtils.isEmpty(waybillId) && !Boolean.valueOf(addFlag))
             throw new IllegalArgumentException("id not found");
-        else if (Boolean.valueOf(addFlag)){
+        else if (Boolean.valueOf(addFlag))
             waybillId = null;
-        }
         currentRole = roleDao.findById(Long.valueOf(roleId));
 
         strategy = RoleStrategy.getStrategyFrom(currentRole, waybillId, userSession.getUser());
@@ -82,16 +80,15 @@ public class EditWaybillPageController extends BasicController {
     }
 
     @Transactional
-    public String save(){
-    	this.strategy.save();
-		return "waybill-view?id=" + getWaybill().getId() + "&roleId="+currentRole.getId() + "&faces-redirect=true";
+    public String save() {
+        strategy.save();
+        return "waybill-view?id=" + getWaybill().getId() + "&roleId=" + currentRole.getId() + "&faces-redirect=true";
     }
 
     @Transactional
-    public String signAndSave(){
-    	this.strategy.setSignAndTracking();
-    	return this.save();
+    public String signAndSave() {
+        strategy.setSignAndTracking();
+        return save();
     }
-
 
 }
