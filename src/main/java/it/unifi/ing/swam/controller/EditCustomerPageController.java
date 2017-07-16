@@ -60,6 +60,7 @@ public class EditCustomerPageController extends BasicController {
 	public String createFare() {
 		return "fare-edit?add=true&faces-redirect=true";
 	}
+	
 
 	public void blockCustomer() {
 		conversationBean.getCustomer().getCustomerRole().setState(State.BLOCKED);

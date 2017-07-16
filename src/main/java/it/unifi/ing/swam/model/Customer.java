@@ -31,7 +31,7 @@ public class Customer extends Role {
     private Address address;
     
     @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(cascade = { CascadeType.PERSIST })
+    @OneToMany(cascade = { CascadeType.ALL })
     @JoinColumn(name = "customer_id")
     private List<Fare> fares;
 
