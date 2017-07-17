@@ -22,10 +22,8 @@
 					for="tab-1"> <h:link
 						styleClass="button button-outline search" outcome="search-view"
 						value="Search">
-					</h:link>
-					<h:link
-						styleClass="button button-outline search" style="right:5px;" outcome="customers"
-						value="Customers">
+					</h:link> <h:link styleClass="button button-outline search"
+						style="right:5px;" outcome="customers" value="Customers">
 					</h:link>
 					<h2>
 						<strong>Operator Home Page</strong>
@@ -36,6 +34,7 @@
 				<div class="tab-content">
 					<hr></hr>
 					<h3>To be validated:</h3>
+					<div class="scrollable">
 					<table>
 						<thead>
 							<tr>
@@ -81,7 +80,7 @@
 							</ui:repeat>
 						</tbody>
 					</table>
-
+</div>
 					<h:link styleClass="button" outcome="waybill-edit" value="Add New">
 						<f:param name="add" value="true"></f:param>
 						<f:param name="roleId"
@@ -90,6 +89,7 @@
 
 					<div style="margin-top: 50px;">
 						<h3>To be assigned:</h3>
+						<div class="scrollable">
 						<table>
 							<thead>
 								<tr>
@@ -133,7 +133,7 @@
 								</ui:repeat>
 							</tbody>
 						</table>
-
+</div>
 						<h:link styleClass="button" outcome="assign-driver"
 							value="Assign Driver">
 						</h:link>
@@ -160,6 +160,7 @@
 				<div class="tab-content">
 					<hr></hr>
 					<h3>Proposed:</h3>
+					<div class="scrollable">
 					<table>
 						<thead>
 							<tr>
@@ -202,7 +203,7 @@
 							</ui:repeat>
 						</tbody>
 					</table>
-
+</div>
 					<h:link styleClass="button" outcome="waybill-edit" value="Add New">
 						<f:param name="add" value="true"></f:param>
 						<f:param name="roleId"
@@ -211,6 +212,7 @@
 
 					<div style="margin-top: 50px;">
 						<h3>Validated:</h3>
+						<div class="scrollable">
 						<table>
 							<thead>
 								<tr>
@@ -248,6 +250,7 @@
 								</ui:repeat>
 							</tbody>
 						</table>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -265,6 +268,7 @@
 				<div class="tab-content">
 					<hr></hr>
 					<h3>Today's mission:</h3>
+					<div class="scrollable">
 					<table>
 						<thead>
 							<tr>
@@ -307,6 +311,7 @@
 							</ui:repeat>
 						</tbody>
 					</table>
+					</div>
 				</div>
 
 			</div>
