@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Embeddable;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 @Embeddable
 public class Load {
@@ -16,8 +14,7 @@ public class Load {
     private Float totalVolume;
     private Float totalWeight;
 
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany
+    @OneToMany(fetch=FetchType.EAGER)
     @JoinColumn(name="waybill_id")
     private List<Item> items;
 

@@ -68,7 +68,6 @@ public class EditCustomerPageController extends BasicController {
     @Transactional
     public void removeFare(Fare f){
         customerBean.getCustomer().getCustomerRole().getFares().remove(f);
-        fareDao.delete(f);
     }
 
 
