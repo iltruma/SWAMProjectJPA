@@ -12,6 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import it.unifi.ing.swam.bean.CustomerBean;
 import it.unifi.ing.swam.bean.producer.HttpParam;
+import it.unifi.ing.swam.dao.CustomerDao;
 import it.unifi.ing.swam.dao.FareDao;
 import it.unifi.ing.swam.model.Fare;
 import it.unifi.ing.swam.model.ModelFactory;
@@ -27,6 +28,9 @@ public class EditFarePageController extends BasicController {
 
     @Inject
     private CustomerBean customerBean;
+    
+    @Inject
+    private CustomerDao customerDao;
 
     @Inject
     @HttpParam("fare_id")
@@ -80,7 +84,16 @@ public class EditFarePageController extends BasicController {
 
     @Transactional
     public String save() {
-        fareDao.save(fare);
+    	fareDao.save(fare);
+    	customerDao.save(customerBean.getCustomer().getCustomerRole());
+        return "fare-view?fare_id=" + fare.getId() + "&faces-redirect=true";
+    }
+    
+    public String back() {
+    	if(fare.getId() == null){
+    		customerBean.getCustomer().getCustomerRole().getFares().remove(fare);
+            return "customer-edit?&faces-redirect=true";
+    	}
         return "fare-view?fare_id=" + fare.getId() + "&faces-redirect=true";
     }
 

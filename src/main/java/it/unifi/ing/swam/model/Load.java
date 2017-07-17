@@ -14,7 +14,7 @@ public class Load {
     private Float totalVolume;
     private Float totalWeight;
 
-    @OneToMany(fetch=FetchType.EAGER)
+    @OneToMany(fetch=FetchType.LAZY)
     @JoinColumn(name="waybill_id")
     private List<Item> items;
 

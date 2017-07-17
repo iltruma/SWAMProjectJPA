@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import it.unifi.ing.swam.bean.MissionBean;
 import it.unifi.ing.swam.dao.DriverDao;
@@ -16,6 +17,7 @@ import it.unifi.ing.swam.model.Mission;
 import it.unifi.ing.swam.model.ModelFactory;
 import it.unifi.ing.swam.model.Waybill;
 
+@Named
 @ViewScoped
 public class AssignDriverPageController extends BasicController {
 

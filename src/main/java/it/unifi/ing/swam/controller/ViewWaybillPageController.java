@@ -2,8 +2,9 @@ package it.unifi.ing.swam.controller;
 
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.inject.Model;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -17,7 +18,8 @@ import it.unifi.ing.swam.dao.UserDao;
 import it.unifi.ing.swam.dao.WaybillDao;
 import it.unifi.ing.swam.model.Waybill;
 
-@Model
+@Named
+@ViewScoped
 public class ViewWaybillPageController extends BasicController {
 
     private static final long serialVersionUID = 13L;

@@ -7,7 +7,6 @@ import javax.inject.Named;
 import javax.transaction.Transactional;
 
 import it.unifi.ing.swam.bean.CustomerBean;
-import it.unifi.ing.swam.dao.FareDao;
 import it.unifi.ing.swam.dao.UserDao;
 import it.unifi.ing.swam.model.Fare;
 import it.unifi.ing.swam.model.ModelFactory;
@@ -22,9 +21,6 @@ public class EditCustomerPageController extends BasicController {
 
     @Inject
     private UserDao userDao;
-
-    @Inject
-    private FareDao fareDao;
 
     @Inject
     private CustomerBean customerBean;
