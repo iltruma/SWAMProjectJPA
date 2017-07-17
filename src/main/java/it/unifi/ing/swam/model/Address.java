@@ -2,18 +2,29 @@ package it.unifi.ing.swam.model;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.validation.constraints.NotNull;
 
 @Embeddable
 public class Address {
 
+    @NotNull
     private String street;
+
+    @NotNull
     private String city;
+
+    @NotNull
     @Column(name = "address_state")
     private String state;
+
+    @NotNull
     private String zip;
 
     public Address() {
-
+        street = "";
+        city = "";
+        state = "";
+        zip = "";
     }
 
     public Address(String street, String city, String state, String zip) {

@@ -51,11 +51,7 @@ public class WaybillDaoJpaTest extends JpaTest {
         receiver.setName("name");
         receiver.setPhone("055055055");
         receiver.setEmail("receiver@unifi.it");
-        Address address = new Address();
-        address.setStreet("street");
-        address.setCity("city");
-        address.setZip("zip");
-        address.setState("state");
+        Address address = new Address("street", "city", "state", "zip");
         receiver.setAddress(address);
 
         Calendar date = Calendar.getInstance();
