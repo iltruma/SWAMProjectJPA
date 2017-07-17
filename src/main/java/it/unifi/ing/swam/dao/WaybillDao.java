@@ -98,7 +98,7 @@ public class WaybillDao extends BaseDao<Waybill> {
 
     public List<Waybill> findUnassignedToDriver(Agency agency) {
         return entityManager.createQuery(
-                "SELECT w FROM Waybill w WHERE w.sender.agency = :agency AND mission_id IS NULL AND operator_id IS NULL",
+                "SELECT w FROM Waybill w WHERE w.sender.agency = :agency AND mission_id IS NULL AND operator_id IS NOT NULL",
                 Waybill.class).setParameter("agency", agency).getResultList();
     }
 
