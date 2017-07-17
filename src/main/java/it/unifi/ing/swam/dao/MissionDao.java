@@ -23,8 +23,8 @@ public class MissionDao extends BaseDao<Mission> {
     }
 
     public List<Mission> findByDriver(User driver) {
-        return entityManager.createQuery("FROM Mission WHERE driver_id = :driver_id", Mission.class)
-                .setParameter("driver_id", driver.getDriverRole().getId()).getResultList();
+        return entityManager.createQuery("FROM Mission m WHERE m.driver = :driver", Mission.class)
+                .setParameter("driver", driver.getDriverRole()).getResultList();
 
     }
 
@@ -40,8 +40,8 @@ public class MissionDao extends BaseDao<Mission> {
 
     public Mission findByDriverAndDate(User driver, Calendar date) {
         List<Mission> result = entityManager
-                .createQuery("FROM Mission WHERE driver_id = :driver_id AND date = :date", Mission.class)
-                .setParameter("driver_id", driver.getDriverRole().getId()).setParameter("date", date, TemporalType.DATE)
+                .createQuery("FROM Mission m WHERE m.driver = :driver AND m.date = :date", Mission.class)
+                .setParameter("driver", driver.getDriverRole()).setParameter("date", date, TemporalType.DATE)
                 .getResultList();
         if (!result.isEmpty())
             return result.get(0);

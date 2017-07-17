@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -24,6 +25,9 @@ public class Mission extends BaseEntity {
     @NotNull
     @Temporal(TemporalType.DATE)
     private Calendar date;
+
+    @ManyToOne
+    private Driver driver;
 
     protected Mission() {
 
@@ -48,6 +52,14 @@ public class Mission extends BaseEntity {
 
     public void setDate(Calendar date) {
         this.date = date;
+    }
+
+    public Driver getDriver() {
+        return driver;
+    }
+
+    public void setDriver(Driver driver) {
+        this.driver = driver;
     }
 
 }

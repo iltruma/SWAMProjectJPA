@@ -238,16 +238,16 @@ public class StartupBean {
 
         mission1.setDate(Calendar.getInstance());
         mission1.addWaybill(waybill3);
-        driver1.getDriverRole().addMission(mission1);
+        mission1.setDriver(driver1.getDriverRole());
 
         mission2.setDate(Calendar.getInstance());
         mission2.addWaybill(waybill6);
-        driver2.getDriverRole().addMission(mission2);
+        mission2.setDriver(driver2.getDriverRole());
 
         mission3.setDate(Calendar.getInstance());
         mission3.addWaybill(waybill4);
         mission3.addWaybill(waybill5);
-        all.getDriverRole().addMission(mission3);
+        mission3.setDriver(all.getDriverRole());
 
         generateAndPersistItems();
 

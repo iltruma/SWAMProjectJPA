@@ -62,7 +62,7 @@ public class AssignDriverPageController extends BasicController {
         Mission m = missionDao.findByDriverAndDate(d.getOwner(), tomorrow);
         if (m == null){
             m = ModelFactory.generateMission();
-            d.addMission(m);
+            m.setDriver(d);
             m.setDate(tomorrow);
         }
 

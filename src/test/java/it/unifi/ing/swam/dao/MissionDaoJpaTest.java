@@ -30,10 +30,11 @@ public class MissionDaoJpaTest extends JpaTest {
         mission = ModelFactory.generateMission();
         Calendar date = Calendar.getInstance();
         mission.setDate(date);
-        driver.addMission(mission);
+        mission.setDriver(driver);
         user.addRole(driver);
 
-        entityManager.persist(user); // Test CASCADE
+        entityManager.persist(mission);
+        entityManager.persist(user);
 
         missionDao = new MissionDao();
         JpaTest.inject(missionDao, entityManager);
@@ -83,6 +84,7 @@ public class MissionDaoJpaTest extends JpaTest {
 
         User newUser = ModelFactory.generateUser();
         newUser.addRole(ModelFactory.generateDriver());
+        entityManager.persist(newUser);
         assertNull(missionDao.findByDriverAndDate(newUser, mission.getDate()));
     }
 
