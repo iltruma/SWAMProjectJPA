@@ -5,26 +5,29 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <head>
-	<title>SwamProject</title>
-	<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic" />
-	<link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css" />
-	<link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css" />
-	
+<title>SwamProject</title>
+<link rel="stylesheet"
+	href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic" />
+<link rel="stylesheet"
+	href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css" />
+<link rel="stylesheet"
+	href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css" />
+<link rel="stylesheet" href = '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css'/>
+
 <style>
-h2{
+h2 {
 	text-align: center;
-	margin-bottom:-10px;
+	margin-bottom: -10px;
 }
 
-.sections{
+.sections {
 	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
 	padding: 25px;
 }
 
-body{
+body {
 	margin-bottom: 50px;
 }
-
 
 .button, input.button-primary, input.button {
 	background-color: #C90F24;
@@ -32,39 +35,38 @@ body{
 	margin-right: 20px;
 }
 
-.button.button-outline{
+.button.button-outline {
 	color: #C90F24 !important;
 }
 
-td, th{
+td, th {
 	text-align: center;
 }
 
-input.custom:focus{
+input.custom:focus {
 	border: 0.1rem solid #C90F24;
 }
 
 .tab {
 	position: relative;
-    width: 100%;
+	width: 100%;
 }
 
-.tab input { 
+.tab input {
 	left: 0;
 	position: absolute;
 	top: 0;
 	z-index: -999;
-	visibility:hidden;
+	visibility: hidden;
 }
-	
+
 .tab label {
 	cursor: pointer;
 	display: block;
-}	
+}
 
-.tab input:focus + label,
-.tab label:hover{ 
-	font-weight: bold; 
+.tab input:focus+label, .tab label:hover {
+	font-weight: bold;
 }
 
 .tab-content {
@@ -73,26 +75,27 @@ input.custom:focus{
 	transition: all 0.35s;
 }
 
-
 /* open the tab when label is checked */
-
-.tab input:checked ~ .tab-content { 
+.tab input:checked ~ .tab-content {
 	max-height: 50em;
 }
 
-.search{
-	position:absolute;
+.search {
+	position: absolute;
 }
 
-.container{
+.container {
 	max-width: 90%;
 }
 
-.scrollable{
+.scrollable {
 	max-height: 20em;
-	overflow-y:auto;
+	overflow-y: auto;
 }
 
+.home{
+	margin-right:15px;
+}
 </style>
 </head>
 
@@ -102,16 +105,25 @@ input.custom:focus{
 		<h:panelGroup rendered="#{!userSessionBean.isLoggedIn()}">
 			<ui:include src="../login-form.xhtml" />
 		</h:panelGroup>
-		
+
 		<h:panelGroup rendered="#{userSessionBean.isLoggedIn()}">
 			<h:form class="float-right" style="margin-top: 10px;">
-				<h:commandButton action="#{loginPageController.logout()}" value="Logout" style="background-color: #C90F24; border: 0.1rem solid #333;"></h:commandButton>
+				<h:commandButton action="#{loginPageController.logout()}"
+					value="Logout"
+					style="background-color: #C90F24; border: 0.1rem solid #333;"></h:commandButton>
 			</h:form>
-			
+
+			<h:form class="float-left home">
+				<h:commandLink action="#{loginPageController.goHome()}">
+					<i class="fa fa-home fa-3x" style="color:#C90F24;"></i>
+				</h:commandLink>
+			</h:form>
+
+
 			<ui:insert name="body" />
 		</h:panelGroup>
-		
-	
+
+
 	</div>
 </body>
 
