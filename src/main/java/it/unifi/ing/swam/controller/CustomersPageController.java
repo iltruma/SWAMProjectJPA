@@ -28,31 +28,29 @@ public class CustomersPageController extends BasicController {
     private List<User> customers;
 
     @PostConstruct
-    protected void initCustomersPage(){
-        if(!userSession.getUser().isOperator())
+    protected void initCustomersPage() {
+        if (!userSession.getUser().isOperator())
             throw new IllegalArgumentException("you cant view this page");
         List<Customer> results = customerDao.findByOperator(userSession.getUser());
         customers = new ArrayList<>();
 
-        for(Customer c: results)
+        for (Customer c : results)
             customers.add(c.getOwner());
-
     }
 
     public List<User> getCustomers() {
         return customers;
     }
 
-    public String selectCustomer(User u){
+    public String selectCustomer(User u) {
         conversationBean.initConversation();
         conversationBean.setCustomer(u);
         return "customer-view?faces-redirect=true";
     }
 
-    public String createCustomer(){
+    public String createCustomer() {
         conversationBean.initConversation();
         return "customer-edit?faces-redirect=true";
     }
-
 
 }

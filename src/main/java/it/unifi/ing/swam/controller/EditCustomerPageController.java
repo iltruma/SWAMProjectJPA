@@ -40,7 +40,6 @@ public class EditCustomerPageController extends BasicController {
 
         if (!customerBean.getCustomer().getAgency().equals(userSession.getUser().getAgency()))
             throw new IllegalStateException("customer not Editable");
-
     }
 
     public User getCustomer() {
@@ -62,10 +61,9 @@ public class EditCustomerPageController extends BasicController {
     }
 
     @Transactional
-    public void removeFare(Fare f){
+    public void removeFare(Fare f) {
         customerBean.getCustomer().getCustomerRole().getFares().remove(f);
     }
-
 
     public void blockCustomer() {
         customerBean.getCustomer().getCustomerRole().setState(State.BLOCKED);

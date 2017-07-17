@@ -9,14 +9,15 @@ import it.unifi.ing.swam.bean.producer.HttpParam;
 import it.unifi.ing.swam.dao.RoleDao;
 import it.unifi.ing.swam.model.Role;
 
-public class BasicController implements Serializable{
+public class BasicController implements Serializable {
 
     private static final long serialVersionUID = 4L;
 
     @Inject
     protected UserSessionBean userSession;
 
-    @Inject @HttpParam("roleId")
+    @Inject
+    @HttpParam("roleId")
     protected String roleId;
 
     @Inject
@@ -27,6 +28,5 @@ public class BasicController implements Serializable{
     public Role getCurrentRole() {
         return currentRole;
     }
-
 
 }

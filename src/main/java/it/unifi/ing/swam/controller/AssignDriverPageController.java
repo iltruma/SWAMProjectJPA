@@ -40,13 +40,12 @@ public class AssignDriverPageController extends BasicController {
     private List<Waybill> waybills;
 
     @PostConstruct
-    protected void initAssignDriverPage(){
-        if(!userSession.getUser().isOperator())
+    protected void initAssignDriverPage() {
+        if (!userSession.getUser().isOperator())
             throw new IllegalArgumentException("you cant view this page");
 
         waybills = waybillDao.findUnassignedToDriver(userSession.getUser().getAgency());
         driversAvailable = driverDao.findAvailable(userSession.getUser().getAgency());
-
     }
 
     public List<Driver> getDriversAvailable() {
@@ -57,12 +56,12 @@ public class AssignDriverPageController extends BasicController {
         return waybills;
     }
 
-    public void selectDriver(Driver d){
+    public void selectDriver(Driver d) {
         Calendar tomorrow = Calendar.getInstance();
         tomorrow.add(Calendar.DATE, 1);
 
         Mission m = missionDao.findByDriverAndDate(d.getOwner(), tomorrow);
-        if (m == null){
+        if (m == null) {
             m = ModelFactory.generateMission();
             m.setDriver(d);
             m.setDate(tomorrow);

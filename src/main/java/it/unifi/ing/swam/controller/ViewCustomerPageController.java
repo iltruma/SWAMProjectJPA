@@ -16,10 +16,10 @@ public class ViewCustomerPageController extends BasicController {
     private CustomerBean customerBean;
 
     @PostConstruct
-    protected void initCustomerPage(){
-        if(!userSession.getUser().isOperator())
+    protected void initCustomerPage() {
+        if (!userSession.getUser().isOperator())
             throw new IllegalArgumentException("you cant view this page");
-        if(customerBean.getCustomer() == null)
+        if (customerBean.getCustomer() == null)
             throw new IllegalArgumentException("customer not found");
     }
 
@@ -27,13 +27,12 @@ public class ViewCustomerPageController extends BasicController {
         return customerBean.getCustomer();
     }
 
-    public String exit(){
+    public String exit() {
         customerBean.endConversation();
         return "customers?faces-redirect=true";
-
     }
 
-    public String edit(){
+    public String edit() {
         return "customer-edit?faces-redirect=true";
     }
 

@@ -13,7 +13,6 @@ public class OperatorStrategy extends RoleStrategy {
 
     protected OperatorStrategy(String wid, User u) {
         super(wid, u);
-
     }
 
     @Override
@@ -37,7 +36,7 @@ public class OperatorStrategy extends RoleStrategy {
 
     @Override
     public void checkEdit() {
-        if (( waybill.getSender() != null && !waybill.getSender().getAgency().equals(user.getAgency()) )
+        if ((waybill.getSender() != null && !waybill.getSender().getAgency().equals(user.getAgency()))
                 || !waybill.getTracking().equals(Tracking.IDLE))
             throw new IllegalStateException("you can't edit this waybill");
     }
@@ -52,7 +51,6 @@ public class OperatorStrategy extends RoleStrategy {
         else if (!sender.getCustomerRole().isActive())
             throw new IllegalArgumentException("the sender is blocked!");
         waybill.setSender(sender);
-
     }
 
     @Override
@@ -83,10 +81,10 @@ public class OperatorStrategy extends RoleStrategy {
         waybill.setAcceptDate(Calendar.getInstance());
         super.save();
     }
-    
+
     @Override
-	public void delete() {
+    public void delete() {
         waybillDao.delete(waybill);
-	}
-	
+    }
+
 }

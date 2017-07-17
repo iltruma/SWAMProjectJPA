@@ -29,8 +29,8 @@ public class SearchPageController extends BasicController {
     private Waybill waybillQuery;
 
     @PostConstruct
-    protected void initSearchPage(){
-        if(userSession.getUser().isDriver())
+    protected void initSearchPage() {
+        if (userSession.getUser().isDriver())
             throw new IllegalArgumentException("you cant view this page");
 
         results = new ArrayList<>();
@@ -50,14 +50,14 @@ public class SearchPageController extends BasicController {
         results = waybillDao.advancedSearch(waybillQuery, max);
     }
 
-    public void setOperator(Long id){
+    public void setOperator(Long id) {
         User u = userDao.findById(id);
         if (!u.isOperator())
             throw new IllegalArgumentException("operator id not found");
         waybillQuery.setOperator(u);
     }
 
-    public void setSender(Long id){
+    public void setSender(Long id) {
         User u = userDao.findById(id);
         if (!u.isCustomer())
             throw new IllegalArgumentException("sender id not found");
@@ -75,6 +75,5 @@ public class SearchPageController extends BasicController {
     public void setResults(List<Waybill> results) {
         this.results = results;
     }
-
 
 }

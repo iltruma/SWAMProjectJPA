@@ -25,7 +25,6 @@ public class MissionDao extends BaseDao<Mission> {
     public List<Mission> findByDriver(User driver) {
         return entityManager.createQuery("FROM Mission m WHERE m.driver = :driver", Mission.class)
                 .setParameter("driver", driver.getDriverRole()).getResultList();
-
     }
 
     public Mission findByDate(Calendar date) {

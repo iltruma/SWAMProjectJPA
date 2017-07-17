@@ -12,6 +12,7 @@ import org.junit.runners.model.InitializationError;
 
 import it.unifi.ing.swam.bean.CustomerBean;
 import it.unifi.ing.swam.bean.UserSessionBean;
+import it.unifi.ing.swam.dao.CustomerDao;
 import it.unifi.ing.swam.dao.FareDao;
 import it.unifi.ing.swam.model.Fare;
 import it.unifi.ing.swam.model.ModelFactory;
@@ -20,10 +21,11 @@ import it.unifi.ing.swam.model.User;
 public class EditFarePageControllerTest {
 
     private EditFarePageController editFarePageController;
-    private CustomerBean conversationBean;
+    private CustomerBean customerBean;
     private UserSessionBean userSession;
 
     private FareDao fareDao;
+    private CustomerDao customerDao;
 
     private Fare fare;
     private User user;
@@ -36,10 +38,11 @@ public class EditFarePageControllerTest {
     @Before
     public void setUp() throws InitializationError {
         editFarePageController = new EditFarePageController();
-        conversationBean = new CustomerBean();
+        customerBean = new CustomerBean();
         userSession = new UserSessionBean();
 
         fareDao = mock(FareDao.class);
+        customerDao = mock(CustomerDao.class);
 
         user = ModelFactory.generateUser();
         user.addRole(ModelFactory.generateOperator());
@@ -58,13 +61,15 @@ public class EditFarePageControllerTest {
         customer.addRole(ModelFactory.generateCustomer());
         customer.getCustomerRole().addFare(fare);
 
-        conversationBean.setCustomer(customer);
+        customerBean.setCustomer(customer);
 
         try {
+            FieldUtils.writeField(fare, "id", fareId, true);
             FieldUtils.writeField(editFarePageController, "fareId", fareId.toString(), true);
             FieldUtils.writeField(editFarePageController, "fareDao", fareDao, true);
+            FieldUtils.writeField(editFarePageController, "customerDao", customerDao, true);
             FieldUtils.writeField(editFarePageController, "userSession", userSession, true);
-            FieldUtils.writeField(editFarePageController, "customerBean", conversationBean, true);
+            FieldUtils.writeField(editFarePageController, "customerBean", customerBean, true);
         } catch (IllegalAccessException e) {
             throw new InitializationError(e);
         }
@@ -101,19 +106,13 @@ public class EditFarePageControllerTest {
         }
         assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
             editFarePageController.initEditFarePage();
-        }).withMessage("fare not found");
+        }).withMessage("fare not found for this customer");
 
-        customer.getCustomerRole().getFares().clear();
         try {
             FieldUtils.writeField(editFarePageController, "fareId", fareId.toString(), true);
         } catch (IllegalAccessException e) {
             throw new InitializationError(e);
         }
-        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
-            editFarePageController.initEditFarePage();
-        }).withMessage("fare not found for this customer");
-
-        customer.getCustomerRole().addFare(fare);
         editFarePageController.initEditFarePage();
     }
 
@@ -127,7 +126,7 @@ public class EditFarePageControllerTest {
             throw new InitializationError(e);
         }
 
-        assertEquals(true,editFarePageController.save().contains("fare-view"));
+        assertEquals(true, editFarePageController.save().contains("fare-view"));
     }
 
 }

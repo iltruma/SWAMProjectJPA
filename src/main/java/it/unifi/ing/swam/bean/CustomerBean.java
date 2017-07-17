@@ -12,7 +12,6 @@ import javax.inject.Named;
 
 import it.unifi.ing.swam.model.User;
 
-
 @Named
 @ConversationScoped
 public class CustomerBean implements Serializable {
@@ -26,33 +25,28 @@ public class CustomerBean implements Serializable {
 
     private static final Logger _logger = Logger.getLogger("CustomerBean");
 
-
     @PostConstruct
     private void init() {
         _logger.log(Level.INFO, "init in CustomerBean");
-
     }
-
-
 
     public void initConversation() {
         if (conversation.isTransient())
             conversation.begin();
     }
 
-    public String endConversation(){
-        if(!conversation.isTransient())
+    public String endConversation() {
+        if (!conversation.isTransient())
             conversation.end();
         return "back";
     }
 
-    public void setCustomer(User c){
+    public void setCustomer(User c) {
         customer = c;
     }
 
-    public User getCustomer(){
+    public User getCustomer() {
         return customer;
     }
-
 
 }

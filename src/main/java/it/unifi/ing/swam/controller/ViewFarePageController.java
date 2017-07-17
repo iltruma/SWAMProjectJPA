@@ -22,7 +22,6 @@ public class ViewFarePageController extends BasicController {
     @Inject
     private CustomerBean customerBean;
 
-
     @Inject
     @HttpParam("fare_id")
     private String fareId;
@@ -39,27 +38,23 @@ public class ViewFarePageController extends BasicController {
         fare = getFareFromId(Long.valueOf(fareId));
 
         if (fare == null)
-            throw new IllegalArgumentException("fare not found");
-
-        if (!customerBean.getCustomer().getCustomerRole().getFares().contains(fare))
             throw new IllegalArgumentException("fare not found for this customer");
     }
 
     public Fare getFare() {
         return fare;
     }
-    
-    public Fare getFareFromId(Long id){
-        //f = fareDao.findById(Long.valueOf(fareId));
-    	Iterator<Fare> it = customerBean.getCustomer().getCustomerRole().getFares().iterator();
-    	Fare f = null;
-    	while(it.hasNext() && f == null){
-    		f = it.next();
-    		if(!f.getId().equals(id)){
-    			f = null;
-    		}
-    	}
-		return f;
+
+    public Fare getFareFromId(Long id) {
+        // f = fareDao.findById(Long.valueOf(fareId));
+        Iterator<Fare> it = customerBean.getCustomer().getCustomerRole().getFares().iterator();
+        Fare f = null;
+        while (it.hasNext() && f == null) {
+            f = it.next();
+            if (!f.getId().equals(id))
+                f = null;
+        }
+        return f;
     }
 
     public String edit() {

@@ -1,7 +1,5 @@
 package it.unifi.ing.swam.controller.strategy;
 
-
-
 import javax.enterprise.context.Dependent;
 
 import it.unifi.ing.swam.dao.AgencyDao;
@@ -31,7 +29,7 @@ public abstract class RoleStrategy {
     protected User user;
     protected Waybill waybill;
 
-    public void setDaos(WaybillDao wd, AgencyDao ad, ItemDao id, UserDao ud, MissionDao md){
+    public void setDaos(WaybillDao wd, AgencyDao ad, ItemDao id, UserDao ud, MissionDao md) {
         waybillDao = wd;
         agencyDao = ad;
         itemDao = id;
@@ -46,7 +44,6 @@ public abstract class RoleStrategy {
 
     public abstract Waybill initWaybill();
 
-
     public static RoleStrategy getStrategyFrom(Role r, String wid, User u) {
         if (r.isCustomer())
             return new CustomerStrategy(wid, u);
@@ -58,33 +55,33 @@ public abstract class RoleStrategy {
             throw new IllegalArgumentException("role not found");
     }
 
-    public Long getSender(){
-        if(waybill.getSender() != null)
+    public Long getSender() {
+        if (waybill.getSender() != null)
             return waybill.getSender().getId();
-        else return null;
-
+        else
+            return null;
     }
 
-    public Long getAgency(){
-        if(waybill.getReceiver().getDestinationAgency() != null)
+    public Long getAgency() {
+        if (waybill.getReceiver().getDestinationAgency() != null)
             return waybill.getReceiver().getDestinationAgency().getId();
-        else return null;
+        else
+            return null;
     }
 
-    public Long getNewItem(){
+    public Long getNewItem() {
         return null;
     }
 
-
-    public void setSender(Long id){
+    public void setSender(Long id) {
         throw new UnsupportedOperationException();
     }
 
-    public void setAgency(Long id){
+    public void setAgency(Long id) {
         throw new UnsupportedOperationException();
     }
 
-    public void setNewItem(Long id){
+    public void setNewItem(Long id) {
         throw new UnsupportedOperationException();
     }
 
@@ -96,18 +93,16 @@ public abstract class RoleStrategy {
         throw new UnsupportedOperationException();
     }
 
-
     public void save() {
         waybillDao.save(waybill);
     }
-
 
     public Waybill getWaybill() {
         return waybill;
     }
 
-	public void delete() {
+    public void delete() {
         throw new UnsupportedOperationException();
-	}
+    }
 
 }

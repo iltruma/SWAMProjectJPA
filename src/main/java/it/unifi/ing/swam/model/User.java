@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
 public class User extends BaseEntity {
 
     @NotNull
-    @Column(unique=true)
+    @Column(unique = true)
     private String username;
 
     @NotNull
@@ -26,13 +26,13 @@ public class User extends BaseEntity {
 
     private String name;
 
-    @Column(unique=true)
+    @Column(unique = true)
     private String phone;
 
-    @Column(unique=true)
+    @Column(unique = true)
     private String email;
 
-    @OneToMany(cascade = { CascadeType.ALL }, fetch=FetchType.EAGER, mappedBy = "owner")
+    @OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER, mappedBy = "owner")
     private List<Role> roles;
 
     @NotNull
@@ -108,15 +108,15 @@ public class User extends BaseEntity {
         return hasType;
     }
 
-    public Boolean isCustomer(){
+    public Boolean isCustomer() {
         return hasRole(Role.Type.CUSTOMER);
     }
 
-    public Boolean isOperator(){
+    public Boolean isOperator() {
         return hasRole(Role.Type.OPERATOR);
     }
 
-    public Boolean isDriver(){
+    public Boolean isDriver() {
         return hasRole(Role.Type.DRIVER);
     }
 
@@ -130,10 +130,9 @@ public class User extends BaseEntity {
     public void removeRole(Role r) throws IllegalArgumentException {
         try {
             roles.remove(getRoleFromRoleType(r.getType()));
-        } catch(UnsupportedOperationException e) {
+        } catch (UnsupportedOperationException e) {
             throw new IllegalArgumentException("the user doesnt have the role " + r.getType().toString());
         }
-
     }
 
     // Can only be called by a Driver
@@ -160,10 +159,9 @@ public class User extends BaseEntity {
             if (!role.getType().equals(roleType))
                 role = null;
         }
-        if(role == null)
-            throw new UnsupportedOperationException("The User was not a " + roleType.toString() );
+        if (role == null)
+            throw new UnsupportedOperationException("The User was not a " + roleType.toString());
         return role;
-
     }
 
 }

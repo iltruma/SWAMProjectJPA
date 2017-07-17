@@ -1,6 +1,5 @@
 package it.unifi.ing.swam.controller;
 
-
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -42,21 +41,21 @@ public class ViewWaybillPageController extends BasicController {
     @Inject
     protected MissionDao missionDao;
 
-    @Inject @HttpParam("id")
+    @Inject
+    @HttpParam("id")
     private String waybillId;
 
     private RoleStrategy strategy;
-
 
     public RoleStrategy getStrategy() {
         return strategy;
     }
 
-    protected void initStrategy(){
-        if(StringUtils.isEmpty(roleId))
+    protected void initStrategy() {
+        if (StringUtils.isEmpty(roleId))
             throw new IllegalArgumentException("role id not found");
 
-        if(StringUtils.isEmpty(waybillId))
+        if (StringUtils.isEmpty(waybillId))
             throw new IllegalArgumentException("waybill id not found");
 
         currentRole = roleDao.findById(Long.valueOf(roleId));
@@ -70,10 +69,9 @@ public class ViewWaybillPageController extends BasicController {
 
     @PostConstruct
     protected void initWaybill() {
-        if(strategy==null)
+        if (strategy == null)
             initStrategy();
         strategy.initWaybill();
-
     }
 
 }

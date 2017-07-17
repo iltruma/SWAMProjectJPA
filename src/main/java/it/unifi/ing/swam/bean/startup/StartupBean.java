@@ -91,7 +91,6 @@ public class StartupBean {
         driver1.addRole(ModelFactory.generateDriver());
         driver2.addRole(ModelFactory.generateDriver());
 
-
         all.getCustomerRole().setOperator(operator2);
 
         // Controllo NotNull di User
@@ -282,11 +281,11 @@ public class StartupBean {
 
     }
 
-    private void generateAndPersistItems(){
-        for(int i = 0; i < 100; i++){
+    private void generateAndPersistItems() {
+        for (int i = 0; i < 100; i++) {
             Item item = ModelFactory.generateItem();
-            item.setVolume((float)(i+1));
-            item.setWeigth((float)(i+2));
+            item.setVolume((float) (i + 1));
+            item.setWeigth((float) (i + 2));
 
             itemDao.save(item);
         }

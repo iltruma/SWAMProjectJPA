@@ -26,5 +26,4 @@ public class UserSessionBean implements Serializable {
         return user != null;
     }
 
-
 }

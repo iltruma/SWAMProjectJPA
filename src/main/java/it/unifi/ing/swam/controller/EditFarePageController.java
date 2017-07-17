@@ -28,7 +28,7 @@ public class EditFarePageController extends BasicController {
 
     @Inject
     private CustomerBean customerBean;
-    
+
     @Inject
     private CustomerDao customerDao;
 
@@ -57,26 +57,20 @@ public class EditFarePageController extends BasicController {
             fare = getFareFromId(Long.valueOf(fareId));
 
         if (fare == null)
-            throw new IllegalArgumentException("fare not found");
-
-        if (!customerBean.getCustomer().getCustomerRole().getFares().contains(fare))
             throw new IllegalArgumentException("fare not found for this customer");
+    }
 
+    public Fare getFareFromId(Long id) {
+        // f = fareDao.findById(Long.valueOf(fareId));
+        Iterator<Fare> it = customerBean.getCustomer().getCustomerRole().getFares().iterator();
+        Fare f = null;
+        while (it.hasNext() && f == null) {
+            f = it.next();
+            if (!f.getId().equals(id))
+                f = null;
+        }
+        return f;
     }
-    
-    public Fare getFareFromId(Long id){
-        //f = fareDao.findById(Long.valueOf(fareId));
-    	Iterator<Fare> it = customerBean.getCustomer().getCustomerRole().getFares().iterator();
-    	Fare f = null;
-    	while(it.hasNext() && f == null){
-    		f = it.next();
-    		if(!f.getId().equals(id)){
-    			f = null;
-    		}
-    	}
-		return f;
-    }
-     
 
     public Fare getFare() {
         return fare;
@@ -84,16 +78,16 @@ public class EditFarePageController extends BasicController {
 
     @Transactional
     public String save() {
-    	fareDao.save(fare);
-    	customerDao.save(customerBean.getCustomer().getCustomerRole());
+        fareDao.save(fare);
+        customerDao.save(customerBean.getCustomer().getCustomerRole());
         return "fare-view?fare_id=" + fare.getId() + "&faces-redirect=true";
     }
-    
+
     public String back() {
-    	if(fare.getId() == null){
-    		customerBean.getCustomer().getCustomerRole().getFares().remove(fare);
+        if (fare.getId() == null) {
+            customerBean.getCustomer().getCustomerRole().getFares().remove(fare);
             return "customer-edit?&faces-redirect=true";
-    	}
+        }
         return "fare-view?fare_id=" + fare.getId() + "&faces-redirect=true";
     }
 

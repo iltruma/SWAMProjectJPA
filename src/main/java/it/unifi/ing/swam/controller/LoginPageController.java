@@ -25,14 +25,13 @@ public class LoginPageController {
 
     private User userData;
 
-
-    LoginPageController(){
+    LoginPageController() {
         userData = ModelFactory.generateUser();
     }
 
     public String login() {
         User loggedUser = userDao.findByLoginInfo(userData);
-        if( loggedUser == null )
+        if (loggedUser == null)
             throw new RuntimeException("Login Failed");
 
         userSession.setUser(null);

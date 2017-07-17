@@ -15,7 +15,8 @@ public class MissionAssignPageController extends BasicController {
 
     private static final long serialVersionUID = 10L;
 
-    @Inject @HttpParam("driver_id")
+    @Inject
+    @HttpParam("driver_id")
     private String driverId;
 
     @Inject
@@ -27,8 +28,8 @@ public class MissionAssignPageController extends BasicController {
     private Mission mission;
 
     @PostConstruct
-    protected void initMissionAssignPage(){
-        if(!userSession.getUser().isOperator())
+    protected void initMissionAssignPage() {
+        if (!userSession.getUser().isOperator())
             throw new IllegalArgumentException("you cant view this page");
 
         mission = conversationBean.getMission();
@@ -42,16 +43,13 @@ public class MissionAssignPageController extends BasicController {
         return mission;
     }
 
-    public void remove(Waybill w){
+    public void remove(Waybill w) {
         mission.getWaybills().remove(w);
     }
 
-
-    public void exit(){
+    public void exit() {
         missionDao.save(mission);
         conversationBean.endConversation();
     }
-
-
 
 }

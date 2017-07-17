@@ -1,6 +1,5 @@
 package it.unifi.ing.swam.controller.strategy;
 
-
 import it.unifi.ing.swam.model.Agency;
 import it.unifi.ing.swam.model.Item;
 import it.unifi.ing.swam.model.ModelFactory;
@@ -16,8 +15,8 @@ public class CustomerStrategy extends RoleStrategy {
     }
 
     @Override
-    public Waybill initWaybill(){
-        if(waybillId == null ) {
+    public Waybill initWaybill() {
+        if (waybillId == null) {
             waybill = ModelFactory.generateWaybill();
             waybill.setSender(user);
         } else
@@ -25,10 +24,10 @@ public class CustomerStrategy extends RoleStrategy {
                 Long id = Long.valueOf(waybillId);
                 waybill = waybillDao.findById(id);
 
-                if(waybill == null)
+                if (waybill == null)
                     throw new IllegalStateException("waybill does not exist in database");
 
-                if(!waybill.getSender().equals(user))
+                if (!waybill.getSender().equals(user))
                     throw new IllegalStateException("you can't access this waybill");
 
             } catch (NumberFormatException nfe) {
@@ -39,36 +38,36 @@ public class CustomerStrategy extends RoleStrategy {
 
     @Override
     public void checkEdit() {
-        if(waybill.getOperator() != null || !user.getCustomerRole().isActive()  ||
-                !waybill.getTracking().equals(Tracking.IDLE))
+        if (waybill.getOperator() != null || !user.getCustomerRole().isActive()
+                || !waybill.getTracking().equals(Tracking.IDLE))
             throw new IllegalStateException("you can't edit this waybill");
     }
 
     @Override
-    public void setAgency(Long id){
-        if(id == null)
+    public void setAgency(Long id) {
+        if (id == null)
             return;
 
         Agency a = agencyDao.findById(id);
-        if(a == null)
+        if (a == null)
             throw new IllegalArgumentException("id not found");
         waybill.getReceiver().setDestinationAgency(a);
     }
 
     @Override
-    public void setNewItem(Long id){
-        if(id == null)
+    public void setNewItem(Long id) {
+        if (id == null)
             return;
 
         Item i = itemDao.findById(id);
-        if(i == null)
+        if (i == null)
             throw new IllegalArgumentException("id not found");
         waybill.getLoad().addItem(i);
     }
-    
+
     @Override
-	public void delete() {
+    public void delete() {
         waybillDao.delete(waybill);
-	}
+    }
 
 }
