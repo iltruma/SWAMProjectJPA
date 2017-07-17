@@ -30,7 +30,7 @@ public class Customer extends Role {
     @Embedded
     private Address address;
 
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @LazyCollection(LazyCollectionOption.TRUE)
     @OneToMany(cascade = { CascadeType.ALL })
     @JoinColumn(name = "customer_id")
     private List<Fare> fares;

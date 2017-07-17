@@ -23,7 +23,7 @@ public class UserDaoJpaTest extends JpaTest {
     protected void init() throws InitializationError {
 
         user = ModelFactory.generateUser();
-        user.setUsername("Operator");
+        user.setUsername("operator");
         user.setPassword("password");
         user.setName("name");
         user.setPhone("phone");

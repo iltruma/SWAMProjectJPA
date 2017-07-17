@@ -3,6 +3,8 @@ package it.unifi.ing.swam.controller;
 import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 
+import it.unifi.ing.swam.bean.CustomerBean;
+import it.unifi.ing.swam.bean.MissionBean;
 import it.unifi.ing.swam.bean.UserSessionBean;
 import it.unifi.ing.swam.dao.UserDao;
 import it.unifi.ing.swam.model.ModelFactory;
@@ -16,6 +18,10 @@ public class LoginPageController {
 
     @Inject
     private UserSessionBean userSession;
+    @Inject
+    private CustomerBean customerBean;
+    @Inject
+    private MissionBean missionBean;
 
     private User userData;
 
@@ -36,6 +42,12 @@ public class LoginPageController {
 
     public String logout() {
         userSession.setUser(null);
+        return "home?faces-redirect=true";
+    }
+
+    public String goHome() {
+        customerBean.endConversation();
+        missionBean.endConversation();
         return "home?faces-redirect=true";
     }
 

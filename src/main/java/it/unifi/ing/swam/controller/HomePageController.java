@@ -25,6 +25,7 @@ public class HomePageController {
     @Inject
     private UserSessionBean userSession;
 
+
     public void checkIsLogged() {
         if (!userSession.isLoggedIn())
             throw new RuntimeException("No User logged in!");
