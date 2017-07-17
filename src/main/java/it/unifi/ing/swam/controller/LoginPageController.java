@@ -40,6 +40,8 @@ public class LoginPageController {
     }
 
     public String logout() {
+        customerBean.endConversation();
+        missionBean.endConversation();
         userSession.setUser(null);
         return "home?faces-redirect=true";
     }
