@@ -97,10 +97,9 @@ public class WaybillDao extends BaseDao<Waybill> {
     }
 
     public List<Waybill> findUnassignedToDriver(Agency agency) {
-        return entityManager
-                .createQuery("SELECT w FROM Waybill w WHERE w.sender.agency = :agency AND mission_id IS NULL",
-                        Waybill.class)
-                .setParameter("agency", agency).getResultList();
+        return entityManager.createQuery(
+                "SELECT w FROM Waybill w WHERE w.sender.agency = :agency AND mission_id IS NULL AND operator_id IS NULL",
+                Waybill.class).setParameter("agency", agency).getResultList();
     }
 
     public List<Waybill> advancedSearch(Waybill waybill, int maxResult) {

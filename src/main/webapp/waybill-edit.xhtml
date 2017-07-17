@@ -16,13 +16,13 @@
 		<c:set scope="request" var="isDriver" property="x"
 			value="#{editWaybillPageController.currentRole.isDriver()}" />
 		<c:if test="#{isOperator}">
-			<h2>Edit Waybill as Operator</h2>
+			<h2>Waybill Edit as Operator:</h2>
 		</c:if>
 		<c:if test="#{isCustomer}">
-			<h2>Edit Waybill as Customer</h2>
+			<h2>Waybill Edit as Customer:</h2>
 		</c:if>
 		<c:if test="#{isDriver}">
-			<h2>Edit Waybill as Driver</h2>
+			<h2>Edit Waybill Edit as Driver:</h2>
 		</c:if>
 
 
