@@ -63,6 +63,12 @@
 						value="Save and Validate">
 					</h:commandButton>
 
+					<h:commandButton styleClass="button-primary"
+						action="#{editWaybillPageController.delete()}"
+						value="Delete this Waybill"
+						rendered="#{editWaybillPageController.addFlag != 'true'}">
+					</h:commandButton>
+
 				</c:if>
 
 				<c:if test="#{isCustomer}">
@@ -93,6 +99,12 @@
 					<h:commandButton styleClass="button-primary"
 						action="#{editWaybillPageController.save()}"
 						value="Save and Forward to Operator">
+					</h:commandButton>
+
+					<h:commandButton styleClass="button-primary"
+						action="#{editWaybillPageController.delete()}"
+						value="Delete this Waybill"
+						rendered="#{editWaybillPageController.addFlag != 'true'}">
 					</h:commandButton>
 
 				</c:if>

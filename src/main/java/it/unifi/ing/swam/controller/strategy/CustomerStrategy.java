@@ -65,5 +65,10 @@ public class CustomerStrategy extends RoleStrategy {
             throw new IllegalArgumentException("id not found");
         waybill.getLoad().addItem(i);
     }
+    
+    @Override
+	public void delete() {
+        waybillDao.delete(waybill);
+	}
 
 }

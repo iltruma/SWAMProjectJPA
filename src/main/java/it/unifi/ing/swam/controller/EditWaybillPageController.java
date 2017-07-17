@@ -31,7 +31,7 @@ public class EditWaybillPageController extends BasicController {
     @HttpParam("add")
     private String addFlag;
 
-    @Inject
+	@Inject
     protected WaybillDao waybillDao;
 
     @Inject
@@ -47,6 +47,10 @@ public class EditWaybillPageController extends BasicController {
     protected MissionDao missionDao;
 
     private RoleStrategy strategy;
+    
+    public String getAddFlag() {
+		return addFlag;
+	}
 
     @PostConstruct
     protected void initWaybill() {
@@ -83,6 +87,12 @@ public class EditWaybillPageController extends BasicController {
     public String save() {
         strategy.save();
         return "waybill-view?id=" + getWaybill().getId() + "&roleId=" + currentRole.getId() + "&faces-redirect=true";
+    }
+    
+    @Transactional
+    public String delete() {
+    	strategy.delete();
+        return "home?&faces-redirect=true";
     }
 
     @Transactional

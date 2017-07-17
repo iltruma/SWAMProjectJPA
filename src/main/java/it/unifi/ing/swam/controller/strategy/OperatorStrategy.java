@@ -83,4 +83,10 @@ public class OperatorStrategy extends RoleStrategy {
         waybill.setAcceptDate(Calendar.getInstance());
         super.save();
     }
+    
+    @Override
+	public void delete() {
+        waybillDao.delete(waybill);
+	}
+	
 }

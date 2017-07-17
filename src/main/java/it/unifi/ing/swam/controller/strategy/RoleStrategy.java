@@ -106,4 +106,8 @@ public abstract class RoleStrategy {
         return waybill;
     }
 
+	public void delete() {
+        throw new UnsupportedOperationException();
+	}
+
 }
