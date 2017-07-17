@@ -21,7 +21,7 @@ public class Driver extends Role {
     private String zone;
     @Embedded
     private Truck truck;
-    @OneToMany(cascade = { CascadeType.PERSIST }, fetch=FetchType.EAGER)
+    @OneToMany(cascade = { CascadeType.PERSIST }, fetch=FetchType.LAZY)
     @JoinColumn(name = "driver_id")
     private List<Mission> missions;
 

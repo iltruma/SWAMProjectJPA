@@ -54,8 +54,4 @@ public class ViewFarePageController extends BasicController {
         return "fare-edit?fare_id=" + fare.getId() + "&faces-redirect=true";
     }
 
-    public String back() {
-        return "customer-edit?faces-redirect=true";
-    }
-
 }
