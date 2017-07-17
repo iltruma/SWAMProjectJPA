@@ -9,14 +9,12 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Table(name = "customers")
@@ -30,8 +28,7 @@ public class Customer extends Role {
     @Embedded
     private Address address;
 
-    @LazyCollection(LazyCollectionOption.TRUE)
-    @OneToMany(cascade = { CascadeType.ALL })
+    @OneToMany(cascade = { CascadeType.ALL }, fetch=FetchType.EAGER)
     @JoinColumn(name = "customer_id")
     private List<Fare> fares;
 
