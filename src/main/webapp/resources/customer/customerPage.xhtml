@@ -48,10 +48,16 @@
 		<h:outputText value="#{cc.attrs.customer.email}"
 			rendered="#{not isEdit}" />
 
+		<label>Phone:</label>
+		<h:inputText value="#{cc.attrs.customer.phone}" rendered="#{isEdit}" />
+		<h:outputText value="#{cc.attrs.customer.phone}"
+			rendered="#{not isEdit}" />
+
 		<customer:fares edit="true"
 			fares="#{cc.attrs.customer.customerRole.fares}" rendered="#{isEdit}" />
 		<customer:fares edit="false"
-			fares="#{cc.attrs.customer.customerRole.fares}"  rendered="#{not isEdit}"/>	
+			fares="#{cc.attrs.customer.customerRole.fares}"
+			rendered="#{not isEdit}" />
 
 
 
