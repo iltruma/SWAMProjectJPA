@@ -1,5 +1,7 @@
 package it.unifi.ing.swam.controller;
 
+import java.util.Iterator;
+
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -37,7 +39,7 @@ public class ViewFarePageController extends BasicController {
         if (StringUtils.isEmpty(fareId))
             throw new IllegalArgumentException("fare id is empty");
 
-        fare = fareDao.findById(Long.valueOf(fareId));
+        fare = getFareFromId(Long.valueOf(fareId));
 
         if (fare == null)
             throw new IllegalArgumentException("fare not found");
@@ -48,6 +50,19 @@ public class ViewFarePageController extends BasicController {
 
     public Fare getFare() {
         return fare;
+    }
+    
+    public Fare getFareFromId(Long id){
+        //f = fareDao.findById(Long.valueOf(fareId));
+    	Iterator<Fare> it = customerBean.getCustomer().getCustomerRole().getFares().iterator();
+    	Fare f = null;
+    	while(it.hasNext() && f == null){
+    		f = it.next();
+    		if(!f.getId().equals(id)){
+    			f = null;
+    		}
+    	}
+		return f;
     }
 
     public String edit() {
