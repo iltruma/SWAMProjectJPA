@@ -27,90 +27,105 @@
 
 
 		<h:form>
-			
-				<c:if test="#{isOperator}">
 
-					<waybill:sender edit="false"
-						sender="#{viewWaybillPageController.waybill.sender}" />
+			<c:if test="#{isOperator}">
 
-					<waybill:receiver edit="false"
-						receiver="#{viewWaybillPageController.waybill.receiver}" />
+				<waybill:sender edit="false"
+					sender="#{viewWaybillPageController.waybill.sender}" />
 
-					<waybill:agency edit="false"
-						agency="#{viewWaybillPageController.waybill.sender.agency}"
-						title="Departure Agency" />
+				<waybill:receiver edit="false"
+					receiver="#{viewWaybillPageController.waybill.receiver}" />
 
-					<waybill:agency edit="false"
-						agency="#{viewWaybillPageController.waybill.receiver.destinationAgency}"
-						title="Destination Agency" />
+				<waybill:agency edit="false"
+					agency="#{viewWaybillPageController.waybill.sender.agency}"
+					title="Departure Agency" />
 
-					<label for="cost">cost</label>
-					<h:outputText id="cost"
-						value="#{viewWaybillPageController.strategy.waybill.cost}">
-					</h:outputText>
+				<waybill:agency edit="false"
+					agency="#{viewWaybillPageController.waybill.receiver.destinationAgency}"
+					title="Destination Agency" />
 
-					<waybill:load edit="false"
-						load="#{viewWaybillPageController.waybill.load}" />
+				<label for="cost">cost</label>
+				<h:outputText id="cost"
+					value="#{viewWaybillPageController.strategy.waybill.cost}">
+				</h:outputText>
 
-					<waybill:info waybill="#{viewWaybillPageController.waybill}"
-						role="OPERATOR" />
+				<waybill:load edit="false"
+					load="#{viewWaybillPageController.waybill.load}" />
 
-				</c:if>
+				<waybill:info waybill="#{viewWaybillPageController.waybill}"
+					role="OPERATOR" />
 
-				<c:if test="#{isCustomer}">
+				<h:link styleClass="button" outcome="waybill-edit" value="Edit">
+					<f:param name="id" value="#{viewWaybillPageController.waybill.id}"></f:param>
+					<f:param name="roleId"
+						value="#{viewWaybillPageController.currentRole.id}"></f:param>
+				</h:link>
 
-					<waybill:sender edit="false"
-						senderId="#{viewWaybillPageController.strategy.sender}"
-						sender="#{viewWaybillPageController.waybill.sender}" />
+			</c:if>
 
-					<waybill:receiver edit="false"
-						receiver="#{viewWaybillPageController.waybill.receiver}" />
+			<c:if test="#{isCustomer}">
 
-					<waybill:agency edit="false"
-						agency="#{viewWaybillPageController.waybill.sender.agency}"
-						title="Departure Agency" />
+				<waybill:sender edit="false"
+					senderId="#{viewWaybillPageController.strategy.sender}"
+					sender="#{viewWaybillPageController.waybill.sender}" />
 
-					<waybill:agency edit="false"
-						agency="#{viewWaybillPageController.waybill.receiver.destinationAgency}"
-						title="Destination Agency" />
+				<waybill:receiver edit="false"
+					receiver="#{viewWaybillPageController.waybill.receiver}" />
 
-					<waybill:load edit="false"
-						load="#{viewWaybillPageController.waybill.load}" />
+				<waybill:agency edit="false"
+					agency="#{viewWaybillPageController.waybill.sender.agency}"
+					title="Departure Agency" />
 
-					<waybill:info waybill="#{viewWaybillPageController.waybill}"
-						role="CUSTOMER" />
+				<waybill:agency edit="false"
+					agency="#{viewWaybillPageController.waybill.receiver.destinationAgency}"
+					title="Destination Agency" />
 
-				</c:if>
+				<waybill:load edit="false"
+					load="#{viewWaybillPageController.waybill.load}" />
 
-				<c:if test="#{isDriver}">
-
-					<waybill:sender edit="false"
-						sender="#{viewWaybillPageController.waybill.sender}" />
-
-					<waybill:receiver edit="false"
-						receiver="#{viewWaybillPageController.waybill.receiver}" />
-
-					<waybill:agency edit="false"
-						agency="#{viewWaybillPageController.waybill.receiver.destinationAgency}"
-						title="Destination Agency" />
-
-					<waybill:load edit="false"
-						load="#{viewWaybillPageController.waybill.load}" />
-
-					<waybill:info waybill="#{viewWaybillPageController.waybill}"
-						role="DRIVER" />
-
-				</c:if>
+				<waybill:info waybill="#{viewWaybillPageController.waybill}"
+					role="CUSTOMER" />
 
 				<h:link styleClass="button" outcome="waybill-edit" value="Edit"
+					rendered="#{not (viewWaybillPageController.waybill.operator != null)}">
+					<f:param name="id" value="#{viewWaybillPageController.waybill.id}"></f:param>
+					<f:param name="roleId"
+						value="#{viewWaybillPageController.currentRole.id}"></f:param>
+				</h:link>
+
+			</c:if>
+
+			<c:if test="#{isDriver}">
+
+				<waybill:sender edit="false"
+					sender="#{viewWaybillPageController.waybill.sender}" />
+
+				<waybill:receiver edit="false"
+					receiver="#{viewWaybillPageController.waybill.receiver}" />
+
+				<waybill:agency edit="false"
+					agency="#{viewWaybillPageController.waybill.receiver.destinationAgency}"
+					title="Destination Agency" />
+
+				<waybill:load edit="false"
+					load="#{viewWaybillPageController.waybill.load}" />
+
+				<waybill:info waybill="#{viewWaybillPageController.waybill}"
+					role="DRIVER" />
+
+				<h:link styleClass="button" outcome="waybill-edit" value="Add signature"
 					rendered="#{not viewWaybillPageController.waybill.isSigned()}">
 					<f:param name="id" value="#{viewWaybillPageController.waybill.id}"></f:param>
 					<f:param name="roleId"
 						value="#{viewWaybillPageController.currentRole.id}"></f:param>
 				</h:link>
 
-				<h:link styleClass="button button-outline" outcome="home"
-					value="Back"></h:link>
+			</c:if>
+
+
+
+			<h:link styleClass="button button-outline" outcome="home"
+				value="Back"></h:link>
 		</h:form>
 	</ui:define>
 </ui:composition>
