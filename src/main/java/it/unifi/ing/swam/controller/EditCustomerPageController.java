@@ -1,5 +1,9 @@
 package it.unifi.ing.swam.controller;
 
+
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -7,6 +11,7 @@ import javax.inject.Named;
 import javax.transaction.Transactional;
 
 import it.unifi.ing.swam.bean.CustomerBean;
+import it.unifi.ing.swam.dao.FareDao;
 import it.unifi.ing.swam.dao.UserDao;
 import it.unifi.ing.swam.model.Fare;
 import it.unifi.ing.swam.model.ModelFactory;
@@ -24,6 +29,9 @@ public class EditCustomerPageController extends BasicController {
 
     @Inject
     private CustomerBean customerBean;
+    
+    @Inject
+    private FareDao fareDao;
 
     @PostConstruct
     protected void initEditCustomerPage() {
@@ -71,6 +79,19 @@ public class EditCustomerPageController extends BasicController {
 
     public void unlockCustomer() {
         customerBean.getCustomer().getCustomerRole().setState(State.ACTIVE);
+    }
+    
+    @Transactional
+    public String back() {
+    	List<Fare> removeList = new ArrayList<>();
+    	for(Fare f : customerBean.getCustomer().getCustomerRole().getFares()){
+    		if(fareDao.isUnassignedToCustomer(f)){
+    			removeList.add(f);
+    			fareDao.delete(f);
+    		}
+    	}
+		customerBean.getCustomer().getCustomerRole().getFares().removeAll(removeList);
+        return "customer-view?faces-redirect=true";
     }
     
 

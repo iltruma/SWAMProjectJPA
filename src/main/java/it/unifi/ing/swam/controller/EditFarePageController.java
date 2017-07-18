@@ -12,7 +12,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import it.unifi.ing.swam.bean.CustomerBean;
 import it.unifi.ing.swam.bean.producer.HttpParam;
-import it.unifi.ing.swam.dao.CustomerDao;
 import it.unifi.ing.swam.dao.FareDao;
 import it.unifi.ing.swam.model.Fare;
 import it.unifi.ing.swam.model.ModelFactory;
@@ -28,9 +27,6 @@ public class EditFarePageController extends BasicController {
 
     @Inject
     private CustomerBean customerBean;
-
-    @Inject
-    private CustomerDao customerDao;
 
     @Inject
     @HttpParam("fare_id")
