@@ -21,7 +21,6 @@
 		<h:outputText value="Fare View Page (Id: #{cc.attrs.fare.id})"
 			rendered="#{not isEdit}" />
 	</h2>
-	<fieldset>
 		<label>Zone:</label>
 		<h:inputText value="#{cc.attrs.fare.zone}" rendered="#{isEdit}" />
 		<h:outputText value="#{cc.attrs.fare.zone}" rendered="#{not isEdit}" />
@@ -41,7 +40,6 @@
 		<h:outputText value="#{cc.attrs.fare.endDate.getTime()}">
 			<f:convertDateTime pattern="dd/MM/yyyy" />
 		</h:outputText>
-	</fieldset>
 
 </cc:implementation>
 </html>

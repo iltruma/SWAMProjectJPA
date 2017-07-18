@@ -25,8 +25,8 @@
 			rendered="#{not isEdit}" />
 	</h2>
 
-	<fieldset>
-		<label>Username:</label>
+	<div>
+		<h5>Username:</h5>
 		<h:inputText value="#{cc.attrs.customer.username}"
 			rendered="#{isEdit}" />
 		<h:outputText value="#{cc.attrs.customer.username}"
@@ -81,7 +81,7 @@
 
 
 
-	</fieldset>
+	</div>
 
 
 </cc:implementation>
