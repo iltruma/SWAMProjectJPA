@@ -12,7 +12,6 @@ import org.junit.runners.model.InitializationError;
 
 import it.unifi.ing.swam.bean.CustomerBean;
 import it.unifi.ing.swam.bean.UserSessionBean;
-import it.unifi.ing.swam.dao.CustomerDao;
 import it.unifi.ing.swam.dao.FareDao;
 import it.unifi.ing.swam.model.Fare;
 import it.unifi.ing.swam.model.ModelFactory;
@@ -25,7 +24,6 @@ public class EditFarePageControllerTest {
     private UserSessionBean userSession;
 
     private FareDao fareDao;
-    private CustomerDao customerDao;
 
     private Fare fare;
     private User user;
@@ -42,7 +40,6 @@ public class EditFarePageControllerTest {
         userSession = new UserSessionBean();
 
         fareDao = mock(FareDao.class);
-        customerDao = mock(CustomerDao.class);
 
         user = ModelFactory.generateUser();
         user.addRole(ModelFactory.generateOperator());
@@ -67,7 +64,6 @@ public class EditFarePageControllerTest {
             FieldUtils.writeField(fare, "id", fareId, true);
             FieldUtils.writeField(editFarePageController, "fareId", fareId.toString(), true);
             FieldUtils.writeField(editFarePageController, "fareDao", fareDao, true);
-            FieldUtils.writeField(editFarePageController, "customerDao", customerDao, true);
             FieldUtils.writeField(editFarePageController, "userSession", userSession, true);
             FieldUtils.writeField(editFarePageController, "customerBean", customerBean, true);
         } catch (IllegalAccessException e) {

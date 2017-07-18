@@ -25,7 +25,7 @@ import it.unifi.ing.swam.model.User;
 public class CustomersPageControllerTest {
 
     private CustomersPageController customersPageController;
-    private CustomerBean conversationBean;
+    private CustomerBean customerBean;
     private Conversation conversation;
     private UserSessionBean userSession;
 
@@ -37,13 +37,13 @@ public class CustomersPageControllerTest {
     @Before
     public void setUp() throws InitializationError {
         customersPageController = new CustomersPageController();
-        conversationBean = new CustomerBean();
+        customerBean = new CustomerBean();
         userSession = new UserSessionBean();
 
         conversation = mock(Conversation.class);
 
         try {
-            FieldUtils.writeField(conversationBean, "conversation", conversation, true);
+            FieldUtils.writeField(customerBean, "conversation", conversation, true);
         } catch (IllegalAccessException e) {
             throw new InitializationError(e);
         }
@@ -67,7 +67,7 @@ public class CustomersPageControllerTest {
         try {
             FieldUtils.writeField(customersPageController, "customerDao", customerDao, true);
             FieldUtils.writeField(customersPageController, "userSession", userSession, true);
-            FieldUtils.writeField(customersPageController, "conversationBean", conversationBean, true);
+            FieldUtils.writeField(customersPageController, "customerBean", customerBean, true);
         } catch (IllegalAccessException e) {
             throw new InitializationError(e);
         }
@@ -105,7 +105,7 @@ public class CustomersPageControllerTest {
     @Test
     public void testSelectCustomer() {
         customersPageController.selectCustomer(customer);
-        assertEquals(customer, conversationBean.getCustomer());
+        assertEquals(customer, customerBean.getCustomer());
     }
 
 }

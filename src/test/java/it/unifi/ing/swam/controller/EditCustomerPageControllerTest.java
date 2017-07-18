@@ -18,7 +18,7 @@ import it.unifi.ing.swam.model.User;
 public class EditCustomerPageControllerTest {
 
     private EditCustomerPageController editCustomerPageController;
-    private CustomerBean conversationBean;
+    private CustomerBean customerBean;
     protected UserSessionBean userSession;
 
     private User user;
@@ -31,7 +31,7 @@ public class EditCustomerPageControllerTest {
     @Before
     public void setUp() throws InitializationError {
         editCustomerPageController = new EditCustomerPageController();
-        conversationBean = new CustomerBean();
+        customerBean = new CustomerBean();
         userSession = new UserSessionBean();
 
         agency = ModelFactory.generateAgency();
@@ -53,7 +53,7 @@ public class EditCustomerPageControllerTest {
 
         try {
             FieldUtils.writeField(editCustomerPageController, "userSession", userSession, true);
-            FieldUtils.writeField(editCustomerPageController, "customerBean", conversationBean, true);
+            FieldUtils.writeField(editCustomerPageController, "customerBean", customerBean, true);
         } catch (IllegalAccessException e) {
             throw new InitializationError(e);
         }
@@ -70,7 +70,7 @@ public class EditCustomerPageControllerTest {
 
     @Test
     public void testInitEditCustomerPageThrowsIllegalStateException() {
-        conversationBean.setCustomer(customer);
+        customerBean.setCustomer(customer);
 
         assertThatExceptionOfType(IllegalStateException.class).isThrownBy(() -> {
             editCustomerPageController.initEditCustomerPage();
