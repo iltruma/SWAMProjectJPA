@@ -12,19 +12,20 @@
 		<c:set scope="request" var="fare" property="x"
 			value="#{viewFarePageController.fare}"></c:set>
 
-		<customer:fare fare="#{fare}"></customer:fare>
-
-		<h:form>
-			<h:commandLink styleClass="button"
+		<customer:fare  edit="false" fare="#{fare}"></customer:fare>
+<br></br>
+		<h:form style="margin-bottom:0px;">
+			<h:commandLink styleClass="button float-left"
 				action="#{viewFarePageController.edit()}" value="Edit">
 			</h:commandLink>
 		</h:form>
 		
 		<h:form>
-			<h:commandLink styleClass="button button-outline"
+			<h:commandLink styleClass="button button-outline float-left"
 				action="customer-edit?faces-redirect=true" value="Back">
 			</h:commandLink>
 		</h:form>
+		
 	</ui:define>
 </ui:composition>
 

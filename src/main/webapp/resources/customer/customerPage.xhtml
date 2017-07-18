@@ -19,39 +19,45 @@
 
 	<h2>
 		<h:outputText value="Customer Edit Page" rendered="#{isEdit}" />
-	</h2>
-	<h2>
 		<h:outputText value="Customer View Page (Id: #{cc.attrs.customer.id})"
 			rendered="#{not isEdit}" />
 	</h2>
 
 	<div>
-		<h5>Username:</h5>
-		<h:inputText value="#{cc.attrs.customer.username}"
-			rendered="#{isEdit}" />
-		<h:outputText value="#{cc.attrs.customer.username}"
-			rendered="#{not isEdit}" />
+		<h3>Customer Info:</h3>
+		<label>Username: <span> <h:inputText
+					value="#{cc.attrs.customer.username}" rendered="#{isEdit}" /> <h:outputText
+					value="#{cc.attrs.customer.username}" rendered="#{not isEdit}" /></span></label>
 
-		<label>Password:</label>
-		<h:inputText value="#{cc.attrs.customer.password}"
-			rendered="#{isEdit}" />
-		<h:outputText value="#{cc.attrs.customer.password}"
-			rendered="#{not isEdit}" />
+		<label>Password: <span> <h:inputText
+					value="#{cc.attrs.customer.password}" rendered="#{isEdit}" /> <h:outputText
+					value="#{cc.attrs.customer.password}" rendered="#{not isEdit}" /></span></label>
 
-		<label>Name:</label>
-		<h:inputText value="#{cc.attrs.customer.name}" rendered="#{isEdit}" />
-		<h:outputText value="#{cc.attrs.customer.name}"
-			rendered="#{not isEdit}" />
+		<label>Name: <span> <h:inputText
+					value="#{cc.attrs.customer.name}" rendered="#{isEdit}" /> <h:outputText
+					value="#{cc.attrs.customer.name}" rendered="#{not isEdit}" /></span></label> <label>E-mail:
+			<span> <h:inputText value="#{cc.attrs.customer.email}"
+					rendered="#{isEdit}" /> <h:outputText
+					value="#{cc.attrs.customer.email}" rendered="#{not isEdit}" /></span>
+		</label> <label>Phone: <span> <h:inputText
+					value="#{cc.attrs.customer.phone}" rendered="#{isEdit}" /> <h:outputText
+					value="#{cc.attrs.customer.phone}" rendered="#{not isEdit}" /></span></label> <label>State:
+			<span> <h:outputText
+					value="#{cc.attrs.customer.customerRole.state}" />
+		</span>
+		</label>
 
-		<label>E-mail:</label>
-		<h:inputText value="#{cc.attrs.customer.email}" rendered="#{isEdit}" />
-		<h:outputText value="#{cc.attrs.customer.email}"
-			rendered="#{not isEdit}" />
+		<h:commandLink styleClass="float-right button" style="margin:-40px 0px 0px 0px"
+			action="#{editCustomerPageController.blockCustomer()}"
+			value="Block This Customer"
+			rendered="#{editCustomerPageController.customer.customerRole.isActive() and isEdit}" />
 
-		<label>Phone:</label>
-		<h:inputText value="#{cc.attrs.customer.phone}" rendered="#{isEdit}" />
-		<h:outputText value="#{cc.attrs.customer.phone}"
-			rendered="#{not isEdit}" />
+		<h:commandLink styleClass="float-right button" style="margin:-40px 0px 0px 0px"
+			action="#{editCustomerPageController.unlockCustomer()}"
+			value="Make The Customer Active"
+			rendered="#{(not editCustomerPageController.customer.customerRole.isActive()) and isEdit}" />
+
+		<hr></hr>
 
 		<customer:fares edit="true"
 			fares="#{cc.attrs.customer.customerRole.fares}" rendered="#{isEdit}" />
@@ -59,27 +65,19 @@
 			fares="#{cc.attrs.customer.customerRole.fares}"
 			rendered="#{not isEdit}" />
 
-
-
-
 		<c:if test="#{isEdit}">
 			<utils:address address="#{cc.attrs.customer.customerRole.address}"
-				edit="true"></utils:address>
+				edit="true" title="Address:"></utils:address>
 		</c:if>
 		<c:if test="#{not isEdit}">
 			<utils:address address="#{cc.attrs.customer.customerRole.address}"
-				edit="false"></utils:address>
+				edit="false" title="Address:"></utils:address>
 		</c:if>
 
 		<waybill:agency agency="#{cc.attrs.customer.agency}" edit="false"
 			title="Agency:" />
 		<utils:user title="Referee:"
 			user="#{cc.attrs.customer.customerRole.operator}" />
-
-		<label>State:</label>
-		<h:outputText value="#{cc.attrs.customer.customerRole.state}" />
-
-
 
 	</div>
 

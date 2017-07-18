@@ -13,16 +13,16 @@
 			value="#{editFarePageController.fare}"></c:set>
 
 
-		<h:form>
+		<h:form style="margin-bottom:0px;">
 			<customer:fare fare="#{fare}" edit="true"></customer:fare>
-
-			<h:commandLink styleClass="button"
+<br></br>
+			<h:commandLink styleClass="button float-left"
 				action="#{editFarePageController.save()}" value="Save">
 			</h:commandLink>
 		</h:form>
 		
 		<h:form>
-			<h:commandLink styleClass="button button-outline"
+			<h:commandLink styleClass="button button-outline float-left"
 				action="#{editFarePageController.back()}" value="Back">
 			</h:commandLink>
 		</h:form>

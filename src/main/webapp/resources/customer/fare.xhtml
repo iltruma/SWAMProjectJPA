@@ -16,30 +16,33 @@
 
 	<h2>
 		<h:outputText value="Fare Edit Page" rendered="#{isEdit}" />
-	</h2>
-	<h2>
 		<h:outputText value="Fare View Page (Id: #{cc.attrs.fare.id})"
 			rendered="#{not isEdit}" />
 	</h2>
-		<label>Zone:</label>
+	<h3>Fare Info:</h3>
+		<label>Zone: <span>
 		<h:inputText value="#{cc.attrs.fare.zone}" rendered="#{isEdit}" />
 		<h:outputText value="#{cc.attrs.fare.zone}" rendered="#{not isEdit}" />
+		</span></label>
 
-		<label>Cost Function:</label>
+		<label>Cost Function: <span>
 		<h:inputText value="#{cc.attrs.fare.functionCost}"
 			rendered="#{isEdit}" />
 		<h:outputText value="#{cc.attrs.fare.functionCost}"
 			rendered="#{not isEdit}" />
+			</span></label>
 
-		<label>Start Date:</label>
-		<h:outputText value="#{cc.attrs.fare.startDate.getTime()}">
-			<f:convertDateTime pattern="dd/MM/yyyy" />
+		<label>Start Date: <span>
+		<h:outputText value="#{cc.attrs.fare.startDate.getTime()}" rendered="#{not isEdit}">
+			<f:convertDateTime type="date" dateStyle="long"/>
 		</h:outputText>
+		</span></label>
 
-		<label>End Date:</label>
-		<h:outputText value="#{cc.attrs.fare.endDate.getTime()}">
-			<f:convertDateTime pattern="dd/MM/yyyy" />
+		<label>End Date: <span>
+		<h:outputText value="#{cc.attrs.fare.endDate.getTime()}" rendered="#{not isEdit}">
+			<f:convertDateTime  type="date" dateStyle="long" />
 		</h:outputText>
+		</span></label>
 
 </cc:implementation>
 </html>

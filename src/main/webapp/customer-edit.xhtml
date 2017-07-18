@@ -13,26 +13,14 @@
 			<customer:customerPage edit="true"
 				customer="#{editCustomerPageController.customer}">
 			</customer:customerPage>
-
-			<h:commandLink styleClass="button"
-				action="#{editCustomerPageController.blockCustomer()}"
-				value="Block This Customer"
-				rendered="#{editCustomerPageController.customer.customerRole.isActive()}" />
-
-			<h:commandLink styleClass="button"
-				action="#{editCustomerPageController.unlockCustomer()}"
-				value="Make The Customer Active"
-				rendered="#{not editCustomerPageController.customer.customerRole.isActive()}" />
-
-			<br></br>
-
-			<h:commandLink styleClass="button"
+			
+			<h:commandLink styleClass="button float-left"
 				action="#{editCustomerPageController.save()}" value="Save">
 			</h:commandLink>
 		</h:form>
 
 		<h:form>
-			<h:commandLink styleClass="button button-outline"
+			<h:commandLink styleClass="button button-outline float-left"
 				action="#{editCustomerPageController.back()}" value="Back">
 			</h:commandLink>
 		</h:form>

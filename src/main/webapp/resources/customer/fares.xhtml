@@ -11,7 +11,7 @@
 	<cc:attribute name="newItemId" />
 </cc:interface>
 <cc:implementation>
-	<h3>Fares:</h3>
+	<h3>Customer Fares:</h3>
 	<table>
 		<thead>
 			<tr>
@@ -21,7 +21,6 @@
 				<th>Start Date</th>
 				<th>End Date</th>
 				<c:if test="#{cc.attrs.edit == 'true'}">
-					<th></th>
 					<th></th>
 				</c:if>
 			</tr>
@@ -44,8 +43,8 @@
 						<td><h:commandButton styleClass="button"
 								action="#{editCustomerPageController.viewFare(fare)}"
 								value="View">
-							</h:commandButton></td>
-						<td><h:commandButton styleClass="button"
+							</h:commandButton>
+						<h:commandButton styleClass="button"
 								action="#{editCustomerPageController.removeFare(fare)}" value="Remove">
 							</h:commandButton></td>
 					</c:if>
@@ -54,9 +53,12 @@
 		</tbody>
 	</table>
 
+
 	<h:commandLink styleClass="button"
 		action="#{editCustomerPageController.createFare()}"
 		rendered="#{cc.attrs.edit == 'true'}" value="Add New Fare" />
-
+		<c:if test="#{cc.attrs.edit == 'true'}">
+		<hr></hr>
+		</c:if>
 </cc:implementation>
 </html>
