@@ -9,7 +9,6 @@ import javax.inject.Inject;
 import javax.transaction.Transactional;
 
 import it.unifi.ing.swam.dao.AgencyDao;
-import it.unifi.ing.swam.dao.BaseDao;
 import it.unifi.ing.swam.dao.FareDao;
 import it.unifi.ing.swam.dao.ItemDao;
 import it.unifi.ing.swam.dao.MissionDao;
@@ -48,7 +47,7 @@ public class StartupBean {
     private ItemDao itemDao;
 
     @Inject
-	private FareDao fareDao;
+    private FareDao fareDao;
 
     @PostConstruct
     @Transactional
@@ -257,7 +256,7 @@ public class StartupBean {
 
         agencyDao.save(agency1);
         agencyDao.save(agency2);
-        
+
         fareDao.save(f);
 
         userDao.save(operator1);

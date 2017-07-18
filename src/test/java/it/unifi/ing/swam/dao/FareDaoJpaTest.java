@@ -1,6 +1,7 @@
 package it.unifi.ing.swam.dao;
 
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Calendar;
@@ -13,12 +14,14 @@ import org.junit.runners.model.InitializationError;
 
 import it.unifi.ing.swam.model.Fare;
 import it.unifi.ing.swam.model.ModelFactory;
+import it.unifi.ing.swam.model.User;
 
 public class FareDaoJpaTest extends JpaTest {
 
     FareDao fareDao;
 
     Fare fare;
+    Fare assignedFare;
 
     @Override
     protected void init() throws InitializationError {
@@ -33,7 +36,14 @@ public class FareDaoJpaTest extends JpaTest {
         endDate.setTime(new Date(5637146839L));
         fare.setEndDate(endDate);
 
+        assignedFare = ModelFactory.generateFare();
+        User customer = ModelFactory.generateUser();
+        customer.addRole(ModelFactory.generateCustomer());
+        customer.getCustomerRole().addFare(assignedFare);
+
         entityManager.persist(fare);
+        entityManager.persist(assignedFare);
+        entityManager.persist(customer);
 
         fareDao = new FareDao();
         JpaTest.inject(fareDao, entityManager);
@@ -67,6 +77,7 @@ public class FareDaoJpaTest extends JpaTest {
     public void testFindUnassignedToCustomer() {
 
         assertTrue(fareDao.isUnassignedToCustomer(fare));
+        assertFalse(fareDao.isUnassignedToCustomer(assignedFare));
     }
 
 }
