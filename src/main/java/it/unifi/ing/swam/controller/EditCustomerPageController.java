@@ -91,7 +91,11 @@ public class EditCustomerPageController extends BasicController {
     		}
     	}
 		customerBean.getCustomer().getCustomerRole().getFares().removeAll(removeList);
-        return "customer-view?faces-redirect=true";
+		
+		if(customerBean.getCustomer().getId() != null){
+	        return "customer-view?faces-redirect=true";			
+		}
+        return "customers?faces-redirect=true";
     }
     
 
