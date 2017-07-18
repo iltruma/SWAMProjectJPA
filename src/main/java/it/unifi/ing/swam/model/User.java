@@ -20,9 +20,11 @@ public class User extends BaseEntity {
 
     @NotNull
     @Column(unique = true)
+    @Size(min = 3, max=30)
     private String username;
 
     @NotNull
+    @Size(min = 3, max=30)
     private String password;
 
     private String name;
