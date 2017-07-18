@@ -51,7 +51,6 @@ public class EditFarePageController extends BasicController {
             throw new IllegalArgumentException("fare id is empty");
         else if (Boolean.valueOf(addFlag)) {
             fare = ModelFactory.generateFare();
-            customerBean.getCustomer().getCustomerRole().addFare(fare);
 
         } else
             fare = getFareFromId(Long.valueOf(fareId));
@@ -79,7 +78,10 @@ public class EditFarePageController extends BasicController {
     @Transactional
     public String save() {
         fareDao.save(fare);
-        customerDao.save(customerBean.getCustomer().getCustomerRole());
+        if(getFareFromId(fare.getId()) == null){
+            customerBean.getCustomer().getCustomerRole().addFare(fare);
+        }
+        
         return "fare-view?fare_id=" + fare.getId() + "&faces-redirect=true";
     }
 

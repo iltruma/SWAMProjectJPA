@@ -28,7 +28,7 @@ public class Customer extends Role {
     @Embedded
     private Address address;
 
-    @OneToMany(cascade = { CascadeType.ALL }, fetch=FetchType.EAGER)
+    @OneToMany(cascade = { CascadeType.MERGE, CascadeType.REMOVE }, fetch=FetchType.EAGER)
     @JoinColumn(name = "customer_id")
     private List<Fare> fares;
 

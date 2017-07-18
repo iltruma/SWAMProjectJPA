@@ -72,5 +72,6 @@ public class EditCustomerPageController extends BasicController {
     public void unlockCustomer() {
         customerBean.getCustomer().getCustomerRole().setState(State.ACTIVE);
     }
+    
 
 }
