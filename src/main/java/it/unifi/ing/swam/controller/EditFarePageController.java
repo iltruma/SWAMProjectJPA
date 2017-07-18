@@ -29,9 +29,6 @@ public class EditFarePageController extends BasicController {
 
     @Inject
     private CustomerBean customerBean;
-    
-    @Inject
-    private UserDao userDao;
 
     @Inject
     @HttpParam("fare_id")
