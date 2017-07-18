@@ -1,11 +1,10 @@
 package it.unifi.ing.swam.dao;
 
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.NoResultException;
 
@@ -67,10 +66,7 @@ public class FareDaoJpaTest extends JpaTest {
     @Test
     public void testFindUnassignedToCustomer() {
 
-        List<Fare> result = fareDao.findUnassignedToCustomer();
-
-        assertEquals(1, result.size());
-        assertEquals(fare, result.get(0));
+        assertTrue(fareDao.isUnassignedToCustomer(fare));
     }
 
 }

@@ -12,8 +12,13 @@ public class FareDao extends BaseDao<Fare> {
         super(Fare.class);
     }
 
-    public List<Fare> findUnassignedToCustomer() {
-        return entityManager.createQuery("FROM Fare WHERE customer_id IS NULL", Fare.class).getResultList();
+    public Boolean isUnassignedToCustomer(Fare fare) {
+        List<Fare> result = entityManager
+                .createQuery("SELECT f FROM Fare f WHERE f.id = :id AND customer_id IS NULL", Fare.class)
+                .setParameter("id", fare.getId()).getResultList();
+        if (result.isEmpty())
+            return false;
+        return true;
     }
 
 }
