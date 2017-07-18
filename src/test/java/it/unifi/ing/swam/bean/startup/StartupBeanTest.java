@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.junit.runners.model.InitializationError;
 
 import it.unifi.ing.swam.dao.AgencyDao;
+import it.unifi.ing.swam.dao.FareDao;
 import it.unifi.ing.swam.dao.ItemDao;
 import it.unifi.ing.swam.dao.MissionDao;
 import it.unifi.ing.swam.dao.UserDao;
@@ -22,6 +23,7 @@ public class StartupBeanTest {
     private MissionDao missionDao;
     private WaybillDao waybillDao;
     private ItemDao itemDao;
+    private FareDao fareDao;
 
     @Before
     public void setUp() throws InitializationError {
@@ -32,6 +34,7 @@ public class StartupBeanTest {
         missionDao = mock(MissionDao.class);
         waybillDao = mock(WaybillDao.class);
         itemDao = mock(ItemDao.class);
+        fareDao = mock(FareDao.class);
 
         try {
             FieldUtils.writeField(startupBean, "userDao", userDao, true);
@@ -39,6 +42,7 @@ public class StartupBeanTest {
             FieldUtils.writeField(startupBean, "missionDao", missionDao, true);
             FieldUtils.writeField(startupBean, "waybillDao", waybillDao, true);
             FieldUtils.writeField(startupBean, "itemDao", itemDao, true);
+            FieldUtils.writeField(startupBean, "fareDao", fareDao, true);
         } catch (IllegalAccessException e) {
             throw new InitializationError(e);
         }
