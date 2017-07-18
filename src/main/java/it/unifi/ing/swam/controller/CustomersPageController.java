@@ -23,7 +23,7 @@ public class CustomersPageController extends BasicController {
     private CustomerDao customerDao;
 
     @Inject
-    private CustomerBean conversationBean;
+    private CustomerBean customerBean;
 
     private List<User> customers;
 
@@ -43,13 +43,13 @@ public class CustomersPageController extends BasicController {
     }
 
     public String selectCustomer(User u) {
-        conversationBean.initConversation();
-        conversationBean.setCustomer(u);
+        customerBean.initConversation();
+        customerBean.setCustomer(u);
         return "customer-view?faces-redirect=true";
     }
 
     public String createCustomer() {
-        conversationBean.initConversation();
+        customerBean.initConversation();
         return "customer-edit?faces-redirect=true";
     }
 
