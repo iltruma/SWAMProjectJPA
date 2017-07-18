@@ -26,8 +26,9 @@
 	<div>
 		<h3>Customer Info:</h3>
 		<label>Username: <span> <h:inputText
-					value="#{cc.attrs.customer.username}" rendered="#{isEdit}" /> <h:outputText
-					value="#{cc.attrs.customer.username}" rendered="#{not isEdit}" /></span></label>
+					value="#{cc.attrs.customer.username}" rendered="#{isEdit}" /> <h:outputText id="username"
+					value="#{cc.attrs.customer.username}" rendered="#{not isEdit}" />
+					</span></label>
 
 		<label>Password: <span> <h:inputText
 					value="#{cc.attrs.customer.password}" rendered="#{isEdit}" /> <h:outputText
@@ -67,11 +68,11 @@
 
 		<c:if test="#{isEdit}">
 			<utils:address address="#{cc.attrs.customer.customerRole.address}"
-				edit="true" title="Address:"></utils:address>
+				edit="true"></utils:address>
 		</c:if>
 		<c:if test="#{not isEdit}">
 			<utils:address address="#{cc.attrs.customer.customerRole.address}"
-				edit="false" title="Address:"></utils:address>
+				edit="false"></utils:address>
 		</c:if>
 
 		<waybill:agency agency="#{cc.attrs.customer.agency}" edit="false"

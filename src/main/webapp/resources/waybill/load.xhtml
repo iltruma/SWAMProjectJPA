@@ -11,7 +11,7 @@
 	<cc:attribute name="newItemId" />
 </cc:interface>
 <cc:implementation>
-<h3>Load Info: </h3>
+	<h3>Load Info:</h3>
 	<table>
 		<thead>
 			<tr>
@@ -28,8 +28,7 @@
 			</tr>
 		</tbody>
 	</table>
-<label>
-</label>
+	<label> </label>
 	<table>
 		<thead>
 			<tr>
@@ -64,8 +63,7 @@
 
 	<c:if test="#{cc.attrs.edit == 'true'}">
 		<h5>Add Item (id):</h5>
-		<h:inputText id="item" value="#{cc.attrs.newItemId}">
-		</h:inputText>
+		<h:inputText id="item" value="#{cc.attrs.newItemId}" />
 	</c:if>
 </cc:implementation>
 </html>
