@@ -45,10 +45,11 @@
 						agency="#{editWaybillPageController.waybill.receiver.destinationAgency}"
 						title="Destination Agency" />
 
-					<label for="cost">cost</label>
-					<h:outputText id="cost"
-						value="#{editWaybillPageController.strategy.waybill.cost}">
-					</h:outputText>
+					
+					<h3>Cost: <span>
+				<h:outputText id="cost"
+					value="#{editWaybillPageController.strategy.waybill.cost}">
+				</h:outputText></span></h3>
 
 					<waybill:load edit="true"
 						newItemId="#{editWaybillPageController.strategy.newItem}"

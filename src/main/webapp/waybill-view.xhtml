@@ -38,17 +38,18 @@
 
 				<waybill:agency edit="false"
 					agency="#{viewWaybillPageController.waybill.sender.agency}"
-					title="Departure Agency" />
+					title="Departure Agency:" />
 
 				<waybill:agency edit="false"
 					agency="#{viewWaybillPageController.waybill.receiver.destinationAgency}"
-					title="Destination Agency" />
+					title="Destination Agency:" />
 
-				<label for="cost">cost</label>
+				<h3>Cost: <span>
 				<h:outputText id="cost"
 					value="#{viewWaybillPageController.strategy.waybill.cost}">
-				</h:outputText>
+				</h:outputText></span></h3>
 
+				
 				<waybill:load edit="false"
 					load="#{viewWaybillPageController.waybill.load}" />
 

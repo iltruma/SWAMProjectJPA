@@ -31,7 +31,7 @@
 						<td>#{customer.phone}</td>
 						<td>#{customer.customerRole.state}</td>
 
-						<td><h:form>
+						<td><h:form style="margin:10px 0;">
 								<h:commandButton styleClass="button button-outline"
 									action="#{customersPageController.selectCustomer(customer)}"
 									value="View">
@@ -43,13 +43,14 @@
 		</table>
 
 		<h:form>
-			<h:commandButton styleClass="button"
+			<h:commandButton styleClass="button float-left"
 				action="#{customersPageController.createCustomer()}"
 				value="Add New Customer">
 			</h:commandButton>
 		</h:form>
+		
+		<h:link styleClass="button button-outline float-left" outcome="home" value="Back"></h:link>
 
-		<h:link styleClass="button button-outline" outcome="home" value="Back"></h:link>
 
 	</ui:define>
 </ui:composition>

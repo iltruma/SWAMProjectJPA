@@ -8,20 +8,17 @@
 	<cc:attribute name="receiver" required="true" />
 </cc:interface>
 <cc:implementation>
+	<h3>Receiver:</h3>
 	<table>
-		<tr>
-			<th colspan="5"><label>Receiver</label></th>
-		</tr>
-
 		<c:if test="#{cc.attrs.edit == 'true'}">
 			<tr>
-				<th>name</th>
-				<th>phone</th>
-				<th>email</th>
-				<th>street</th>
-				<th>city</th>
+				<th>Name</th>
+				<th>Phone</th>
+				<th>Email</th>
+				<th>Street</th>
+				<th>City</th>
 				<th>CAP</th>
-				<th>state</th>
+				<th>State</th>
 
 			</tr>
 			<tr>
@@ -51,9 +48,9 @@
 
 		<c:if test="#{cc.attrs.edit != 'true'}">
 			<tr>
-				<th>name</th>
-				<th>phone</th>
-				<th>email</th>
+				<th>Name</th>
+				<th>Phone</th>
+				<th>Email</th>
 				<th>Address</th>
 			</tr>
 			<tr>
