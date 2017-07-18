@@ -28,6 +28,7 @@ public class WaybillDaoJpaTest extends JpaTest {
 
     Waybill proposedWaybill;
     Waybill validatedWaybill;
+    Waybill unassignedWaybill;
 
     @Override
     protected void init() throws InitializationError {
@@ -79,11 +80,11 @@ public class WaybillDaoJpaTest extends JpaTest {
         validatedWaybill = ModelFactory.generateWaybill();
         User justAnotherSender = ModelFactory.generateUser();
         justAnotherSender.addRole(ModelFactory.generateCustomer());
+        justAnotherSender.setAgency(destinationAgency);
         validatedWaybill.setSender(justAnotherSender);
         User otherOperator = ModelFactory.generateUser();
         otherOperator.addRole(ModelFactory.generateOperator());
         validatedWaybill.setOperator(otherOperator);
-        mission.addWaybill(validatedWaybill);
 
         entityManager.persist(proposedWaybill);
         entityManager.persist(otherSender);
@@ -108,7 +109,7 @@ public class WaybillDaoJpaTest extends JpaTest {
     @SuppressWarnings("deprecation")
     public void testFindByMissionId() {
         List<Waybill> result = waybillDao.findByMissionId(mission.getId());
-        assertEquals(2, result.size());
+        assertEquals(1, result.size());
         assertEquals(waybill, result.get(0));
     }
 
@@ -203,11 +204,11 @@ public class WaybillDaoJpaTest extends JpaTest {
 
     @Test
     public void testUnassignedToDriver() {
-        List<Waybill> result = waybillDao.findUnassignedToDriver(proposedWaybill.getSender().getAgency());
+        List<Waybill> result = waybillDao.findUnassignedToDriver(validatedWaybill.getSender().getAgency());
         assertEquals(1, result.size());
-        assertEquals(proposedWaybill, result.get(0));
+        assertEquals(validatedWaybill, result.get(0));
 
-        result = waybillDao.findUnassignedToDriver(validatedWaybill.getSender().getAgency());
+        result = waybillDao.findUnassignedToDriver(proposedWaybill.getSender().getAgency());
         assertEquals(0, result.size());
     }
 
