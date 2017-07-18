@@ -1,9 +1,11 @@
 package it.unifi.ing.swam.dao;
 
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.NoResultException;
 
@@ -48,7 +50,7 @@ public class FareDaoJpaTest extends JpaTest {
 
         assertThatExceptionOfType(NoResultException.class).isThrownBy(() -> {
             entityManager.createQuery("FROM Fare f WHERE f = :fare", Fare.class).setParameter("fare", deleteFare)
-            .getSingleResult();
+                    .getSingleResult();
         });
     }
 
@@ -60,6 +62,15 @@ public class FareDaoJpaTest extends JpaTest {
         assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
             fareDao.delete(deleteFare);
         });
+    }
+
+    @Test
+    public void testFindUnassignedToCustomer() {
+
+        List<Fare> result = fareDao.findUnassignedToCustomer();
+
+        assertEquals(1, result.size());
+        assertEquals(fare, result.get(0));
     }
 
 }
