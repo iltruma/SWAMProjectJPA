@@ -35,12 +35,13 @@ public class Address {
     }
 
     public String format() {
-        String address = street + " " + city;
+        String address = street + " " + city + ", " + state + " " + zip;
 
-        if ((street != "" || city != "") && (state != "" || zip != ""))
-            address += ",";
+        if (address.endsWith(",  "))
+            address = address.substring(0, address.length() - 3);
+        else if (address.startsWith(" , "))
+            address = address.substring(3, address.length());
 
-        address += " " + state + " " + zip;
         return address;
     }
 
