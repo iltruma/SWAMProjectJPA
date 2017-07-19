@@ -1,20 +1,15 @@
 package it.unifi.ing.swam.controller;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.inject.Instance;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.transaction.Transactional;
 
 import org.apache.commons.lang3.StringUtils;
 
 import it.unifi.ing.swam.bean.producer.HttpParam;
 import it.unifi.ing.swam.controller.strategy.RoleStrategy;
-import it.unifi.ing.swam.dao.AgencyDao;
-import it.unifi.ing.swam.dao.ItemDao;
-import it.unifi.ing.swam.dao.MissionDao;
-import it.unifi.ing.swam.dao.UserDao;
-import it.unifi.ing.swam.dao.WaybillDao;
 import it.unifi.ing.swam.model.Waybill;
 
 @Named
@@ -31,20 +26,10 @@ public class EditWaybillPageController extends BasicController {
     @HttpParam("add")
     private String addFlag;
 
-    @Inject
-    protected WaybillDao waybillDao;
 
-    @Inject
-    protected AgencyDao agencyDao;
-
-    @Inject
-    protected ItemDao itemDao;
-
-    @Inject
-    protected UserDao userDao;
-
-    @Inject
-    protected MissionDao missionDao;
+    
+    @Inject Instance<RoleStrategy> roleStrategyInstance;
+    
 
     private RoleStrategy strategy;
 
@@ -70,9 +55,8 @@ public class EditWaybillPageController extends BasicController {
         else if (Boolean.valueOf(addFlag))
             waybillId = null;
         currentRole = roleDao.findById(Long.valueOf(roleId));
-
-        strategy = RoleStrategy.getStrategyFrom(currentRole, waybillId, userSession.getUser());
-        strategy.setDaos(waybillDao, agencyDao, itemDao, userDao, missionDao);
+ 
+        strategy = RoleStrategy.getStrategy(roleStrategyInstance, currentRole, userSession.getUser(), waybillId);
     }
 
     public Waybill getWaybill() {
@@ -83,22 +67,20 @@ public class EditWaybillPageController extends BasicController {
         return strategy;
     }
 
-    @Transactional
     public String save() {
         strategy.save();
         return "waybill-view?id=" + getWaybill().getId() + "&roleId=" + currentRole.getId() + "&faces-redirect=true";
     }
 
-    @Transactional
     public String delete() {
         strategy.delete();
         return "home?&faces-redirect=true";
     }
 
-    @Transactional
     public String signAndSave() {
         strategy.setSignAndTracking();
         return save();
     }
+    
 
 }

@@ -1,18 +1,21 @@
 package it.unifi.ing.swam.controller.strategy;
 
+import javax.enterprise.inject.Default;
+import javax.transaction.Transactional;
+
 import it.unifi.ing.swam.model.Agency;
 import it.unifi.ing.swam.model.Item;
 import it.unifi.ing.swam.model.ModelFactory;
 import it.unifi.ing.swam.model.Tracking;
-import it.unifi.ing.swam.model.User;
 import it.unifi.ing.swam.model.Waybill;
 
+@Default
 public class CustomerStrategy extends RoleStrategy {
+	
+	public CustomerStrategy() {
+		
+	}
 
-    protected CustomerStrategy(String wid, User u) {
-        super(wid, u);
-
-    }
 
     @Override
     public Waybill initWaybill() {
@@ -66,6 +69,7 @@ public class CustomerStrategy extends RoleStrategy {
     }
 
     @Override
+    @Transactional
     public void delete() {
         waybillDao.delete(waybill);
     }

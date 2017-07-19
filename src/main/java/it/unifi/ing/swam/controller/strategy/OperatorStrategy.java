@@ -2,6 +2,8 @@ package it.unifi.ing.swam.controller.strategy;
 
 import java.util.Calendar;
 
+import javax.transaction.Transactional;
+
 import it.unifi.ing.swam.model.Agency;
 import it.unifi.ing.swam.model.Item;
 import it.unifi.ing.swam.model.ModelFactory;
@@ -10,10 +12,11 @@ import it.unifi.ing.swam.model.User;
 import it.unifi.ing.swam.model.Waybill;
 
 public class OperatorStrategy extends RoleStrategy {
+	
+	public OperatorStrategy(){
+		
+	}
 
-    protected OperatorStrategy(String wid, User u) {
-        super(wid, u);
-    }
 
     @Override
     public Waybill initWaybill() {
@@ -76,6 +79,7 @@ public class OperatorStrategy extends RoleStrategy {
     }
 
     @Override
+    @Transactional
     public void save() {
         waybill.setOperator(user);
         waybill.setAcceptDate(Calendar.getInstance());
@@ -83,6 +87,7 @@ public class OperatorStrategy extends RoleStrategy {
     }
 
     @Override
+    @Transactional
     public void delete() {
         waybillDao.delete(waybill);
     }

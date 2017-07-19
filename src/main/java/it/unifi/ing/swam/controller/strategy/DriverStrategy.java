@@ -2,15 +2,16 @@ package it.unifi.ing.swam.controller.strategy;
 
 import java.util.Calendar;
 
+import javax.transaction.Transactional;
+
 import it.unifi.ing.swam.model.Tracking;
-import it.unifi.ing.swam.model.User;
 import it.unifi.ing.swam.model.Waybill;
 
 public class DriverStrategy extends RoleStrategy {
-
-    protected DriverStrategy(String wid, User u) {
-        super(wid, u);
-    }
+	
+	public DriverStrategy() {
+		
+	}
 
     @Override
     public Waybill initWaybill() {
@@ -41,6 +42,7 @@ public class DriverStrategy extends RoleStrategy {
     }
 
     @Override
+    @Transactional
     public void setSignAndTracking() {
         waybill.setSign(true);
         waybill.setTracking(Tracking.DELIVERED);
