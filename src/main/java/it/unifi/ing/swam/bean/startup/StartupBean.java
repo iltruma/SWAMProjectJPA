@@ -49,6 +49,8 @@ public class StartupBean {
 	@Inject
 	private FareDao fareDao;
 
+	private Item[] item = new Item[200];
+
 	@PostConstruct
 	@Transactional
 	public void init() {
@@ -84,13 +86,26 @@ public class StartupBean {
 		f.setZone("italia");
 		f.setStartDate(Calendar.getInstance());
 		customer1.getCustomerRole().addFare(f);
+		fareDao.save(f);
 
 		all.addRole(ModelFactory.generateOperator());
 		all.addRole(ModelFactory.generateCustomer());
 		all.addRole(ModelFactory.generateDriver());
+		f = ModelFactory.generateFare();
+		f.setFunctionCost(0.2F);
+		f.setZone("italia");
+		f.setStartDate(Calendar.getInstance());
+		all.getCustomerRole().addFare(f);
+		fareDao.save(f);
 
 		customer2.addRole(ModelFactory.generateCustomer());
 		customer2.getCustomerRole().setOperator(all);
+		f = ModelFactory.generateFare();
+		f.setFunctionCost(0.2F);
+		f.setZone("italia");
+		f.setStartDate(Calendar.getInstance());
+		customer2.getCustomerRole().addFare(f);
+		fareDao.save(f);
 
 		driver1.addRole(ModelFactory.generateDriver());
 		driver2.addRole(ModelFactory.generateDriver());
@@ -229,6 +244,7 @@ public class StartupBean {
 		waybill6.setTracking(Tracking.DELIVERED);
 		waybill6.setSign(true);
 
+
 		Mission mission1 = ModelFactory.generateMission();
 		Mission mission2 = ModelFactory.generateMission();
 		Mission mission3 = ModelFactory.generateMission();
@@ -247,11 +263,37 @@ public class StartupBean {
 		mission3.setDriver(all.getDriverRole());
 
 		generateAndPersistItems();
+		waybill1.getLoad().addItem(item[0]);
+		waybill1.getLoad().addItem(item[1]);
+		waybill1.getLoad().addItem(item[2]);
+		waybill1.retreiveCost();
+
+		waybill2.getLoad().addItem(item[3]);
+		waybill2.getLoad().addItem(item[4]);
+		waybill2.retreiveCost();
+
+		waybill3.getLoad().addItem(item[5]);
+		waybill3.getLoad().addItem(item[6]);
+		waybill3.getLoad().addItem(item[7]);
+		waybill3.retreiveCost();
+
+		waybill4.getLoad().addItem(item[8]);
+		waybill4.getLoad().addItem(item[9]);
+		waybill4.getLoad().addItem(item[10]);
+		waybill4.getLoad().addItem(item[11]);
+		waybill4.retreiveCost();
+
+		waybill5.getLoad().addItem(item[12]);
+		waybill5.retreiveCost();
+
+		waybill6.getLoad().addItem(item[13]);
+		waybill6.retreiveCost();
 
 		agencyDao.save(agency1);
 		agencyDao.save(agency2);
 
-		fareDao.save(f);
+
+
 
 		userDao.save(operator1);
 		userDao.save(operator2);
@@ -279,15 +321,17 @@ public class StartupBean {
 		missionDao.save(mission2);
 		missionDao.save(mission3);
 
+
+
 	}
 
 	private void generateAndPersistItems() {
 		for (int i = 0; i < 100; i++) {
-			Item item = ModelFactory.generateItem();
-			item.setVolume((float) (i + 1));
-			item.setWeigth((float) (i + 2));
+			item[i] = ModelFactory.generateItem();
+			item[i].setVolume((float) (i + 1));
+			item[i].setWeigth((float) (i + 2));
 
-			itemDao.save(item);
+			itemDao.save(item[i]);
 		}
 	}
 

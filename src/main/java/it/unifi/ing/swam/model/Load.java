@@ -11,45 +11,45 @@ import javax.persistence.OneToMany;
 @Embeddable
 public class Load {
 
-    private Float totalVolume;
-    private Float totalWeight;
+	private Float totalVolume;
+	private Float totalWeight;
 
-    @OneToMany(fetch=FetchType.LAZY)
-    @JoinColumn(name="waybill_id")
-    private List<Item> items;
+	@OneToMany(fetch=FetchType.LAZY)
+	@JoinColumn(name="waybill_id")
+	private List<Item> items;
 
-    public Load() {
-        totalVolume = Float.valueOf(0F);
-        totalWeight = Float.valueOf(0F);
-        items = new ArrayList<>();
-    }
+	public Load() {
+		totalVolume = Float.valueOf(0F);
+		totalWeight = Float.valueOf(0F);
+		items = new ArrayList<>();
+	}
 
-    public Float getTotalVolume() {
-        return totalVolume;
-    }
+	public Float getTotalVolume() {
+		return totalVolume;
+	}
 
-    public Float getTotalWeight() {
-        return totalWeight;
-    }
+	public Float getTotalWeight() {
+		return totalWeight;
+	}
 
-    public List<Item> getItems() {
-        return items;
-    }
+	public List<Item> getItems() {
+		return items;
+	}
 
-    public void addItem(Item i) {
-        items.add(i);
-        totalVolume += i.getVolume();
-        totalWeight += i.getWeight();
-    }
+	public void addItem(Item i) {
+		items.add(i);
+		totalVolume += i.getVolume();
+		totalWeight += i.getWeight();
+	}
 
-    public void removeItem(Item i) {
-        items.remove(i);
-        totalVolume -= i.getVolume();
-        totalWeight -= i.getWeight();
-    }
+	public void removeItem(Item i) {
+		items.remove(i);
+		totalVolume -= i.getVolume();
+		totalWeight -= i.getWeight();
+	}
 
-    public Integer getNumItems() {
-        return items.size();
-    }
+	public Integer getNumItems() {
+		return items.size();
+	}
 
 }

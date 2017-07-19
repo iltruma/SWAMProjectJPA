@@ -101,8 +101,7 @@ public abstract class RoleStrategy {
 
 	@Transactional
 	public void save() {
-		Float r = waybill.getSender().getCustomerRole().getFares().get(0).getFunctionCost();
-		waybill.setCost((waybill.getLoad().getTotalVolume()+waybill.getLoad().getTotalWeight())*r/4.0F );
+		waybill.retreiveCost();
 		waybillDao.save(waybill);
 	}
 
