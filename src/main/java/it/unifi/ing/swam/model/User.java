@@ -25,8 +25,9 @@ public class User extends BaseEntity {
     private String username;
 
     @NotNull
-    @Size(min = 3, max=30)
     private String password;
+
+    private byte[] salt;
 
     private String name;
 
@@ -67,7 +68,17 @@ public class User extends BaseEntity {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        if (salt == null)
+            throw new IllegalArgumentException("salt cannot be null");
+        this.password = UserPasswordTools.encrypt(password, salt);
+    }
+
+    public byte[] getSalt() {
+        return salt;
+    }
+
+    public void setSalt(byte[] salt) {
+        this.salt = salt;
     }
 
     public List<Role> getRoles() {

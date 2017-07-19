@@ -35,6 +35,8 @@ public class LoginPageControllerTest {
     private UserSessionBean userSession;
 
     private User user;
+    private String username;
+    private String password;
 
     @Before
     public void init() throws InitializationError {
@@ -47,7 +49,12 @@ public class LoginPageControllerTest {
         missionBean = new MissionBean();
         conversation = mock(Conversation.class);
 
-        user = ModelFactory.generateUser("username", "password");
+        password = "password";
+        username = "username";
+        user = ModelFactory.generateUser(username, password);
+
+        loginController.setUsername(username);
+        loginController.setPassword(password);
 
         try {
             FieldUtils.writeField(user, "id", Long.valueOf(10), true);
@@ -64,6 +71,8 @@ public class LoginPageControllerTest {
 
     @Test
     public void testLoginSuccess() {
+        when(userDao.findSaltByUsername(username)).thenReturn(user.getSalt());
+        user.setPassword(password);
         when(userDao.findByLoginInfo(any(User.class))).thenReturn(user);
 
         loginController.login();
