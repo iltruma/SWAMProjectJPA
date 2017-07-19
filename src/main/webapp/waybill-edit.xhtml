@@ -27,118 +27,119 @@
 
 
 		<h:form>
-				<c:if test="#{isOperator}">
+			<c:if test="#{isOperator}">
 
-					<waybill:sender edit="true"
-						senderId="#{editWaybillPageController.strategy.sender}"
-						sender="#{editWaybillPageController.waybill.sender}" />
+				<waybill:sender edit="true"
+					senderId="#{editWaybillPageController.strategy.sender}"
+					sender="#{editWaybillPageController.waybill.sender}" />
 
-					<waybill:receiver edit="true"
-						receiver="#{editWaybillPageController.waybill.receiver}" />
+				<waybill:receiver edit="true"
+					receiver="#{editWaybillPageController.waybill.receiver}" />
 
-					<waybill:agency edit="false"
-						agency="#{editWaybillPageController.waybill.sender.agency}"
-						title="Departure Agency:" />
+				<waybill:agency edit="false"
+					agency="#{editWaybillPageController.waybill.sender.agency}"
+					title="Departure Agency:" />
 
-					<waybill:agency edit="true"
-						agencyId="#{editWaybillPageController.strategy.agency}"
-						agency="#{editWaybillPageController.waybill.receiver.destinationAgency}"
-						title="Destination Agency:" />
+				<waybill:agency edit="true"
+					agencyId="#{editWaybillPageController.strategy.agency}"
+					agency="#{editWaybillPageController.waybill.receiver.destinationAgency}"
+					title="Destination Agency:" />
 
-					
-					<h3>Cost: <span>
-				<h:outputText id="cost"
-					value="#{editWaybillPageController.strategy.waybill.cost}">
-				</h:outputText></span></h3>
 
-					<waybill:load edit="true"
-						newItemId="#{editWaybillPageController.strategy.newItem}"
-						load="#{editWaybillPageController.waybill.load}" />
+				<h3>
+					Cost: <span> <h:outputText id="cost"
+							value="#{editWaybillPageController.strategy.waybill.cost}">
+						</h:outputText></span>
+				</h3>
 
-					<waybill:info waybill="#{editWaybillPageController.waybill}"
-						role="OPERATOR" />
+				<waybill:load edit="true"
+					newItemId="#{editWaybillPageController.strategy.newItem}"
+					load="#{editWaybillPageController.waybill.load}" />
 
-					<h:commandButton styleClass="button-primary"
-						action="#{editWaybillPageController.save()}"
-						value="Save and Validate">
-					</h:commandButton>
+				<waybill:info waybill="#{editWaybillPageController.waybill}"
+					role="OPERATOR" />
 
-					<h:commandButton styleClass="button-primary"
-						action="#{editWaybillPageController.delete()}"
-						value="Delete this Waybill"
-						rendered="#{editWaybillPageController.addFlag != 'true'}">
-					</h:commandButton>
+				<h:commandButton styleClass="button-primary"
+					action="#{editWaybillPageController.save()}"
+					value="Save and Validate">
+				</h:commandButton>
 
-				</c:if>
+			</c:if>
 
-				<c:if test="#{isCustomer}">
+			<c:if test="#{isCustomer}">
 
-					<waybill:sender edit="false"
-						senderId="#{editWaybillPageController.strategy.sender}"
-						sender="#{editWaybillPageController.waybill.sender}" />
+				<waybill:sender edit="false"
+					senderId="#{editWaybillPageController.strategy.sender}"
+					sender="#{editWaybillPageController.waybill.sender}" />
 
-					<waybill:receiver edit="true"
-						receiver="#{editWaybillPageController.waybill.receiver}" />
+				<waybill:receiver edit="true"
+					receiver="#{editWaybillPageController.waybill.receiver}" />
 
-					<waybill:agency edit="false"
-						agency="#{editWaybillPageController.waybill.sender.agency}"
-						title="Departure Agency" />
+				<waybill:agency edit="false"
+					agency="#{editWaybillPageController.waybill.sender.agency}"
+					title="Departure Agency" />
 
-					<waybill:agency edit="true"
-						agencyId="#{editWaybillPageController.strategy.agency}"
-						agency="#{editWaybillPageController.waybill.receiver.destinationAgency}"
-						title="Destination Agency" />
+				<waybill:agency edit="true"
+					agencyId="#{editWaybillPageController.strategy.agency}"
+					agency="#{editWaybillPageController.waybill.receiver.destinationAgency}"
+					title="Destination Agency" />
 
-					<waybill:load edit="true"
-						newItemId="#{editWaybillPageController.strategy.newItem}"
-						load="#{editWaybillPageController.waybill.load}" />
+				<waybill:load edit="true"
+					newItemId="#{editWaybillPageController.strategy.newItem}"
+					load="#{editWaybillPageController.waybill.load}" />
 
-					<waybill:info waybill="#{editWaybillPageController.waybill}"
-						role="CUSTOMER" />
+				<waybill:info waybill="#{editWaybillPageController.waybill}"
+					role="CUSTOMER" />
 
-					<h:commandButton styleClass="button-primary"
-						action="#{editWaybillPageController.save()}"
-						value="Save and Forward to Operator">
-					</h:commandButton>
+				<h:commandButton styleClass="button-primary"
+					action="#{editWaybillPageController.save()}"
+					value="Save and Forward to Operator">
+				</h:commandButton>
 
-					<h:commandButton styleClass="button-primary"
-						action="#{editWaybillPageController.delete()}"
-						value="Delete this Waybill"
-						rendered="#{editWaybillPageController.addFlag != 'true'}">
-					</h:commandButton>
 
-				</c:if>
+			</c:if>
 
-				<c:if test="#{isDriver}">
+			<c:if test="#{isDriver}">
 
-					<waybill:sender edit="false"
-						senderId="#{editWaybillPageController.strategy.sender}"
-						sender="#{editWaybillPageController.waybill.sender}" />
+				<waybill:sender edit="false"
+					senderId="#{editWaybillPageController.strategy.sender}"
+					sender="#{editWaybillPageController.waybill.sender}" />
 
-					<waybill:receiver edit="false"
-						receiver="#{editWaybillPageController.waybill.receiver}" />
+				<waybill:receiver edit="false"
+					receiver="#{editWaybillPageController.waybill.receiver}" />
 
-					<waybill:agency edit="false"
-						agencyId="#{editWaybillPageController.strategy.agency}"
-						agency="#{editWaybillPageController.waybill.receiver.destinationAgency}"
-						title="Destination Agency" />
+				<waybill:agency edit="false"
+					agencyId="#{editWaybillPageController.strategy.agency}"
+					agency="#{editWaybillPageController.waybill.receiver.destinationAgency}"
+					title="Destination Agency" />
 
-					<waybill:load edit="false"
-						load="#{editWaybillPageController.waybill.load}" />
+				<waybill:load edit="false"
+					load="#{editWaybillPageController.waybill.load}" />
 
-					<waybill:info waybill="#{editWaybillPageController.waybill}"
-						role="DRIVER" />
+				<waybill:info waybill="#{editWaybillPageController.waybill}"
+					role="DRIVER" />
 
-					<h:commandButton styleClass="button-primary"
-						action="#{editWaybillPageController.signAndSave()}"
-						value="set Signature">
-					</h:commandButton>
+				<h:commandButton styleClass="button-primary"
+					action="#{editWaybillPageController.signAndSave()}"
+					value="set Signature">
+				</h:commandButton>
 
-				</c:if>
-
-				<h:link styleClass="button button-outline" outcome="home"
-					value="Back"></h:link>
+			</c:if>
 		</h:form>
+
+		<c:if test="#{isOperator or isCustomer}">
+			<h:form>
+				<h:commandButton styleClass="button-primary"
+					action="#{editWaybillPageController.delete()}"
+					value="Delete this Waybill"
+					rendered="#{editWaybillPageController.addFlag != 'true'}">
+				</h:commandButton>
+			</h:form>
+		</c:if>
+
+
+
+		<h:link styleClass="button button-outline" outcome="home" value="Back"></h:link>
 	</ui:define>
 </ui:composition>
 
