@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.Calendar;
 
+import javax.enterprise.inject.Instance;
 import javax.enterprise.inject.Model;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
@@ -22,6 +23,7 @@ import it.unifi.ing.swam.bean.UserSessionBean;
 import it.unifi.ing.swam.controller.strategy.CustomerStrategy;
 import it.unifi.ing.swam.controller.strategy.DriverStrategy;
 import it.unifi.ing.swam.controller.strategy.OperatorStrategy;
+import it.unifi.ing.swam.controller.strategy.RoleStrategy;
 import it.unifi.ing.swam.dao.MissionDao;
 import it.unifi.ing.swam.dao.RoleDao;
 import it.unifi.ing.swam.dao.WaybillDao;
@@ -45,13 +47,19 @@ public class ViewWaybillPageControllerTest {
 
     private static Long roleId = 11L;
     private static Long waybillId = 12L;
+    
+    private static Instance<RoleStrategy> roleStrategyInstance;
 
-    public static void init() throws InitializationError {
+    @SuppressWarnings("unchecked")
+	public static void init() throws InitializationError {
         viewWaybillPageController = new ViewWaybillPageController();
         userSession = new UserSessionBean();
         waybillDao = mock(WaybillDao.class);
         missionDao = mock(MissionDao.class);
         roleDao = mock(RoleDao.class);
+        
+
+        roleStrategyInstance = mock(Instance.class);
 
         user = ModelFactory.generateUser();
         user.setPassword("password");
@@ -70,14 +78,43 @@ public class ViewWaybillPageControllerTest {
 
         when(waybillDao.findById(waybillId)).thenReturn(waybill);
 
+        CustomerStrategy cs = new CustomerStrategy();
+        OperatorStrategy os = new OperatorStrategy();
+        DriverStrategy ds = new DriverStrategy();
+        inject(cs);
+        inject(ds);
+        inject(os);
+        
+        Instance<CustomerStrategy> customerStrategyInstance = mock(Instance.class); 
+        Instance<OperatorStrategy> operatorStrategyInstance = mock(Instance.class); 
+        Instance<DriverStrategy> driverStrategyInstance = mock(Instance.class); 
+        
+        when(roleStrategyInstance.select(CustomerStrategy.class)).thenReturn(customerStrategyInstance);
+        when(roleStrategyInstance.select(OperatorStrategy.class)).thenReturn(operatorStrategyInstance);
+        when(roleStrategyInstance.select(DriverStrategy.class)).thenReturn(driverStrategyInstance);
+
+        
+        when(customerStrategyInstance.get()).thenReturn(cs);
+        when(operatorStrategyInstance.get()).thenReturn(os);
+        when(driverStrategyInstance.get()).thenReturn(ds);
+
+
         try {
             FieldUtils.writeField(user, "id", Long.valueOf(10), true);
             FieldUtils.writeField(viewWaybillPageController, "roleId", roleId.toString(), true);
             FieldUtils.writeField(viewWaybillPageController, "waybillId", waybillId.toString(), true);
             FieldUtils.writeField(viewWaybillPageController, "roleDao", roleDao, true);
+            FieldUtils.writeField(viewWaybillPageController, "roleStrategyInstance", roleStrategyInstance, true);
             FieldUtils.writeField(viewWaybillPageController, "userSession", userSession, true);
-            FieldUtils.writeField(viewWaybillPageController, "waybillDao", waybillDao, true);
-            FieldUtils.writeField(viewWaybillPageController, "missionDao", missionDao, true);
+        } catch (IllegalAccessException e) {
+            throw new InitializationError(e);
+        }
+    }
+    
+    public static void inject(RoleStrategy rs) throws InitializationError {
+        try {
+            FieldUtils.writeField(rs, "waybillDao", waybillDao, true);
+            FieldUtils.writeField(rs, "missionDao", missionDao, true);
         } catch (IllegalAccessException e) {
             throw new InitializationError(e);
         }

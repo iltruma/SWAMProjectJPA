@@ -13,10 +13,7 @@ import it.unifi.ing.swam.model.Waybill;
 
 public class OperatorStrategy extends RoleStrategy {
 	
-	public OperatorStrategy(){
-		
-	}
-
+	public OperatorStrategy(){}
 
     @Override
     public Waybill initWaybill() {
