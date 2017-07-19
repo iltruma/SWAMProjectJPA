@@ -11,51 +11,51 @@ import javax.persistence.TemporalType;
 @Table(name = "fares")
 public class Fare extends BaseEntity {
 
-    @Temporal(TemporalType.DATE)
-    private Calendar startDate;
-    @Temporal(TemporalType.DATE)
-    private Calendar endDate;
-    private String zone;
-    private String functionCost;
+	@Temporal(TemporalType.DATE)
+	private Calendar startDate;
+	@Temporal(TemporalType.DATE)
+	private Calendar endDate;
+	private String zone;
+	private Float functionCost;
 
-    protected Fare() {
+	protected Fare() {
 
-    }
+	}
 
-    public Fare(String uuid) {
-        super(uuid);
-    }
+	public Fare(String uuid) {
+		super(uuid);
+	}
 
-    public Calendar getStartDate() {
-        return startDate;
-    }
+	public Calendar getStartDate() {
+		return startDate;
+	}
 
-    public void setStartDate(Calendar startDate) {
-        this.startDate = startDate;
-    }
+	public void setStartDate(Calendar startDate) {
+		this.startDate = startDate;
+	}
 
-    public Calendar getEndDate() {
-        return endDate;
-    }
+	public Calendar getEndDate() {
+		return endDate;
+	}
 
-    public void setEndDate(Calendar endDate) {
-        this.endDate = endDate;
-    }
+	public void setEndDate(Calendar endDate) {
+		this.endDate = endDate;
+	}
 
-    public String getZone() {
-        return zone;
-    }
+	public String getZone() {
+		return zone;
+	}
 
-    public void setZone(String zone) {
-        this.zone = zone;
-    }
+	public void setZone(String zone) {
+		this.zone = zone;
+	}
 
-    public String getFunctionCost() {
-        return functionCost;
-    }
+	public Float getFunctionCost() {
+		return functionCost;
+	}
 
-    public void setFunctionCost(String functionCost) {
-        this.functionCost = functionCost;
-    }
+	public void setFunctionCost(Float functionCost) {
+		this.functionCost = functionCost;
+	}
 
 }

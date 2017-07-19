@@ -18,66 +18,66 @@ import it.unifi.ing.swam.model.User;
 
 public class FareDaoJpaTest extends JpaTest {
 
-    FareDao fareDao;
+	FareDao fareDao;
 
-    Fare fare;
-    Fare assignedFare;
+	Fare fare;
+	Fare assignedFare;
 
-    @Override
-    protected void init() throws InitializationError {
+	@Override
+	protected void init() throws InitializationError {
 
-        fare = ModelFactory.generateFare();
-        fare.setFunctionCost("functionCost");
-        fare.setZone("zone");
-        Calendar startDate = Calendar.getInstance();
-        startDate.setTime(new Date(4326542837L));
-        fare.setStartDate(startDate);
-        Calendar endDate = Calendar.getInstance();
-        endDate.setTime(new Date(5637146839L));
-        fare.setEndDate(endDate);
+		fare = ModelFactory.generateFare();
+		fare.setFunctionCost(0.2F);
+		fare.setZone("zone");
+		Calendar startDate = Calendar.getInstance();
+		startDate.setTime(new Date(4326542837L));
+		fare.setStartDate(startDate);
+		Calendar endDate = Calendar.getInstance();
+		endDate.setTime(new Date(5637146839L));
+		fare.setEndDate(endDate);
 
-        assignedFare = ModelFactory.generateFare();
-        User customer = ModelFactory.generateUser();
-        customer.addRole(ModelFactory.generateCustomer());
-        customer.getCustomerRole().addFare(assignedFare);
+		assignedFare = ModelFactory.generateFare();
+		User customer = ModelFactory.generateUser();
+		customer.addRole(ModelFactory.generateCustomer());
+		customer.getCustomerRole().addFare(assignedFare);
 
-        entityManager.persist(fare);
-        entityManager.persist(assignedFare);
-        entityManager.persist(customer);
+		entityManager.persist(fare);
+		entityManager.persist(assignedFare);
+		entityManager.persist(customer);
 
-        fareDao = new FareDao();
-        JpaTest.inject(fareDao, entityManager);
-    }
+		fareDao = new FareDao();
+		JpaTest.inject(fareDao, entityManager);
+	}
 
-    @Test
-    public void testDelete() {
+	@Test
+	public void testDelete() {
 
-        Fare deleteFare = entityManager.createQuery("FROM Fare f WHERE f = :fare", Fare.class)
-                .setParameter("fare", fare).getSingleResult();
+		Fare deleteFare = entityManager.createQuery("FROM Fare f WHERE f = :fare", Fare.class)
+				.setParameter("fare", fare).getSingleResult();
 
-        fareDao.delete(deleteFare);
+		fareDao.delete(deleteFare);
 
-        assertThatExceptionOfType(NoResultException.class).isThrownBy(() -> {
-            entityManager.createQuery("FROM Fare f WHERE f = :fare", Fare.class).setParameter("fare", deleteFare)
-                    .getSingleResult();
-        });
-    }
+		assertThatExceptionOfType(NoResultException.class).isThrownBy(() -> {
+			entityManager.createQuery("FROM Fare f WHERE f = :fare", Fare.class).setParameter("fare", deleteFare)
+			.getSingleResult();
+		});
+	}
 
-    @Test
-    public void testDeleteThrowsIllegalArgumentException() {
+	@Test
+	public void testDeleteThrowsIllegalArgumentException() {
 
-        Fare deleteFare = ModelFactory.generateFare();
+		Fare deleteFare = ModelFactory.generateFare();
 
-        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
-            fareDao.delete(deleteFare);
-        });
-    }
+		assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
+			fareDao.delete(deleteFare);
+		});
+	}
 
-    @Test
-    public void testFindUnassignedToCustomer() {
+	@Test
+	public void testFindUnassignedToCustomer() {
 
-        assertTrue(fareDao.isUnassignedToCustomer(fare));
-        assertFalse(fareDao.isUnassignedToCustomer(assignedFare));
-    }
+		assertTrue(fareDao.isUnassignedToCustomer(fare));
+		assertFalse(fareDao.isUnassignedToCustomer(assignedFare));
+	}
 
 }

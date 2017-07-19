@@ -17,100 +17,102 @@ import it.unifi.ing.swam.model.Waybill;
 @Dependent
 public abstract class RoleStrategy {
 
-    protected String waybillId;
+	protected String waybillId;
 
-    @Inject
-    protected WaybillDao waybillDao;
+	@Inject
+	protected WaybillDao waybillDao;
 
-    @Inject
-    protected AgencyDao agencyDao;
+	@Inject
+	protected AgencyDao agencyDao;
 
-    @Inject
-    protected ItemDao itemDao;
-    
-    @Inject
-    protected UserDao userDao;
+	@Inject
+	protected ItemDao itemDao;
 
-    @Inject
-    protected MissionDao missionDao;
+	@Inject
+	protected UserDao userDao;
 
-    protected User user;
-    protected Waybill waybill;
+	@Inject
+	protected MissionDao missionDao;
 
-    
-    public RoleStrategy() {}
+	protected User user;
+	protected Waybill waybill;
 
-    public abstract Waybill initWaybill();
 
-    public static RoleStrategy getStrategy(Instance<RoleStrategy> roleStrategyInstance, Role r, User u, String waybillId) {
-    	RoleStrategy rs;
-        if (r.isCustomer())
-            rs = roleStrategyInstance.select(CustomerStrategy.class).get();
-        else if (r.isOperator())
-            rs = roleStrategyInstance.select(OperatorStrategy.class).get();
-        else if (r.isDriver())
-            rs = roleStrategyInstance.select(DriverStrategy.class).get();
-        else
-            throw new IllegalArgumentException("role not found");
-        rs.init(u, waybillId);
-        return rs;
-    }
-    
-    public void init(User u, String wid){
-    	user = u;
-    	waybillId = wid;
-    }
+	public RoleStrategy() {}
 
-    public Long getSender() {
-        if (waybill.getSender() != null)
-            return waybill.getSender().getId();
-        else
-            return null;
-    }
+	public abstract Waybill initWaybill();
 
-    public Long getAgency() {
-        if (waybill.getReceiver().getDestinationAgency() != null)
-            return waybill.getReceiver().getDestinationAgency().getId();
-        else
-            return null;
-    }
+	public static RoleStrategy getStrategy(Instance<RoleStrategy> roleStrategyInstance, Role r, User u, String waybillId) {
+		RoleStrategy rs;
+		if (r.isCustomer())
+			rs = roleStrategyInstance.select(CustomerStrategy.class).get();
+		else if (r.isOperator())
+			rs = roleStrategyInstance.select(OperatorStrategy.class).get();
+		else if (r.isDriver())
+			rs = roleStrategyInstance.select(DriverStrategy.class).get();
+		else
+			throw new IllegalArgumentException("role not found");
+		rs.init(u, waybillId);
+		return rs;
+	}
 
-    public Long getNewItem() {
-        return null;
-    }
+	public void init(User u, String wid){
+		user = u;
+		waybillId = wid;
+	}
 
-    public void setSender(Long id) {
-        throw new UnsupportedOperationException();
-    }
+	public Long getSender() {
+		if (waybill.getSender() != null)
+			return waybill.getSender().getId();
+		else
+			return null;
+	}
 
-    public void setAgency(Long id) {
-        throw new UnsupportedOperationException();
-    }
+	public Long getAgency() {
+		if (waybill.getReceiver().getDestinationAgency() != null)
+			return waybill.getReceiver().getDestinationAgency().getId();
+		else
+			return null;
+	}
 
-    public void setNewItem(Long id) {
-        throw new UnsupportedOperationException();
-    }
+	public Long getNewItem() {
+		return null;
+	}
 
-    public void checkEdit() {
-        throw new UnsupportedOperationException();
-    }
+	public void setSender(Long id) {
+		throw new UnsupportedOperationException();
+	}
 
-    public void setSignAndTracking() {
-        throw new UnsupportedOperationException();
-    }
+	public void setAgency(Long id) {
+		throw new UnsupportedOperationException();
+	}
 
-    @Transactional
-    public void save() {
-        waybillDao.save(waybill);
-    }
+	public void setNewItem(Long id) {
+		throw new UnsupportedOperationException();
+	}
 
-    public Waybill getWaybill() {
-        return waybill;
-    }
+	public void checkEdit() {
+		throw new UnsupportedOperationException();
+	}
 
-    @Transactional
-    public void delete() {
-        throw new UnsupportedOperationException();
-    }
+	public void setSignAndTracking() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Transactional
+	public void save() {
+		Float r = waybill.getSender().getCustomerRole().getFares().get(0).getFunctionCost();
+		waybill.setCost((waybill.getLoad().getTotalVolume()+waybill.getLoad().getTotalWeight())*r/4.0F );
+		waybillDao.save(waybill);
+	}
+
+	public Waybill getWaybill() {
+		return waybill;
+	}
+
+	@Transactional
+	public void delete() {
+		throw new UnsupportedOperationException();
+	}
 
 }
