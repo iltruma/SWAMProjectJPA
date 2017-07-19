@@ -12,15 +12,19 @@
 			<h:outputText value="Search Page as Operator" rendered="#{searchPageController.currentRole.isOperator()}" />
 			<h:outputText value="Search Page as Customer" rendered="#{searchPageController.currentRole.isCustomer()}" />
 		</h2>
-
+<br></br>
+<br></br>
 				<h:form>			
-				<h3><h:outputText value="Search by Operator Id:" rendered="#{searchPageController.currentRole.isOperator()}" /></h3>
+				<h5><h:outputText value="Search by Operator Id:" rendered="#{searchPageController.currentRole.isOperator()}" /></h5>
 				<h:inputText id="operator_id" value="#{searchPageController.operator}" rendered="#{searchPageController.currentRole.isOperator()}"></h:inputText>		
 				
-				<h3>Search by Sender Id: </h3>
+				<h5>Search by Sender Id: </h5>
 				<h:inputText id="sender_id" value="#{searchPageController.sender}"></h:inputText>
+				
+				<h5>Search by Receiver Name: </h5>
+				<h:inputText id="recevier" value="#{searchPageController.sender}"></h:inputText>
 
-				<h3>Search by Tracking: </h3>
+				<h5>Search by Tracking: </h5>
 				<h:selectOneMenu value = "#{searchPageController.tracking}">
 					<f:selectItem itemValue = "" itemLabel = "ALL" />  
    					<f:selectItem itemValue = "IDLE" itemLabel = "IDLE" /> 

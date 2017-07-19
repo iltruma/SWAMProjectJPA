@@ -22,6 +22,7 @@
 					for="tab-1"> <h:link
 						styleClass="button button-outline search" outcome="search-view"
 						value="Search">
+						<f:param name="roleId" value="#{homePageController.user.operatorRole.id}"></f:param>
 					</h:link> <h:link styleClass="button button-outline search"
 						style="right:5px;" outcome="customers" value="Customers">
 					</h:link>
@@ -153,6 +154,7 @@
 					for="tab-2"> <h:link
 						styleClass="button button-outline search" outcome="search-view"
 						value="Search">
+						<f:param name="roleId" value="#{homePageController.user.operatorRole.id}"></f:param>
 					</h:link>
 					<h2>
 						<strong>Customer Home Page</strong>
