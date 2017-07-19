@@ -56,6 +56,7 @@ public class SearchPageController extends BasicController {
 	}
 
 	public void search(int max) {
+		refineWaybill(waybillQuery);
 		results = waybillDao.advancedSearch(waybillQuery, max);
 	}
 
@@ -86,7 +87,6 @@ public class SearchPageController extends BasicController {
 	}
 
 	public void setTracking(Tracking t){
-
 		waybillQuery.setTracking(t);
 	}
 
@@ -104,6 +104,23 @@ public class SearchPageController extends BasicController {
 
 	public void setResults(List<Waybill> results) {
 		this.results = results;
+	}
+
+	public void refineWaybill(Waybill waybillQuery){
+		if (waybillQuery.getReceiver().getAddress().getCity().equals(""))
+			waybillQuery.getReceiver().getAddress().setCity(null);
+
+		if (waybillQuery.getReceiver().getAddress().getState().equals(""))
+			waybillQuery.getReceiver().getAddress().setState(null);
+
+		if (waybillQuery.getReceiver().getAddress().getStreet().equals(""))
+			waybillQuery.getReceiver().getAddress().setStreet(null);
+
+		if (waybillQuery.getReceiver().getAddress().getZip().equals(""))
+			waybillQuery.getReceiver().getAddress().setZip(null);
+
+		if(waybillQuery.getReceiver().getName().equals(""))
+			waybillQuery.getReceiver().setName(null);
 	}
 
 }

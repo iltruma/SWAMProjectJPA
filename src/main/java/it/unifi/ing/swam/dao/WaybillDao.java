@@ -111,8 +111,16 @@ public class WaybillDao extends BaseDao<Waybill> {
 			query += "w.deliveryDate = :deliveryDate AND ";
 		if (waybill.getReceiver().getName() != null)
 			query += "w.receiver.name = :name AND ";
-		//if (waybill.getReceiver().getAddress() != null)
-		// query += "w.receiver.address = :address AND ";
+
+		if (waybill.getReceiver().getAddress().getCity() != null)
+			query += "w.receiver.address.city = :city AND ";
+		if (waybill.getReceiver().getAddress().getState() != null)
+			query += "w.receiver.address.state = :state AND ";
+		if (waybill.getReceiver().getAddress().getStreet() != null)
+			query += "w.receiver.address.street = :street AND ";
+		if (waybill.getReceiver().getAddress().getZip() != null)
+			query += "w.receiver.address.zip = :zip AND ";
+
 		if (waybill.getTracking() != null)
 			query += "w.tracking = :tracking AND ";
 		if (waybill.getOperator().getId() != null)
@@ -120,11 +128,14 @@ public class WaybillDao extends BaseDao<Waybill> {
 		if (waybill.getSender().getId() != null)
 			query += "sender_id = :sender AND ";
 
-
 		TypedQuery<Waybill> q;
 
 		if (waybill.getAcceptDate() == null && waybill.getDeliveryDate() == null
-				&& waybill.getReceiver().getName() == null /*&& waybill.getReceiver().getAddress() == null*/
+				&& waybill.getReceiver().getName() == null
+				&& waybill.getReceiver().getAddress().getCity() == null
+				&& waybill.getReceiver().getAddress().getState() == null
+				&& waybill.getReceiver().getAddress().getStreet() == null
+				&& waybill.getReceiver().getAddress().getZip() == null
 				&& waybill.getTracking() == null && waybill.getOperator().getId() == null
 				&& waybill.getSender().getId() == null)
 			q = entityManager.createQuery(query.substring(0, query.length() - 7), Waybill.class)
@@ -139,8 +150,14 @@ public class WaybillDao extends BaseDao<Waybill> {
 			q.setParameter("deliveryDate", waybill.getDeliveryDate(), TemporalType.DATE);
 		if (waybill.getReceiver().getName() != null)
 			q.setParameter("name", waybill.getReceiver().getName());
-		//if (waybill.getReceiver().getAddress() != null)
-		// q.setParameter("address", waybill.getReceiver().getAddress());
+		if (waybill.getReceiver().getAddress().getCity() != null)
+			q.setParameter("city", waybill.getReceiver().getAddress().getCity());
+		if (waybill.getReceiver().getAddress().getState() != null)
+			q.setParameter("state", waybill.getReceiver().getAddress().getState());
+		if (waybill.getReceiver().getAddress().getStreet() != null)
+			q.setParameter("street", waybill.getReceiver().getAddress().getStreet());
+		if (waybill.getReceiver().getAddress().getZip() != null)
+			q.setParameter("zip", waybill.getReceiver().getAddress().getZip());
 		if (waybill.getTracking() != null)
 			q.setParameter("tracking", waybill.getTracking());
 		if (waybill.getOperator().getId() != null)
