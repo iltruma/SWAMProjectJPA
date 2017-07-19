@@ -35,7 +35,13 @@ public class Address {
     }
 
     public String format() {
-        return street + "\n" + city + ", " + state + " " + zip;
+        String address = street + " " + city;
+
+        if ((street != "" || city != "") && (state != "" || zip != ""))
+            address += ",";
+
+        address += " " + state + " " + zip;
+        return address;
     }
 
     public String getStreet() {
