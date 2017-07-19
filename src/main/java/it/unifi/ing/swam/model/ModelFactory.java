@@ -9,11 +9,14 @@ public class ModelFactory {
     }
 
     public static User generateUser() {
-        return new User(UUID.randomUUID().toString());
+        User u =  new User(UUID.randomUUID().toString());
+        u.setSalt(UserPasswordTools.getSalt());
+        return u;
     }
 
     public static User generateUser(String username, String password) {
         User u =  new User(UUID.randomUUID().toString());
+        u.setSalt(UserPasswordTools.getSalt());
         u.setPassword(password);
         u.setUsername(username);
         return u;

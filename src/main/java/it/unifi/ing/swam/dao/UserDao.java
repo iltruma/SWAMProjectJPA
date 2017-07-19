@@ -61,4 +61,14 @@ public class UserDao extends BaseDao<User> {
             return result.get(0);
         return null;
     }
+
+    public byte[] findSaltByUsername(String username) {
+        List<User> result = entityManager
+                .createQuery("FROM User WHERE username = :username", User.class)
+                .setParameter("username", username).setMaxResults(1)
+                .getResultList();
+        if (!result.isEmpty())
+            return result.get(0).getSalt();
+        return null;
+    }
 }

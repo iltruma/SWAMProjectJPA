@@ -25,12 +25,9 @@ public class EditWaybillPageController extends BasicController {
     @Inject
     @HttpParam("add")
     private String addFlag;
-
-
     
     @Inject Instance<RoleStrategy> roleStrategyInstance;
     
-
     private RoleStrategy strategy;
 
     public String getAddFlag() {

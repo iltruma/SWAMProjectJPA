@@ -3,7 +3,9 @@ package it.unifi.ing.swam.dao;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
@@ -102,6 +104,16 @@ public class UserDaoJpaTest extends JpaTest {
     @Test
     public void testFindByLoginInfoFail() {
         assertNull(userDao.findByLoginInfo(ModelFactory.generateUser()));
+    }
+
+    @Test
+    public void testFindSaltByUsername() {
+        assertTrue(Arrays.equals(user.getSalt(), userDao.findSaltByUsername(user.getUsername())));
+    }
+
+    @Test
+    public void testFindSaltByUsernameFail() {
+        assertNull(userDao.findSaltByUsername(new String("wrongUsername")));
     }
 
 }

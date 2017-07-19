@@ -12,10 +12,7 @@ import it.unifi.ing.swam.model.Waybill;
 @Default
 public class CustomerStrategy extends RoleStrategy {
 	
-	public CustomerStrategy() {
-		
-	}
-
+	public CustomerStrategy() {}
 
     @Override
     public Waybill initWaybill() {

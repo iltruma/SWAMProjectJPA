@@ -9,9 +9,7 @@ import it.unifi.ing.swam.model.Waybill;
 
 public class DriverStrategy extends RoleStrategy {
 	
-	public DriverStrategy() {
-		
-	}
+	public DriverStrategy() {}
 
     @Override
     public Waybill initWaybill() {

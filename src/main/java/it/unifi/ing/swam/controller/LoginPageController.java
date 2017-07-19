@@ -25,11 +25,19 @@ public class LoginPageController {
 
     private User userData;
 
+    private String username;
+
+    private String password;
+
     LoginPageController() {
         userData = ModelFactory.generateUser();
     }
 
     public String login() {
+        userData.setSalt(userDao.findSaltByUsername(username));
+        userData.setPassword(password);
+        userData.setUsername(username);
+
         User loggedUser = userDao.findByLoginInfo(userData);
         if (loggedUser == null)
             throw new RuntimeException("Login Failed");
@@ -54,6 +62,22 @@ public class LoginPageController {
 
     public User getUserData() {
         return userData;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 }
