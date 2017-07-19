@@ -16,68 +16,71 @@ import it.unifi.ing.swam.model.Waybill;
 @ViewScoped
 public class EditWaybillPageController extends BasicController {
 
-    private static final long serialVersionUID = 9L;
+	private static final long serialVersionUID = 9L;
 
-    @Inject
-    @HttpParam("id")
-    private String waybillId;
+	@Inject
+	@HttpParam("id")
+	private String waybillId;
 
-    @Inject
-    @HttpParam("add")
-    private String addFlag;
-    
-    @Inject Instance<RoleStrategy> roleStrategyInstance;
-    
-    private RoleStrategy strategy;
+	@Inject
+	@HttpParam("add")
+	private String addFlag;
 
-    public String getAddFlag() {
-        return addFlag;
-    }
+	@Inject Instance<RoleStrategy> roleStrategyInstance;
 
-    @PostConstruct
-    protected void initWaybill() {
-        if (strategy == null)
-            initStrategy();
-        strategy.initWaybill();
-        strategy.checkEdit();
-        strategy.getWaybill();
-    }
+	private RoleStrategy strategy;
 
-    protected void initStrategy() {
-        if (StringUtils.isEmpty(roleId))
-            throw new IllegalArgumentException("role id not found");
+	public String getAddFlag() {
+		return addFlag;
+	}
 
-        if (StringUtils.isEmpty(waybillId) && !Boolean.valueOf(addFlag))
-            throw new IllegalArgumentException("id not found");
-        else if (Boolean.valueOf(addFlag))
-            waybillId = null;
-        currentRole = roleDao.findById(Long.valueOf(roleId));
- 
-        strategy = RoleStrategy.getStrategy(roleStrategyInstance, currentRole, userSession.getUser(), waybillId);
-    }
+	@PostConstruct
+	protected void initWaybill() {
+		if (strategy == null)
+			initStrategy();
+		strategy.initWaybill();
+		strategy.checkEdit();
+		strategy.getWaybill();
+	}
 
-    public Waybill getWaybill() {
-        return strategy.getWaybill();
-    }
+	protected void initStrategy() {
+		if (StringUtils.isEmpty(roleId))
+			throw new IllegalArgumentException("role id not found");
+		currentRole = roleDao.findById(Long.valueOf(roleId));
 
-    public RoleStrategy getStrategy() {
-        return strategy;
-    }
+		if (StringUtils.isEmpty(waybillId) && !Boolean.valueOf(addFlag))
+			throw new IllegalArgumentException("id not found");
+		else if (Boolean.valueOf(addFlag)){
+			waybillId = null;
+			if(currentRole.isCustomer() && (userSession.getUser().getCustomerRole().getFares() == null || userSession.getUser().getCustomerRole().getFares().isEmpty())){
+				throw new IllegalArgumentException("no fares for this customer!");
+			}
+		}
+		strategy = RoleStrategy.getStrategy(roleStrategyInstance, currentRole, userSession.getUser(), waybillId);
+	}
 
-    public String save() {
-        strategy.save();
-        return "waybill-view?id=" + getWaybill().getId() + "&roleId=" + currentRole.getId() + "&faces-redirect=true";
-    }
+	public Waybill getWaybill() {
+		return strategy.getWaybill();
+	}
 
-    public String delete() {
-        strategy.delete();
-        return "home?&faces-redirect=true";
-    }
+	public RoleStrategy getStrategy() {
+		return strategy;
+	}
 
-    public String signAndSave() {
-        strategy.setSignAndTracking();
-        return save();
-    }
-    
+	public String save() {
+		strategy.save();
+		return "waybill-view?id=" + getWaybill().getId() + "&roleId=" + currentRole.getId() + "&faces-redirect=true";
+	}
+
+	public String delete() {
+		strategy.delete();
+		return "home?&faces-redirect=true";
+	}
+
+	public String signAndSave() {
+		strategy.setSignAndTracking();
+		return save();
+	}
+
 
 }
