@@ -22,7 +22,7 @@
 			<h2>Waybill Edit as Customer:</h2>
 		</c:if>
 		<c:if test="#{isDriver}">
-			<h2>Edit Waybill Edit as Driver:</h2>
+			<h2>Waybill Edit as Driver:</h2>
 		</c:if>
 
 
@@ -38,12 +38,12 @@
 
 					<waybill:agency edit="false"
 						agency="#{editWaybillPageController.waybill.sender.agency}"
-						title="Departure Agency" />
+						title="Departure Agency:" />
 
 					<waybill:agency edit="true"
 						agencyId="#{editWaybillPageController.strategy.agency}"
 						agency="#{editWaybillPageController.waybill.receiver.destinationAgency}"
-						title="Destination Agency" />
+						title="Destination Agency:" />
 
 					
 					<h3>Cost: <span>

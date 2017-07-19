@@ -7,12 +7,87 @@
 
 <ui:composition template="layout/template.xhtml">
 	<ui:define name="body">
-		<h2>Search Waybill:</h2>
+
+		<h2>
+			<h:outputText value="Search Page as Operator" rendered="#{searchPageController.currentRole.isOperator()}" />
+			<h:outputText value="Search Page as Customer" rendered="#{searchPageController.currentRole.isCustomer()}" />
+		</h2>
+
+				<h:form>			
+				<h3><h:outputText value="Search by Operator Id:" rendered="#{searchPageController.currentRole.isOperator()}" /></h3>
+				<h:inputText id="operator_id" value="#{searchPageController.operator}" rendered="#{searchPageController.currentRole.isOperator()}"></h:inputText>		
+				
+				<h3>Search by Sender Id: </h3>
+				<h:inputText id="sender_id" value="#{searchPageController.sender}"></h:inputText>
+
+				<h3>Search by Tracking: </h3>
+				<h:selectOneMenu value = "#{searchPageController.tracking}">
+					<f:selectItem itemValue = "" itemLabel = "ALL" />  
+   					<f:selectItem itemValue = "IDLE" itemLabel = "IDLE" /> 
+   					<f:selectItem itemValue = "SHIPPING" itemLabel = "SHIPPING" /> 
+   					<f:selectItem itemValue = "DELIVERING" itemLabel = "DELIVERING" /> 
+   					<f:selectItem itemValue = "DELIVERED" itemLabel = "DELIVERED" /> 
+				</h:selectOneMenu> 		
+				
+				<h:commandLink styleClass="button float-right" style="margin-right:0px;"
+				action="#{searchPageController.search(50)}" value="Search">
+			    </h:commandLink>
+		</h:form>
+
+		<br></br>
+		<hr></hr>
+		<div class="scrollable">
+					<table>
+						<thead>
+							<tr>
+								<th>Id</th>
+								<th>Sender Name</th>
+								<th>Departure Agency Id</th>
+								<th>Receiver Name</th>
+								<th>Receiver Address</th>
+								<th>Destination Agency Id</th>
+								<th>Cost</th>
+								<th>Tracking</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<ui:repeat var="waybill"
+								value="#{searchPageController.results}">
+								<tr>
+									<td>#{waybill.id}</td>
+									<td>#{waybill.sender.name}</td>
+									<td>#{waybill.sender.agency.id}</td>
+									<td>#{waybill.receiver.name}</td>
+									<td>#{waybill.receiver.address.format()}</td>
+									<td>#{waybill.receiver.destinationAgency.id}</td>
+									<td>#{waybill.cost}</td>
+									<td>#{waybill.tracking}</td>
+
+									<td><h:link styleClass="button button-outline"
+											outcome="waybill-view" value="View">
+											<f:param name="id" value="#{waybill.id}"></f:param>
+											<f:param name="roleId"
+												value="#{searchPageController.currentRole.id}"></f:param>
+
+										</h:link> <h:link styleClass="button" outcome="waybill-edit"
+											value="Edit">
+											<f:param name="id" value="#{waybill.id}"></f:param>
+											<f:param name="roleId"
+												value="#{searchPageController.currentRole.id}"></f:param>
+										</h:link></td>
+
+
+								</tr>
+							</ui:repeat>
+						</tbody>
+					</table>
+			</div>
 		
-		<br></br>
-		<br></br>
-				<h:link styleClass="button button-outline" outcome="home"
-					value="Back"></h:link>
+		<h:link styleClass="button button-outline" outcome="home" value="Back"></h:link>
+
+		
+		
 	</ui:define>
 </ui:composition>
 

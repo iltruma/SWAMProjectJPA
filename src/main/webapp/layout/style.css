@@ -32,7 +32,7 @@ td, th {
 	text-align: center;
 }
 
-input.custom:focus,  input[type="text"]:focus {
+input.custom:focus,  input[type="text"]:focus, select:focus {
 	border: 0.1rem solid #C90F24;
 }
 
