@@ -30,9 +30,9 @@
 					value="#{cc.attrs.customer.username}" rendered="#{not isEdit}" />
 					</span></label>
 
-		<label>Password: <span> <h:inputText
-					value="#{cc.attrs.customer.password}" rendered="#{isEdit}" /> <h:outputText
-					value="#{cc.attrs.customer.password}" rendered="#{not isEdit}" /></span></label>
+		<label>Password: <span> <h:inputSecret
+					value="#{editCustomerPageController.password}" rendered="#{isEdit}" /> <h:outputText 
+					value="●●●●●●●●" rendered="#{not isEdit}" /></span></label>
 
 		<label>Name: <span> <h:inputText
 					value="#{cc.attrs.customer.name}" rendered="#{isEdit}" /> <h:outputText

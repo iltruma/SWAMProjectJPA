@@ -29,7 +29,7 @@ public class EditCustomerPageController extends BasicController {
 
     @Inject
     private CustomerBean customerBean;
-    
+
     @Inject
     private FareDao fareDao;
 
@@ -80,7 +80,7 @@ public class EditCustomerPageController extends BasicController {
     public void unlockCustomer() {
         customerBean.getCustomer().getCustomerRole().setState(State.ACTIVE);
     }
-    
+
     @Transactional
     public String back() {
     	List<Fare> removeList = new ArrayList<>();
@@ -91,12 +91,20 @@ public class EditCustomerPageController extends BasicController {
     		}
     	}
 		customerBean.getCustomer().getCustomerRole().getFares().removeAll(removeList);
-		
+
 		if(customerBean.getCustomer().getId() != null){
-	        return "customer-view?faces-redirect=true";			
+	        return "customer-view?faces-redirect=true";
 		}
         return "customers?faces-redirect=true";
     }
-    
 
+    public void setPassword (String password) {
+        if(password.equals(""))
+            return;
+        customerBean.getCustomer().setPassword(password);
+    }
+
+    public String getPassword () {
+        return "";
+    }
 }
