@@ -36,7 +36,7 @@ td, th {
 	text-align: center;
 }
 
-input.custom:focus,  input[type="text"]:focus, select:focus {
+input.custom:focus,  input[type="text"]:focus, select:focus, input[type="password"]:focus {
 	border: 0.1rem solid #C90F24;
 }
 

@@ -16,41 +16,41 @@ import it.unifi.ing.swam.model.Waybill;
 @ViewScoped
 public class ViewWaybillPageController extends BasicController {
 
-    private static final long serialVersionUID = 13L;
+	private static final long serialVersionUID = 13L;
 
-    
-    @Inject Instance<RoleStrategy> roleStrategyInstance;
 
-    @Inject
-    @HttpParam("id")
-    private String waybillId;
+	@Inject Instance<RoleStrategy> roleStrategyInstance;
 
-    private RoleStrategy strategy;
+	@Inject
+	@HttpParam("id")
+	private String waybillId;
 
-    public RoleStrategy getStrategy() {
-        return strategy;
-    }
+	private RoleStrategy strategy;
 
-    protected void initStrategy() {
-        if (StringUtils.isEmpty(roleId))
-            throw new IllegalArgumentException("role id not found");
+	public RoleStrategy getStrategy() {
+		return strategy;
+	}
 
-        if (StringUtils.isEmpty(waybillId))
-            throw new IllegalArgumentException("waybill id not found");
+	protected void initStrategy() {
+		if (StringUtils.isEmpty(roleId))
+			throw new IllegalArgumentException("role id not found");
 
-        currentRole = roleDao.findById(Long.valueOf(roleId));
-        strategy = RoleStrategy.getStrategy(roleStrategyInstance, currentRole, userSession.getUser(), waybillId);
-    }
+		if (StringUtils.isEmpty(waybillId))
+			throw new IllegalArgumentException("waybill id not found");
 
-    public Waybill getWaybill() {
-        return strategy.getWaybill();
-    }
+		currentRole = roleDao.findById(Long.valueOf(roleId));
+		strategy = RoleStrategy.getStrategy(roleStrategyInstance, currentRole, userSession.getUser(), waybillId);
+	}
 
-    @PostConstruct
-    protected void initWaybill() {
-        if (strategy == null)
-            initStrategy();
-        strategy.initWaybill();
-    }
+	public Waybill getWaybill() {
+		return strategy.getWaybill();
+	}
+
+	@PostConstruct
+	protected void initWaybill(){
+		if (strategy == null)
+			initStrategy();
+		strategy.initWaybill();
+	}
 
 }

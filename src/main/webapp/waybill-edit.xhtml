@@ -59,7 +59,7 @@
 				<waybill:info waybill="#{editWaybillPageController.waybill}"
 					role="OPERATOR" />
 
-				<h:commandButton styleClass="button-primary"
+				<h:commandButton styleClass="button-primary float-left"
 					action="#{editWaybillPageController.save()}"
 					value="Save and Validate">
 				</h:commandButton>
@@ -91,7 +91,7 @@
 				<waybill:info waybill="#{editWaybillPageController.waybill}"
 					role="CUSTOMER" />
 
-				<h:commandButton styleClass="button-primary"
+				<h:commandButton styleClass="button-primary float-left"
 					action="#{editWaybillPageController.save()}"
 					value="Save and Forward to Operator">
 				</h:commandButton>
@@ -119,7 +119,7 @@
 				<waybill:info waybill="#{editWaybillPageController.waybill}"
 					role="DRIVER" />
 
-				<h:commandButton styleClass="button-primary"
+				<h:commandButton styleClass="button-primary float-left"
 					action="#{editWaybillPageController.signAndSave()}"
 					value="set Signature">
 				</h:commandButton>
@@ -129,7 +129,7 @@
 
 		<c:if test="#{isOperator or isCustomer}">
 			<h:form>
-				<h:commandButton styleClass="button-primary"
+				<h:commandButton styleClass="button-primary float-left"
 					action="#{editWaybillPageController.delete()}"
 					value="Delete this Waybill"
 					rendered="#{editWaybillPageController.addFlag != 'true'}">
@@ -139,7 +139,7 @@
 
 
 
-		<h:link styleClass="button button-outline" outcome="home" value="Back"></h:link>
+		<h:link styleClass="button button-outline float-left" outcome="home" value="Back"></h:link>
 	</ui:define>
 </ui:composition>
 
