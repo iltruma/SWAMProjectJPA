@@ -16,7 +16,7 @@ public class Fare extends BaseEntity {
 	@Temporal(TemporalType.DATE)
 	private Calendar endDate;
 	private String zone;
-	private Float functionCost;
+	private Float functionCost = 0.0F;
 
 	protected Fare() {
 
