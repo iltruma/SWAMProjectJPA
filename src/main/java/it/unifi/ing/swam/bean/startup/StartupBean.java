@@ -56,6 +56,10 @@ public class StartupBean {
 	public void init() {
 		Agency agency1 = ModelFactory.generateAgency();
 		Agency agency2 = ModelFactory.generateAgency();
+		agency1.setName("Filiale di Firenze");
+		agency1.setAddress(new Address("Via Roma","Firenze","Italia","50100"));
+		agency2.setName("Filiale di Arezzo");
+		agency2.setAddress(new Address("Via Torino","Arezzo","Italia","50200"));
 
 		User operator1 = ModelFactory.generateUser("operator1", "operator1");
 		operator1.setName("Primo Operatore");
@@ -144,6 +148,8 @@ public class StartupBean {
 		// Controllo NotNull di Waybill
 		Receiver receiver1 = new Receiver();
 		Agency destinationAgency1 = ModelFactory.generateAgency();
+		destinationAgency1.setName("Filiale di Destinazione");
+		destinationAgency1.setAddress(new Address("Via Milano","Trieste","Italia","20890"));
 		receiver1.setDestinationAgency(destinationAgency1);
 		receiver1.setName("Primo Ricevitore");
 		Address address1 = new Address();
