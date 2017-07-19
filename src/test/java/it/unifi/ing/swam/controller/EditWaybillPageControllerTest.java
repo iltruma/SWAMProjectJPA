@@ -31,6 +31,7 @@ import it.unifi.ing.swam.dao.RoleDao;
 import it.unifi.ing.swam.dao.UserDao;
 import it.unifi.ing.swam.dao.WaybillDao;
 import it.unifi.ing.swam.model.Agency;
+import it.unifi.ing.swam.model.Fare;
 import it.unifi.ing.swam.model.Item;
 import it.unifi.ing.swam.model.Mission;
 import it.unifi.ing.swam.model.ModelFactory;
@@ -95,6 +96,9 @@ public class EditWaybillPageControllerTest {
         user.addRole(ModelFactory.generateOperator());
         user.setAgency(ModelFactory.generateAgency());
         userSession.setUser(user);
+        
+        Fare f = ModelFactory.generateFare();
+        user.getCustomerRole().addFare(f);
 
         wrongUser = ModelFactory.generateUser();
         wrongUser.addRole(ModelFactory.generateCustomer());

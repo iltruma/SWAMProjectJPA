@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.junit.runners.model.InitializationError;
 
 import it.unifi.ing.swam.bean.UserSessionBean;
+import it.unifi.ing.swam.dao.RoleDao;
 import it.unifi.ing.swam.dao.UserDao;
 import it.unifi.ing.swam.model.ModelFactory;
 import it.unifi.ing.swam.model.User;
@@ -23,6 +24,8 @@ public class SearchPageControllerTest {
     private UserSessionBean userSession;
 
     private UserDao userDao;
+    
+    private RoleDao roleDao;
 
     private Long userId = 1L;
     private Long roleId = 4L;
@@ -41,6 +44,7 @@ public class SearchPageControllerTest {
         userSession = new UserSessionBean();
 
         userDao = mock(UserDao.class);
+        roleDao = mock(RoleDao.class);
 
         user = ModelFactory.generateUser();
         user.addRole(ModelFactory.generateOperator());
@@ -59,6 +63,7 @@ public class SearchPageControllerTest {
             FieldUtils.writeField(user, "id", userId, true);
             FieldUtils.writeField(searchPageController, "userDao", userDao, true);
             FieldUtils.writeField(searchPageController, "roleId", roleId.toString(), true);
+            FieldUtils.writeField(searchPageController, "roleDao", roleDao, true);
             FieldUtils.writeField(searchPageController, "userSession", userSession, true);
         } catch (IllegalAccessException e) {
             throw new InitializationError(e);

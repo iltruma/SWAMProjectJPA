@@ -219,18 +219,25 @@ public class WaybillDaoJpaTest extends JpaTest {
         assertEquals(waybill, result.get(0));
 
         Waybill emptyWaybill = ModelFactory.generateWaybill();
+
+
         emptyWaybill.setTracking(null);
         User operator = ModelFactory.generateUser();
         operator.addRole(ModelFactory.generateOperator());
         User sender = ModelFactory.generateUser();
         sender.addRole(ModelFactory.generateCustomer());
-        Receiver receiver = new Receiver();
+        Receiver receiver = emptyWaybill.getReceiver();
         Agency destinationAgency = ModelFactory.generateAgency();
         receiver.setDestinationAgency(destinationAgency);
 
         emptyWaybill.setReceiver(receiver);
         emptyWaybill.setOperator(operator);
         emptyWaybill.setSender(sender);
+        
+        emptyWaybill.getReceiver().getAddress().setCity(null);
+        emptyWaybill.getReceiver().getAddress().setStreet(null);
+        emptyWaybill.getReceiver().getAddress().setZip(null);
+        emptyWaybill.getReceiver().getAddress().setState(null);
 
         List<Waybill> resultList = new ArrayList<>();
         resultList.add(waybill);
